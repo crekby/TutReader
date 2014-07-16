@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 crekby. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
 #import "NewsTableViewController.h"
 
-@interface ViewController ()
+@interface MainViewController ()
 
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad
 {
