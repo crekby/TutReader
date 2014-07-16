@@ -8,6 +8,7 @@
 
 #import "NewsTableViewController.h"
 #import "TUTNews.h"
+#import "newsCell.h"
 
 @interface NewsTableViewController ()
 
@@ -19,7 +20,10 @@
     NSMutableString* currentElementValue;
     NSMutableArray* items;
     NSMutableArray* newsTableContent;
+    TUTNews* news;
 }
+
+#pragma mark - Imitializers
 
 - (void)initOnlineNewsList
 {
@@ -33,26 +37,26 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
             NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
             [parser setDelegate:self];
+            newsTableContent = [NSMutableArray new];
             [parser parse];
         }
     }];
 }
 
+- (void)initFavoritesNewsList
+{
+}
+
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - NSXMLParser delegate methods
@@ -65,6 +69,7 @@
     if ([elementName isEqualToString:@"item"])
     {
             items = [NSMutableArray new];
+            news = [TUTNews new];
     }
 }
 
@@ -79,10 +84,9 @@
 -(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if (items) {
-        TUTNews* news = [TUTNews new];
         if ([elementName isEqualToString:@"title"]) {
             [currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
-            news.title = currentElementValue;
+            news.newsTitle = currentElementValue;
         }
         if ([elementName isEqualToString:@"link"])
         {
@@ -90,12 +94,21 @@
         }
         if ([elementName isEqualToString:@"description"]) {
             [currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(currentElementValue.length-20,20)];
-            int startLink = [currentElementValue rangeOfString:@"http"].location;
-            int lengthLink = [currentElementValue rangeOfString:@"\" width"].location-startLink;
-            news.imageURL = [currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
-            int startDescr = [currentElementValue rangeOfString:@"\" />"].location+4;
-            int lengthDescr = currentElementValue.length - startDescr;
-            news.text = [currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
+            if ([currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
+                int startLink = [currentElementValue rangeOfString:@"http"].location;
+                int lengthLink = [currentElementValue rangeOfString:@"\" width"].location-startLink;
+                news.imageURL = [currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
+            }
+            if ([currentElementValue rangeOfString:@"\" />"].location!=NSNotFound) {
+                int startDescr = [currentElementValue rangeOfString:@"\" />"].location+4;
+                int lengthDescr = currentElementValue.length - startDescr;
+                news.text = [currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
+            }
+            else
+            {
+                [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
+                news.text = currentElementValue;
+            }
             [newsTableContent insertObject:news atIndex:newsTableContent.count];
         }
     }
@@ -105,84 +118,47 @@
 
 -(void) parserDidEndDocument:(NSXMLParser *)parser
 {
-/* 
-    [_table reloadData];*/
+    [self.newsTableView reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return newsTableContent.count;
 }
 
-/*
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80.0;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    newsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    TUTNews* newsToShow = [newsTableContent objectAtIndex:indexPath.row];
     
+    cell.newsTitle.text = newsToShow.newsTitle;
+    cell.newsDescription.text = newsToShow.text;
+    [cell.imageView setImage:[UIImage imageNamed:@"No Image"]];
+    if (newsToShow.imageURL!=nil) {
+        NSURL* imgUrl = [NSURL URLWithString:newsToShow.imageURL];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            UIImage* thumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:imgUrl]];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [cell.imageView setImage:thumb];
+                [cell setNeedsLayout];
+            });
+        });
+    }
     return cell;
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

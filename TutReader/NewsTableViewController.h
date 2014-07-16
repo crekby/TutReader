@@ -13,4 +13,6 @@
 - (void) initOnlineNewsList;
 - (void) initFavoritesNewsList;
 
+@property (strong, nonatomic) IBOutlet UITableView *newsTableView;
+
 @end
