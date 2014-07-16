@@ -10,3 +10,7 @@
 
 #define ONLINE_SEGUE_ID       @"onlineBtnSegue"
 #define FAVORITES_SEGUE_ID    @"favoritesBtnSegue"
+
+
+
+#define RSS_URL     @"http://news.tut.by/rss/all.rss"
