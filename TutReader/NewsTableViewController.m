@@ -7,23 +7,34 @@
 //
 
 #import "NewsTableViewController.h"
+#import "TUTNews.h"
 
 @interface NewsTableViewController ()
 
 @end
 
 @implementation NewsTableViewController
+{
+    NSMutableArray* content;
+    NSMutableString* currentElementValue;
+    NSMutableArray* items;
+    NSMutableArray* newsTableContent;
+}
 
 - (void)initOnlineNewsList
 {
     NSURL* url = [NSURL URLWithString:RSS_URL];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-        
-        NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
-        [parser setDelegate:self];
-        [parser parse];
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
+        if (httpResponse.statusCode==200 && !connectionError) {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+            NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
+            [parser setDelegate:self];
+            [parser parse];
+        }
     }];
 }
 
@@ -42,6 +53,60 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - NSXMLParser delegate methods
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName
+    attributes:(NSDictionary *)attributeDict
+{
+    
+    if ([elementName isEqualToString:@"item"])
+    {
+            items = [NSMutableArray new];
+    }
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if(!currentElementValue)
+        currentElementValue = [[NSMutableString alloc] initWithString:string];
+    else
+        [currentElementValue appendString:string];
+}
+
+-(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if (items) {
+        TUTNews* news = [TUTNews new];
+        if ([elementName isEqualToString:@"title"]) {
+            [currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
+            news.title = currentElementValue;
+        }
+        if ([elementName isEqualToString:@"link"])
+        {
+            news.newsURL = currentElementValue;
+        }
+        if ([elementName isEqualToString:@"description"]) {
+            [currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(currentElementValue.length-20,20)];
+            int startLink = [currentElementValue rangeOfString:@"http"].location;
+            int lengthLink = [currentElementValue rangeOfString:@"\" width"].location-startLink;
+            news.imageURL = [currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
+            int startDescr = [currentElementValue rangeOfString:@"\" />"].location+4;
+            int lengthDescr = currentElementValue.length - startDescr;
+            news.text = [currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
+            [newsTableContent insertObject:news atIndex:newsTableContent.count];
+        }
+    }
+    currentElementValue=nil;
+    
+}
+
+-(void) parserDidEndDocument:(NSXMLParser *)parser
+{
+/* 
+    [_table reloadData];*/
 }
 
 #pragma mark - Table view data source
