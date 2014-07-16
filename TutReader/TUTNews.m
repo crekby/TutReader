@@ -10,4 +10,9 @@
 
 @implementation TUTNews
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ - %@",self.newsTitle,self.text];
+}
+
 @end

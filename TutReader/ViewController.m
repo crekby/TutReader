@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "NewsTableViewController.h"
 
 @interface ViewController ()
 
@@ -24,6 +25,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:ONLINE_SEGUE_ID]) {
+        [(NewsTableViewController*)[segue destinationViewController] initOnlineNewsList];
+    }
+    else
+    {
+        
+    }
 }
 
 @end

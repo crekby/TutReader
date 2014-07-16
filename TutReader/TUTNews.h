@@ -12,7 +12,7 @@
 
 @property (nonatomic) NSString* imageURL;
 @property (nonatomic) NSString* newsURL;
-@property (nonatomic) NSString* title;
+@property (nonatomic) NSString* newsTitle;
 @property (nonatomic) NSString* text;
 @property (nonatomic) BOOL isFavorite;
 

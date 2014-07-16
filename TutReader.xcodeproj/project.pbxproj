@@ -22,6 +22,9 @@
 		156182841976C3DB00D16B5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182631976C3DB00D16B5F /* UIKit.framework */; };
 		1561828C1976C3DB00D16B5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1561828A1976C3DB00D16B5F /* InfoPlist.strings */; };
 		1561828E1976C3DB00D16B5F /* TutReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1561828D1976C3DB00D16B5F /* TutReaderTests.m */; };
+		1561829E1976C9C700D16B5F /* TUTNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 1561829D1976C9C700D16B5F /* TUTNews.m */; };
+		156182A21976CC4C00D16B5F /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182A11976CC4C00D16B5F /* NewsTableViewController.m */; };
+		156182A919770C0C00D16B5F /* newsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182A819770C0C00D16B5F /* newsCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,13 @@
 		156182891976C3DB00D16B5F /* TutReaderTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TutReaderTests-Info.plist"; sourceTree = "<group>"; };
 		1561828B1976C3DB00D16B5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1561828D1976C3DB00D16B5F /* TutReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TutReaderTests.m; sourceTree = "<group>"; };
+		156182971976C57A00D16B5F /* TUTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUTConstants.h; sourceTree = "<group>"; };
+		1561829C1976C9C700D16B5F /* TUTNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUTNews.h; sourceTree = "<group>"; };
+		1561829D1976C9C700D16B5F /* TUTNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TUTNews.m; sourceTree = "<group>"; };
+		156182A01976CC4C00D16B5F /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewController.h; sourceTree = "<group>"; };
+		156182A11976CC4C00D16B5F /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewController.m; sourceTree = "<group>"; };
+		156182A719770C0C00D16B5F /* newsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = newsCell.h; path = UI/Cells/newsCell.h; sourceTree = "<group>"; };
+		156182A819770C0C00D16B5F /* newsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = newsCell.m; path = UI/Cells/newsCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,10 +124,12 @@
 		156182651976C3DB00D16B5F /* TutReader */ = {
 			isa = PBXGroup;
 			children = (
+				156182A31976CDC300D16B5F /* Classes */,
+				1561829B1976C98F00D16B5F /* Models */,
+				1561829A1976C93D00D16B5F /* UI */,
 				1561826E1976C3DB00D16B5F /* AppDelegate.h */,
 				1561826F1976C3DB00D16B5F /* AppDelegate.m */,
-				156182711976C3DB00D16B5F /* Main_iPhone.storyboard */,
-				156182741976C3DB00D16B5F /* Main_iPad.storyboard */,
+				156182971976C57A00D16B5F /* TUTConstants.h */,
 				156182771976C3DB00D16B5F /* ViewController.h */,
 				156182781976C3DB00D16B5F /* ViewController.m */,
 				1561827A1976C3DB00D16B5F /* Images.xcassets */,
@@ -153,6 +165,51 @@
 				1561828A1976C3DB00D16B5F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1561829A1976C93D00D16B5F /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				156182A619770BC000D16B5F /* cells */,
+				1561829F1976CC2400D16B5F /* Controllers */,
+				156182711976C3DB00D16B5F /* Main_iPhone.storyboard */,
+				156182741976C3DB00D16B5F /* Main_iPad.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		1561829B1976C98F00D16B5F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1561829C1976C9C700D16B5F /* TUTNews.h */,
+				1561829D1976C9C700D16B5F /* TUTNews.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		1561829F1976CC2400D16B5F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				156182A01976CC4C00D16B5F /* NewsTableViewController.h */,
+				156182A11976CC4C00D16B5F /* NewsTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		156182A31976CDC300D16B5F /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		156182A619770BC000D16B5F /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				156182A719770C0C00D16B5F /* newsCell.h */,
+				156182A819770C0C00D16B5F /* newsCell.m */,
+			);
+			name = cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +311,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				156182791976C3DB00D16B5F /* ViewController.m in Sources */,
+				156182A21976CC4C00D16B5F /* NewsTableViewController.m in Sources */,
+				156182A919770C0C00D16B5F /* newsCell.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
+				1561829E1976C9C700D16B5F /* TUTNews.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
