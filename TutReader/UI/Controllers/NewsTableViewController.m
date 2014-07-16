@@ -27,6 +27,7 @@
 
 - (void)initOnlineNewsList
 {
+    [self setTitle:@"Online"];
     NSURL* url = [NSURL URLWithString:RSS_URL];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
@@ -45,6 +46,7 @@
 
 - (void)initFavoritesNewsList
 {
+    [self setTitle:@"Favorites"];
 }
 
 #pragma mark - Lifecycle

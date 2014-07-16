@@ -34,7 +34,7 @@
     }
     else
     {
-        
+        [(NewsTableViewController*)[segue destinationViewController] initFavoritesNewsList];
     }
 }
 

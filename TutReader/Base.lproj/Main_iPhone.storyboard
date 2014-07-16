@@ -18,9 +18,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmV-ae-8P7">
-                                <rect key="frame" x="137" y="234" width="46" height="30"/>
+                                <rect key="frame" x="74" y="246" width="173" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
+                                <state key="normal" title="Online News">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -28,13 +28,19 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-go-0OZ">
-                                <rect key="frame" x="137" y="318" width="46" height="30"/>
+                                <rect key="frame" x="73" y="284" width="174" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Favorite News"/>
                                 <connections>
                                     <segue destination="CHD-rX-f2F" kind="push" identifier="favoritesBtnSegue" id="JSp-gH-cqx"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdU-UG-Nkb">
+                                <rect key="frame" x="57" y="169" width="207" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -100,6 +106,7 @@
                                     <outlet property="imageView" destination="FbZ-Em-QfA" id="UC5-NP-h18"/>
                                     <outlet property="newsDescription" destination="rTJ-hB-Vrn" id="lIN-cM-Obz"/>
                                     <outlet property="newsTitle" destination="QMR-pm-tWh" id="DJJ-a4-Icb"/>
+                                    <segue destination="QeF-Ny-lGz" kind="push" id="u3G-fY-TUz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -116,6 +123,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqH-YV-TbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1276" y="80"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="AlC-P1-CnL">
+            <objects>
+                <viewController id="QeF-Ny-lGz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="k6U-1d-wuE"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dah-Mp-3yV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bY0-rC-giC">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dRU-Ao-T0A">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="oSm-mB-aJu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cVq-Va-o4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1751" y="80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S6d-3Q-eRw">
