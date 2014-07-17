@@ -7,6 +7,7 @@
 //
 
 #import "NewsTableViewController.h"
+#import "webViewController.h"
 #import "TUTNews.h"
 #import "newsCell.h"
 
@@ -21,6 +22,7 @@
     NSMutableArray* items;
     NSMutableArray* newsTableContent;
     TUTNews* news;
+    BOOL isOnline;
 }
 
 #pragma mark - Imitializers
@@ -28,6 +30,7 @@
 - (void)initOnlineNewsList
 {
     [self setTitle:@"Online"];
+    isOnline = YES;
     NSURL* url = [NSURL URLWithString:RSS_URL];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
@@ -47,6 +50,7 @@
 - (void)initFavoritesNewsList
 {
     [self setTitle:@"Favorites"];
+    isOnline = NO;
 }
 
 #pragma mark - Lifecycle
@@ -92,6 +96,7 @@
         }
         if ([elementName isEqualToString:@"link"])
         {
+            [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
             news.newsURL = currentElementValue;
         }
         if ([elementName isEqualToString:@"description"]) {
@@ -108,8 +113,10 @@
             }
             else
             {
-                [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
-                news.text = currentElementValue;
+                if (currentElementValue.length>3) {
+                    [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
+                    news.text = currentElementValue;
+                }
             }
             [newsTableContent insertObject:news atIndex:newsTableContent.count];
         }
@@ -149,6 +156,7 @@
     
     cell.newsTitle.text = newsToShow.newsTitle;
     cell.newsDescription.text = newsToShow.text;
+    cell.row = indexPath.row;
     [cell.imageView setImage:[UIImage imageNamed:@"No Image"]];
     if (newsToShow.imageURL!=nil) {
         NSURL* imgUrl = [NSURL URLWithString:newsToShow.imageURL];
@@ -161,6 +169,14 @@
         });
     }
     return cell;
+}
+
+#pragma mark - PrepareForSegue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    newsCell* cell = (newsCell*)sender;
+    [(webViewController*)[segue destinationViewController] initWithNews:[newsTableContent objectAtIndex:cell.row]];
 }
 
 @end

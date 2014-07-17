@@ -124,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="1276" y="80"/>
         </scene>
-        <!--View Controller-->
+        <!--Web View Controller-->
         <scene sceneID="AlC-P1-CnL">
             <objects>
-                <viewController id="QeF-Ny-lGz" sceneMemberID="viewController">
+                <viewController id="QeF-Ny-lGz" customClass="webViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k6U-1d-wuE"/>
                         <viewControllerLayoutGuide type="bottom" id="Dah-Mp-3yV"/>
@@ -140,11 +140,17 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="QeF-Ny-lGz" id="4dE-1i-6zO"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="oSm-mB-aJu"/>
+                    <connections>
+                        <outlet property="webView" destination="dRU-Ao-T0A" id="nJy-vB-MCj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVq-Va-o4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

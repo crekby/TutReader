@@ -13,5 +13,6 @@
 @property (nonatomic) IBOutlet UIImageView* imageView;
 @property (nonatomic) IBOutlet UILabel* newsTitle;
 @property (nonatomic) IBOutlet UILabel* newsDescription;
+@property (nonatomic) int row;
 
 @end
