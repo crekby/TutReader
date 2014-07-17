@@ -22,15 +22,40 @@
     NSMutableArray* items;
     NSMutableArray* newsTableContent;
     TUTNews* news;
-    BOOL isOnline;
 }
 
 #pragma mark - Imitializers
 
+- (NSArray*) makeFetchRequest
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    fetchRequest.entity = [NSEntityDescription entityForName:@"NEWS"
+                                      inManagedObjectContext:managedObjectContext];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    fetchRequest.sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
+    
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                        managedObjectContext:managedObjectContext
+                                                                          sectionNameKeyPath:nil
+                                                                                   cacheName:@"Master"];
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    else
+    {
+        return self.fetchedResultsController.fetchedObjects;
+    }
+    return nil;
+}
+
 - (void)initOnlineNewsList
 {
     [self setTitle:@"Online"];
-    isOnline = YES;
     NSURL* url = [NSURL URLWithString:RSS_URL];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
@@ -50,7 +75,14 @@
 - (void)initFavoritesNewsList
 {
     [self setTitle:@"Favorites"];
-    isOnline = NO;
+    newsTableContent = [NSMutableArray new];
+    NSArray* requestResult = [self makeFetchRequest];
+    if (requestResult) {
+        for (NSManagedObject* object in requestResult) {
+            TUTNews* news = [[TUTNews alloc] initWithManagedObject:object];
+            [newsTableContent insertObject:news atIndex:newsTableContent.count];
+        }
+    }
 }
 
 #pragma mark - Lifecycle
@@ -127,7 +159,23 @@
 
 -(void) parserDidEndDocument:(NSXMLParser *)parser
 {
+    [self checkForFavorites];
     [self.newsTableView reloadData];
+}
+
+- (void) checkForFavorites
+{
+    NSArray* requestResult = [self makeFetchRequest];
+    if (requestResult) {
+        for (TUTNews* object in newsTableContent) {
+            for (NSManagedObject* temp in requestResult) {
+                if ([object.newsTitle isEqualToString:[temp valueForKey:@"title"]]) {
+                    object.isFavorite = YES;
+                }
+            }
+        }
+        
+    }
 }
 
 #pragma mark - Table view data source
@@ -157,19 +205,25 @@
     cell.newsTitle.text = newsToShow.newsTitle;
     cell.newsDescription.text = newsToShow.text;
     cell.row = indexPath.row;
-    [cell.imageView setImage:[UIImage imageNamed:@"No Image"]];
-    if (newsToShow.imageURL!=nil) {
-        NSURL* imgUrl = [NSURL URLWithString:newsToShow.imageURL];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            UIImage* thumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:imgUrl]];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                [cell.imageView setImage:thumb];
-                newsToShow.image=thumb;
-                [cell setNeedsLayout];
+    if (!newsToShow.image) {
+        [cell.imageView setImage:[UIImage imageNamed:@"No Image"]];
+        if (newsToShow.imageURL!=nil) {
+            NSURL* imgUrl = [NSURL URLWithString:newsToShow.imageURL];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage* thumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:imgUrl]];
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    [cell.imageView setImage:thumb];
+                    newsToShow.image=thumb;
+                    [cell setNeedsLayout];
+                });
             });
-        });
+        }
     }
-    return cell;
+    else
+    {
+        cell.imageView.image = newsToShow.image;
+    }
+        return cell;
 }
 
 #pragma mark - PrepareForSegue

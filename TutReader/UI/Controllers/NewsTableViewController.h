@@ -15,4 +15,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
+
 @end

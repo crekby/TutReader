@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1544D7D31977AF4F00A5A48E /* webViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544D7D21977AF4F00A5A48E /* webViewController.m */; };
+		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
+		1544D8221977D10500A5A48E /* newsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1544D8201977D10500A5A48E /* newsModel.xcdatamodeld */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
 		156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182611976C3DB00D16B5F /* CoreGraphics.framework */; };
 		156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182631976C3DB00D16B5F /* UIKit.framework */; };
@@ -41,6 +43,8 @@
 /* Begin PBXFileReference section */
 		1544D7D11977AF4F00A5A48E /* webViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webViewController.h; path = UI/Controllers/webViewController.h; sourceTree = "<group>"; };
 		1544D7D21977AF4F00A5A48E /* webViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = webViewController.m; path = UI/Controllers/webViewController.m; sourceTree = "<group>"; };
+		1544D81B1977D0C100A5A48E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1544D8211977D10500A5A48E /* newsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = newsModel.xcdatamodel; sourceTree = "<group>"; };
 		1561825C1976C3DB00D16B5F /* TutReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1561825F1976C3DB00D16B5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		156182611976C3DB00D16B5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -75,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */,
 				156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */,
 				156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */,
 				156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */,
@@ -116,6 +121,7 @@
 		1561825E1976C3DB00D16B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1544D81B1977D0C100A5A48E /* CoreData.framework */,
 				1561825F1976C3DB00D16B5F /* Foundation.framework */,
 				156182611976C3DB00D16B5F /* CoreGraphics.framework */,
 				156182631976C3DB00D16B5F /* UIKit.framework */,
@@ -183,6 +189,7 @@
 			children = (
 				156182AD1977221B00D16B5F /* TUTNews.h */,
 				156182AE1977221B00D16B5F /* TUTNews.m */,
+				1544D8201977D10500A5A48E /* newsModel.xcdatamodeld */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -314,6 +321,7 @@
 				156182B21977230E00D16B5F /* MainViewController.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
+				1544D8221977D10500A5A48E /* newsModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,6 +548,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1544D8201977D10500A5A48E /* newsModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1544D8211977D10500A5A48E /* newsModel.xcdatamodel */,
+			);
+			currentVersion = 1544D8211977D10500A5A48E /* newsModel.xcdatamodel */;
+			name = newsModel.xcdatamodeld;
+			path = Models/newsModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 156182541976C3DB00D16B5F /* Project object */;
 }

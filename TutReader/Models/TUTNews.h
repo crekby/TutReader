@@ -17,4 +17,6 @@
 @property (nonatomic) UIImage* image;
 @property (nonatomic) BOOL isFavorite;
 
+- (id) initWithManagedObject:(NSManagedObject*) object;
+
 @end

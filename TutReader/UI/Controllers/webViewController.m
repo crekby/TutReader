@@ -20,11 +20,11 @@
 
 - (void)initWithNews:(TUTNews *)news
 {
-    UIImage* starImage = (loadedNews.isFavorite)?[UIImage imageNamed:@"star_full"]:[UIImage imageNamed:@"star_hollow"];
-    UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
-    self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
     if (news) {
         loadedNews = news;
+        UIImage* starImage = (loadedNews.isFavorite)?[UIImage imageNamed:@"star_full"]:[UIImage imageNamed:@"star_hollow"];
+        UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
+        self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
     }
 }
 
