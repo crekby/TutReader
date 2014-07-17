@@ -47,6 +47,40 @@
         NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(loadedNews.image,1.0)];
         [newManagedObject setValue:imageData forKey:@"image"];
     }
+    else
+    {
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"NEWS" inManagedObjectContext:managedObjectContext];
+        [request setEntity:entity];
+        // retrive the objects with a given value for a certain property
+        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"title == %@", loadedNews.newsTitle];
+        [request setPredicate:predicate];
+        
+        // Edit the sort key as appropriate.
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+        [request setSortDescriptors:sortDescriptors];
+        
+        
+        
+        // Edit the section name key path and cache name if appropriate.
+        // nil for section name key path means "no sections".
+        NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+        aFetchedResultsController.delegate = self;
+        
+        NSError *error = nil;
+        NSArray *result = [managedObjectContext executeFetchRequest:request error:&error];
+        
+        if ((result != nil) && ([result count]) && (error == nil)){
+            [context deleteObject:result.firstObject];
+        }
+        else
+        {
+            return;
+        }
+        
+    }
     
     NSError *error = nil;
     if (![context save:&error]) {
