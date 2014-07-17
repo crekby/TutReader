@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1544D7D31977AF4F00A5A48E /* webViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544D7D21977AF4F00A5A48E /* webViewController.m */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
 		156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182611976C3DB00D16B5F /* CoreGraphics.framework */; };
 		156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182631976C3DB00D16B5F /* UIKit.framework */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1544D7D11977AF4F00A5A48E /* webViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webViewController.h; path = UI/Controllers/webViewController.h; sourceTree = "<group>"; };
+		1544D7D21977AF4F00A5A48E /* webViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = webViewController.m; path = UI/Controllers/webViewController.m; sourceTree = "<group>"; };
 		1561825C1976C3DB00D16B5F /* TutReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1561825F1976C3DB00D16B5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		156182611976C3DB00D16B5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -191,6 +194,8 @@
 				156182B11977230E00D16B5F /* MainViewController.m */,
 				156182AA197721CE00D16B5F /* NewsTableViewController.h */,
 				156182AB197721CE00D16B5F /* NewsTableViewController.m */,
+				1544D7D11977AF4F00A5A48E /* webViewController.h */,
+				1544D7D21977AF4F00A5A48E /* webViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				156182AC197721CE00D16B5F /* NewsTableViewController.m in Sources */,
+				1544D7D31977AF4F00A5A48E /* webViewController.m in Sources */,
 				156182AF1977221B00D16B5F /* TUTNews.m in Sources */,
 				156182A919770C0C00D16B5F /* newsCell.m in Sources */,
 				156182B21977230E00D16B5F /* MainViewController.m in Sources */,
@@ -522,6 +528,7 @@
 				156182931976C3DB00D16B5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		156182941976C3DB00D16B5F /* Build configuration list for PBXNativeTarget "TutReaderTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +537,7 @@
 				156182961976C3DB00D16B5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
