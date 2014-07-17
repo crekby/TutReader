@@ -28,7 +28,6 @@
 
 - (NSArray*) makeFetchRequest
 {
-    NSLog(@"request");
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
     
@@ -36,7 +35,7 @@
     fetchRequest.entity = [NSEntityDescription entityForName:@"NEWS"
                                       inManagedObjectContext:managedObjectContext];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pubDate" ascending:NO];
     fetchRequest.sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
@@ -161,6 +160,12 @@
                     news.text = currentElementValue;
                 }
             }
+        }
+        if ([elementName isEqualToString:@"pubDate"]) {
+            NSDateFormatter* formater = [NSDateFormatter new];
+            [formater setDateFormat:@"EEE, dd MMM yyyy  HH:mm:ss ZZZ"];
+            NSDate* date = [formater dateFromString:currentElementValue];
+            news.pubDate = date;
             [newsTableContent insertObject:news atIndex:newsTableContent.count];
         }
     }

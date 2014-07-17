@@ -43,6 +43,7 @@
         [newManagedObject setValue:loadedNews.text forKey:@"text"];
         [newManagedObject setValue:loadedNews.newsURL forKey:@"newsUrl"];
         [newManagedObject setValue:loadedNews.imageURL forKey:@"imageUrl"];
+        [newManagedObject setValue:loadedNews.pubDate forKey:@"pubDate"];
         [newManagedObject setValue:(loadedNews.isFavorite)?[NSNumber numberWithInt:1]:[NSNumber numberWithInt:0] forKey:@"isFavorite"];
         NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(loadedNews.image,1.0)];
         [newManagedObject setValue:imageData forKey:@"image"];
@@ -58,7 +59,7 @@
         [request setPredicate:predicate];
         
         // Edit the sort key as appropriate.
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pubDate" ascending:NO];
         NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
         [request setSortDescriptors:sortDescriptors];
         
