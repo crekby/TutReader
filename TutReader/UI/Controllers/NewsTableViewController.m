@@ -28,6 +28,7 @@
 
 - (NSArray*) makeFetchRequest
 {
+    NSLog(@"request");
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
     
@@ -76,13 +77,7 @@
 {
     [self setTitle:@"Favorites"];
     newsTableContent = [NSMutableArray new];
-    NSArray* requestResult = [self makeFetchRequest];
-    if (requestResult) {
-        for (NSManagedObject* object in requestResult) {
-            TUTNews* news = [[TUTNews alloc] initWithManagedObject:object];
-            [newsTableContent insertObject:news atIndex:newsTableContent.count];
-        }
-    }
+    
 }
 
 #pragma mark - Lifecycle
@@ -90,6 +85,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if ([self.title isEqualToString:@"Favorites"]) {
+        NSArray* requestResult = [self makeFetchRequest];
+        if (requestResult) {
+            newsTableContent = [NSMutableArray new];
+            for (NSManagedObject* object in requestResult) {
+                TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
+                [newsTableContent insertObject:favoriteNews atIndex:newsTableContent.count];
+            }
+            [self.newsTableView reloadData];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning
