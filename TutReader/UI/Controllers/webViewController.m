@@ -8,6 +8,7 @@
 
 #import "webViewController.h"
 
+
 @interface webViewController ()
 
 @end
@@ -29,9 +30,32 @@
 
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
 {
-    NSLog(@"123");
     loadedNews.isFavorite = !loadedNews.isFavorite;
-    sender.image = (loadedNews.isFavorite)?[UIImage imageNamed:@"star_full"]:[UIImage imageNamed:@"star_hollow"];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"NEWS" inManagedObjectContext:context];
+    
+    if (loadedNews.isFavorite) {
+        
+        NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+                                                                          inManagedObjectContext:context];
+        [newManagedObject setValue:loadedNews.newsTitle forKey:@"title"];
+        [newManagedObject setValue:loadedNews.text forKey:@"text"];
+        [newManagedObject setValue:loadedNews.newsURL forKey:@"newsUrl"];
+        [newManagedObject setValue:loadedNews.imageURL forKey:@"imageUrl"];
+        [newManagedObject setValue:(loadedNews.isFavorite)?[NSNumber numberWithInt:1]:[NSNumber numberWithInt:0] forKey:@"isFavorite"];
+        NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(loadedNews.image,1.0)];
+        [newManagedObject setValue:imageData forKey:@"image"];
+    }
+    
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    }
+    else
+    {
+        sender.image = (loadedNews.isFavorite)?[UIImage imageNamed:@"star_full"]:[UIImage imageNamed:@"star_hollow"];
+    }
 }
 
 #pragma mark - Lifecycle

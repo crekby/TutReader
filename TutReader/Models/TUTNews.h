@@ -14,6 +14,7 @@
 @property (nonatomic) NSString* newsURL;
 @property (nonatomic) NSString* newsTitle;
 @property (nonatomic) NSString* text;
+@property (nonatomic) UIImage* image;
 @property (nonatomic) BOOL isFavorite;
 
 @end

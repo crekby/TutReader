@@ -164,6 +164,7 @@
             UIImage* thumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:imgUrl]];
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [cell.imageView setImage:thumb];
+                newsToShow.image=thumb;
                 [cell setNeedsLayout];
             });
         });
