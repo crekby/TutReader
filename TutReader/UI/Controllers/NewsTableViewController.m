@@ -172,13 +172,13 @@
         if ([elementName isEqualToString:XML_NEWS_TEXT]) {
             [currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(currentElementValue.length-20,20)];
             if ([currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
-                int startLink = [currentElementValue rangeOfString:@"http"].location;
-                int lengthLink = [currentElementValue rangeOfString:@"\" width"].location-startLink;
+                NSInteger startLink = [currentElementValue rangeOfString:@"http"].location;
+                NSInteger lengthLink = [currentElementValue rangeOfString:@"\" width"].location-startLink;
                 news.imageURL = [currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
             }
             if ([currentElementValue rangeOfString:@"\" />"].location!=NSNotFound) {
-                int startDescr = [currentElementValue rangeOfString:@"\" />"].location+4;
-                int lengthDescr = currentElementValue.length - startDescr;
+                NSInteger startDescr = [currentElementValue rangeOfString:@"\" />"].location+4;
+                NSInteger lengthDescr = currentElementValue.length - startDescr;
                 news.text = [currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
             }
             else

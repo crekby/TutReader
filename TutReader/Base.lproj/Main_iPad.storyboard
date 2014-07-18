@@ -104,8 +104,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="imageView" destination="lWG-SK-3qf" id="mMj-jS-BpR"/>
                                     <outlet property="newsDescription" destination="bta-Ka-xPo" id="a0u-0y-S1k"/>
+                                    <outlet property="newsImageView" destination="lWG-SK-3qf" id="0Dh-88-fOz"/>
                                     <outlet property="newsTitle" destination="i9V-ZS-ypK" id="JHA-9Y-lfZ"/>
                                 </connections>
                             </tableViewCell>

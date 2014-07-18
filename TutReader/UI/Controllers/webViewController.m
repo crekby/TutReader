@@ -141,7 +141,7 @@
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    NSLog(error.localizedDescription);
+    NSLog(@"%@",error.userInfo);
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
 }
 
