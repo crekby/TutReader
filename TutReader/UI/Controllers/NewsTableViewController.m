@@ -43,16 +43,16 @@
     NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:@"NEWS"
+    fetchRequest.entity = [NSEntityDescription entityForName:CD_ENTYTY
                                       inManagedObjectContext:managedObjectContext];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"pubDate" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:CD_PUBLICATION_DATE ascending:NO];
     fetchRequest.sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                                         managedObjectContext:managedObjectContext
                                                                           sectionNameKeyPath:nil
-                                                                                   cacheName:@"Master"];
+                                                                                   cacheName:CD_CACHE];
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -66,7 +66,7 @@
 
 - (void)initOnlineNewsList
 {
-    [self setTitle:@"Online"];
+    [self setTitle:ONLINE];
     NSURL* url = [NSURL URLWithString:RSS_URL];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"GET"];
@@ -85,17 +85,16 @@
 
 - (void)initFavoritesNewsList
 {
-    [self setTitle:@"Favorites"];
+    [self setTitle:FAVORITE];
     newsTableContent = [NSMutableArray new];
     if (IS_IPAD) {
         [self loadData];
     }
-    NSLog(@"content count - %d",newsTableContent.count);
 }
 
 -(void)reloadNews
 {
-    if ([self.title isEqualToString:@"Favorites"]) {
+    if ([self.title isEqualToString:FAVORITE]) {
         [self initFavoritesNewsList];
     }
 }
@@ -112,7 +111,7 @@
 
 - (void)loadData
 {
-    if ([self.title isEqualToString:@"Favorites"]) {
+    if ([self.title isEqualToString:FAVORITE]) {
         NSArray* requestResult = [self makeFetchRequest];
         if (requestResult) {
             newsTableContent = [NSMutableArray new];
@@ -143,7 +142,7 @@
     attributes:(NSDictionary *)attributeDict
 {
     
-    if ([elementName isEqualToString:@"item"])
+    if ([elementName isEqualToString:XML_ITEM])
     {
             items = [NSMutableArray new];
             news = [TUTNews new];
@@ -161,16 +160,16 @@
 -(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if (items) {
-        if ([elementName isEqualToString:@"title"]) {
+        if ([elementName isEqualToString:XML_TITLE]) {
             [currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
             news.newsTitle = currentElementValue;
         }
-        if ([elementName isEqualToString:@"link"])
+        if ([elementName isEqualToString:XML_NEWS_URL])
         {
             [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
             news.newsURL = currentElementValue;
         }
-        if ([elementName isEqualToString:@"description"]) {
+        if ([elementName isEqualToString:XML_NEWS_TEXT]) {
             [currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(currentElementValue.length-20,20)];
             if ([currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
                 int startLink = [currentElementValue rangeOfString:@"http"].location;
@@ -190,9 +189,9 @@
                 }
             }
         }
-        if ([elementName isEqualToString:@"pubDate"]) {
+        if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {
             NSDateFormatter* formater = [NSDateFormatter new];
-            [formater setDateFormat:@"EEE, dd MMM yyyy  HH:mm:ss ZZZ"];
+            [formater setDateFormat:XML_DATE_FORMAT];
             NSDate* date = [formater dateFromString:currentElementValue];
             news.pubDate = date;
             [newsTableContent insertObject:news atIndex:newsTableContent.count];
@@ -205,8 +204,6 @@
 -(void) parserDidEndDocument:(NSXMLParser *)parser
 {
     [self checkForFavorites];
-    NSLog(@"content count - %d",newsTableContent.count);
-
     [self.newsTableView reloadData];
 }
 
@@ -216,7 +213,7 @@
     if (requestResult) {
         for (TUTNews* object in newsTableContent) {
             for (NSManagedObject* temp in requestResult) {
-                if ([object.newsTitle isEqualToString:[temp valueForKey:@"title"]]) {
+                if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
                     object.isFavorite = YES;
                 }
             }
@@ -253,7 +250,7 @@
     cell.newsDescription.text = newsToShow.text;
     cell.row = indexPath.row;
     if (!newsToShow.image) {
-        [cell.imageView setImage:[UIImage imageNamed:@"No Image"]];
+        [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
             NSURL* imgUrl = [NSURL URLWithString:newsToShow.imageURL];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

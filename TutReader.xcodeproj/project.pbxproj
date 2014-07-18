@@ -175,7 +175,6 @@
 		1561829A1976C93D00D16B5F /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				15712C5E19790E5300A73DC5 /* Common */,
 				15712C5D19790E4600A73DC5 /* iPhone */,
 				15712C5C19790E1800A73DC5 /* iPad */,
 			);
@@ -204,7 +203,6 @@
 		15712C5C19790E1800A73DC5 /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				15712C651979138300A73DC5 /* Controllers */,
 				156182741976C3DB00D16B5F /* Main_iPad.storyboard */,
 			);
 			name = iPad;
@@ -213,7 +211,6 @@
 		15712C5D19790E4600A73DC5 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				15712C6319790ED800A73DC5 /* Controllers */,
 				156182711976C3DB00D16B5F /* Main_iPhone.storyboard */,
 			);
 			name = iPhone;
@@ -260,6 +257,7 @@
 		15712C69197954AA00A73DC5 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				15712C6B1979555900A73DC5 /* UI */,
 				1561829B1976C98F00D16B5F /* Models */,
 				1561826E1976C3DB00D16B5F /* AppDelegate.h */,
 				1561826F1976C3DB00D16B5F /* AppDelegate.m */,
@@ -275,6 +273,32 @@
 				1561827A1976C3DB00D16B5F /* Images.xcassets */,
 			);
 			name = resources;
+			sourceTree = "<group>";
+		};
+		15712C6B1979555900A73DC5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				15712C5E19790E5300A73DC5 /* Common */,
+				15712C6D1979557900A73DC5 /* iPad */,
+				15712C6C1979556300A73DC5 /* iPhone */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		15712C6C1979556300A73DC5 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				15712C6319790ED800A73DC5 /* Controllers */,
+			);
+			name = iPhone;
+			sourceTree = "<group>";
+		};
+		15712C6D1979557900A73DC5 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				15712C651979138300A73DC5 /* Controllers */,
+			);
+			name = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
