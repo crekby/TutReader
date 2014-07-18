@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8u4-Vk-rve">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -28,7 +27,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-go-0OZ">
-                                <rect key="frame" x="73" y="256" width="174" height="30"/>
+                                <rect key="frame" x="112" y="256" width="98" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Favorite News"/>
                                 <connections>
@@ -38,10 +37,6 @@
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdU-UG-Nkb">
                                 <rect key="frame" x="57" y="134" width="207" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="OdU-UG-Nkb" secondAttribute="height" multiplier="207:41" id="Bp3-36-ztU"/>
-                                    <constraint firstAttribute="width" secondItem="OdU-UG-Nkb" secondAttribute="height" multiplier="207:41" id="Z7M-SS-tAV"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -50,7 +45,6 @@
                         <constraints>
                             <constraint firstItem="ioX-go-0OZ" firstAttribute="top" secondItem="wmV-ae-8P7" secondAttribute="bottom" constant="21" id="Agx-b7-TdK"/>
                             <constraint firstAttribute="trailing" secondItem="wmV-ae-8P7" secondAttribute="trailing" constant="73" id="FB3-AC-npN"/>
-                            <constraint firstItem="ioX-go-0OZ" firstAttribute="trailing" secondItem="wmV-ae-8P7" secondAttribute="trailing" id="eMh-1Y-ul6"/>
                             <constraint firstAttribute="trailing" secondItem="OdU-UG-Nkb" secondAttribute="trailing" constant="56" id="esg-Ia-FHq"/>
                             <constraint firstItem="OdU-UG-Nkb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="57" id="fd6-E7-ZMA"/>
                             <constraint firstItem="ioX-go-0OZ" firstAttribute="centerX" secondItem="wmV-ae-8P7" secondAttribute="centerX" id="i26-ll-w66"/>
