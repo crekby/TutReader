@@ -17,7 +17,6 @@
 
 @implementation NewsTableViewController
 {
-    NSMutableArray* content;
     NSMutableString* currentElementValue;
     NSMutableArray* items;
     NSMutableArray* newsTableContent;
