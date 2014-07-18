@@ -12,7 +12,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"Title - %@ \n\r Text - %@\n\r isFavorite - %d",self.newsTitle,self.text,self.isFavorite];
+    return [NSString stringWithFormat:@"\n\rTitle - %@ \n\r Text - %@\n\r isFavorite - %d \n\r Image - %@ \n\r pubDate %@ \n\r URL - %@",self.newsTitle,self.text,self.isFavorite,self.image,self.pubDate, self.newsURL];
 }
 
 - (id) initWithManagedObject:(NSManagedObject*) object

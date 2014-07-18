@@ -23,11 +23,12 @@
 // URLs
 
 #define RSS_URL               @"http://news.tut.by/rss/all.rss"
+#define HOME_PAGE             @"http://news.tut.by/"
 
 // RESOURCES
 
 #define STAR_FULL             @"star_full"
-#define STAR_HALLOW           @"star_hallow"
+#define STAR_HOLLOW           @"star_hollow"
 
 #define IMAGE_NOT_AVAILABLE   @"No Image"
 

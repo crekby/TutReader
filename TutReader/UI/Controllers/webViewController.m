@@ -23,14 +23,14 @@
 {
     if (news) {
         loadedNews = news;
-        UIImage* starImage = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HALLOW];
+        UIImage* starImage = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
         if (IS_IPAD) {
             if (loadedNews.newsURL) {
                 NSURL* url = [NSURL URLWithString:loadedNews.newsURL];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
                 self.ipadNavigationItem.title = loadedNews.newsTitle;
-                self.ipadNavigationItem.rightBarButtonItem = favoriteBarButton;
+                self.ipadNavigationItem.rightBarButtonItems = @[favoriteBarButton];
             }
         }
         else
@@ -106,7 +106,7 @@
     }
     else
     {
-        sender.image = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HALLOW];
+        sender.image = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
     }
 }
 

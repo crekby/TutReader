@@ -119,6 +119,7 @@
                 TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                 [newsTableContent insertObject:favoriteNews atIndex:newsTableContent.count];
             }
+            [self checkForFavorites];
             [self.newsTableView reloadData];
         }
     }
@@ -194,7 +195,9 @@
             [formater setDateFormat:XML_DATE_FORMAT];
             NSDate* date = [formater dateFromString:currentElementValue];
             news.pubDate = date;
-            [newsTableContent insertObject:news atIndex:newsTableContent.count];
+            if (![news.newsURL isEqual:HOME_PAGE]) {
+                [newsTableContent insertObject:news atIndex:newsTableContent.count];
+            }
         }
     }
     currentElementValue=nil;
@@ -274,6 +277,7 @@
 {
     if (!IS_IPAD) return;
     ipadMainViewController* splitController = (ipadMainViewController*)self.splitViewController;
+    NSLog(@"%@",[newsTableContent objectAtIndex:indexPath.row]);
     [splitController loadNews:[newsTableContent objectAtIndex:indexPath.row]];
 }
 
