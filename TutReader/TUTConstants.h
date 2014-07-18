@@ -8,6 +8,9 @@
 
 // SEGUE IDENTIFICATORS
 
+#define IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+
+
 #define ONLINE_SEGUE_ID       @"onlineBtnSegue"
 #define FAVORITES_SEGUE_ID    @"favoritesBtnSegue"
 

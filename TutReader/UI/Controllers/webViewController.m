@@ -7,6 +7,7 @@
 //
 
 #import "webViewController.h"
+#import "ipadMainViewController.h"
 
 
 @interface webViewController ()
@@ -24,7 +25,20 @@
         loadedNews = news;
         UIImage* starImage = (loadedNews.isFavorite)?[UIImage imageNamed:@"star_full"]:[UIImage imageNamed:@"star_hollow"];
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
-        self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
+        if (IS_IPAD) {
+            if (loadedNews.newsURL) {
+                NSURL* url = [NSURL URLWithString:loadedNews.newsURL];
+                [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+                self.ipadNavigationItem.title = loadedNews.newsTitle;
+                self.ipadNavigationItem.rightBarButtonItem = favoriteBarButton;
+            }
+        }
+        else
+        {
+            if (loadedNews.newsURL) {
+                self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
+            }
+        }
     }
 }
 
@@ -81,7 +95,10 @@
             return;
         }
         
+        
     }
+    ipadMainViewController* splitController = (ipadMainViewController*)self.splitViewController;
+    [splitController reloadNewsTable];
     
     NSError *error = nil;
     if (![context save:&error]) {

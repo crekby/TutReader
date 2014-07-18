@@ -28,6 +28,7 @@
 		156182AC197721CE00D16B5F /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182AB197721CE00D16B5F /* NewsTableViewController.m */; };
 		156182AF1977221B00D16B5F /* TUTNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182AE1977221B00D16B5F /* TUTNews.m */; };
 		156182B21977230E00D16B5F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182B11977230E00D16B5F /* MainViewController.m */; };
+		15712C68197913A600A73DC5 /* ipadMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15712C67197913A600A73DC5 /* ipadMainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,8 @@
 		156182AE1977221B00D16B5F /* TUTNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TUTNews.m; path = Models/TUTNews.m; sourceTree = "<group>"; };
 		156182B01977230E00D16B5F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = UI/Controllers/MainViewController.h; sourceTree = "<group>"; };
 		156182B11977230E00D16B5F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = UI/Controllers/MainViewController.m; sourceTree = "<group>"; };
+		15712C66197913A600A73DC5 /* ipadMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipadMainViewController.h; sourceTree = "<group>"; };
+		15712C67197913A600A73DC5 /* ipadMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ipadMainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,10 +179,10 @@
 		1561829A1976C93D00D16B5F /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				156182A619770BC000D16B5F /* cells */,
+				15712C5E19790E5300A73DC5 /* Common */,
+				15712C5D19790E4600A73DC5 /* iPhone */,
+				15712C5C19790E1800A73DC5 /* iPad */,
 				1561829F1976CC2400D16B5F /* Controllers */,
-				156182711976C3DB00D16B5F /* Main_iPhone.storyboard */,
-				156182741976C3DB00D16B5F /* Main_iPad.storyboard */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -197,23 +200,73 @@
 		1561829F1976CC2400D16B5F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				156182B01977230E00D16B5F /* MainViewController.h */,
-				156182B11977230E00D16B5F /* MainViewController.m */,
-				156182AA197721CE00D16B5F /* NewsTableViewController.h */,
-				156182AB197721CE00D16B5F /* NewsTableViewController.m */,
 				1544D7D11977AF4F00A5A48E /* webViewController.h */,
 				1544D7D21977AF4F00A5A48E /* webViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		156182A619770BC000D16B5F /* cells */ = {
+		156182A619770BC000D16B5F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				156182A719770C0C00D16B5F /* newsCell.h */,
 				156182A819770C0C00D16B5F /* newsCell.m */,
 			);
-			name = cells;
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		15712C5C19790E1800A73DC5 /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				15712C651979138300A73DC5 /* Controllers */,
+				156182741976C3DB00D16B5F /* Main_iPad.storyboard */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+		15712C5D19790E4600A73DC5 /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				15712C6319790ED800A73DC5 /* Controllers */,
+				156182711976C3DB00D16B5F /* Main_iPhone.storyboard */,
+			);
+			name = iPhone;
+			sourceTree = "<group>";
+		};
+		15712C5E19790E5300A73DC5 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				156182A619770BC000D16B5F /* Cells */,
+				15712C64197910A000A73DC5 /* Controllers */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
+		15712C6319790ED800A73DC5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				156182B01977230E00D16B5F /* MainViewController.h */,
+				156182B11977230E00D16B5F /* MainViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		15712C64197910A000A73DC5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				156182AA197721CE00D16B5F /* NewsTableViewController.h */,
+				156182AB197721CE00D16B5F /* NewsTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		15712C651979138300A73DC5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				15712C66197913A600A73DC5 /* ipadMainViewController.h */,
+				15712C67197913A600A73DC5 /* ipadMainViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,6 +369,7 @@
 			files = (
 				156182AC197721CE00D16B5F /* NewsTableViewController.m in Sources */,
 				1544D7D31977AF4F00A5A48E /* webViewController.m in Sources */,
+				15712C68197913A600A73DC5 /* ipadMainViewController.m in Sources */,
 				156182AF1977221B00D16B5F /* TUTNews.m in Sources */,
 				156182A919770C0C00D16B5F /* newsCell.m in Sources */,
 				156182B21977230E00D16B5F /* MainViewController.m in Sources */,

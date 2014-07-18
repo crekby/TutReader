@@ -10,6 +10,7 @@
 #import "webViewController.h"
 #import "TUTNews.h"
 #import "newsCell.h"
+#import "ipadMainViewController.h"
 
 @interface NewsTableViewController ()
 
@@ -22,6 +23,17 @@
     NSMutableArray* newsTableContent;
     TUTNews* news;
 }
+
+- (IBAction)ChangeSourceButtonAction:(UISegmentedControl*)sender {
+    if (sender.selectedSegmentIndex==0) {
+        [self initOnlineNewsList];
+    }
+    else
+    {
+        [self initFavoritesNewsList];
+    }
+}
+
 
 #pragma mark - Imitializers
 
@@ -75,7 +87,17 @@
 {
     [self setTitle:@"Favorites"];
     newsTableContent = [NSMutableArray new];
-    
+    if (IS_IPAD) {
+        [self loadData];
+    }
+    NSLog(@"content count - %d",newsTableContent.count);
+}
+
+-(void)reloadNews
+{
+    if ([self.title isEqualToString:@"Favorites"]) {
+        [self initFavoritesNewsList];
+    }
 }
 
 #pragma mark - Lifecycle
@@ -83,11 +105,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (IS_IPAD) {
+        [self initOnlineNewsList];
+    }
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)loadData
 {
-    [super viewDidAppear:animated];
     if ([self.title isEqualToString:@"Favorites"]) {
         NSArray* requestResult = [self makeFetchRequest];
         if (requestResult) {
@@ -99,6 +123,12 @@
             [self.newsTableView reloadData];
         }
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -175,6 +205,8 @@
 -(void) parserDidEndDocument:(NSXMLParser *)parser
 {
     [self checkForFavorites];
+    NSLog(@"content count - %d",newsTableContent.count);
+
     [self.newsTableView reloadData];
 }
 
@@ -240,6 +272,14 @@
     }
         return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (!IS_IPAD) return;
+    ipadMainViewController* splitController = (ipadMainViewController*)self.splitViewController;
+    [splitController loadNews:[newsTableContent objectAtIndex:indexPath.row]];
+}
+
 
 #pragma mark - PrepareForSegue
 
