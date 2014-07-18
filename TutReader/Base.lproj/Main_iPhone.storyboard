@@ -17,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmV-ae-8P7">
-                                <rect key="frame" x="74" y="230" width="173" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmV-ae-8P7">
+                                <rect key="frame" x="74" y="205" width="173" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Online News">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -27,16 +27,16 @@
                                     <segue destination="CHD-rX-f2F" kind="push" identifier="onlineBtnSegue" id="paj-fc-FLz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-go-0OZ">
-                                <rect key="frame" x="73" y="268" width="174" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-go-0OZ">
+                                <rect key="frame" x="73" y="256" width="174" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Favorite News"/>
                                 <connections>
                                     <segue destination="CHD-rX-f2F" kind="push" identifier="favoritesBtnSegue" id="JSp-gH-cqx"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdU-UG-Nkb">
-                                <rect key="frame" x="57" y="169" width="207" height="41"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdU-UG-Nkb">
+                                <rect key="frame" x="57" y="134" width="207" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OdU-UG-Nkb" secondAttribute="height" multiplier="207:41" id="Bp3-36-ztU"/>
@@ -48,16 +48,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OdU-UG-Nkb" firstAttribute="top" relation="lessThanOrEqual" secondItem="jyV-Pf-zRb" secondAttribute="bottom" priority="750" constant="150" id="B0x-Bf-0mg"/>
+                            <constraint firstItem="ioX-go-0OZ" firstAttribute="top" secondItem="wmV-ae-8P7" secondAttribute="bottom" constant="21" id="Agx-b7-TdK"/>
                             <constraint firstAttribute="trailing" secondItem="wmV-ae-8P7" secondAttribute="trailing" constant="73" id="FB3-AC-npN"/>
-                            <constraint firstAttribute="trailing" secondItem="ioX-go-0OZ" secondAttribute="trailing" constant="73" id="RKY-lL-1q3"/>
+                            <constraint firstItem="ioX-go-0OZ" firstAttribute="trailing" secondItem="wmV-ae-8P7" secondAttribute="trailing" id="eMh-1Y-ul6"/>
                             <constraint firstAttribute="trailing" secondItem="OdU-UG-Nkb" secondAttribute="trailing" constant="56" id="esg-Ia-FHq"/>
                             <constraint firstItem="OdU-UG-Nkb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="57" id="fd6-E7-ZMA"/>
-                            <constraint firstItem="wmV-ae-8P7" firstAttribute="top" secondItem="OdU-UG-Nkb" secondAttribute="bottom" priority="750" constant="20" id="sf7-0f-6eD"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ioX-go-0OZ" secondAttribute="bottom" priority="750" constant="100" id="vZ4-5q-sM7"/>
-                            <constraint firstItem="ioX-go-0OZ" firstAttribute="top" secondItem="wmV-ae-8P7" secondAttribute="bottom" constant="8" id="xIf-0v-zDe"/>
-                            <constraint firstItem="ioX-go-0OZ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="73" id="xOm-aB-2hk"/>
+                            <constraint firstItem="ioX-go-0OZ" firstAttribute="centerX" secondItem="wmV-ae-8P7" secondAttribute="centerX" id="i26-ll-w66"/>
+                            <constraint firstItem="wmV-ae-8P7" firstAttribute="top" secondItem="OdU-UG-Nkb" secondAttribute="bottom" priority="750" constant="30" id="sf7-0f-6eD"/>
                             <constraint firstItem="wmV-ae-8P7" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="74" id="yKk-hH-25R"/>
+                            <constraint firstItem="OdU-UG-Nkb" firstAttribute="top" relation="lessThanOrEqual" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="70" id="zng-aH-7Ge"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="isL-LN-jul"/>

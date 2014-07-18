@@ -182,7 +182,6 @@
 				15712C5E19790E5300A73DC5 /* Common */,
 				15712C5D19790E4600A73DC5 /* iPhone */,
 				15712C5C19790E1800A73DC5 /* iPad */,
-				1561829F1976CC2400D16B5F /* Controllers */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -195,15 +194,6 @@
 				1544D8201977D10500A5A48E /* newsModel.xcdatamodeld */,
 			);
 			name = Models;
-			sourceTree = "<group>";
-		};
-		1561829F1976CC2400D16B5F /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				1544D7D11977AF4F00A5A48E /* webViewController.h */,
-				1544D7D21977AF4F00A5A48E /* webViewController.m */,
-			);
-			name = Controllers;
 			sourceTree = "<group>";
 		};
 		156182A619770BC000D16B5F /* Cells */ = {
@@ -254,6 +244,8 @@
 		15712C64197910A000A73DC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1544D7D11977AF4F00A5A48E /* webViewController.h */,
+				1544D7D21977AF4F00A5A48E /* webViewController.m */,
 				156182AA197721CE00D16B5F /* NewsTableViewController.h */,
 				156182AB197721CE00D16B5F /* NewsTableViewController.m */,
 			);
