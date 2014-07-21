@@ -16,6 +16,7 @@ static className *_##classNameInstance; \
 // DEVICE IDENTIFICATORS
 
 #define IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define IS_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 
 // CALLBACKS
 
@@ -34,6 +35,10 @@ typedef void(^CallbackWithDataAndError)(id data, NSError *error);
 
 #define ONLINE                   @"Online"
 #define FAVORITE                 @"Favorite"
+
+// CELLS IDENTIFICATORS
+
+#define NEWS_CELL_IDENTIFICATOR  @"newsCell"
 
 // SEGUE IDENTIFICATORS
 

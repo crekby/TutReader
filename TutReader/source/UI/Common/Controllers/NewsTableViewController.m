@@ -33,33 +33,6 @@
     }
 }
 
-- (NSArray*) makeFetchRequest
-{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    fetchRequest.entity = [NSEntityDescription entityForName:CD_ENTYTY
-                                      inManagedObjectContext:managedObjectContext];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:CD_PUBLICATION_DATE ascending:NO];
-    fetchRequest.sortDescriptors = [NSArray arrayWithObjects:sortDescriptor, nil];
-    
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                        managedObjectContext:managedObjectContext
-                                                                          sectionNameKeyPath:nil
-                                                                                   cacheName:CD_CACHE];
-    NSError *error = nil;
-    if (![self.fetchedResultsController performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-    }
-    else
-    {
-        return self.fetchedResultsController.fetchedObjects;
-    }
-    return nil;
-}
-
 - (void)initOnlineNewsList
 {
     [self setTitle:ONLINE];
@@ -67,7 +40,6 @@
         [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
             newsTableContent = newsList;
             [self checkForFavorites];
-            [self.newsTableView reloadData];
         }];
     }];
 }
@@ -90,32 +62,43 @@
 
 - (void) checkForFavorites
 {
-    NSArray* requestResult = [self makeFetchRequest];
+    [[PersistenceFacade instance] getNewsItemsListFromCoreDataWithCallback:^(NSMutableArray* data, NSError *error){
+        NSLog(@"%@",error);
+    NSMutableArray* requestResult = data;
+        NSLog(@"%@",requestResult);
     if (requestResult) {
         for (TUTNews* object in newsTableContent) {
-            for (NSManagedObject* temp in requestResult) {
+            for (TUTNews* temp in requestResult) {
                 if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
                     object.isFavorite = YES;
                 }
             }
         }
-        
+        [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
     }
+    }];
+    
+}
+
+- (void) reloadTableView
+{
+    [self.newsTableView reloadData];
 }
 
 - (void)loadData
 {
     if ([self.title isEqualToString:FAVORITE]) {
-        NSArray* requestResult = [self makeFetchRequest];
-        if (requestResult) {
-            newsTableContent = [NSMutableArray new];
-            for (NSManagedObject* object in requestResult) {
-                TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
-                [newsTableContent insertObject:favoriteNews atIndex:newsTableContent.count];
+        [[PersistenceFacade instance] getNewsItemsListFromCoreDataWithCallback:^(NSMutableArray* data, NSError *error){
+            NSArray* requestResult = data;
+            if (requestResult) {
+                newsTableContent = [NSMutableArray new];
+                for (NSManagedObject* object in requestResult) {
+                    TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
+                    [newsTableContent insertObject:favoriteNews atIndex:newsTableContent.count];
+                }
+                [self checkForFavorites];
             }
-            [self checkForFavorites];
-            [self.newsTableView reloadData];
-        }
+        }];
     }
 }
 
@@ -160,7 +143,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCell" forIndexPath:indexPath];
+    NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NEWS_CELL_IDENTIFICATOR forIndexPath:indexPath];
     
     TUTNews* newsToShow = [newsTableContent objectAtIndex:indexPath.row];
     
@@ -192,7 +175,6 @@
 {
     if (!IS_IPAD) return;
     IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-    NSLog(@"%@",[newsTableContent objectAtIndex:indexPath.row]);
     [splitController loadNews:[newsTableContent objectAtIndex:indexPath.row]];
 }
 

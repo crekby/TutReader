@@ -67,7 +67,8 @@ SINGLETON(PersistenceFacade)
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
     NSManagedObjectContext *context = appDelegate.managedObjectContext;
-    [context deleteObject:[managedObjectContext objectWithID:news.coreDataObjectID]];
+    NSManagedObject* objectToDelete = [managedObjectContext objectWithID:news.coreDataObjectID];
+    [context deleteObject:objectToDelete];
     NSError* error;
     if (![context save:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -79,6 +80,36 @@ SINGLETON(PersistenceFacade)
     {
         callback(nil,nil);
     }    
+}
+
+- (void) getNewsItemsListFromCoreDataWithCallback:(CallbackWithDataAndError) callback
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+
+    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:CD_ENTYTY];
+    
+    NSError *error = nil;
+    
+    NSArray *results = [context executeFetchRequest:request error:&error];
+    NSLog(@"%@",results[0]);
+    if (error == nil) {
+        if (results) {
+            NSMutableArray* newsItemsList = [NSMutableArray new];
+            for (TUTNews* object in results) {
+                //TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
+                [newsItemsList insertObject:object atIndex:newsItemsList.count];
+            }
+            if (callback) {
+                callback(newsItemsList,nil);
+            }
+        }
+    }
+    else {
+        callback(nil,error);
+
+    }
+
 }
 
 

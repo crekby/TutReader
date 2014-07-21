@@ -20,6 +20,17 @@
     TUTNews* loadedNews;
 }
 
+- (id)init
+{
+    if (self = [super init])
+    {
+        if (!IS_IOS7) {
+            
+        }
+    }
+    return self;
+}
+
 - (void)initWithNews:(TUTNews *)news
 {
     if (news) {
@@ -65,9 +76,10 @@
         }];
         
     }
-    IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-    [splitController reloadNewsTable];
-
+    if (IS_IPAD) {
+        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
+        [splitController reloadNewsTable];
+    }
 }
 
 #pragma mark - Lifecycle
