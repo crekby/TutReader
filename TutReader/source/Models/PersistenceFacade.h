@@ -12,6 +12,6 @@
 
 + (PersistenceFacade*)instance;
 
-- (void) getNewsItemsListFromData:(NSData*) data withCallback: (CallbackWithDataAndError) callback;
+- (void) getNewsItemsListFromData:(NSData*) data dataType:(int)type withCallback: (CallbackWithDataAndError) callback;
 
 @end

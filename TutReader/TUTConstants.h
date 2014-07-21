@@ -22,6 +22,12 @@ static className *_##classNameInstance; \
 typedef void(^SimpleCallback)();
 typedef void(^CallbackWithDataAndError)(id data, NSError *error);
 
+// DATA TYPES
+
+#define XML_DATA_TYPE            0
+#define JSON_DATA_TYPE           1
+#define CORE_DATA_TYPE           2
+
 //////////////////////////////////////////////////////////////////////////////////////////
 
 // VIEW TITLES

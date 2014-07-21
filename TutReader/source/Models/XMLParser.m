@@ -25,7 +25,9 @@ SINGLETON(XMLParser)
     [parser setDelegate:self];
     newsItemsList = [NSMutableArray new];
     globalCallback = callback;
-    [parser parse];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [parser parse];
+    });
 }
 
 #pragma mark - NSXMLParser delegate methods

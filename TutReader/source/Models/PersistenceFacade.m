@@ -14,14 +14,23 @@
 
 SINGLETON(PersistenceFacade)
 
-- (void) getNewsItemsListFromData:(NSData*) data withCallback: (CallbackWithDataAndError) callback
+- (void) getNewsItemsListFromData:(NSData*) data dataType:(int)type withCallback: (CallbackWithDataAndError) callback
 {
-    [[XMLParser instance] parseData:data withCallback:^(NSMutableArray* data, NSError *error){
-        NSMutableArray* parsedItems = data;
-        if (callback) {
-            callback(parsedItems,nil);
-        }
-    }];
+    if (type==XML_DATA_TYPE) {
+        [[XMLParser instance] parseData:data withCallback:^(NSMutableArray* data, NSError *error){
+            NSMutableArray* parsedItems = data;
+            if (callback) {
+                callback(parsedItems,nil);
+            }
+        }];
+    }
+    else if (type==CORE_DATA_TYPE)
+    {
+        
+    }
+    else if (type==JSON_DATA_TYPE)
+    {
+    }
 }
 
 
