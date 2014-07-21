@@ -33,6 +33,53 @@ SINGLETON(PersistenceFacade)
     }
 }
 
+- (void) addObjectToCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+    NSEntityDescription *entity = [NSEntityDescription entityForName:CD_ENTYTY inManagedObjectContext:context];
+    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+                                                                      inManagedObjectContext:context];
+    [newManagedObject setValue:news.newsTitle forKey:CD_TITLE];
+    [newManagedObject setValue:news.text forKey:CD_TEXT];
+    [newManagedObject setValue:news.newsURL forKey:CD_NEWS_URL];
+    [newManagedObject setValue:news.imageURL forKey:CD_IMAGE_URL];
+    [newManagedObject setValue:news.pubDate forKey:CD_PUBLICATION_DATE];
+    [newManagedObject setValue:(news.isFavorite)?[NSNumber numberWithInt:1]:[NSNumber numberWithInt:0] forKey:CD_IS_FAVORITE];
+    NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(news.image,1.0)];
+    [newManagedObject setValue:imageData forKey:CD_IMAGE];
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        if (callback) {
+            callback(nil,error);
+        }
+    }
+    else
+    {
+        callback(nil,nil);
+    }
+
+}
+
+- (void) deleteObjectFromCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
+    NSManagedObjectContext *context = appDelegate.managedObjectContext;
+    [context deleteObject:[managedObjectContext objectWithID:news.coreDataObjectID]];
+    NSError* error;
+    if (![context save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        if (callback) {
+            callback(nil,error);
+        }
+    }
+    else
+    {
+        callback(nil,nil);
+    }    
+}
 
 
 

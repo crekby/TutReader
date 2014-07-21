@@ -17,6 +17,7 @@
 @property (nonatomic) UIImage* image;
 @property (nonatomic) BOOL isFavorite;
 @property (nonatomic) NSDate* pubDate;
+@property (nonatomic) NSManagedObjectID* coreDataObjectID;
 
 - (id) initWithManagedObject:(NSManagedObject*) object;
 

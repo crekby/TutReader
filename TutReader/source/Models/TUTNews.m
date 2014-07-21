@@ -25,6 +25,7 @@
         self.imageURL = [object valueForKey:@"imageUrl"];
         self.image = [UIImage imageWithData:[object valueForKey:@"image"]];
         self.isFavorite = ([object valueForKey:@"isFavorite"]==[NSNumber numberWithInt:1])?YES:NO;
+        self.coreDataObjectID = [object valueForKey:@"objectID"];
     }
     return self;
 }
