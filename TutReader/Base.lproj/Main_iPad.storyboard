@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="UQq-pE-Mg1">
     <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Web View Controller-->
         <scene sceneID="VEC-Ir-1qy">
             <objects>
-                <viewController id="aPd-JO-nQz" customClass="webViewController" sceneMemberID="viewController">
+                <viewController id="aPd-JO-nQz" customClass="WebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rpI-k6-X5B"/>
                         <viewControllerLayoutGuide type="bottom" id="gKd-iV-68J"/>
@@ -62,7 +63,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsCell" rowHeight="80" id="x9D-eg-xVF" customClass="newsCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsCell" rowHeight="80" id="x9D-eg-xVF" customClass="NewsCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x9D-eg-xVF" id="tis-xY-x56">
@@ -157,7 +158,7 @@
         <!--Ipad Main View Controller-->
         <scene sceneID="eik-t1-ATQ">
             <objects>
-                <splitViewController id="UQq-pE-Mg1" customClass="ipadMainViewController" sceneMemberID="viewController">
+                <splitViewController id="UQq-pE-Mg1" customClass="IpadMainViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <connections>
                         <segue destination="eKE-kp-Efh" kind="relationship" relationship="masterViewController" id="LEa-DC-lRM"/>

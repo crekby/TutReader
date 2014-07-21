@@ -8,7 +8,7 @@
 
 #import "newsCell.h"
 
-@implementation newsCell
+@implementation NewsCell
 
 
 @end

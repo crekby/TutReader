@@ -10,18 +10,18 @@
 #import "webViewController.h"
 #import "NewsTableViewController.h"
 
-@interface ipadMainViewController ()
+@interface IpadMainViewController ()
 
 @end
 
-@implementation ipadMainViewController
+@implementation IpadMainViewController
 
 - (void)loadNews:(TUTNews *)news
 {
-    webViewController* temp = [webViewController new];
+    WebViewController* temp = [WebViewController new];
     for (UIViewController* controller in self.viewControllers) {
         if (controller.class==temp.class) {
-            [(webViewController*)controller initWithNews:news];
+            [(WebViewController*)controller initWithNews:news];
         }
     }
     temp=nil;

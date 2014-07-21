@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ipadMainViewController : UISplitViewController
+@interface IpadMainViewController : UISplitViewController
 
 - (void) loadNews:(TUTNews*) news;
 - (void) reloadNewsTable;

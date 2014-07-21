@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="8u4-Vk-rve">
     <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
@@ -16,8 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmV-ae-8P7">
-                                <rect key="frame" x="74" y="205" width="173" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmV-ae-8P7">
+                                <rect key="frame" x="117" y="185" width="87" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Online News">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -26,8 +27,8 @@
                                     <segue destination="CHD-rX-f2F" kind="push" identifier="onlineBtnSegue" id="paj-fc-FLz"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-go-0OZ">
-                                <rect key="frame" x="112" y="256" width="98" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ioX-go-0OZ">
+                                <rect key="frame" x="111" y="236" width="98" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Favorite News"/>
                                 <connections>
@@ -35,7 +36,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdU-UG-Nkb">
-                                <rect key="frame" x="57" y="134" width="207" height="41"/>
+                                <rect key="frame" x="57" y="114" width="207" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="34"/>
                                 <nil key="highlightedColor"/>
@@ -43,14 +44,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OdU-UG-Nkb" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="70" id="3od-70-Heb"/>
+                            <constraint firstAttribute="trailing" secondItem="wmV-ae-8P7" secondAttribute="trailing" constant="100" id="11d-fe-nbK"/>
+                            <constraint firstItem="OdU-UG-Nkb" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" priority="750" constant="50" id="3od-70-Heb"/>
+                            <constraint firstAttribute="trailing" secondItem="ioX-go-0OZ" secondAttribute="trailing" constant="100" id="7Lc-Fr-btR"/>
+                            <constraint firstItem="wmV-ae-8P7" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="100" id="AH1-YI-yGt"/>
                             <constraint firstItem="ioX-go-0OZ" firstAttribute="top" secondItem="wmV-ae-8P7" secondAttribute="bottom" constant="21" id="Agx-b7-TdK"/>
-                            <constraint firstAttribute="trailing" secondItem="wmV-ae-8P7" secondAttribute="trailing" constant="73" id="FB3-AC-npN"/>
+                            <constraint firstItem="ioX-go-0OZ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="100" id="SBQ-IS-xTU"/>
                             <constraint firstAttribute="trailing" secondItem="OdU-UG-Nkb" secondAttribute="trailing" constant="56" id="esg-Ia-FHq"/>
                             <constraint firstItem="OdU-UG-Nkb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="57" id="fd6-E7-ZMA"/>
-                            <constraint firstItem="ioX-go-0OZ" firstAttribute="centerX" secondItem="wmV-ae-8P7" secondAttribute="centerX" id="i26-ll-w66"/>
                             <constraint firstItem="wmV-ae-8P7" firstAttribute="top" secondItem="OdU-UG-Nkb" secondAttribute="bottom" priority="750" constant="30" id="sf7-0f-6eD"/>
-                            <constraint firstItem="wmV-ae-8P7" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="74" id="yKk-hH-25R"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="isL-LN-jul"/>
@@ -68,7 +70,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsCell" rowHeight="80" id="XLv-Mw-PGg" customClass="newsCell">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsCell" rowHeight="80" id="XLv-Mw-PGg" customClass="NewsCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XLv-Mw-PGg" id="wnN-e7-4yk">
@@ -134,7 +136,7 @@
         <!--Web View Controller-->
         <scene sceneID="AlC-P1-CnL">
             <objects>
-                <viewController id="QeF-Ny-lGz" customClass="webViewController" sceneMemberID="viewController">
+                <viewController id="QeF-Ny-lGz" customClass="WebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k6U-1d-wuE"/>
                         <viewControllerLayoutGuide type="bottom" id="Dah-Mp-3yV"/>

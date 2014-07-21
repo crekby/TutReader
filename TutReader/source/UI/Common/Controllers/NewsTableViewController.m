@@ -245,7 +245,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    newsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCell" forIndexPath:indexPath];
+    NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newsCell" forIndexPath:indexPath];
     
     TUTNews* newsToShow = [newsTableContent objectAtIndex:indexPath.row];
     
@@ -276,7 +276,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!IS_IPAD) return;
-    ipadMainViewController* splitController = (ipadMainViewController*)self.splitViewController;
+    IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
     NSLog(@"%@",[newsTableContent objectAtIndex:indexPath.row]);
     [splitController loadNews:[newsTableContent objectAtIndex:indexPath.row]];
 }
@@ -286,8 +286,8 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    newsCell* cell = (newsCell*)sender;
-    [(webViewController*)[segue destinationViewController] initWithNews:[newsTableContent objectAtIndex:cell.row]];
+    NewsCell* cell = (NewsCell*)sender;
+    [(WebViewController*)[segue destinationViewController] initWithNews:[newsTableContent objectAtIndex:cell.row]];
 }
 
 @end

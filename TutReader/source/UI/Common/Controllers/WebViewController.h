@@ -11,7 +11,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface webViewController : UIViewController <UIWebViewDelegate,NSFetchedResultsControllerDelegate>
+@interface WebViewController : UIViewController <UIWebViewDelegate,NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 

@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1544D7D31977AF4F00A5A48E /* webViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544D7D21977AF4F00A5A48E /* webViewController.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
-		1544D8221977D10500A5A48E /* newsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1544D8201977D10500A5A48E /* newsModel.xcdatamodeld */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
 		156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182611976C3DB00D16B5F /* CoreGraphics.framework */; };
 		156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182631976C3DB00D16B5F /* UIKit.framework */; };
@@ -24,11 +22,13 @@
 		156182841976C3DB00D16B5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182631976C3DB00D16B5F /* UIKit.framework */; };
 		1561828C1976C3DB00D16B5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1561828A1976C3DB00D16B5F /* InfoPlist.strings */; };
 		1561828E1976C3DB00D16B5F /* TutReaderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1561828D1976C3DB00D16B5F /* TutReaderTests.m */; };
-		156182A919770C0C00D16B5F /* newsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182A819770C0C00D16B5F /* newsCell.m */; };
-		156182AC197721CE00D16B5F /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182AB197721CE00D16B5F /* NewsTableViewController.m */; };
-		156182AF1977221B00D16B5F /* TUTNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182AE1977221B00D16B5F /* TUTNews.m */; };
-		156182B21977230E00D16B5F /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156182B11977230E00D16B5F /* MainViewController.m */; };
-		15712C68197913A600A73DC5 /* ipadMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15712C67197913A600A73DC5 /* ipadMainViewController.m */; };
+		156AFA18197CEE3000813E2D /* TUTNews.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA17197CEE3000813E2D /* TUTNews.m */; };
+		156AFA1B197CEE3F00813E2D /* newsModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA19197CEE3F00813E2D /* newsModel.xcdatamodeld */; };
+		156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA1D197CEF3400813E2D /* NewsCell.m */; };
+		156AFA23197CEF5000813E2D /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA20197CEF5000813E2D /* NewsTableViewController.m */; };
+		156AFA24197CEF5000813E2D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA22197CEF5000813E2D /* WebViewController.m */; };
+		156AFA27197CEF7600813E2D /* IpadMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA26197CEF7600813E2D /* IpadMainViewController.m */; };
+		156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA29197CEF8B00813E2D /* MainViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,10 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1544D7D11977AF4F00A5A48E /* webViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = webViewController.h; path = UI/Controllers/webViewController.h; sourceTree = "<group>"; };
-		1544D7D21977AF4F00A5A48E /* webViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = webViewController.m; path = UI/Controllers/webViewController.m; sourceTree = "<group>"; };
 		1544D81B1977D0C100A5A48E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		1544D8211977D10500A5A48E /* newsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = newsModel.xcdatamodel; sourceTree = "<group>"; };
 		1561825C1976C3DB00D16B5F /* TutReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1561825F1976C3DB00D16B5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		156182611976C3DB00D16B5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -65,16 +62,19 @@
 		1561828B1976C3DB00D16B5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1561828D1976C3DB00D16B5F /* TutReaderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TutReaderTests.m; sourceTree = "<group>"; };
 		156182971976C57A00D16B5F /* TUTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TUTConstants.h; sourceTree = "<group>"; };
-		156182A719770C0C00D16B5F /* newsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = newsCell.h; path = UI/Cells/newsCell.h; sourceTree = "<group>"; };
-		156182A819770C0C00D16B5F /* newsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = newsCell.m; path = UI/Cells/newsCell.m; sourceTree = "<group>"; };
-		156182AA197721CE00D16B5F /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsTableViewController.h; path = UI/Controllers/NewsTableViewController.h; sourceTree = "<group>"; };
-		156182AB197721CE00D16B5F /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsTableViewController.m; path = UI/Controllers/NewsTableViewController.m; sourceTree = "<group>"; };
-		156182AD1977221B00D16B5F /* TUTNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUTNews.h; path = Models/TUTNews.h; sourceTree = "<group>"; };
-		156182AE1977221B00D16B5F /* TUTNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TUTNews.m; path = Models/TUTNews.m; sourceTree = "<group>"; };
-		156182B01977230E00D16B5F /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = UI/Controllers/MainViewController.h; sourceTree = "<group>"; };
-		156182B11977230E00D16B5F /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = UI/Controllers/MainViewController.m; sourceTree = "<group>"; };
-		15712C66197913A600A73DC5 /* ipadMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ipadMainViewController.h; sourceTree = "<group>"; };
-		15712C67197913A600A73DC5 /* ipadMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ipadMainViewController.m; sourceTree = "<group>"; };
+		156AFA16197CEE3000813E2D /* TUTNews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TUTNews.h; path = source/Models/TUTNews.h; sourceTree = "<group>"; };
+		156AFA17197CEE3000813E2D /* TUTNews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TUTNews.m; path = source/Models/TUTNews.m; sourceTree = "<group>"; };
+		156AFA1A197CEE3F00813E2D /* newsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = newsModel.xcdatamodel; sourceTree = "<group>"; };
+		156AFA1C197CEF3400813E2D /* NewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsCell.h; path = Source/UI/Common/Cells/NewsCell.h; sourceTree = "<group>"; };
+		156AFA1D197CEF3400813E2D /* NewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsCell.m; path = Source/UI/Common/Cells/NewsCell.m; sourceTree = "<group>"; };
+		156AFA1F197CEF5000813E2D /* NewsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsTableViewController.h; path = Source/UI/Common/Controllers/NewsTableViewController.h; sourceTree = "<group>"; };
+		156AFA20197CEF5000813E2D /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsTableViewController.m; path = Source/UI/Common/Controllers/NewsTableViewController.m; sourceTree = "<group>"; };
+		156AFA21197CEF5000813E2D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Source/UI/Common/Controllers/WebViewController.h; sourceTree = "<group>"; };
+		156AFA22197CEF5000813E2D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = Source/UI/Common/Controllers/WebViewController.m; sourceTree = "<group>"; };
+		156AFA25197CEF7600813E2D /* IpadMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IpadMainViewController.h; path = Source/UI/iPad/Controllers/IpadMainViewController.h; sourceTree = "<group>"; };
+		156AFA26197CEF7600813E2D /* IpadMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IpadMainViewController.m; path = Source/UI/iPad/Controllers/IpadMainViewController.m; sourceTree = "<group>"; };
+		156AFA28197CEF8B00813E2D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Source/UI/iPhone/Controllers/MainViewController.h; sourceTree = "<group>"; };
+		156AFA29197CEF8B00813E2D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Source/UI/iPhone/Controllers/MainViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,9 +184,9 @@
 		1561829B1976C98F00D16B5F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				156182AD1977221B00D16B5F /* TUTNews.h */,
-				156182AE1977221B00D16B5F /* TUTNews.m */,
-				1544D8201977D10500A5A48E /* newsModel.xcdatamodeld */,
+				156AFA19197CEE3F00813E2D /* newsModel.xcdatamodeld */,
+				156AFA16197CEE3000813E2D /* TUTNews.h */,
+				156AFA17197CEE3000813E2D /* TUTNews.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -194,8 +194,8 @@
 		156182A619770BC000D16B5F /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				156182A719770C0C00D16B5F /* newsCell.h */,
-				156182A819770C0C00D16B5F /* newsCell.m */,
+				156AFA1C197CEF3400813E2D /* NewsCell.h */,
+				156AFA1D197CEF3400813E2D /* NewsCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -228,8 +228,8 @@
 		15712C6319790ED800A73DC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				156182B01977230E00D16B5F /* MainViewController.h */,
-				156182B11977230E00D16B5F /* MainViewController.m */,
+				156AFA28197CEF8B00813E2D /* MainViewController.h */,
+				156AFA29197CEF8B00813E2D /* MainViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -237,10 +237,10 @@
 		15712C64197910A000A73DC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1544D7D11977AF4F00A5A48E /* webViewController.h */,
-				1544D7D21977AF4F00A5A48E /* webViewController.m */,
-				156182AA197721CE00D16B5F /* NewsTableViewController.h */,
-				156182AB197721CE00D16B5F /* NewsTableViewController.m */,
+				156AFA1F197CEF5000813E2D /* NewsTableViewController.h */,
+				156AFA20197CEF5000813E2D /* NewsTableViewController.m */,
+				156AFA21197CEF5000813E2D /* WebViewController.h */,
+				156AFA22197CEF5000813E2D /* WebViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -248,8 +248,8 @@
 		15712C651979138300A73DC5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				15712C66197913A600A73DC5 /* ipadMainViewController.h */,
-				15712C67197913A600A73DC5 /* ipadMainViewController.m */,
+				156AFA25197CEF7600813E2D /* IpadMainViewController.h */,
+				156AFA26197CEF7600813E2D /* IpadMainViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -399,15 +399,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				156182AC197721CE00D16B5F /* NewsTableViewController.m in Sources */,
-				1544D7D31977AF4F00A5A48E /* webViewController.m in Sources */,
-				15712C68197913A600A73DC5 /* ipadMainViewController.m in Sources */,
-				156182AF1977221B00D16B5F /* TUTNews.m in Sources */,
-				156182A919770C0C00D16B5F /* newsCell.m in Sources */,
-				156182B21977230E00D16B5F /* MainViewController.m in Sources */,
+				156AFA23197CEF5000813E2D /* NewsTableViewController.m in Sources */,
+				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
+				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
+				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
+				156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */,
+				156AFA27197CEF7600813E2D /* IpadMainViewController.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
-				1544D8221977D10500A5A48E /* newsModel.xcdatamodeld in Sources */,
+				156AFA1B197CEE3F00813E2D /* newsModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +545,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TutReader/TutReader-Prefix.pch";
 				INFOPLIST_FILE = "TutReader/TutReader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -558,6 +559,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TutReader/TutReader-Prefix.pch";
 				INFOPLIST_FILE = "TutReader/TutReader-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -636,14 +638,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1544D8201977D10500A5A48E /* newsModel.xcdatamodeld */ = {
+		156AFA19197CEE3F00813E2D /* newsModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				1544D8211977D10500A5A48E /* newsModel.xcdatamodel */,
+				156AFA1A197CEE3F00813E2D /* newsModel.xcdatamodel */,
 			);
-			currentVersion = 1544D8211977D10500A5A48E /* newsModel.xcdatamodel */;
+			currentVersion = 156AFA1A197CEE3F00813E2D /* newsModel.xcdatamodel */;
 			name = newsModel.xcdatamodeld;
-			path = Models/newsModel.xcdatamodeld;
+			path = source/Models/newsModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

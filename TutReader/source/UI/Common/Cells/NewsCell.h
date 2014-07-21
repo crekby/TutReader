@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface newsCell : UITableViewCell
+@interface NewsCell : UITableViewCell
 
 @property (nonatomic) IBOutlet UIImageView* newsImageView;
 @property (nonatomic) IBOutlet UILabel* newsTitle;

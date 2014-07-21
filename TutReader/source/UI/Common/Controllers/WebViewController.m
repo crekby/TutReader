@@ -10,11 +10,11 @@
 #import "ipadMainViewController.h"
 
 
-@interface webViewController ()
+@interface WebViewController ()
 
 @end
 
-@implementation webViewController
+@implementation WebViewController
 {
     TUTNews* loadedNews;
 }
@@ -97,7 +97,7 @@
         
         
     }
-    ipadMainViewController* splitController = (ipadMainViewController*)self.splitViewController;
+    IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
     [splitController reloadNewsTable];
     
     NSError *error = nil;
