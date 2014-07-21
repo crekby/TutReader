@@ -13,6 +13,10 @@
 
 @interface WebViewController ()
 
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+@property (weak, nonatomic) IBOutlet UINavigationItem *ipadNavigationItem;
+
 @end
 
 @implementation WebViewController

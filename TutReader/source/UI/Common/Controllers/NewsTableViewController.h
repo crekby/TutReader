@@ -10,10 +10,6 @@
 
 @interface NewsTableViewController : UITableViewController <NSURLConnectionDelegate,NSXMLParserDelegate>
 
-@property (strong, nonatomic) IBOutlet UITableView *newsTableView;
-
-@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-
 - (void) initOnlineNewsList;
 - (void) initFavoritesNewsList;
 - (void) reloadNews;

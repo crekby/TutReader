@@ -16,6 +16,8 @@
 
 @interface NewsTableViewController ()
 
+@property (strong, nonatomic) IBOutlet UITableView *newsTableView;
+
 @end
 
 @implementation NewsTableViewController
