@@ -31,6 +31,7 @@
 		156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA29197CEF8B00813E2D /* MainViewController.m */; };
 		156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA2C197CF82400813E2D /* RemoteFacade.m */; };
 		156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA30197CFE9200813E2D /* PersistenceFacade.m */; };
+		156AFA37197D088E00813E2D /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA36197D088E00813E2D /* XMLParser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		156AFA2C197CF82400813E2D /* RemoteFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoteFacade.m; path = Source/Models/RemoteFacade.m; sourceTree = "<group>"; };
 		156AFA2F197CFE9200813E2D /* PersistenceFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersistenceFacade.h; path = Source/Models/PersistenceFacade.h; sourceTree = "<group>"; };
 		156AFA30197CFE9200813E2D /* PersistenceFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersistenceFacade.m; path = Source/Models/PersistenceFacade.m; sourceTree = "<group>"; };
+		156AFA35197D088E00813E2D /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLParser.h; path = Source/Models/XMLParser.h; sourceTree = "<group>"; };
+		156AFA36197D088E00813E2D /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLParser.m; path = Source/Models/XMLParser.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +200,8 @@
 				156AFA2C197CF82400813E2D /* RemoteFacade.m */,
 				156AFA2F197CFE9200813E2D /* PersistenceFacade.h */,
 				156AFA30197CFE9200813E2D /* PersistenceFacade.m */,
+				156AFA35197D088E00813E2D /* XMLParser.h */,
+				156AFA36197D088E00813E2D /* XMLParser.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
+				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,
 				156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */,
 				156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */,
 				156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */,

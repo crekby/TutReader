@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PersistenceFacade : NSObject <NSXMLParserDelegate>
+@interface PersistenceFacade : NSObject 
 
 + (PersistenceFacade*)instance;
 
-- (void) getNewsItemsListFromXmlData:(NSData*) data withCallback: (CallbackWithDataAndError) callback;
+- (void) getNewsItemsListFromData:(NSData*) data withCallback: (CallbackWithDataAndError) callback;
 
 @end
