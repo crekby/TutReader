@@ -23,15 +23,7 @@
     NSMutableArray* newsTableContent;
 }
 
-- (IBAction)ChangeSourceButtonAction:(UISegmentedControl*)sender {
-    if (sender.selectedSegmentIndex==0) {
-        [self initOnlineNewsList];
-    }
-    else
-    {
-        [self initFavoritesNewsList];
-    }
-}
+#pragma mark - Init Data Methods
 
 - (void)initOnlineNewsList
 {
@@ -39,6 +31,7 @@
     [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
         [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
             newsTableContent = newsList;
+            //NSLog(@"%@",newsList);
             [self checkForFavorites];
         }];
     }];
@@ -57,48 +50,6 @@
 {
     if ([self.title isEqualToString:FAVORITE]) {
         [self initFavoritesNewsList];
-    }
-}
-
-- (void) checkForFavorites
-{
-    [[PersistenceFacade instance] getNewsItemsListFromCoreDataWithCallback:^(NSMutableArray* data, NSError *error){
-        NSLog(@"%@",error);
-    NSMutableArray* requestResult = data;
-        NSLog(@"%@",requestResult);
-    if (requestResult) {
-        for (TUTNews* object in newsTableContent) {
-            for (TUTNews* temp in requestResult) {
-                if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
-                    object.isFavorite = YES;
-                }
-            }
-        }
-        [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
-    }
-    }];
-    
-}
-
-- (void) reloadTableView
-{
-    [self.newsTableView reloadData];
-}
-
-- (void)loadData
-{
-    if ([self.title isEqualToString:FAVORITE]) {
-        [[PersistenceFacade instance] getNewsItemsListFromCoreDataWithCallback:^(NSMutableArray* data, NSError *error){
-            NSArray* requestResult = data;
-            if (requestResult) {
-                newsTableContent = [NSMutableArray new];
-                for (NSManagedObject* object in requestResult) {
-                    TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
-                    [newsTableContent insertObject:favoriteNews atIndex:newsTableContent.count];
-                }
-                [self checkForFavorites];
-            }
-        }];
     }
 }
 
@@ -147,9 +98,9 @@
     
     TUTNews* newsToShow = [newsTableContent objectAtIndex:indexPath.row];
     
-    cell.newsTitle.text = newsToShow.newsTitle;
-    cell.newsDescription.text = newsToShow.text;
-    cell.row = indexPath.row;
+    [cell setNewsItem:newsToShow];
+    
+    cell.row = indexPath.row; // Оставить
     if (!newsToShow.image) {
         [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
@@ -164,11 +115,7 @@
             });
         }
     }
-    else
-    {
-        cell.imageView.image = newsToShow.image;
-    }
-        return cell;
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -185,6 +132,64 @@
 {
     NewsCell* cell = (NewsCell*)sender;
     [(WebViewController*)[segue destinationViewController] initWithNews:[newsTableContent objectAtIndex:cell.row]];
+}
+
+#pragma mark - IBActions
+
+- (IBAction)ChangeSourceButtonAction:(UISegmentedControl*)sender
+{
+    if (sender.selectedSegmentIndex==0) {
+        [self initOnlineNewsList];
+    }
+    else
+    {
+        [self initFavoritesNewsList];
+    }
+}
+
+#pragma mark - Private Methods
+
+- (void) reloadTableView
+{
+    [self.newsTableView reloadData];
+}
+
+- (void)loadData
+{
+    if ([self.title isEqualToString:FAVORITE]) {
+        [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
+            NSArray* requestResult = data;
+            if (requestResult) {
+                newsTableContent = [NSMutableArray new];
+                for (NSManagedObject* object in requestResult) {
+                    TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
+                    [newsTableContent insertObject:favoriteNews atIndex:newsTableContent.count];
+                    //NSLog(@"%@",favoriteNews);
+                }
+                [self checkForFavorites];
+            }
+        }];
+    }
+}
+
+- (void) checkForFavorites
+{
+    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
+        //NSLog(@"%@",error);
+        NSMutableArray* requestResult = data;
+        //NSLog(@"%@",requestResult);
+        if (requestResult) {
+            for (TUTNews* object in newsTableContent) {
+                for (NSManagedObject* temp in requestResult) {
+                    if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
+                        object.isFavorite = YES;
+                    }
+                }
+            }
+            [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
+        }
+    }];
+    
 }
 
 @end

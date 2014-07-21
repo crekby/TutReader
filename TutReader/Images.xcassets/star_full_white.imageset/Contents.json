@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "star_hallow.png"
+      "filename" : "star_full_white.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "star_hallow_2x.png"
+      "filename" : "star_full_white_@2x.png"
     }
   ],
   "info" : {

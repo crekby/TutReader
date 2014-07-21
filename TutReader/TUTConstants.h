@@ -25,9 +25,12 @@ typedef void(^CallbackWithDataAndError)(id data, NSError *error);
 
 // DATA TYPES
 
-#define XML_DATA_TYPE            0
-#define JSON_DATA_TYPE           1
-#define CORE_DATA_TYPE           2
+enum
+{
+    XML_DATA_TYPE      =      0, 
+    JSON_DATA_TYPE     =      1, 
+    CORE_DATA_TYPE     =      2
+};
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -54,6 +57,9 @@ typedef void(^CallbackWithDataAndError)(id data, NSError *error);
 
 #define STAR_FULL                @"star_full"
 #define STAR_HOLLOW              @"star_hollow"
+
+#define STAR_FULL_WHITE          @"star_full_white"
+#define STAR_HOLLOW_WHITE        @"star_hollow_white"
 
 #define IMAGE_NOT_AVAILABLE      @"No Image"
 

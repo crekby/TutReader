@@ -10,5 +10,15 @@
 
 @implementation NewsCell
 
+- (void)setNewsItem:(TUTNews *)newsItem
+{
+    self.newsTitle.text = newsItem.newsTitle;
+    self.newsDescription.text = newsItem.text;
+    if (newsItem.image) {
+        self.imageView.image = newsItem.image;
+        
+    }
+    //self.row =
+}
 
 @end

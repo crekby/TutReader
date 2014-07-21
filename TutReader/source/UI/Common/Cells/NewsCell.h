@@ -15,4 +15,8 @@
 @property (nonatomic) IBOutlet UILabel* newsDescription;
 @property (nonatomic) NSInteger row;
 
+@property (nonatomic) TUTNews* newsItem;
+
+
+
 @end

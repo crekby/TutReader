@@ -14,11 +14,11 @@
                         <viewControllerLayoutGuide type="bottom" id="gKd-iV-68J"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HoL-n7-drR">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vz0-12-CHn">
-                                <rect key="frame" x="0.0" y="64" width="768" height="942"/>
+                                <rect key="frame" x="0.0" y="64" width="768" height="962"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
@@ -45,6 +45,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="ipadNavigationItem" destination="mqS-P8-UMa" id="4AG-LP-iHH"/>
                         <outlet property="webView" destination="Vz0-12-CHn" id="fDw-bo-T2y"/>

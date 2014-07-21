@@ -14,6 +14,8 @@
 
 SINGLETON(PersistenceFacade)
 
+#pragma mark - Parse data
+
 - (void) getNewsItemsListFromData:(NSData*) data dataType:(int)type withCallback: (CallbackWithDataAndError) callback
 {
     if (type==XML_DATA_TYPE) {
@@ -26,12 +28,38 @@ SINGLETON(PersistenceFacade)
     }
     else if (type==CORE_DATA_TYPE)
     {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *context = appDelegate.managedObjectContext;
         
+        NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:CD_ENTYTY];
+        
+        NSError *error = nil;
+        
+        NSArray *results = [context executeFetchRequest:request error:&error];
+        //NSLog(@"%@",results[0]);
+        if (error == nil) {
+            if (results) {
+                NSMutableArray* newsItemsList = [NSMutableArray new];
+                for (TUTNews* object in results) {
+                    //TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
+                    [newsItemsList insertObject:object atIndex:newsItemsList.count];
+                }
+                if (callback) {
+                    callback(newsItemsList,nil);
+                }
+            }
+        }
+        else {
+            callback(nil,error);
+            
+        }
     }
     else if (type==JSON_DATA_TYPE)
     {
     }
 }
+
+#pragma mark - Core Data Methods
 
 - (void) addObjectToCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback
 {
@@ -82,35 +110,6 @@ SINGLETON(PersistenceFacade)
     }    
 }
 
-- (void) getNewsItemsListFromCoreDataWithCallback:(CallbackWithDataAndError) callback
-{
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    NSManagedObjectContext *context = appDelegate.managedObjectContext;
-
-    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:CD_ENTYTY];
-    
-    NSError *error = nil;
-    
-    NSArray *results = [context executeFetchRequest:request error:&error];
-    NSLog(@"%@",results[0]);
-    if (error == nil) {
-        if (results) {
-            NSMutableArray* newsItemsList = [NSMutableArray new];
-            for (TUTNews* object in results) {
-                //TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
-                [newsItemsList insertObject:object atIndex:newsItemsList.count];
-            }
-            if (callback) {
-                callback(newsItemsList,nil);
-            }
-        }
-    }
-    else {
-        callback(nil,error);
-
-    }
-
-}
 
 
 

@@ -20,6 +20,8 @@
     TUTNews* loadedNews;
 }
 
+#pragma mark - Init Methods
+
 - (id)init
 {
     if (self = [super init])
@@ -35,7 +37,14 @@
 {
     if (news) {
         loadedNews = news;
-        UIImage* starImage = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+        UIImage* starImage;
+        if (IS_IOS7) {
+            starImage = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+        }
+        else
+        {
+            starImage = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
+        }
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
         if (IS_IPAD) {
             if (loadedNews.newsURL) {
@@ -54,10 +63,8 @@
     }
 }
 
-- (void) changeImage:(UIBarButtonItem*) btn
-{
-    btn.image = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
-}
+
+#pragma mark - IBActions
 
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
 {
@@ -115,6 +122,19 @@
 {
     NSLog(@"%@",error.userInfo);
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+}
+
+#pragma mark - Private Methods
+
+- (void) changeImage:(UIBarButtonItem*) btn
+{
+    if (IS_IOS7) {
+        btn.image = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+    }
+    else
+    {
+        btn.image = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
+    }
 }
 
 @end

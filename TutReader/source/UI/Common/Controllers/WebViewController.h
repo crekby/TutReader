@@ -15,8 +15,8 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
-
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 @property (weak, nonatomic) IBOutlet UINavigationItem *ipadNavigationItem;
 
 - (void) initWithNews:(TUTNews*) news;
