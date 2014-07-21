@@ -11,6 +11,8 @@
 #import "TUTNews.h"
 #import "newsCell.h"
 #import "ipadMainViewController.h"
+#import "RemoteFacade.h"
+#import "PersistenceFacade.h"
 
 @interface NewsTableViewController ()
 
@@ -18,10 +20,7 @@
 
 @implementation NewsTableViewController
 {
-    NSMutableString* currentElementValue;
-    NSMutableArray* items;
     NSMutableArray* newsTableContent;
-    TUTNews* news;
 }
 
 - (IBAction)ChangeSourceButtonAction:(UISegmentedControl*)sender {
@@ -33,9 +32,6 @@
         [self initFavoritesNewsList];
     }
 }
-
-
-#pragma mark - Imitializers
 
 - (NSArray*) makeFetchRequest
 {
@@ -67,19 +63,12 @@
 - (void)initOnlineNewsList
 {
     [self setTitle:ONLINE];
-    NSURL* url = [NSURL URLWithString:RSS_URL];
-    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
-    [request setHTTPMethod:@"GET"];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
-        if (httpResponse.statusCode==200 && !connectionError) {
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-            NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
-            [parser setDelegate:self];
-            newsTableContent = [NSMutableArray new];
-            [parser parse];
-        }
+    [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
+        [[PersistenceFacade instance] getNewsItemsListFromXmlData:data withCallback:^(NSMutableArray* newsList, NSError *error){
+            newsTableContent = newsList;
+            [self checkForFavorites];
+            [self.newsTableView reloadData];
+        }];
     }];
 }
 
@@ -99,13 +88,18 @@
     }
 }
 
-#pragma mark - Lifecycle
-
-- (void)viewDidLoad
+- (void) checkForFavorites
 {
-    [super viewDidLoad];
-    if (IS_IPAD) {
-        [self initOnlineNewsList];
+    NSArray* requestResult = [self makeFetchRequest];
+    if (requestResult) {
+        for (TUTNews* object in newsTableContent) {
+            for (NSManagedObject* temp in requestResult) {
+                if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
+                    object.isFavorite = YES;
+                }
+            }
+        }
+        
     }
 }
 
@@ -125,6 +119,16 @@
     }
 }
 
+#pragma mark - Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    if (IS_IPAD) {
+        [self initOnlineNewsList];
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -134,95 +138,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-}
-
-#pragma mark - NSXMLParser delegate methods
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName
-    attributes:(NSDictionary *)attributeDict
-{
-    
-    if ([elementName isEqualToString:XML_ITEM])
-    {
-            items = [NSMutableArray new];
-            news = [TUTNews new];
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
-{
-    if(!currentElementValue)
-        currentElementValue = [[NSMutableString alloc] initWithString:string];
-    else
-        [currentElementValue appendString:string];
-}
-
--(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
-{
-    if (items) {
-        if ([elementName isEqualToString:XML_TITLE]) {
-            [currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
-            news.newsTitle = currentElementValue;
-        }
-        if ([elementName isEqualToString:XML_NEWS_URL])
-        {
-            [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
-            news.newsURL = currentElementValue;
-        }
-        if ([elementName isEqualToString:XML_NEWS_TEXT]) {
-            [currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(currentElementValue.length-20,20)];
-            if ([currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
-                NSInteger startLink = [currentElementValue rangeOfString:@"http"].location;
-                NSInteger lengthLink = [currentElementValue rangeOfString:@"\" width"].location-startLink;
-                news.imageURL = [currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
-            }
-            if ([currentElementValue rangeOfString:@"\" />"].location!=NSNotFound) {
-                NSInteger startDescr = [currentElementValue rangeOfString:@"\" />"].location+4;
-                NSInteger lengthDescr = currentElementValue.length - startDescr;
-                news.text = [currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
-            }
-            else
-            {
-                if (currentElementValue.length>3) {
-                    [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
-                    news.text = currentElementValue;
-                }
-            }
-        }
-        if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {
-            NSDateFormatter* formater = [NSDateFormatter new];
-            [formater setDateFormat:XML_DATE_FORMAT];
-            NSDate* date = [formater dateFromString:currentElementValue];
-            news.pubDate = date;
-            if (![news.newsURL isEqual:HOME_PAGE]) {
-                [newsTableContent insertObject:news atIndex:newsTableContent.count];
-            }
-        }
-    }
-    currentElementValue=nil;
-    
-}
-
--(void) parserDidEndDocument:(NSXMLParser *)parser
-{
-    [self checkForFavorites];
-    [self.newsTableView reloadData];
-}
-
-- (void) checkForFavorites
-{
-    NSArray* requestResult = [self makeFetchRequest];
-    if (requestResult) {
-        for (TUTNews* object in newsTableContent) {
-            for (NSManagedObject* temp in requestResult) {
-                if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
-                    object.isFavorite = YES;
-                }
-            }
-        }
-        
-    }
 }
 
 #pragma mark - Table view data source

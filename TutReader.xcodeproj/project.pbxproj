@@ -29,6 +29,8 @@
 		156AFA24197CEF5000813E2D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA22197CEF5000813E2D /* WebViewController.m */; };
 		156AFA27197CEF7600813E2D /* IpadMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA26197CEF7600813E2D /* IpadMainViewController.m */; };
 		156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA29197CEF8B00813E2D /* MainViewController.m */; };
+		156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA2C197CF82400813E2D /* RemoteFacade.m */; };
+		156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA30197CFE9200813E2D /* PersistenceFacade.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,10 @@
 		156AFA26197CEF7600813E2D /* IpadMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IpadMainViewController.m; path = Source/UI/iPad/Controllers/IpadMainViewController.m; sourceTree = "<group>"; };
 		156AFA28197CEF8B00813E2D /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Source/UI/iPhone/Controllers/MainViewController.h; sourceTree = "<group>"; };
 		156AFA29197CEF8B00813E2D /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Source/UI/iPhone/Controllers/MainViewController.m; sourceTree = "<group>"; };
+		156AFA2B197CF82400813E2D /* RemoteFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteFacade.h; path = Source/Models/RemoteFacade.h; sourceTree = "<group>"; };
+		156AFA2C197CF82400813E2D /* RemoteFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoteFacade.m; path = Source/Models/RemoteFacade.m; sourceTree = "<group>"; };
+		156AFA2F197CFE9200813E2D /* PersistenceFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersistenceFacade.h; path = Source/Models/PersistenceFacade.h; sourceTree = "<group>"; };
+		156AFA30197CFE9200813E2D /* PersistenceFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersistenceFacade.m; path = Source/Models/PersistenceFacade.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,6 +193,10 @@
 				156AFA19197CEE3F00813E2D /* newsModel.xcdatamodeld */,
 				156AFA16197CEE3000813E2D /* TUTNews.h */,
 				156AFA17197CEE3000813E2D /* TUTNews.m */,
+				156AFA2B197CF82400813E2D /* RemoteFacade.h */,
+				156AFA2C197CF82400813E2D /* RemoteFacade.m */,
+				156AFA2F197CFE9200813E2D /* PersistenceFacade.h */,
+				156AFA30197CFE9200813E2D /* PersistenceFacade.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -404,6 +414,8 @@
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
 				156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */,
+				156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */,
+				156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */,
 				156AFA27197CEF7600813E2D /* IpadMainViewController.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
