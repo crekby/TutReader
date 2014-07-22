@@ -18,12 +18,11 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
+@property NSMutableArray* newsTableContent;
+
 @end
 
 @implementation NewsTableViewController
-{
-    NSMutableArray* newsTableContent;
-}
 
 #pragma mark - Init Data Methods
 
@@ -32,7 +31,7 @@
     [self setTitle:ONLINE];
     [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
         [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
-            newsTableContent = newsList;
+            self.newsTableContent = newsList;
             //NSLog(@"%@",newsList);
             [self checkForFavorites];
         }];
@@ -42,7 +41,7 @@
 - (void)initFavoritesNewsList
 {
     [self setTitle:FAVORITE];
-    newsTableContent = [NSMutableArray new];
+    self.newsTableContent = [NSMutableArray new];
     if (IS_IPAD) {
         [self loadData];
     }
@@ -85,7 +84,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return newsTableContent.count;
+    return self.newsTableContent.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,7 +97,7 @@
 {
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NEWS_CELL_IDENTIFICATOR forIndexPath:indexPath];
     
-    TUTNews* newsToShow = [newsTableContent objectAtIndex:indexPath.row];
+    TUTNews* newsToShow = [self.newsTableContent objectAtIndex:indexPath.row];
     
     [cell setNewsItem:newsToShow];
     
@@ -124,7 +123,7 @@
 {
     if (!IS_IPAD) return;
     IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-    [splitController loadNews:[newsTableContent objectAtIndex:indexPath.row]];
+    [splitController loadNews:[self.newsTableContent objectAtIndex:indexPath.row]];
 }
 
 
@@ -133,7 +132,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NewsCell* cell = (NewsCell*)sender;
-    [(WebViewController*)[segue destinationViewController] initWithNews:[newsTableContent objectAtIndex:cell.row]];
+    [(WebViewController*)[segue destinationViewController] initWithNews:[self.newsTableContent objectAtIndex:cell.row]];
 }
 
 #pragma mark - IBActions
@@ -162,10 +161,10 @@
         [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
             NSArray* requestResult = data;
             if (requestResult) {
-                newsTableContent = [NSMutableArray new];
+                self.newsTableContent = [NSMutableArray new];
                 for (NSManagedObject* object in requestResult) {
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
-                    [newsTableContent insertObject:favoriteNews atIndex:newsTableContent.count];
+                    [self.newsTableContent insertObject:favoriteNews atIndex:self.newsTableContent.count];
                     //NSLog(@"%@",favoriteNews);
                 }
                 [self checkForFavorites];
@@ -181,7 +180,7 @@
         NSMutableArray* requestResult = data;
         //NSLog(@"%@",requestResult);
         if (requestResult) {
-            for (TUTNews* object in newsTableContent) {
+            for (TUTNews* object in self.newsTableContent) {
                 for (NSManagedObject* temp in requestResult) {
                     if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
                         object.isFavorite = YES;

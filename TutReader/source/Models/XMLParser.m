@@ -8,13 +8,19 @@
 
 #import "XMLParser.h"
 
+@interface XMLParser ()
+
+@property NSMutableString* currentElementValue;
+@property NSMutableArray* items;
+@property NSMutableArray* newsItemsList;
+@property TUTNews* news;
+
+@end
+
+
 @implementation XMLParser
 {
-    NSMutableString* currentElementValue;
-    NSMutableArray* items;
-    NSMutableArray* newsItemsList;
     CallbackWithDataAndError globalCallback;
-    TUTNews* news;
 }
 
 SINGLETON(XMLParser)
@@ -23,7 +29,7 @@ SINGLETON(XMLParser)
 {
     NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
     [parser setDelegate:self];
-    newsItemsList = [NSMutableArray new];
+    self.newsItemsList = [NSMutableArray new];
     globalCallback = callback;
     [parser parse];
 }
@@ -37,69 +43,69 @@ SINGLETON(XMLParser)
     
     if ([elementName isEqualToString:XML_ITEM])
     {
-        items = [NSMutableArray new];
-        news = [TUTNews new];
+        self.items = [NSMutableArray new];
+        self.news = [TUTNews new];
     }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    if(!currentElementValue)
-        currentElementValue = [[NSMutableString alloc] initWithString:string];
+    if(!self.currentElementValue)
+        self.currentElementValue = [[NSMutableString alloc] initWithString:string];
     else
-        [currentElementValue appendString:string];
+        [self.currentElementValue appendString:string];
 }
 
 -(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    if (items) {
+    if (self.items) {
         if ([elementName isEqualToString:XML_TITLE]) {
-            [currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
-            news.newsTitle = currentElementValue;
+            [self.currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
+            self.news.newsTitle = self.currentElementValue;
         }
         if ([elementName isEqualToString:XML_NEWS_URL])
         {
-            [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,currentElementValue.length)];
-            news.newsURL = currentElementValue;
+            [self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
+            self.news.newsURL = self.currentElementValue;
         }
         if ([elementName isEqualToString:XML_NEWS_TEXT]) {
-            [currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(currentElementValue.length-20,20)];
-            if ([currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
-                NSInteger startLink = [currentElementValue rangeOfString:@"http"].location;
-                NSInteger lengthLink = [currentElementValue rangeOfString:@"\" width"].location-startLink;
-                news.imageURL = [currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
+            [self.currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(self.currentElementValue.length-20,20)];
+            if ([self.currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
+                NSInteger startLink = [self.currentElementValue rangeOfString:@"http"].location;
+                NSInteger lengthLink = [self.currentElementValue rangeOfString:@"\" width"].location-startLink;
+                self.news.imageURL = [self.currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
             }
-            if ([currentElementValue rangeOfString:@"\" />"].location!=NSNotFound) {
-                NSInteger startDescr = [currentElementValue rangeOfString:@"\" />"].location+4;
-                NSInteger lengthDescr = currentElementValue.length - startDescr;
-                news.text = [currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
+            if ([self.currentElementValue rangeOfString:@"\" />"].location!=NSNotFound) {
+                NSInteger startDescr = [self.currentElementValue rangeOfString:@"\" />"].location+4;
+                NSInteger lengthDescr = self.currentElementValue.length - startDescr;
+                self.news.text = [self.currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
             }
             else
             {
-                if (currentElementValue.length>3) {
-                    [currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
-                    news.text = currentElementValue;
+                if (self.currentElementValue.length>3) {
+                    [self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
+                    self.news.text = self.currentElementValue;
                 }
             }
         }
         if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {
             NSDateFormatter* formater = [NSDateFormatter new];
             [formater setDateFormat:XML_DATE_FORMAT];
-            NSDate* date = [formater dateFromString:currentElementValue];
-            news.pubDate = date;
-            if (![news.newsURL isEqual:HOME_PAGE]) {
-                [newsItemsList insertObject:news atIndex:newsItemsList.count];
+            NSDate* date = [formater dateFromString:self.currentElementValue];
+            self.news.pubDate = date;
+            if (![self.news.newsURL isEqual:HOME_PAGE]) {
+                [self.newsItemsList insertObject:self.news atIndex:self.newsItemsList.count];
             }
         }
     }
-    currentElementValue=nil;
+    self.currentElementValue=nil;
     
 }
 
 -(void) parserDidEndDocument:(NSXMLParser *)parser
 {
     if (globalCallback) {
-        globalCallback(newsItemsList,nil);
+        globalCallback(self.newsItemsList,nil);
     }
 }
 

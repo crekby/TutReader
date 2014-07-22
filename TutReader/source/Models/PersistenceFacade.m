@@ -33,6 +33,10 @@ SINGLETON(PersistenceFacade)
         
         NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:CD_ENTYTY];
         
+        NSSortDescriptor* sort = [[NSSortDescriptor alloc] initWithKey:CD_PUBLICATION_DATE ascending:NO];
+        
+        request.sortDescriptors = @[sort];
+        
         NSError *error = nil;
         
         NSArray *results = [context executeFetchRequest:request error:&error];

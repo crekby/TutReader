@@ -27,9 +27,9 @@ typedef void(^CallbackWithDataAndError)(id data, NSError *error);
 
 enum
 {
-    XML_DATA_TYPE      =      0, 
-    JSON_DATA_TYPE     =      1, 
-    CORE_DATA_TYPE     =      2
+    XML_DATA_TYPE      =         0,
+    JSON_DATA_TYPE     =         1,
+    CORE_DATA_TYPE     =         2
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////

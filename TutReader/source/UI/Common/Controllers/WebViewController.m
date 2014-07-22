@@ -17,12 +17,11 @@
 
 @property (weak, nonatomic) IBOutlet UINavigationItem *ipadNavigationItem;
 
+@property TUTNews* loadedNews;
+
 @end
 
 @implementation WebViewController
-{
-    TUTNews* loadedNews;
-}
 
 #pragma mark - Init Methods
 
@@ -40,27 +39,27 @@
 - (void)initWithNews:(TUTNews *)news
 {
     if (news) {
-        loadedNews = news;
+        self.loadedNews = news;
         UIImage* starImage;
         if (IS_IOS7) {
-            starImage = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+            starImage = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
         }
         else
         {
-            starImage = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
+            starImage = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
         }
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
         if (IS_IPAD) {
-            if (loadedNews.newsURL) {
-                NSURL* url = [NSURL URLWithString:loadedNews.newsURL];
+            if (self.loadedNews.newsURL) {
+                NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
-                self.ipadNavigationItem.title = loadedNews.newsTitle;
+                self.ipadNavigationItem.title = self.loadedNews.newsTitle;
                 self.ipadNavigationItem.rightBarButtonItems = @[favoriteBarButton];
             }
         }
         else
         {
-            if (loadedNews.newsURL) {
+            if (self.loadedNews.newsURL) {
                 self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
             }
         }
@@ -72,18 +71,18 @@
 
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
 {
-    loadedNews.isFavorite = !loadedNews.isFavorite;
-    if (loadedNews.isFavorite) {
-        [[PersistenceFacade instance] addObjectToCoreData:loadedNews withCallback:^( NSManagedObjectID *ID, NSError* error){
+    self.loadedNews.isFavorite = !self.loadedNews.isFavorite;
+    if (self.loadedNews.isFavorite) {
+        [[PersistenceFacade instance] addObjectToCoreData:self.loadedNews withCallback:^( NSManagedObjectID *ID, NSError* error){
             if (!error) {
-                loadedNews.coreDataObjectID = ID;
+                self.loadedNews.coreDataObjectID = ID;
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             }
         }];
     }
     else
     {
-        [[PersistenceFacade instance] deleteObjectFromCoreData:loadedNews withCallback:^(id data, NSError* error){
+        [[PersistenceFacade instance] deleteObjectFromCoreData:self.loadedNews withCallback:^(id data, NSError* error){
             if (!error)
             {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
@@ -108,8 +107,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (loadedNews.newsURL) {
-        NSURL* url = [NSURL URLWithString:loadedNews.newsURL];
+    if (self.loadedNews.newsURL) {
+        NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
         [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
     }
 }
@@ -137,11 +136,11 @@
 - (void) changeImage:(UIBarButtonItem*) btn
 {
     if (IS_IOS7) {
-        btn.image = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+        btn.image = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
     }
     else
     {
-        btn.image = (loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
+        btn.image = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
     }
 }
 
