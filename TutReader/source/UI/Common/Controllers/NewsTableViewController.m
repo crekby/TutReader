@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
+@property BOOL notFirstLaunch;
+
 @property NSMutableArray* newsTableContent;
 
 @end
@@ -153,6 +155,15 @@
 - (void) reloadTableView
 {
     [self.newsTableView reloadData];
+    if (!self.notFirstLaunch)
+    {
+        if (!IS_IPAD) return;
+        self.notFirstLaunch = YES;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
+            [splitController loadNews:[self.newsTableContent objectAtIndex:0]];
+        });
+    }
 }
 
 - (void)loadData

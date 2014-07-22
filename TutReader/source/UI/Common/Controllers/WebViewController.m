@@ -51,10 +51,13 @@
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
         if (IS_IPAD) {
             if (self.loadedNews.newsURL) {
+                dispatch_sync(dispatch_get_main_queue(), ^{
+                    self.ipadNavigationItem.title = self.loadedNews.newsTitle;
+                    self.ipadNavigationItem.rightBarButtonItems = @[favoriteBarButton];
+                });
                 NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
-                self.ipadNavigationItem.title = self.loadedNews.newsTitle;
-                self.ipadNavigationItem.rightBarButtonItems = @[favoriteBarButton];
+                
             }
         }
         else
