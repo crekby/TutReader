@@ -12,6 +12,8 @@
 
 SINGLETON(RemoteFacade)
 
+#pragma mark - Get Data From RSS Server
+
 - (void) getOnlineNewsDataWithCallback:(CallbackWithDataAndError) callback
 {
     NSURL* url = [NSURL URLWithString:RSS_URL];
