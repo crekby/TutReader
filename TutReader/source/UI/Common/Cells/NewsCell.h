@@ -11,12 +11,12 @@
 
 @interface NewsCell : UITableViewCell
 
-@property (nonatomic) IBOutlet UIImageView* newsImageView;
-@property (nonatomic) IBOutlet UILabel* newsTitle;
-@property (nonatomic) IBOutlet UILabel* newsDescription;
+@property (nonatomic,weak) IBOutlet UIImageView* newsImageView;
+@property (nonatomic,weak) IBOutlet UILabel* newsTitle;
+@property (nonatomic,weak) IBOutlet UILabel* newsDescription;
 @property (nonatomic) NSInteger row;
 
-@property (nonatomic) TUTNews* newsItem;
+@property (nonatomic,weak) TUTNews* newsItem;
 
 
 

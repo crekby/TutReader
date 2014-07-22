@@ -15,9 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
-@property (weak, nonatomic) IBOutlet UINavigationItem *ipadNavigationItem;
-
-@property TUTNews* loadedNews;
+@property (nonatomic,weak) TUTNews* loadedNews;
 
 @end
 
