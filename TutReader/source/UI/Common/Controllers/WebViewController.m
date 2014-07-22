@@ -52,8 +52,8 @@
         if (IS_IPAD) {
             if (self.loadedNews.newsURL) {
                 //dispatch_sync(dispatch_get_main_queue(), ^{
-                    self.ipadNavigationItem.title = self.loadedNews.newsTitle;
-                    self.ipadNavigationItem.rightBarButtonItems = @[favoriteBarButton];
+                    self.title = self.loadedNews.newsTitle;
+                    self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
                 //});
                 NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:url]];

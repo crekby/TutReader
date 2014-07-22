@@ -18,25 +18,24 @@
 
 - (void)loadNews:(TUTNews *)news
 {
-    WebViewController* temp = [WebViewController new];
     for (UIViewController* controller in self.viewControllers) {
-        if (controller.class==temp.class) {
-            [(WebViewController*)controller initWithNews:news];
+        UINavigationController* nav = (UINavigationController*)controller;
+        if (nav.topViewController.class==WebViewController.class)
+        {
+            [(WebViewController*)nav.topViewController initWithNews:news];
         }
     }
-    temp=nil;
 }
 
 - (void) reloadNewsTable
 {
-    UINavigationController* temp = [UINavigationController new];
     for (UIViewController* controller in self.viewControllers) {
-        if (controller.class==temp.class) {
-            UINavigationController* nav = (UINavigationController*)controller;
+        UINavigationController* nav = (UINavigationController*)controller;
+        if (nav.topViewController.class==NewsTableViewController.class)
+        {
             [(NewsTableViewController*)nav.topViewController reloadNews];
         }
     }
-    temp=nil;
 }
 
 @end

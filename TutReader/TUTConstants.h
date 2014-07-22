@@ -20,7 +20,6 @@ static className *_##classNameInstance; \
 
 // CALLBACKS
 
-typedef void(^SimpleCallback)();
 typedef void(^CallbackWithDataAndError)(id data, NSError *error);
 
 // DATA TYPES
