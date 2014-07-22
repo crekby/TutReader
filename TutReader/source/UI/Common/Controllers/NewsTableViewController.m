@@ -103,7 +103,7 @@
     
     [cell setNewsItem:newsToShow];
     
-    cell.row = indexPath.row; // Оставить
+    cell.row = indexPath.row;
     if (!newsToShow.image) {
         [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
@@ -159,10 +159,8 @@
     {
         if (!IS_IPAD) return;
         self.notFirstLaunch = YES;
-        //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
             [splitController loadNews:[self.newsTableContent objectAtIndex:0]];
-        //});
     }
 }
 
@@ -176,7 +174,6 @@
                 for (NSManagedObject* object in requestResult) {
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                     [self.newsTableContent insertObject:favoriteNews atIndex:self.newsTableContent.count];
-                    //NSLog(@"%@",favoriteNews);
                 }
                 [self checkForFavorites];
             }
@@ -187,9 +184,7 @@
 - (void) checkForFavorites
 {
     [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
-        //NSLog(@"%@",error);
         NSMutableArray* requestResult = data;
-        //NSLog(@"%@",requestResult);
         if (requestResult) {
             for (TUTNews* object in self.newsTableContent) {
                 for (NSManagedObject* temp in requestResult) {
