@@ -67,6 +67,7 @@ enum
 
 #define CD_ENTYTY                @"NEWS"
 
+#define CD_OBJECT_ID             @"objectID"
 #define CD_TITLE                 @"title"
 #define CD_TEXT                  @"text"
 #define CD_NEWS_URL              @"newsUrl"

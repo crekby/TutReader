@@ -74,8 +74,9 @@
 {
     loadedNews.isFavorite = !loadedNews.isFavorite;
     if (loadedNews.isFavorite) {
-        [[PersistenceFacade instance] addObjectToCoreData:loadedNews withCallback:^(id data, NSError* error){
+        [[PersistenceFacade instance] addObjectToCoreData:loadedNews withCallback:^( NSManagedObjectID *ID, NSError* error){
             if (!error) {
+                loadedNews.coreDataObjectID = ID;
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             }
         }];
@@ -83,7 +84,10 @@
     else
     {
         [[PersistenceFacade instance] deleteObjectFromCoreData:loadedNews withCallback:^(id data, NSError* error){
-            [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
+            if (!error)
+            {
+                [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
+            }
         }];
         
     }

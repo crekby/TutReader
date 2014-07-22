@@ -85,7 +85,7 @@ SINGLETON(PersistenceFacade)
     }
     else
     {
-        callback(nil,nil);
+        callback(newManagedObject.objectID,nil);
     }
 
 }

@@ -185,6 +185,7 @@
                 for (NSManagedObject* temp in requestResult) {
                     if ([object.newsTitle isEqualToString:[temp valueForKey:CD_TITLE]]) {
                         object.isFavorite = YES;
+                        object.coreDataObjectID = [temp valueForKey:CD_OBJECT_ID];
                     }
                 }
             }
