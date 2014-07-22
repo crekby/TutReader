@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TUTNews.h"
 
 @interface NewsCell : UITableViewCell
 

@@ -18,7 +18,6 @@
         self.imageView.image = newsItem.image;
         
     }
-    //self.row =
 }
 
 @end

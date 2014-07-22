@@ -8,6 +8,7 @@
 
 #import "PersistenceFacade.h"
 #import "XMLParser.h"
+#import "TUTNews.h"
 
 @implementation PersistenceFacade
 
@@ -40,12 +41,10 @@ SINGLETON(PersistenceFacade)
         NSError *error = nil;
         
         NSArray *results = [context executeFetchRequest:request error:&error];
-        //NSLog(@"%@",results[0]);
         if (error == nil) {
             if (results) {
                 NSMutableArray* newsItemsList = [NSMutableArray new];
                 for (TUTNews* object in results) {
-                    //TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                     [newsItemsList insertObject:object atIndex:newsItemsList.count];
                 }
                 if (callback) {
