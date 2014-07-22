@@ -7,6 +7,7 @@
 //
 
 #import "XMLParser.h"
+#import "TUTNews.h"
 
 @interface XMLParser ()
 

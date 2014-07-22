@@ -17,6 +17,7 @@ static className *_##classNameInstance; \
 
 #define IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
 #define IS_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+#define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0)
 
 // CALLBACKS
 

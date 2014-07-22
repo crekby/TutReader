@@ -158,9 +158,11 @@
     if (!self.notFirstLaunch)
     {
         if (!IS_IPAD) return;
+        NSIndexPath* index = [NSIndexPath indexPathForRow:0 inSection:0];
+        [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionTop];
         self.notFirstLaunch = YES;
-            IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-            [splitController loadNews:[self.newsTableContent objectAtIndex:0]];
+        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
+        [splitController loadNews:[self.newsTableContent objectAtIndex:0]];
     }
 }
 

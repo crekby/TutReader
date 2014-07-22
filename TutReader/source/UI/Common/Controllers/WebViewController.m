@@ -136,13 +136,13 @@
 
 - (void) changeImage:(UIBarButtonItem*) btn
 {
-    if (IS_IOS7) {
-        btn.image = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
-    }
-    else
-    {
-        btn.image = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
-    }
+        if (IS_IOS7) {
+            btn.image = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+        }
+        else
+        {
+            btn.image = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
+        }
 }
 
 @end
