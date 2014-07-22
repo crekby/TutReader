@@ -70,22 +70,24 @@ SINGLETON(XMLParser)
             self.news.newsURL = self.currentElementValue;
         }
         if ([elementName isEqualToString:XML_NEWS_TEXT]) {
-            [self.currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(self.currentElementValue.length-20,20)];
-            if ([self.currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
-                NSInteger startLink = [self.currentElementValue rangeOfString:@"http"].location;
-                NSInteger lengthLink = [self.currentElementValue rangeOfString:@"\" width"].location-startLink;
-                self.news.imageURL = [self.currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
-            }
-            if ([self.currentElementValue rangeOfString:@"\" />"].location!=NSNotFound) {
-                NSInteger startDescr = [self.currentElementValue rangeOfString:@"\" />"].location+4;
-                NSInteger lengthDescr = self.currentElementValue.length - startDescr;
-                self.news.text = [self.currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
-            }
-            else
-            {
-                if (self.currentElementValue.length>3) {
-                    [self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
-                    self.news.text = self.currentElementValue;
+            if (self.currentElementValue.length>3) {
+                [self.currentElementValue replaceOccurrencesOfString:@"<br clear=\"all\" />" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(self.currentElementValue.length-20,20)];
+                if ([self.currentElementValue rangeOfString:@"http"].location!=NSNotFound) {
+                    NSInteger startLink = [self.currentElementValue rangeOfString:@"http"].location;
+                    NSInteger lengthLink = [self.currentElementValue rangeOfString:@"\" width"].location-startLink;
+                    self.news.imageURL = [self.currentElementValue substringWithRange:NSMakeRange(startLink, lengthLink)];
+                }
+                if ([self.currentElementValue rangeOfString:@"\" />"].location!=NSNotFound) {
+                    NSInteger startDescr = [self.currentElementValue rangeOfString:@"\" />"].location+4;
+                    NSInteger lengthDescr = self.currentElementValue.length - startDescr;
+                    self.news.text = [self.currentElementValue substringWithRange:NSMakeRange(startDescr, lengthDescr)];
+                }
+                else
+                {
+                    if (self.currentElementValue.length>3) {
+                        [self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
+                        self.news.text = self.currentElementValue;
+                    }
                 }
             }
         }
