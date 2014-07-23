@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15060DF9197F995400E68EB1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060DF8197F995400E68EB1 /* Reachability.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
 		156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182611976C3DB00D16B5F /* CoreGraphics.framework */; };
@@ -45,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15060DF7197F995400E68EB1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		15060DF8197F995400E68EB1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1544D81B1977D0C100A5A48E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1561825C1976C3DB00D16B5F /* TutReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1561825F1976C3DB00D16B5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -202,6 +205,8 @@
 				156AFA30197CFE9200813E2D /* PersistenceFacade.m */,
 				156AFA35197D088E00813E2D /* XMLParser.h */,
 				156AFA36197D088E00813E2D /* XMLParser.m */,
+				15060DF7197F995400E68EB1 /* Reachability.h */,
+				15060DF8197F995400E68EB1 /* Reachability.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -414,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15060DF9197F995400E68EB1 /* Reachability.m in Sources */,
 				156AFA23197CEF5000813E2D /* NewsTableViewController.m in Sources */,
 				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
