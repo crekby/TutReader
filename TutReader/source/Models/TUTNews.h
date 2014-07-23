@@ -10,14 +10,14 @@
 
 @interface TUTNews : NSObject
 
-@property (nonatomic) NSString* imageURL;
-@property (nonatomic) NSString* newsURL;
-@property (nonatomic) NSString* newsTitle;
-@property (nonatomic) NSString* text;
-@property (nonatomic) UIImage* image;
+@property (nonatomic, retain) NSString* imageURL;
+@property (nonatomic, retain) NSString* newsURL;
+@property (nonatomic, retain) NSString* newsTitle;
+@property (nonatomic, retain) NSString* text;
+@property (nonatomic, retain) UIImage* image;
 @property (nonatomic) BOOL isFavorite;
-@property (nonatomic) NSDate* pubDate;
-@property (nonatomic) NSManagedObjectID* coreDataObjectID;
+@property (nonatomic, retain) NSDate* pubDate;
+@property (nonatomic, retain) NSManagedObjectID* coreDataObjectID;
 
 - (id) initWithManagedObject:(NSManagedObject*) object;
 

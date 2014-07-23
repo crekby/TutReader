@@ -38,6 +38,7 @@
 - (void)initWithNews:(TUTNews *)news
 {
     if (news) {
+        if (self.webView.isLoading) [self.webView stopLoading];
         [self.activityIndicator startAnimating];
         self.loadedNews = news;
         UIImage* starImage;
@@ -109,6 +110,7 @@
 {
     [super viewDidAppear:animated];
     if (self.loadedNews.newsURL) {
+        if (self.webView.isLoading) [self.webView stopLoading];
         NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
         [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
         [self.activityIndicator startAnimating];
