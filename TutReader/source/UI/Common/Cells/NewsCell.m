@@ -17,15 +17,13 @@
 
 @implementation NewsCell
 
-@synthesize newsItem;
-
 - (void)setNewsItem:(TUTNews *) item
 {
-    newsItem = item;
+    _newsItem = item;
     _newsTitle.text = item.newsTitle;
     _newsDescription.text = item.text;
     if (item.image) {
-        _newsImageView.image = item.image;
+        self.imageView.image = item.image;
     }
 }
 

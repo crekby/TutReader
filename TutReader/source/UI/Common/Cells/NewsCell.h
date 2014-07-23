@@ -11,7 +11,6 @@
 
 @interface NewsCell : UITableViewCell
 
-@property (nonatomic, weak) IBOutlet UIImageView* newsImageView;
 @property (nonatomic, strong) TUTNews* newsItem;
 
 @end

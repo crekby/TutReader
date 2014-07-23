@@ -104,16 +104,15 @@
                                         <constraint firstAttribute="trailing" secondItem="QMR-pm-tWh" secondAttribute="trailing" id="8Np-w8-4au"/>
                                         <constraint firstAttribute="bottom" secondItem="rTJ-hB-Vrn" secondAttribute="bottom" constant="4" id="AOE-4t-JcN"/>
                                         <constraint firstItem="QMR-pm-tWh" firstAttribute="leading" secondItem="wnN-e7-4yk" secondAttribute="leading" constant="96" id="Epy-KM-beb"/>
+                                        <constraint firstItem="rTJ-hB-Vrn" firstAttribute="leading" secondItem="FbZ-Em-QfA" secondAttribute="trailing" constant="16" id="IEe-MF-q2S"/>
                                         <constraint firstItem="rTJ-hB-Vrn" firstAttribute="bottom" secondItem="FbZ-Em-QfA" secondAttribute="bottom" id="LcJ-M4-qOr"/>
                                         <constraint firstItem="QMR-pm-tWh" firstAttribute="top" secondItem="wnN-e7-4yk" secondAttribute="top" constant="5" id="Mhi-9a-qbD"/>
                                         <constraint firstAttribute="trailing" secondItem="rTJ-hB-Vrn" secondAttribute="trailing" id="Suc-pj-3lf"/>
-                                        <constraint firstItem="rTJ-hB-Vrn" firstAttribute="leading" secondItem="FbZ-Em-QfA" secondAttribute="trailing" constant="16" id="cZh-pB-qBI"/>
                                         <constraint firstItem="rTJ-hB-Vrn" firstAttribute="leading" secondItem="wnN-e7-4yk" secondAttribute="leading" constant="96" id="jSL-q9-xub"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="newsDescription" destination="rTJ-hB-Vrn" id="lIN-cM-Obz"/>
-                                    <outlet property="newsImageView" destination="FbZ-Em-QfA" id="BmQ-5x-0rQ"/>
                                     <outlet property="newsTitle" destination="QMR-pm-tWh" id="DJJ-a4-Icb"/>
                                     <segue destination="QeF-Ny-lGz" kind="push" id="u3G-fY-TUz"/>
                                 </connections>
