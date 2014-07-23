@@ -175,7 +175,6 @@
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                     [self.newsTableContent insertObject:favoriteNews atIndex:self.newsTableContent.count];
                 }
-                //[self checkForFavorites];
                 [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
             }
         }];
@@ -190,17 +189,10 @@
             for (TUTNews* object in self.newsTableContent) {
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
                 NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
-                NSLog(@"%@",filteredArray);
                 if (filteredArray.firstObject) {
                     object.isFavorite = YES;
                     object.coreDataObjectID = [(NewsItem*)filteredArray.firstObject objectID];
                 }
-                /*for (NewsItem* temp in requestResult) {
-                    if ([object.newsTitle isEqualToString:temp.title]) {
-                        object.isFavorite = YES;
-                        object.coreDataObjectID = temp.objectID;
-                    }
-                }*/
             }
             [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
         }

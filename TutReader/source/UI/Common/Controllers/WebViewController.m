@@ -38,6 +38,7 @@
 - (void)initWithNews:(TUTNews *)news
 {
     if (news) {
+        [self.activityIndicator startAnimating];
         self.loadedNews = news;
         UIImage* starImage;
         if (IS_IOS7) {
@@ -50,8 +51,8 @@
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
         if (IS_IPAD) {
             if (self.loadedNews.newsURL) {
-                    self.title = self.loadedNews.newsTitle;
-                    self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
+                self.title = self.loadedNews.newsTitle;
+                self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
                 NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
                 
@@ -63,7 +64,6 @@
                 self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
             }
         }
-        [self.activityIndicator startAnimating];
     }
 }
 
