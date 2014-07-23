@@ -152,17 +152,25 @@
                                     <outlet property="delegate" destination="QeF-Ny-lGz" id="4dE-1i-6zO"/>
                                 </connections>
                             </webView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="HMw-hB-qlr">
+                                <rect key="frame" x="142" y="266" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" name="textColor" catalog="System" colorSpace="catalog"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Dah-Mp-3yV" firstAttribute="top" secondItem="dRU-Ao-T0A" secondAttribute="bottom" id="Hjf-wJ-lgW"/>
+                            <constraint firstAttribute="centerY" secondItem="HMw-hB-qlr" secondAttribute="centerY" id="Vq5-vD-06q"/>
                             <constraint firstItem="dRU-Ao-T0A" firstAttribute="top" secondItem="bY0-rC-giC" secondAttribute="top" id="iG3-c8-zNj"/>
                             <constraint firstItem="dRU-Ao-T0A" firstAttribute="leading" secondItem="bY0-rC-giC" secondAttribute="leading" id="ux6-Wm-8cN"/>
+                            <constraint firstAttribute="centerX" secondItem="HMw-hB-qlr" secondAttribute="centerX" id="vnN-Fo-ejk"/>
                             <constraint firstAttribute="trailing" secondItem="dRU-Ao-T0A" secondAttribute="trailing" id="x5F-ea-Q4M"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oSm-mB-aJu"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="HMw-hB-qlr" id="vBa-Hg-4RU"/>
                         <outlet property="webView" destination="dRU-Ao-T0A" id="nJy-vB-MCj"/>
                     </connections>
                 </viewController>

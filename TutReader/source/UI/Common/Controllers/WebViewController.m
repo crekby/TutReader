@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property (nonatomic,weak) TUTNews* loadedNews;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -62,6 +63,7 @@
                 self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
             }
         }
+        [self.activityIndicator startAnimating];
     }
 }
 
@@ -109,6 +111,7 @@
     if (self.loadedNews.newsURL) {
         NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
         [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+        [self.activityIndicator startAnimating];
     }
 }
 
@@ -122,12 +125,15 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+    [self.activityIndicator stopAnimating];
+
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     NSLog(@"web view error %@",error.localizedDescription);
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+    [self.activityIndicator stopAnimating];
 }
 
 #pragma mark - Private Methods

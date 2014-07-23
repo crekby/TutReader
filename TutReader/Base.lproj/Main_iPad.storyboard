@@ -17,23 +17,32 @@
                         <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vz0-12-CHn">
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vz0-12-CHn">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="962"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </webView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-Ru-Yf6">
+                                <rect key="frame" x="366" y="462" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" name="textColor" catalog="System" colorSpace="catalog"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Vz0-12-CHn" firstAttribute="leading" secondItem="HoL-n7-drR" secondAttribute="leading" id="Oji-8T-1Hm"/>
                             <constraint firstItem="Vz0-12-CHn" firstAttribute="top" secondItem="HoL-n7-drR" secondAttribute="top" id="Y1R-k6-LcD"/>
+                            <constraint firstAttribute="centerY" secondItem="Wze-Ru-Yf6" secondAttribute="centerY" id="YMT-Uv-jhe"/>
                             <constraint firstAttribute="trailing" secondItem="Vz0-12-CHn" secondAttribute="trailing" id="iAI-A7-woa"/>
                             <constraint firstItem="gKd-iV-68J" firstAttribute="top" secondItem="Vz0-12-CHn" secondAttribute="bottom" constant="-2" id="pgC-Jk-UH6"/>
+                            <constraint firstAttribute="centerX" secondItem="Wze-Ru-Yf6" secondAttribute="centerX" id="ruO-L8-8Df"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="HEv-UU-H0N"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Wze-Ru-Yf6" id="MvK-SP-U0B"/>
                         <outlet property="webView" destination="Vz0-12-CHn" id="fDw-bo-T2y"/>
                     </connections>
                 </viewController>
