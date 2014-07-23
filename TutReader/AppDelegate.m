@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <GAI.h>
 
 @implementation AppDelegate
 
@@ -14,6 +15,11 @@
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
+    return YES;
+}
 
 - (void)saveContext
 {

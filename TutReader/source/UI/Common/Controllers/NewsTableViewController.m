@@ -124,6 +124,7 @@
     if (!IS_IPAD) return;
     IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
     [splitController loadNews:[self.newsTableContent objectAtIndex:indexPath.row]];
+    [self trackNewsOpening];
 }
 
 
@@ -133,6 +134,7 @@
 {
     NewsCell* cell = (NewsCell*)sender;
     [(WebViewController*)[segue destinationViewController] initWithNews:cell.newsItem];
+    [self trackNewsOpening];
 }
 
 #pragma mark - IBActions
@@ -198,6 +200,18 @@
         }
     }];
     
+}
+
+- (void) trackNewsOpening
+{
+    if ([self.title  isEqual: ONLINE])
+    {
+        [[GoogleAnalyticsManager instance] trackOpenOnlineNews];
+    }
+    else
+    {
+        [[GoogleAnalyticsManager instance] trackOpenFavoriteNews];
+    }
 }
 
 @end

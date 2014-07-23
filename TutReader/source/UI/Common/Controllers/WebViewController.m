@@ -78,6 +78,7 @@
         [[PersistenceFacade instance] addObjectToCoreData:self.loadedNews withCallback:^( NSManagedObjectID *ID, NSError* error){
             if (!error) {
                 self.loadedNews.coreDataObjectID = ID;
+                [[GoogleAnalyticsManager instance] trackAddedToFavorites];
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             }
         }];
@@ -87,6 +88,7 @@
         [[PersistenceFacade instance] deleteObjectFromCoreData:self.loadedNews withCallback:^(id data, NSError* error){
             if (!error)
             {
+                [[GoogleAnalyticsManager instance] trackDeleteFromFavorites];
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             }
         }];

@@ -34,6 +34,11 @@ enum
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+// GOOGLE ANALYTICS
+
+#define GOOGLE_ANALYTICS_ID      @"UA-53128142-1"
+#define GA_DEFAULT_TRACKING_VALUE @1
+
 // ALERTS TEXTS AND TITLES
 
 #define NO_INTERNET_CONNECTION_TITLE       @"Internet Connection"

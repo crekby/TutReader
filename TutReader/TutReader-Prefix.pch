@@ -19,5 +19,6 @@
     #import "TUTNews.h"
     #import "AlertManager.h"
     #import "NewsItem.h"
+    #import "GoogleAnalyticsManager.h"
 
 #endif
