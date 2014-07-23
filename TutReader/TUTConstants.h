@@ -73,7 +73,7 @@ enum
 
 // CORE DATA TITLES
 
-#define CD_ENTYTY                @"NEWS"
+#define CD_ENTYTY                @"NewsItem"
 
 #define CD_OBJECT_ID             @"objectID"
 #define CD_TITLE                 @"title"

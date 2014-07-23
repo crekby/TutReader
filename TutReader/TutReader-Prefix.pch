@@ -18,5 +18,6 @@
     #import <CoreData/CoreData.h>
     #import "TUTNews.h"
     #import "AlertManager.h"
+    #import "NewsItem.h"
 
 #endif

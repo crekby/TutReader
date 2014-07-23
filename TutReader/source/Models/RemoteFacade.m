@@ -22,7 +22,7 @@ SINGLETON(RemoteFacade)
         [[AlertManager instance] showNoInternetConnectionAlert];
         return;
     }
-    if ([Reachability reachabilityWithHostName:HOME_PAGE].currentReachabilityStatus != NotReachable)
+    if ([Reachability reachabilityWithHostName:@"tut.by"].currentReachabilityStatus != NotReachable)
     {
         NSURL* url = [NSURL URLWithString:RSS_URL];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];

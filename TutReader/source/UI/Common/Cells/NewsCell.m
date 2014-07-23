@@ -8,15 +8,24 @@
 
 #import "newsCell.h"
 
+@interface NewsCell()
+
+@property (nonatomic, weak) IBOutlet UILabel* newsTitle;
+@property (nonatomic, weak) IBOutlet UILabel* newsDescription;
+
+@end
+
 @implementation NewsCell
 
-- (void)setNewsItem:(TUTNews *)newsItem
+@synthesize newsItem;
+
+- (void)setNewsItem:(TUTNews *) item
 {
-    self.newsTitle.text = newsItem.newsTitle;
-    self.newsDescription.text = newsItem.text;
-    if (newsItem.image) {
-        self.imageView.image = newsItem.image;
-        
+    newsItem = item;
+    _newsTitle.text = item.newsTitle;
+    _newsDescription.text = item.text;
+    if (item.image) {
+        _newsImageView.image = item.image;
     }
 }
 

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15060DF9197F995400E68EB1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060DF8197F995400E68EB1 /* Reachability.m */; };
 		15060DFF197F9F7E00E68EB1 /* AlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060DFE197F9F7E00E68EB1 /* AlertManager.m */; };
+		15060E02197FB0B500E68EB1 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E01197FB0B500E68EB1 /* NewsItem.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
 		156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182611976C3DB00D16B5F /* CoreGraphics.framework */; };
@@ -51,6 +52,8 @@
 		15060DF8197F995400E68EB1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		15060DFD197F9F7E00E68EB1 /* AlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertManager.h; path = Source/Managers/AlertManager.h; sourceTree = "<group>"; };
 		15060DFE197F9F7E00E68EB1 /* AlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlertManager.m; path = Source/Managers/AlertManager.m; sourceTree = "<group>"; };
+		15060E00197FB0B500E68EB1 /* NewsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsItem.h; path = Source/Models/NewsItem.h; sourceTree = "<group>"; };
+		15060E01197FB0B500E68EB1 /* NewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsItem.m; path = Source/Models/NewsItem.m; sourceTree = "<group>"; };
 		1544D81B1977D0C100A5A48E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1561825C1976C3DB00D16B5F /* TutReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1561825F1976C3DB00D16B5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -221,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				156AFA19197CEE3F00813E2D /* newsModel.xcdatamodeld */,
+				15060E00197FB0B500E68EB1 /* NewsItem.h */,
+				15060E01197FB0B500E68EB1 /* NewsItem.m */,
 				156AFA16197CEE3000813E2D /* TUTNews.h */,
 				156AFA17197CEE3000813E2D /* TUTNews.m */,
 				156AFA35197D088E00813E2D /* XMLParser.h */,
@@ -443,6 +448,7 @@
 				15060DF9197F995400E68EB1 /* Reachability.m in Sources */,
 				156AFA23197CEF5000813E2D /* NewsTableViewController.m in Sources */,
 				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
+				15060E02197FB0B500E68EB1 /* NewsItem.m in Sources */,
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
 				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,

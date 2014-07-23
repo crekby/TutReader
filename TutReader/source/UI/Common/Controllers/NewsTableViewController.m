@@ -18,7 +18,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
-@property BOOL notFirstLaunch;
+@property (assign,nonatomic) BOOL notFirstLaunch;
 
 @property NSMutableArray* newsTableContent;
 
@@ -102,7 +102,6 @@
     
     [cell setNewsItem:newsToShow];
     
-    cell.row = indexPath.row;
     if (!newsToShow.image) {
         [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
@@ -133,7 +132,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NewsCell* cell = (NewsCell*)sender;
-    [(WebViewController*)[segue destinationViewController] initWithNews:[self.newsTableContent objectAtIndex:cell.row]];
+    [(WebViewController*)[segue destinationViewController] initWithNews:cell.newsItem];
 }
 
 #pragma mark - IBActions

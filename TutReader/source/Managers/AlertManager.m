@@ -19,7 +19,7 @@ SINGLETON(AlertManager)
 
 - (void) showHostNotReachableAlert
 {
-    [self showAlertWithTitle:HOST_NOT_REACHABLE_TITLE andText:NO_INTERNET_CONNECTION_MESSAGE];
+    [self showAlertWithTitle:HOST_NOT_REACHABLE_TITLE andText:HOST_NOT_REACHABLE_MESSAGE];
 }
 
 - (void) showAlertWithTitle:(NSString*) title andText:(NSString*) text

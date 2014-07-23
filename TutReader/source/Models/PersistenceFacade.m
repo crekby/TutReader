@@ -69,16 +69,10 @@ SINGLETON(PersistenceFacade)
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = appDelegate.managedObjectContext;
     NSEntityDescription *entity = [NSEntityDescription entityForName:CD_ENTYTY inManagedObjectContext:context];
-    NSManagedObject *newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
-                                                                      inManagedObjectContext:context];
-    [newManagedObject setValue:news.newsTitle forKey:CD_TITLE];
-    [newManagedObject setValue:news.text forKey:CD_TEXT];
-    [newManagedObject setValue:news.newsURL forKey:CD_NEWS_URL];
-    [newManagedObject setValue:news.imageURL forKey:CD_IMAGE_URL];
-    [newManagedObject setValue:news.pubDate forKey:CD_PUBLICATION_DATE];
-    [newManagedObject setValue:(news.isFavorite)?[NSNumber numberWithInt:1]:[NSNumber numberWithInt:0] forKey:CD_IS_FAVORITE];
-    NSData* imageData = [NSData dataWithData:UIImageJPEGRepresentation(news.image,1.0)];
-    [newManagedObject setValue:imageData forKey:CD_IMAGE];
+    NewsItem* newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
+                                                      inManagedObjectContext:context];
+    [newManagedObject initWithTUTNews:news];
+
     NSError *error = nil;
     if (![context save:&error]) {
         [[AlertManager instance] showAlertWithError:error.localizedDescription];
