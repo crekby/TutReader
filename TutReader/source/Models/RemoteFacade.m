@@ -19,7 +19,7 @@ SINGLETON(RemoteFacade)
 {
     if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus==NotReachable)
     {
-        NSLog(@"No inernet");
+        [[AlertManager instance] showNoInternetConnectionAlert];
         return;
     }
     if ([Reachability reachabilityWithHostName:@"tut.by"].currentReachabilityStatus != NotReachable)
@@ -46,7 +46,7 @@ SINGLETON(RemoteFacade)
     }
     else
     {
-        NSLog(@"Host not reachable");
+        [[AlertManager instance] showHostNotReachableAlert];
     }
 }
 @end

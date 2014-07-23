@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15060DF9197F995400E68EB1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060DF8197F995400E68EB1 /* Reachability.m */; };
+		15060DFF197F9F7E00E68EB1 /* AlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060DFE197F9F7E00E68EB1 /* AlertManager.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
 		156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182611976C3DB00D16B5F /* CoreGraphics.framework */; };
@@ -48,6 +49,8 @@
 /* Begin PBXFileReference section */
 		15060DF7197F995400E68EB1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		15060DF8197F995400E68EB1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		15060DFD197F9F7E00E68EB1 /* AlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlertManager.h; path = Source/Managers/AlertManager.h; sourceTree = "<group>"; };
+		15060DFE197F9F7E00E68EB1 /* AlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlertManager.m; path = Source/Managers/AlertManager.m; sourceTree = "<group>"; };
 		1544D81B1977D0C100A5A48E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		1561825C1976C3DB00D16B5F /* TutReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1561825F1976C3DB00D16B5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -114,6 +117,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15060DFB197F9EE200E68EB1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1561829B1976C98F00D16B5F /* Models */,
+				156AFA2B197CF82400813E2D /* RemoteFacade.h */,
+				156AFA2C197CF82400813E2D /* RemoteFacade.m */,
+				156AFA2F197CFE9200813E2D /* PersistenceFacade.h */,
+				156AFA30197CFE9200813E2D /* PersistenceFacade.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		15060DFC197F9F3800E68EB1 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				15060DFD197F9F7E00E68EB1 /* AlertManager.h */,
+				15060DFE197F9F7E00E68EB1 /* AlertManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
 		156182531976C3DB00D16B5F = {
 			isa = PBXGroup;
 			children = (
@@ -199,10 +223,6 @@
 				156AFA19197CEE3F00813E2D /* newsModel.xcdatamodeld */,
 				156AFA16197CEE3000813E2D /* TUTNews.h */,
 				156AFA17197CEE3000813E2D /* TUTNews.m */,
-				156AFA2B197CF82400813E2D /* RemoteFacade.h */,
-				156AFA2C197CF82400813E2D /* RemoteFacade.m */,
-				156AFA2F197CFE9200813E2D /* PersistenceFacade.h */,
-				156AFA30197CFE9200813E2D /* PersistenceFacade.m */,
 				156AFA35197D088E00813E2D /* XMLParser.h */,
 				156AFA36197D088E00813E2D /* XMLParser.m */,
 				15060DF7197F995400E68EB1 /* Reachability.h */,
@@ -277,8 +297,9 @@
 		15712C69197954AA00A73DC5 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				15060DFC197F9F3800E68EB1 /* Managers */,
+				15060DFB197F9EE200E68EB1 /* Data */,
 				15712C6B1979555900A73DC5 /* UI */,
-				1561829B1976C98F00D16B5F /* Models */,
 				1561826E1976C3DB00D16B5F /* AppDelegate.h */,
 				1561826F1976C3DB00D16B5F /* AppDelegate.m */,
 				156182971976C57A00D16B5F /* TUTConstants.h */,
@@ -427,6 +448,7 @@
 				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,
 				156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */,
 				156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */,
+				15060DFF197F9F7E00E68EB1 /* AlertManager.m in Sources */,
 				156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */,
 				156AFA27197CEF7600813E2D /* IpadMainViewController.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,

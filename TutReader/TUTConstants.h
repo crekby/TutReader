@@ -34,6 +34,14 @@ enum
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+// ALERTS TEXTS AND TITLES
+
+#define NO_INTERNET_CONNECTION_TITLE       @"Internet Connection"
+#define NO_INTERNET_CONNECTION_MESSAGE     @"There is no internet connection"
+
+#define HOST_NOT_REACHABLE_TITLE           @"Host not reachable"
+#define HOST_NOT_REACHABLE_MESSAGE         @"News host not reachable. Try again later"
+
 // VIEW TITLES
 
 #define ONLINE                   @"Online"

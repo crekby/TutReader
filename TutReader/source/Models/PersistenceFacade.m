@@ -81,7 +81,7 @@ SINGLETON(PersistenceFacade)
     [newManagedObject setValue:imageData forKey:CD_IMAGE];
     NSError *error = nil;
     if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        [[AlertManager instance] showAlertWithError:error.localizedDescription];
         if (callback) {
             callback(nil,error);
         }
@@ -102,7 +102,7 @@ SINGLETON(PersistenceFacade)
     [context deleteObject:objectToDelete];
     NSError* error;
     if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        [[AlertManager instance] showAlertWithError:error.localizedDescription];
         if (callback) {
             callback(nil,error);
         }

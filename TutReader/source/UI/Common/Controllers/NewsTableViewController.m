@@ -34,7 +34,6 @@
     [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
         [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
             self.newsTableContent = newsList;
-            //NSLog(@"%@",newsList);
             [self checkForFavorites];
         }];
     }];

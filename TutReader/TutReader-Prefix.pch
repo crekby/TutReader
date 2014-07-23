@@ -17,5 +17,6 @@
     #import "AppDelegate.h"
     #import <CoreData/CoreData.h>
     #import "TUTNews.h"
+    #import "AlertManager.h"
 
 #endif
