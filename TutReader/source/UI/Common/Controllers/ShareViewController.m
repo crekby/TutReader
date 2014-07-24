@@ -18,7 +18,6 @@
 
 - (IBAction)mailShareButtonTapped:(id)sender
 {
-    //[[ShareManager instance] shareByEmail:nil inController:self];
     if ([self.delegate respondsToSelector:@selector(shareViewController:mailShareButtonTapped:)]) {
         [self.delegate shareViewController:self mailShareButtonTapped:sender];
     }
@@ -26,7 +25,9 @@
 
 - (IBAction)twitterShareButtonTapped:(id)sender
 {
-    NSLog(@"Twitter Share");
+    if ([self.delegate respondsToSelector:@selector(shareViewController:twitterShareButtonTapped:)]) {
+        [self.delegate shareViewController:self twitterShareButtonTapped:sender];
+    }
 }
 
 - (IBAction)facebookShareButtonTapped:(id)sender

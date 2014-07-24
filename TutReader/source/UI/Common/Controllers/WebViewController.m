@@ -19,7 +19,7 @@
 
 @property (nonatomic,weak) TUTNews* loadedNews;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, retain) IBOutlet UIPopoverController *poc;
+@property (nonatomic, retain) IBOutlet UIPopoverController *sharePopover;
 
 @end
 
@@ -82,18 +82,18 @@
     ShareViewController *shareViewController;
     if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) || [[UIDevice currentDevice] orientation]==0) {
         shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewPortrait"];
-        self.poc = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
-        [self.poc setPopoverContentSize:CGSizeMake(115, 330)];
+        self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+        [self.sharePopover setPopoverContentSize:CGSizeMake(115, 330)];
     }
     else
     {
         shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewLandscape"];
-        self.poc = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
-        [self.poc setPopoverContentSize:CGSizeMake(330, 115)];
+        self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+        [self.sharePopover setPopoverContentSize:CGSizeMake(330, 115)];
     }
-    [self.poc setDelegate:self];
+    [self.sharePopover setDelegate:self];
     [shareViewController setDelegate:self];
-    [self.poc presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    [self.sharePopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
@@ -151,8 +151,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    if (self.poc.isPopoverVisible) {
-        [self.poc dismissPopoverAnimated:YES];
+    if (self.sharePopover.isPopoverVisible) {
+        [self.sharePopover dismissPopoverAnimated:YES];
     }
 }
 
@@ -165,10 +165,14 @@
 
 - (void)shareViewController:(UIViewController *)vc mailShareButtonTapped:(id)sender
 {
-    NSLog(@"Mail Share");
-    [self.poc dismissPopoverAnimated:YES];
+    [self.sharePopover dismissPopoverAnimated:YES];
     [[ShareManager instance] shareByEmail:self.loadedNews inController:self];
-    
+}
+
+- (void)shareViewController:(UIViewController *)vc twitterShareButtonTapped:(id)sender
+{
+    [self.sharePopover dismissPopoverAnimated:YES];
+    [[ShareManager instance] shareBytwitter:self.loadedNews inController:self];
 }
 
 #pragma mark - Web View Methods
@@ -207,8 +211,8 @@
 
 - (void) orientationChange
 {
-    if (self.poc.isPopoverVisible) {
-        [self.poc dismissPopoverAnimated:YES];
+    if (self.sharePopover.isPopoverVisible) {
+        [self.sharePopover dismissPopoverAnimated:YES];
     }
 }
 

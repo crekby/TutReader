@@ -18,6 +18,9 @@
 - (void) showEmailShareIsSendAlert;
 - (void) showEmailShareIsFailedAlert;
 
+- (void) showTweetShareIsSendAlert;
+- (void) showTweetShareIsFailedAlert;
+
 - (void) showAlertWithError:(NSString*) error;
 
 @end

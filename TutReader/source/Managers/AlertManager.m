@@ -29,6 +29,19 @@ SINGLETON(AlertManager)
     [self showAlertWithTitle:@"Email Share" andText:@"Email sending was failed"];
 }
 
+#pragma mark - Twitter share alerts
+
+- (void) showTweetShareIsSendAlert
+{
+    [self showAlertWithTitle:@"Tweeter" andText:@"Tweet was successfuly send"];
+}
+
+- (void) showTweetShareIsFailedAlert
+{
+    [self showAlertWithTitle:@"Twitter" andText:@"Tweet sending was failed"];
+}
+
+
 #pragma mark - Internet connection alerts
 
 - (void) showNoInternetConnectionAlert

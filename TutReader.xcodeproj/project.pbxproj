@@ -42,6 +42,7 @@
 		156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA2C197CF82400813E2D /* RemoteFacade.m */; };
 		156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA30197CFE9200813E2D /* PersistenceFacade.m */; };
 		156AFA37197D088E00813E2D /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA36197D088E00813E2D /* XMLParser.m */; };
+		15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5764919810C5D00E55E3F /* Twitter.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		156AFA30197CFE9200813E2D /* PersistenceFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersistenceFacade.m; path = Source/Models/PersistenceFacade.m; sourceTree = "<group>"; };
 		156AFA35197D088E00813E2D /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLParser.h; path = Source/Models/XMLParser.h; sourceTree = "<group>"; };
 		156AFA36197D088E00813E2D /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLParser.m; path = Source/Models/XMLParser.m; sourceTree = "<group>"; };
+		15A5764919810C5D00E55E3F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		731387ED6E404FC383024DBE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B9CCEF8429341D1970C1D0F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */,
 				15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */,
 				1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */,
 				156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */,
@@ -198,6 +201,7 @@
 		1561825E1976C3DB00D16B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15A5764919810C5D00E55E3F /* Twitter.framework */,
 				15060E0B19800AE200E68EB1 /* MessageUI.framework */,
 				1544D81B1977D0C100A5A48E /* CoreData.framework */,
 				1561825F1976C3DB00D16B5F /* Foundation.framework */,

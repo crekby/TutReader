@@ -25,14 +25,17 @@ typedef void(^CallbackWithDataAndError)(id data, NSError *error);
 
 // DATA TYPES
 
-enum
+typedef enum
 {
     XML_DATA_TYPE      =         0,
     JSON_DATA_TYPE     =         1,
     CORE_DATA_TYPE     =         2
-};
+} DataTypes;
 
 //////////////////////////////////////////////////////////////////////////////////////////
+
+// SHARING
+
 
 // GOOGLE ANALYTICS
 
