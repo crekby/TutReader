@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <Social/Social.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import <GooglePlus/GooglePlus.h>
 
-@interface ShareManager : NSObject <MFMailComposeViewControllerDelegate>
+
+@interface ShareManager : NSObject <MFMailComposeViewControllerDelegate,GPPShareDelegate,GPPSignInDelegate>
 
 + (ShareManager*) instance;
 

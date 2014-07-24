@@ -39,7 +39,9 @@
 
 - (IBAction)googlePlusShareButtonTapped:(id)sender
 {
-    NSLog(@"GooglePlus Share");
+    if ([self.delegate respondsToSelector:@selector(shareViewController:googlePlusShareButtonTapped:)]) {
+        [self.delegate shareViewController:self googlePlusShareButtonTapped:sender];
+    }
 }
 
 

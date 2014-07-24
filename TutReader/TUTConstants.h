@@ -36,6 +36,19 @@ typedef enum
 
 // SHARING
 
+#define GOOGLE_PLUS_CLIENT_ID    @"324432650848-bfhi9sd755b78mdepqsi6m605gqjhsrt.apps.googleusercontent.com"
+#define GOOGLE_PLUS_DEEP_LINK_ID @"rest=123456789"
+#define GOOGLE_PLUS_TEXT_LENGHT  99
+
+#define EMAIL_SHARE_MESSAGE_BODY @"<div align=\"center\"><table border=\"0\" align=\"center\" width=\"300\"><tr><b>%@</b><br><a href=%@><img src=\"%@\" alt=\"some_text\" height=\"280\" width=\"280\"><br>%@</a></tr></table></div>"
+
+#define SOCIAL_NETWORK_TEXT_LENGHT  137
+
+typedef enum
+{
+    SocialNetworkTypeTwitter    =    0,
+    SocialNetworkTypeFacebook   =    1
+} SocialNetworkType;
 
 // GOOGLE ANALYTICS
 

@@ -53,7 +53,8 @@
             starImage = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
         }
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
-        UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStyleBordered target:self action:@selector(pop:)];
+        UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(pop:)];
+        shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(pop:)];
         if (IS_IPAD) {
             if (self.loadedNews.newsURL) {
                 self.title = self.loadedNews.newsTitle;
@@ -179,6 +180,12 @@
 {
     [self.sharePopover dismissPopoverAnimated:YES];
     [[ShareManager instance] shareByFacebook:self.loadedNews inController:self];
+}
+
+- (void)shareViewController:(UIViewController *)vc googlePlusShareButtonTapped:(id)sender
+{
+    [self.sharePopover dismissPopoverAnimated:YES];
+    [[ShareManager instance] shareByGooglePlus:self.loadedNews inController:self];
 }
 
 #pragma mark - Web View Methods

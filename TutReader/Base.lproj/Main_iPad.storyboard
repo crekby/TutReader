@@ -40,15 +40,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="HEv-UU-H0N">
-                        <barButtonItem key="leftBarButtonItem" title="Share" id="Z2F-lJ-GDB">
-                            <connections>
-                                <segue destination="Tyh-7P-rzS" kind="popover" popoverAnchorBarButtonItem="Z2F-lJ-GDB" id="NRF-S9-5XM">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="HEv-UU-H0N"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Wze-Ru-Yf6" id="MvK-SP-U0B"/>
                         <outlet property="webView" destination="Vz0-12-CHn" id="fDw-bo-T2y"/>
@@ -190,103 +182,7 @@
             </objects>
             <point key="canvasLocation" x="1389" y="-388"/>
         </scene>
-        <!--Share View Controller-->
-        <scene sceneID="BRT-cw-UeH">
-            <objects>
-                <viewController storyboardIdentifier="SWShareVC_iPad" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tyh-7P-rzS" customClass="ShareViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="f1B-co-brc"/>
-                        <viewControllerLayoutGuide type="bottom" id="N3F-ls-Eo7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ZNR-Tf-d5y">
-                        <rect key="frame" x="0.0" y="0.0" width="330" height="115"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v33-r8-PLs">
-                                <rect key="frame" x="172" y="27" width="61" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="61" id="8e6-6N-kH7"/>
-                                    <constraint firstAttribute="height" constant="61" id="DeZ-zu-7k6"/>
-                                </constraints>
-                                <state key="normal" image="iconShareFacebook">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="facebookShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="T4C-rL-uYZ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZk-cI-EYW">
-                                <rect key="frame" x="248" y="27" width="61" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="61" id="7Lx-Cr-yeg"/>
-                                    <constraint firstAttribute="height" constant="61" id="zXj-DP-VWh"/>
-                                </constraints>
-                                <state key="normal" image="iconShareGooglePlus">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="googlePlusShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="Okp-uM-Ed2"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2W6-mx-fiy">
-                                <rect key="frame" x="20" y="27" width="61" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="BBO-2Y-1cS"/>
-                                    <constraint firstAttribute="width" constant="61" id="KTQ-vo-Dij"/>
-                                </constraints>
-                                <state key="normal" image="iconShareMail">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="mailShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="Sjz-kK-rsf"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PmE-3E-vdk">
-                                <rect key="frame" x="96" y="27" width="61" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="HnW-Ja-cwd"/>
-                                    <constraint firstAttribute="width" constant="61" id="wXT-XJ-BG9"/>
-                                </constraints>
-                                <state key="normal" image="iconShareTwitter">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="twitterShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="eOe-O1-16I"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="PmE-3E-vdk" firstAttribute="centerY" secondItem="v33-r8-PLs" secondAttribute="centerY" id="6pV-dF-ybf"/>
-                            <constraint firstAttribute="centerY" secondItem="2W6-mx-fiy" secondAttribute="centerY" id="7Bd-YY-12g"/>
-                            <constraint firstItem="PmE-3E-vdk" firstAttribute="centerY" secondItem="2W6-mx-fiy" secondAttribute="centerY" id="CgV-qH-Gwi"/>
-                            <constraint firstItem="vZk-cI-EYW" firstAttribute="leading" secondItem="v33-r8-PLs" secondAttribute="trailing" constant="15" id="JmF-hR-FrE"/>
-                            <constraint firstItem="vZk-cI-EYW" firstAttribute="centerY" secondItem="v33-r8-PLs" secondAttribute="centerY" id="LcP-Qd-8kX"/>
-                            <constraint firstItem="PmE-3E-vdk" firstAttribute="leading" secondItem="2W6-mx-fiy" secondAttribute="trailing" constant="15" id="MQA-Eb-YOI"/>
-                            <constraint firstItem="2W6-mx-fiy" firstAttribute="leading" secondItem="ZNR-Tf-d5y" secondAttribute="leading" constant="20" id="R80-kz-Tvk"/>
-                            <constraint firstItem="v33-r8-PLs" firstAttribute="leading" secondItem="PmE-3E-vdk" secondAttribute="trailing" constant="15" id="vyI-fr-dH8"/>
-                        </constraints>
-                    </view>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="330" height="115"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dbd-Hs-KY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3347" y="66"/>
-        </scene>
     </scenes>
-    <resources>
-        <image name="iconShareFacebook" width="61" height="61"/>
-        <image name="iconShareGooglePlus" width="61" height="61"/>
-        <image name="iconShareMail" width="61" height="61"/>
-        <image name="iconShareTwitter" width="61" height="61"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

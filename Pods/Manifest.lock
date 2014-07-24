@@ -1,10 +1,13 @@
 PODS:
+  - google-plus-ios-sdk (1.5.1)
   - GoogleAnalytics-iOS-SDK (3.0.8)
 
 DEPENDENCIES:
+  - google-plus-ios-sdk (~> 1.5.0)
   - GoogleAnalytics-iOS-SDK (~> 3.0.6)
 
 SPEC CHECKSUMS:
+  google-plus-ios-sdk: 98d76ce1f1edbfe8730628aafe017301a734042c
   GoogleAnalytics-iOS-SDK: a3206c68ee5f2a014ed67383d1f779072b653988
 
 COCOAPODS: 0.33.1

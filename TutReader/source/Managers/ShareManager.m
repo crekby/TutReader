@@ -8,13 +8,20 @@
 
 #import "ShareManager.h"
 #import "AlertManager.h"
+#import <GoogleOpenSource/GoogleOpenSource.h>
 
+@interface ShareManager ()
+
+@property (nonatomic,retain) TUTNews* loadedNews;
+@property (nonatomic, strong) GPPSignIn* signInInstance;
+
+@end
 
 @implementation ShareManager
 
 SINGLETON(ShareManager);
 
-#pragma mark - IBActions
+#pragma mark - Share methoda
 
 - (void)shareByEmail:(TUTNews *)news inController:(UIViewController *)viewController
 {
@@ -22,7 +29,7 @@ SINGLETON(ShareManager);
         MFMailComposeViewController* mailController = [[MFMailComposeViewController alloc] init];
         [mailController setSubject:news.newsTitle];
         [mailController setMailComposeDelegate:self];
-        NSString* messageBody = [NSString stringWithFormat:@"<div align=\"center\"><table border=\"0\" align=\"center\" width=\"300\"><tr><b>%@</b><br><a href=%@><img src=\"%@\" alt=\"some_text\" height=\"280\" width=\"280\"><br>%@</a></tr></table></div>",news.newsTitle,news.newsURL,news.bigImageURL,news.text];
+        NSString* messageBody = [NSString stringWithFormat:EMAIL_SHARE_MESSAGE_BODY,news.newsTitle,news.newsURL,news.bigImageURL,news.text];
         [mailController setMessageBody:messageBody isHTML:YES];
         [viewController presentViewController:mailController animated:YES completion:nil];
     }
@@ -30,34 +37,22 @@ SINGLETON(ShareManager);
 
 - (void)shareBytwitter:(TUTNews *)news inController:(UIViewController *)viewController
 {
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-        SLComposeViewController* tweetController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [tweetController addImage:news.image];
-        [tweetController addURL:[NSURL URLWithString:news.newsURL]];
-        [tweetController setInitialText:[self shrinkText:news.newsTitle ToLenght:137]];
-        tweetController.completionHandler = ^(SLComposeViewControllerResult result)
-        {
-            if (result==SLComposeViewControllerResultDone)
-            {
-                [[AlertManager instance] showTweetShareIsSendAlert];
-            }
-            else
-            {
-                [[AlertManager instance] showTweetShareIsFailedAlert];
-            }
-        };
-        [viewController presentViewController:tweetController animated:YES completion:nil];
-    }
+    [self shareBySocialNework:news NewtworkType:SocialNetworkTypeTwitter viewController:viewController withCallback:^(SLComposeViewControllerResult result)
+     {
+         if (result==SLComposeViewControllerResultDone)
+         {
+             [[AlertManager instance] showTweetShareIsSendAlert];
+         }
+         else
+         {
+             [[AlertManager instance] showTweetShareIsFailedAlert];
+         }
+     }];
 }
 
 -(void)shareByFacebook:(TUTNews *)news inController:(UIViewController *)viewController
 {
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-        SLComposeViewController* facebookController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        [facebookController addImage:news.image];
-        [facebookController addURL:[NSURL URLWithString:news.newsURL]];
-        [facebookController setInitialText:[self shrinkText:news.newsTitle ToLenght:137]];
-        facebookController.completionHandler = ^(SLComposeViewControllerResult result)
+    [self shareBySocialNework:news NewtworkType:SocialNetworkTypeTwitter viewController:viewController withCallback: ^(SLComposeViewControllerResult result)
         {
             if (result==SLComposeViewControllerResultDone)
             {
@@ -67,13 +62,53 @@ SINGLETON(ShareManager);
             {
                 [[AlertManager instance] showFacebookShareIsFailedAlert];
             }
-        };
-        [viewController presentViewController:facebookController animated:YES completion:nil];
-    }
+        }];
 }
 
 - (void)shareByGooglePlus:(TUTNews *)news inController:(UIViewController *)viewController
 {
+    self.loadedNews = news;
+    [[GPPSignIn sharedInstance] setDelegate:self];
+    [[GPPShare sharedInstance] setDelegate:self];
+    _signInInstance = [GPPSignIn sharedInstance];
+    _signInInstance.clientID = GOOGLE_PLUS_CLIENT_ID;
+    _signInInstance.scopes = @[kGTLAuthScopePlusLogin];
+    if (![_signInInstance trySilentAuthentication]) {
+        [_signInInstance authenticate];
+    }
+}
+
+
+#pragma mark - GPPSignInDelegate methods
+
+-(void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error
+{
+    if (!error) {
+        id<GPPNativeShareBuilder> shareBuilder = [[GPPShare sharedInstance] nativeShareDialog];
+        
+        if (!self.loadedNews) {
+            return;
+        }
+        
+        [shareBuilder setContentDeepLinkID:GOOGLE_PLUS_DEEP_LINK_ID];
+        [shareBuilder setPrefillText:self.loadedNews.text];
+        [shareBuilder setTitle:self.loadedNews.newsTitle
+                   description:[self shrinkText:self.loadedNews.text ToLenght:GOOGLE_PLUS_TEXT_LENGHT]
+                  thumbnailURL:[NSURL URLWithString:self.loadedNews.imageURL]];
+        [shareBuilder open];
+    }
+}
+#pragma mark - GPPShareDelegate methods
+
+- (void)finishedSharingWithError:(NSError *)error {
+
+    if (error) {
+        
+    }
+    else
+    {
+        
+    }
 }
 
 #pragma mark - Mail Delegate Methods
@@ -93,6 +128,18 @@ SINGLETON(ShareManager);
 }
 
 #pragma mark - private methods
+
+- (void) shareBySocialNework:(TUTNews*) news NewtworkType:(int) type viewController:(UIViewController*) viewController  withCallback:(SLComposeViewControllerCompletionHandler) callback
+{
+    if ([SLComposeViewController isAvailableForServiceType:(type==SocialNetworkTypeTwitter)?SLServiceTypeTwitter:SLServiceTypeFacebook]) {
+        SLComposeViewController* controller = [SLComposeViewController composeViewControllerForServiceType:(type==SocialNetworkTypeTwitter)?SLServiceTypeTwitter:SLServiceTypeFacebook];
+        [controller addImage:news.image];
+        [controller addURL:[NSURL URLWithString:news.newsURL]];
+        [controller setInitialText:[self shrinkText:news.newsTitle ToLenght:SOCIAL_NETWORK_TEXT_LENGHT]];
+        controller.completionHandler = callback;
+        [viewController presentViewController:controller animated:YES completion:nil];
+    }
+}
 
 - (NSString*) shrinkText:(NSString*) text ToLenght:(int) value
 {

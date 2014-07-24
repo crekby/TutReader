@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <GAI.h>
+#import <GooglePlus/GooglePlus.h>
 
 @implementation AppDelegate
 
@@ -19,6 +20,15 @@
 {
     [[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
     return YES;
+}
+
+- (BOOL)application: (UIApplication *)application
+            openURL: (NSURL *)url
+  sourceApplication: (NSString *)sourceApplication
+         annotation: (id)annotation {
+    return [GPPURLHandler handleURL:url
+                  sourceApplication:sourceApplication
+                         annotation:annotation];
 }
 
 - (void)saveContext
