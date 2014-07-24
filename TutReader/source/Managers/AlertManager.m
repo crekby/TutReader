@@ -21,36 +21,36 @@ SINGLETON(AlertManager)
 
 - (void) showEmailShareIsSendAlert
 {
-    [self showAlertWithTitle:@"Email Share" andText:@"Email was successfuly send"];
+    [self showAlertWithTitle: EMAIL_SHARE_TITLE_ALERT andText:EMAIL_SHARE_SEND_BODY_ALERT];
 }
 
 - (void) showEmailShareIsFailedAlert
 {
-    [self showAlertWithTitle:@"Email Share" andText:@"Email sending was failed"];
+    [self showAlertWithTitle:EMAIL_SHARE_TITLE_ALERT andText:EMAIL_SHARE_FAILED_ALERT];
 }
 
 #pragma mark - Twitter share alerts
 
 - (void) showTweetShareIsSendAlert
 {
-    [self showAlertWithTitle:@"Tweeter" andText:@"Tweet was successfuly send"];
+    [self showAlertWithTitle:TWEETER_SHARE_TITLE_ALERT andText:TWEETER_SHARE_SEND_BODY_ALERT];
 }
 
 - (void) showTweetShareIsFailedAlert
 {
-    [self showAlertWithTitle:@"Twitter" andText:@"Tweet sending was failed"];
+    [self showAlertWithTitle:TWEETER_SHARE_TITLE_ALERT andText:TWEETER_SHARE_FAILED_BODY_ALERT];
 }
 
 #pragma mark - Facebook share alerts
 
 - (void) showFacebookShareIsSendAlert
 {
-    [self showAlertWithTitle:@"Facebook" andText:@"Message was successfuly send"];
+    [self showAlertWithTitle:FACEBOOK_SHARE_TITLE_ALERT andText:FACEBOOK_SHARE_SEND_BODY_ALERT];
 }
 
 - (void) showFacebookShareIsFailedAlert
 {
-    [self showAlertWithTitle:@"Facebook" andText:@"Message sending was failed"];
+    [self showAlertWithTitle:FACEBOOK_SHARE_TITLE_ALERT andText:FACEBOOK_SHARE_FAILED_BODY_ALERT];
 }
 
 #pragma mark - Internet connection alerts

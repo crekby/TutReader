@@ -53,8 +53,8 @@
             starImage = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
         }
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
-        UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(pop:)];
-        shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(pop:)];
+        UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
+        shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
         if (IS_IPAD) {
             if (self.loadedNews.newsURL) {
                 self.title = self.loadedNews.newsTitle;
@@ -75,27 +75,6 @@
 
 
 #pragma mark - IBActions
-
-- (IBAction)pop:(UIBarButtonItem*)sender
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
-    NSLog(@"%d",[[UIDevice currentDevice] orientation]);
-    ShareViewController *shareViewController;
-    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) || [[UIDevice currentDevice] orientation]==0) {
-        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewPortrait"];
-        self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
-        [self.sharePopover setPopoverContentSize:CGSizeMake(115, 330)];
-    }
-    else
-    {
-        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewLandscape"];
-        self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
-        [self.sharePopover setPopoverContentSize:CGSizeMake(330, 115)];
-    }
-    [self.sharePopover setDelegate:self];
-    [shareViewController setDelegate:self];
-    [self.sharePopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-}
 
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
 {
@@ -210,6 +189,27 @@
 }
 
 #pragma mark - Private Methods
+
+- (void)showPopover:(UIBarButtonItem*)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+    ShareViewController *shareViewController;
+    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) || [[UIDevice currentDevice] orientation]==0) {
+        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewPortrait"];
+        self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+        [self.sharePopover setPopoverContentSize:CGSizeMake(115, 330)];
+    }
+    else
+    {
+        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewLandscape"];
+        self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+        [self.sharePopover setPopoverContentSize:CGSizeMake(330, 115)];
+    }
+    [self.sharePopover setDelegate:self];
+    [shareViewController setDelegate:self];
+    [self.sharePopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+}
+
 
 - (void) changeImage:(UIBarButtonItem*) btn
 {

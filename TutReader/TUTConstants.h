@@ -63,6 +63,18 @@ typedef enum
 #define HOST_NOT_REACHABLE_TITLE           @"Host not reachable"
 #define HOST_NOT_REACHABLE_MESSAGE         @"News host not reachable. Try again later"
 
+#define EMAIL_SHARE_TITLE_ALERT            @"Email Share"
+#define EMAIL_SHARE_SEND_BODY_ALERT        @"Email was successfuly send"
+#define EMAIL_SHARE_FAILED_ALERT           @"Email sending was failed"
+
+#define TWEETER_SHARE_TITLE_ALERT          @"Tweeter"
+#define TWEETER_SHARE_SEND_BODY_ALERT      @"Tweet was successfuly send"
+#define TWEETER_SHARE_FAILED_BODY_ALERT    @"Tweet sending was failed"
+
+#define FACEBOOK_SHARE_TITLE_ALERT         @"Facebook"
+#define FACEBOOK_SHARE_SEND_BODY_ALERT     @"Message was successfuly send"
+#define FACEBOOK_SHARE_FAILED_BODY_ALERT   @"Message sending was failed"
+
 // VIEW TITLES
 
 #define ONLINE                   @"Online"
