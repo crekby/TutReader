@@ -29,6 +29,11 @@ SINGLETON(AlertManager)
     [self showAlertWithTitle:EMAIL_SHARE_TITLE_ALERT andText:EMAIL_SHARE_FAILED_ALERT];
 }
 
+- (void) showEmailShareNotAvailible
+{
+    [self showAlertWithTitle:EMAIL_SHARE_TITLE_ALERT andText:EMAIL_SHARE_NOT_AVAILABLE_ALERT];
+}
+
 #pragma mark - Twitter share alerts
 
 - (void) showTweetShareIsSendAlert
@@ -41,6 +46,11 @@ SINGLETON(AlertManager)
     [self showAlertWithTitle:TWEETER_SHARE_TITLE_ALERT andText:TWEETER_SHARE_FAILED_BODY_ALERT];
 }
 
+- (void) showTweeterShareNotAvailible
+{
+    [self showAlertWithTitle:TWEETER_SHARE_TITLE_ALERT andText:TWEETER_SHARE_NOT_AVAILABLE_ALERT];
+}
+
 #pragma mark - Facebook share alerts
 
 - (void) showFacebookShareIsSendAlert
@@ -51,6 +61,11 @@ SINGLETON(AlertManager)
 - (void) showFacebookShareIsFailedAlert
 {
     [self showAlertWithTitle:FACEBOOK_SHARE_TITLE_ALERT andText:FACEBOOK_SHARE_FAILED_BODY_ALERT];
+}
+
+- (void) showFacebookShareNotAvailible
+{
+    [self showAlertWithTitle:FACEBOOK_SHARE_TITLE_ALERT andText:FACEBOOK_SHARE_NOT_AVAILABLE_ALERT];
 }
 
 #pragma mark - Internet connection alerts

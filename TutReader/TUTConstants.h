@@ -66,14 +66,17 @@ typedef enum
 #define EMAIL_SHARE_TITLE_ALERT            @"Email Share"
 #define EMAIL_SHARE_SEND_BODY_ALERT        @"Email was successfuly send"
 #define EMAIL_SHARE_FAILED_ALERT           @"Email sending was failed"
+#define EMAIL_SHARE_NOT_AVAILABLE_ALERT    @"Please set up email preferences in a device settings"
 
 #define TWEETER_SHARE_TITLE_ALERT          @"Tweeter"
 #define TWEETER_SHARE_SEND_BODY_ALERT      @"Tweet was successfuly send"
 #define TWEETER_SHARE_FAILED_BODY_ALERT    @"Tweet sending was failed"
+#define TWEETER_SHARE_NOT_AVAILABLE_ALERT  @"Please set up tweeter preferences in a device settings"
 
 #define FACEBOOK_SHARE_TITLE_ALERT         @"Facebook"
 #define FACEBOOK_SHARE_SEND_BODY_ALERT     @"Message was successfuly send"
 #define FACEBOOK_SHARE_FAILED_BODY_ALERT   @"Message sending was failed"
+#define FACEBOOK_SHARE_NOT_AVAILABLE_ALERT @"Please set up facebook preferences in a device settings"
 
 // VIEW TITLES
 

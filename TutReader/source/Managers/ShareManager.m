@@ -33,6 +33,10 @@ SINGLETON(ShareManager);
         [mailController setMessageBody:messageBody isHTML:YES];
         [viewController presentViewController:mailController animated:YES completion:nil];
     }
+    else
+    {
+        [[AlertManager instance] showEmailShareNotAvailible];
+    }
 }
 
 - (void)shareBytwitter:(TUTNews *)news inController:(UIViewController *)viewController
@@ -52,7 +56,7 @@ SINGLETON(ShareManager);
 
 -(void)shareByFacebook:(TUTNews *)news inController:(UIViewController *)viewController
 {
-    [self shareBySocialNework:news NewtworkType:SocialNetworkTypeTwitter viewController:viewController withCallback: ^(SLComposeViewControllerResult result)
+    [self shareBySocialNework:news NewtworkType:SocialNetworkTypeFacebook viewController:viewController withCallback: ^(SLComposeViewControllerResult result)
         {
             if (result==SLComposeViewControllerResultDone)
             {
@@ -138,6 +142,17 @@ SINGLETON(ShareManager);
         [controller setInitialText:[self shrinkText:news.newsTitle ToLenght:SOCIAL_NETWORK_TEXT_LENGHT]];
         controller.completionHandler = callback;
         [viewController presentViewController:controller animated:YES completion:nil];
+    }
+    else
+    {
+        if (type==SocialNetworkTypeTwitter)
+        {
+            [[AlertManager instance] showTweeterShareNotAvailible];
+        }
+        else
+        {
+            [[AlertManager instance] showFacebookShareIsFailedAlert];
+        }
     }
 }
 
