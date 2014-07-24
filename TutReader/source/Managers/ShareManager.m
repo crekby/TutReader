@@ -52,6 +52,24 @@ SINGLETON(ShareManager);
 
 -(void)shareByFacebook:(TUTNews *)news inController:(UIViewController *)viewController
 {
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        SLComposeViewController* facebookController = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        [facebookController addImage:news.image];
+        [facebookController addURL:[NSURL URLWithString:news.newsURL]];
+        [facebookController setInitialText:[self shrinkText:news.newsTitle ToLenght:137]];
+        facebookController.completionHandler = ^(SLComposeViewControllerResult result)
+        {
+            if (result==SLComposeViewControllerResultDone)
+            {
+                [[AlertManager instance] showFacebookShareIsSendAlert];
+            }
+            else
+            {
+                [[AlertManager instance] showFacebookShareIsFailedAlert];
+            }
+        };
+        [viewController presentViewController:facebookController animated:YES completion:nil];
+    }
 }
 
 - (void)shareByGooglePlus:(TUTNews *)news inController:(UIViewController *)viewController

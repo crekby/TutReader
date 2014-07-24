@@ -41,6 +41,17 @@ SINGLETON(AlertManager)
     [self showAlertWithTitle:@"Twitter" andText:@"Tweet sending was failed"];
 }
 
+#pragma mark - Facebook share alerts
+
+- (void) showFacebookShareIsSendAlert
+{
+    [self showAlertWithTitle:@"Facebook" andText:@"Message was successfuly send"];
+}
+
+- (void) showFacebookShareIsFailedAlert
+{
+    [self showAlertWithTitle:@"Facebook" andText:@"Message sending was failed"];
+}
 
 #pragma mark - Internet connection alerts
 

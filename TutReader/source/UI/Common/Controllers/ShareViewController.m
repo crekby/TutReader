@@ -32,7 +32,9 @@
 
 - (IBAction)facebookShareButtonTapped:(id)sender
 {
-    NSLog(@"Facebook Share");
+    if ([self.delegate respondsToSelector:@selector(shareViewController:facebookShareButtonTapped:)]) {
+        [self.delegate shareViewController:self facebookShareButtonTapped:sender];
+    }
 }
 
 - (IBAction)googlePlusShareButtonTapped:(id)sender

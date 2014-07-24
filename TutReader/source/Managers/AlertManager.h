@@ -21,6 +21,9 @@
 - (void) showTweetShareIsSendAlert;
 - (void) showTweetShareIsFailedAlert;
 
+- (void) showFacebookShareIsSendAlert;
+- (void) showFacebookShareIsFailedAlert;
+
 - (void) showAlertWithError:(NSString*) error;
 
 @end

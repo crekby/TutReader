@@ -175,6 +175,12 @@
     [[ShareManager instance] shareBytwitter:self.loadedNews inController:self];
 }
 
+- (void)shareViewController:(UIViewController *)vc facebookShareButtonTapped:(id)sender
+{
+    [self.sharePopover dismissPopoverAnimated:YES];
+    [[ShareManager instance] shareByFacebook:self.loadedNews inController:self];
+}
+
 #pragma mark - Web View Methods
 
 -(void)webViewDidStartLoad:(UIWebView *)webView
