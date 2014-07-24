@@ -12,7 +12,12 @@
 		15060DFF197F9F7E00E68EB1 /* AlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060DFE197F9F7E00E68EB1 /* AlertManager.m */; };
 		15060E02197FB0B500E68EB1 /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E01197FB0B500E68EB1 /* NewsItem.m */; };
 		15060E05197FE74E00E68EB1 /* GoogleAnalyticsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E04197FE74E00E68EB1 /* GoogleAnalyticsManager.m */; };
+		15060E081980040400E68EB1 /* ShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E071980040400E68EB1 /* ShareManager.m */; };
+		15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15060E091980066E00E68EB1 /* ShareAssets.xcassets */; };
+		15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15060E0B19800AE200E68EB1 /* MessageUI.framework */; };
+		15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
+		154F68EA1980528100FF3238 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F68E91980528100FF3238 /* ShareViewController.m */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
 		156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182611976C3DB00D16B5F /* CoreGraphics.framework */; };
 		156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156182631976C3DB00D16B5F /* UIKit.framework */; };
@@ -58,7 +63,15 @@
 		15060E01197FB0B500E68EB1 /* NewsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsItem.m; path = Source/Models/NewsItem.m; sourceTree = "<group>"; };
 		15060E03197FE74E00E68EB1 /* GoogleAnalyticsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoogleAnalyticsManager.h; path = Source/Managers/GoogleAnalyticsManager.h; sourceTree = "<group>"; };
 		15060E04197FE74E00E68EB1 /* GoogleAnalyticsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoogleAnalyticsManager.m; path = Source/Managers/GoogleAnalyticsManager.m; sourceTree = "<group>"; };
+		15060E061980040400E68EB1 /* ShareManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareManager.h; path = Source/Managers/ShareManager.h; sourceTree = "<group>"; };
+		15060E071980040400E68EB1 /* ShareManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareManager.m; path = Source/Managers/ShareManager.m; sourceTree = "<group>"; };
+		15060E091980066E00E68EB1 /* ShareAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ShareAssets.xcassets; sourceTree = "<group>"; };
+		15060E0B19800AE200E68EB1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		15060E0E19800BC900E68EB1 /* UIPopover+Iphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPopover+Iphone.h"; path = "Source/Categories/UIPopover+Iphone.h"; sourceTree = "<group>"; };
+		15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPopover+Iphone.m"; path = "Source/Categories/UIPopover+Iphone.m"; sourceTree = "<group>"; };
 		1544D81B1977D0C100A5A48E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		154F68E81980528100FF3238 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareViewController.h; path = Source/UI/Common/Controllers/ShareViewController.h; sourceTree = "<group>"; };
+		154F68E91980528100FF3238 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareViewController.m; path = Source/UI/Common/Controllers/ShareViewController.m; sourceTree = "<group>"; };
 		1561825C1976C3DB00D16B5F /* TutReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1561825F1976C3DB00D16B5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		156182611976C3DB00D16B5F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -106,6 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */,
 				1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */,
 				156182621976C3DB00D16B5F /* CoreGraphics.framework in Frameworks */,
 				156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */,
@@ -146,8 +160,19 @@
 				15060DFE197F9F7E00E68EB1 /* AlertManager.m */,
 				15060E03197FE74E00E68EB1 /* GoogleAnalyticsManager.h */,
 				15060E04197FE74E00E68EB1 /* GoogleAnalyticsManager.m */,
+				15060E061980040400E68EB1 /* ShareManager.h */,
+				15060E071980040400E68EB1 /* ShareManager.m */,
 			);
 			name = Managers;
+			sourceTree = "<group>";
+		};
+		15060E0D19800B9300E68EB1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				15060E0E19800BC900E68EB1 /* UIPopover+Iphone.h */,
+				15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		156182531976C3DB00D16B5F = {
@@ -173,6 +198,7 @@
 		1561825E1976C3DB00D16B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15060E0B19800AE200E68EB1 /* MessageUI.framework */,
 				1544D81B1977D0C100A5A48E /* CoreData.framework */,
 				1561825F1976C3DB00D16B5F /* Foundation.framework */,
 				156182611976C3DB00D16B5F /* CoreGraphics.framework */,
@@ -297,6 +323,8 @@
 				156AFA20197CEF5000813E2D /* NewsTableViewController.m */,
 				156AFA21197CEF5000813E2D /* WebViewController.h */,
 				156AFA22197CEF5000813E2D /* WebViewController.m */,
+				154F68E81980528100FF3238 /* ShareViewController.h */,
+				154F68E91980528100FF3238 /* ShareViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -313,6 +341,7 @@
 		15712C69197954AA00A73DC5 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				15060E0D19800B9300E68EB1 /* Categories */,
 				15060DFC197F9F3800E68EB1 /* Managers */,
 				15060DFB197F9EE200E68EB1 /* Data */,
 				15712C6B1979555900A73DC5 /* UI */,
@@ -328,6 +357,7 @@
 			children = (
 				1561829A1976C93D00D16B5F /* UI */,
 				1561827A1976C3DB00D16B5F /* Images.xcassets */,
+				15060E091980066E00E68EB1 /* ShareAssets.xcassets */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -439,6 +469,7 @@
 				156182761976C3DB00D16B5F /* Main_iPad.storyboard in Resources */,
 				1561827B1976C3DB00D16B5F /* Images.xcassets in Resources */,
 				156182731976C3DB00D16B5F /* Main_iPhone.storyboard in Resources */,
+				15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */,
 				1561826A1976C3DB00D16B5F /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,8 +528,11 @@
 				15060E05197FE74E00E68EB1 /* GoogleAnalyticsManager.m in Sources */,
 				15060E02197FB0B500E68EB1 /* NewsItem.m in Sources */,
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
+				15060E081980040400E68EB1 /* ShareManager.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
+				15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */,
 				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,
+				154F68EA1980528100FF3238 /* ShareViewController.m in Sources */,
 				156AFA2A197CEF8B00813E2D /* MainViewController.m in Sources */,
 				156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */,
 				15060DFF197F9F7E00E68EB1 /* AlertManager.m in Sources */,

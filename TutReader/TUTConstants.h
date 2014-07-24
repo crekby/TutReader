@@ -68,8 +68,8 @@ enum
 
 // RESOURCES
 
-#define STAR_FULL                @"star_full"
-#define STAR_HOLLOW              @"star_hollow"
+#define STAR_FULL                @"iconNavBarFavoritesEnabled"
+#define STAR_HOLLOW              @"iconNavBarFavorites"
 
 #define STAR_FULL_WHITE          @"star_full_white"
 #define STAR_HOLLOW_WHITE        @"star_hollow_white"

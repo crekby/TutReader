@@ -15,6 +15,7 @@
 @property NSMutableArray* items;
 @property NSMutableArray* newsItemsList;
 @property TUTNews* news;
+@property NSString* enclosure;
 
 @end
 
@@ -46,6 +47,9 @@ SINGLETON(XMLParser)
     {
         self.items = [NSMutableArray new];
         self.news = [TUTNews new];
+    }
+    if ([elementName isEqualToString:@"enclosure"]) {
+        self.enclosure = [attributeDict valueForKey:@"url"];
     }
 }
 
@@ -89,6 +93,11 @@ SINGLETON(XMLParser)
                         self.news.text = self.currentElementValue;
                     }
                 }
+            }
+        }
+        if ([elementName isEqualToString:@"enclosure"]) {
+            if (self.enclosure) {
+                self.news.bigImageURL = self.enclosure;
             }
         }
         if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {

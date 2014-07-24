@@ -14,6 +14,10 @@
 
 - (void) showNoInternetConnectionAlert;
 - (void) showHostNotReachableAlert;
+
+- (void) showEmailShareIsSendAlert;
+- (void) showEmailShareIsFailedAlert;
+
 - (void) showAlertWithError:(NSString*) error;
 
 @end

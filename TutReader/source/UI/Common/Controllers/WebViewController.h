@@ -11,7 +11,7 @@
 #import <CoreData/CoreData.h>
 
 
-@interface WebViewController : UIViewController <UIWebViewDelegate,NSFetchedResultsControllerDelegate>
+@interface WebViewController : UIViewController <UIWebViewDelegate,NSFetchedResultsControllerDelegate,UIPopoverControllerDelegate,UINavigationControllerDelegate>
 
 - (void) initWithNews:(TUTNews*) news;
 

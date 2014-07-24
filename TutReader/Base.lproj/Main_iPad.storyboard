@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" initialViewController="UQq-pE-Mg1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="UQq-pE-Mg1">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
@@ -14,17 +14,17 @@
                         <viewControllerLayoutGuide type="bottom" id="gKd-iV-68J"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="HoL-n7-drR">
-                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vz0-12-CHn">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="962"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1026"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </webView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Wze-Ru-Yf6">
-                                <rect key="frame" x="366" y="462" width="37" height="37"/>
+                                <rect key="frame" x="366" y="494" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" name="textColor" catalog="System" colorSpace="catalog"/>
                             </activityIndicatorView>
@@ -40,7 +40,15 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="HEv-UU-H0N"/>
+                    <navigationItem key="navigationItem" id="HEv-UU-H0N">
+                        <barButtonItem key="leftBarButtonItem" title="Share" id="Z2F-lJ-GDB">
+                            <connections>
+                                <segue destination="Tyh-7P-rzS" kind="popover" popoverAnchorBarButtonItem="Z2F-lJ-GDB" id="NRF-S9-5XM">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="Wze-Ru-Yf6" id="MvK-SP-U0B"/>
                         <outlet property="webView" destination="Vz0-12-CHn" id="fDw-bo-T2y"/>
@@ -63,7 +71,7 @@
                                 <rect key="frame" x="0.0" y="22" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x9D-eg-xVF" id="tis-xY-x56">
-                                    <rect key="frame" x="0.0" y="0.0" width="300" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lWG-SK-3qf">
@@ -75,14 +83,14 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9V-ZS-ypK">
-                                            <rect key="frame" x="96" y="5" width="204" height="21"/>
+                                            <rect key="frame" x="96" y="5" width="191" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="204" translatesAutoresizingMaskIntoConstraints="NO" id="bta-Ka-xPo">
-                                            <rect key="frame" x="96" y="59" width="204" height="16"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="3" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="191" translatesAutoresizingMaskIntoConstraints="NO" id="bta-Ka-xPo">
+                                            <rect key="frame" x="96" y="59" width="191" height="16"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -182,9 +190,105 @@
             </objects>
             <point key="canvasLocation" x="1389" y="-388"/>
         </scene>
+        <!--Share View Controller-->
+        <scene sceneID="BRT-cw-UeH">
+            <objects>
+                <viewController storyboardIdentifier="SWShareVC_iPad" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Tyh-7P-rzS" customClass="ShareViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f1B-co-brc"/>
+                        <viewControllerLayoutGuide type="bottom" id="N3F-ls-Eo7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZNR-Tf-d5y">
+                        <rect key="frame" x="0.0" y="0.0" width="330" height="115"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v33-r8-PLs">
+                                <rect key="frame" x="172" y="27" width="61" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="61" id="8e6-6N-kH7"/>
+                                    <constraint firstAttribute="height" constant="61" id="DeZ-zu-7k6"/>
+                                </constraints>
+                                <state key="normal" image="iconShareFacebook">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="facebookShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="T4C-rL-uYZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZk-cI-EYW">
+                                <rect key="frame" x="248" y="27" width="61" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="61" id="7Lx-Cr-yeg"/>
+                                    <constraint firstAttribute="height" constant="61" id="zXj-DP-VWh"/>
+                                </constraints>
+                                <state key="normal" image="iconShareGooglePlus">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="googlePlusShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="Okp-uM-Ed2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2W6-mx-fiy">
+                                <rect key="frame" x="20" y="27" width="61" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="BBO-2Y-1cS"/>
+                                    <constraint firstAttribute="width" constant="61" id="KTQ-vo-Dij"/>
+                                </constraints>
+                                <state key="normal" image="iconShareMail">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mailShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="Sjz-kK-rsf"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PmE-3E-vdk">
+                                <rect key="frame" x="96" y="27" width="61" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="HnW-Ja-cwd"/>
+                                    <constraint firstAttribute="width" constant="61" id="wXT-XJ-BG9"/>
+                                </constraints>
+                                <state key="normal" image="iconShareTwitter">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="twitterShareButtonTapped:" destination="Tyh-7P-rzS" eventType="touchUpInside" id="eOe-O1-16I"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PmE-3E-vdk" firstAttribute="centerY" secondItem="v33-r8-PLs" secondAttribute="centerY" id="6pV-dF-ybf"/>
+                            <constraint firstAttribute="centerY" secondItem="2W6-mx-fiy" secondAttribute="centerY" id="7Bd-YY-12g"/>
+                            <constraint firstItem="PmE-3E-vdk" firstAttribute="centerY" secondItem="2W6-mx-fiy" secondAttribute="centerY" id="CgV-qH-Gwi"/>
+                            <constraint firstItem="vZk-cI-EYW" firstAttribute="leading" secondItem="v33-r8-PLs" secondAttribute="trailing" constant="15" id="JmF-hR-FrE"/>
+                            <constraint firstItem="vZk-cI-EYW" firstAttribute="centerY" secondItem="v33-r8-PLs" secondAttribute="centerY" id="LcP-Qd-8kX"/>
+                            <constraint firstItem="PmE-3E-vdk" firstAttribute="leading" secondItem="2W6-mx-fiy" secondAttribute="trailing" constant="15" id="MQA-Eb-YOI"/>
+                            <constraint firstItem="2W6-mx-fiy" firstAttribute="leading" secondItem="ZNR-Tf-d5y" secondAttribute="leading" constant="20" id="R80-kz-Tvk"/>
+                            <constraint firstItem="v33-r8-PLs" firstAttribute="leading" secondItem="PmE-3E-vdk" secondAttribute="trailing" constant="15" id="vyI-fr-dH8"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="330" height="115"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dbd-Hs-KY9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3347" y="66"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="iconShareFacebook" width="61" height="61"/>
+        <image name="iconShareGooglePlus" width="61" height="61"/>
+        <image name="iconShareMail" width="61" height="61"/>
+        <image name="iconShareTwitter" width="61" height="61"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackOpaque"/>
+        <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>

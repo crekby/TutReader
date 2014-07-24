@@ -24,7 +24,7 @@ SINGLETON(GoogleAnalyticsManager)
     
 #ifdef DEBUG
     // Optional: set Logger to VERBOSE for debug information.
-    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    //[[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
 #endif
 
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:ID];

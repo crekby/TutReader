@@ -9,14 +9,17 @@
 #import "WebViewController.h"
 #import "IpadMainViewController.h"
 #import "PersistenceFacade.h"
+#import "ShareViewController.h"
+#import "ShareManager.h"
 
 
-@interface WebViewController ()
+@interface WebViewController () <ShareViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @property (nonatomic,weak) TUTNews* loadedNews;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) IBOutlet UIPopoverController *poc;
 
 @end
 
@@ -50,10 +53,11 @@
             starImage = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
         }
         UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
+        UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStyleBordered target:self action:@selector(pop:)];
         if (IS_IPAD) {
             if (self.loadedNews.newsURL) {
                 self.title = self.loadedNews.newsTitle;
-                self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
+                self.navigationItem.rightBarButtonItems = @[favoriteBarButton,shareBarButton];
                 NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
                 [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
                 
@@ -62,7 +66,7 @@
         else
         {
             if (self.loadedNews.newsURL) {
-                self.navigationItem.rightBarButtonItems = @[favoriteBarButton];
+                self.navigationItem.rightBarButtonItems = @[favoriteBarButton,shareBarButton];
             }
         }
     }
@@ -70,6 +74,27 @@
 
 
 #pragma mark - IBActions
+
+- (IBAction)pop:(UIBarButtonItem*)sender
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+    NSLog(@"%d",[[UIDevice currentDevice] orientation]);
+    ShareViewController *shareViewController;
+    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) || [[UIDevice currentDevice] orientation]==0) {
+        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewPortrait"];
+        self.poc = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+        [self.poc setPopoverContentSize:CGSizeMake(115, 330)];
+    }
+    else
+    {
+        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewLandscape"];
+        self.poc = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
+        [self.poc setPopoverContentSize:CGSizeMake(330, 115)];
+    }
+    [self.poc setDelegate:self];
+    [shareViewController setDelegate:self];
+    [self.poc presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+}
 
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
 {
@@ -106,6 +131,10 @@
 {
     [super viewDidLoad];
     self.webView.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChange)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -117,6 +146,29 @@
         [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
         [self.activityIndicator startAnimating];
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.poc.isPopoverVisible) {
+        [self.poc dismissPopoverAnimated:YES];
+    }
+}
+
+- (void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Share controller delegate
+
+- (void)shareViewController:(UIViewController *)vc mailShareButtonTapped:(id)sender
+{
+    NSLog(@"Mail Share");
+    [self.poc dismissPopoverAnimated:YES];
+    [[ShareManager instance] shareByEmail:self.loadedNews inController:self];
+    
 }
 
 #pragma mark - Web View Methods
@@ -151,6 +203,13 @@
         {
             btn.image = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
         }
+}
+
+- (void) orientationChange
+{
+    if (self.poc.isPopoverVisible) {
+        [self.poc dismissPopoverAnimated:YES];
+    }
 }
 
 @end
