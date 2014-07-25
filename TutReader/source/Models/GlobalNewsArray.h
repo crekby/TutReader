@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WebViewController.h"
 
 @interface GlobalNewsArray : NSMutableArray
 
@@ -21,5 +22,7 @@
 - (void) insertNews: (TUTNews*) news;
 - (TUTNews*) selectedNews;
 - (void) setSelectedNews:(int) index;
+- (int) selectedItem;
+- (int) indexOfViewController:(WebViewController*) controller;
 
 @end

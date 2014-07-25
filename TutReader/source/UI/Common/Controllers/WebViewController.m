@@ -17,7 +17,6 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
-@property (nonatomic,weak) TUTNews* loadedNews;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) IBOutlet UIPopoverController *sharePopover;
 
@@ -27,9 +26,14 @@
 
 #pragma mark - Init Methods
 
-- (void)initNews
+- (void) initNews
 {
-    self.loadedNews = [[GlobalNewsArray instance] selectedNews];
+    [self initWithNews:[[GlobalNewsArray instance] selectedNews]];
+}
+
+- (void)initWithNews:(TUTNews*) news
+{
+    self.loadedNews = news;
     if (self.loadedNews) {
         if (self.webView.isLoading) [self.webView stopLoading];
         [self.activityIndicator startAnimating];

@@ -114,7 +114,7 @@
                                 <connections>
                                     <outlet property="newsDescription" destination="rTJ-hB-Vrn" id="lIN-cM-Obz"/>
                                     <outlet property="newsTitle" destination="QMR-pm-tWh" id="DJJ-a4-Icb"/>
-                                    <segue destination="QeF-Ny-lGz" kind="push" id="mnE-qv-Cdu"/>
+                                    <segue destination="Z8h-3T-SPw" kind="push" id="t4u-kM-tXT"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -135,7 +135,7 @@
         <!--Web View Controller-->
         <scene sceneID="AlC-P1-CnL">
             <objects>
-                <viewController id="QeF-Ny-lGz" customClass="WebViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webView" id="QeF-Ny-lGz" customClass="WebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="k6U-1d-wuE"/>
                         <viewControllerLayoutGuide type="bottom" id="Dah-Mp-3yV"/>
@@ -168,13 +168,7 @@
                             <constraint firstAttribute="trailing" secondItem="dRU-Ao-T0A" secondAttribute="trailing" id="x5F-ea-Q4M"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="oSm-mB-aJu">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="mQh-xc-zi0">
-                            <connections>
-                                <action selector="pop:" destination="QeF-Ny-lGz" id="94h-Fk-MgK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="gyz-zn-CgC"/>
                     <connections>
                         <outlet property="activityIndicator" destination="HMw-hB-qlr" id="vBa-Hg-4RU"/>
                         <outlet property="webView" destination="dRU-Ao-T0A" id="nJy-vB-MCj"/>
@@ -182,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVq-Va-o4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2855" y="80"/>
+            <point key="canvasLocation" x="2853" y="80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S6d-3Q-eRw">
@@ -205,7 +199,7 @@
         <!--Page View Controller-->
         <scene sceneID="Mqy-8Q-pg1">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Z8h-3T-SPw" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Z8h-3T-SPw" customClass="PageViewController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="iGL-wo-aFW"/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1d-VL-ntA" userLabel="First Responder" sceneMemberID="firstResponder"/>

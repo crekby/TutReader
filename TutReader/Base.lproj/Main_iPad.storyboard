@@ -8,7 +8,7 @@
         <!--Web View Controller-->
         <scene sceneID="VEC-Ir-1qy">
             <objects>
-                <viewController id="aPd-JO-nQz" customClass="WebViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="webView" id="aPd-JO-nQz" customClass="WebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rpI-k6-X5B"/>
                         <viewControllerLayoutGuide type="bottom" id="gKd-iV-68J"/>
@@ -47,7 +47,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ozb-Me-D9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2363" y="-388"/>
+            <point key="canvasLocation" x="2346" y="-1577"/>
         </scene>
         <!--News Table View Controller - 123-->
         <scene sceneID="6vT-t0-v96">
@@ -174,12 +174,22 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="aPd-JO-nQz" kind="relationship" relationship="rootViewController" id="opN-0y-Tv5"/>
+                        <segue destination="6Wm-uf-Kzv" kind="relationship" relationship="rootViewController" id="Vv8-q3-sNf"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V8J-ON-3yk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1389" y="-388"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Osf-lo-R6f">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6Wm-uf-Kzv" customClass="PageViewController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="HXF-1l-4ul"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="60y-vB-Iqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2346" y="-388"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -13,6 +13,7 @@
 #import "ipadMainViewController.h"
 #import "RemoteFacade.h"
 #import "PersistenceFacade.h"
+#import "PageViewController.h"
 
 @interface NewsTableViewController ()
 
@@ -133,10 +134,10 @@
 {
     NewsCell* cell = (NewsCell*)sender;
     [[GlobalNewsArray instance] setSelectedNews:cell.row];
-    [(WebViewController*)[segue destinationViewController] initNews];
+    [(PageViewController*)[segue destinationViewController] initNews];
     [self trackNewsOpening];
 }
-
+                                                                     
 #pragma mark - IBActions
 
 - (IBAction)ChangeSourceButtonAction:(UISegmentedControl*)sender

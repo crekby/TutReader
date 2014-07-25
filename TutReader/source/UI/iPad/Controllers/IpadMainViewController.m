@@ -9,6 +9,7 @@
 #import "ipadMainViewController.h"
 #import "webViewController.h"
 #import "NewsTableViewController.h"
+#import "PageViewController.h"
 
 @interface IpadMainViewController ()
 
@@ -20,9 +21,9 @@
 {
     for (UIViewController* controller in self.viewControllers) {
         UINavigationController* nav = (UINavigationController*)controller;
-        if (nav.topViewController.class==WebViewController.class)
+        if (nav.topViewController.class==PageViewController.class)
         {
-            [(WebViewController*)nav.topViewController initNews];
+            [(PageViewController*)nav.topViewController initNews];
         }
     }
 }

@@ -65,9 +65,19 @@ SINGLETON(GlobalNewsArray)
     return _localNewsArray[self.selectedItem];
 }
 
+- (int) selectedItem
+{
+    return _selectedItem;
+}
+
 - (int) newsCount
 {
     return _localNewsArray.count;
+}
+
+- (int) indexOfViewController:(WebViewController*) controller
+{
+    return [_localNewsArray indexOfObject:controller.loadedNews];
 }
 
 @end
