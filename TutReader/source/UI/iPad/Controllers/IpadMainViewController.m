@@ -39,4 +39,15 @@
     }
 }
 
+- (void) selectRow: (int) row
+{
+    for (UIViewController* controller in self.viewControllers) {
+        UINavigationController* nav = (UINavigationController*)controller;
+        if (nav.topViewController.class==NewsTableViewController.class)
+        {
+            [(NewsTableViewController*)nav.topViewController selectRow:row];
+        }
+    }
+}
+
 @end

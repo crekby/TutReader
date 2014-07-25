@@ -54,6 +54,12 @@
     }
 }
 
+- (void) selectRow:(int) row
+{
+    NSIndexPath* index = [NSIndexPath indexPathForRow:row inSection:0];
+    [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionTop];
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad

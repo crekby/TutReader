@@ -13,5 +13,6 @@
 - (void) initOnlineNewsList;
 - (void) initFavoritesNewsList;
 - (void) reloadNews;
+- (void) selectRow:(int) row;
 
 @end

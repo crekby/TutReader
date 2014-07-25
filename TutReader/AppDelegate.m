@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
+    //[[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
     return YES;
 }
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PageViewController : UIPageViewController <UIPageViewControllerDelegate,UIPageViewControllerDataSource>
+@interface PageViewController : UIPageViewController <UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIPopoverControllerDelegate,UINavigationControllerDelegate>
 
 - (void) initNews;
 

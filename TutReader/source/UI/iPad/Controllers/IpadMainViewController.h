@@ -12,5 +12,6 @@
 
 - (void) loadNews;
 - (void) reloadNewsTable;
+- (void) selectRow: (int) row;
 
 @end
