@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) TUTNews* newsItem;
 
+@property (nonatomic) int row;
+
 @end

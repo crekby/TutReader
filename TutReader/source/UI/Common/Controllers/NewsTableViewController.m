@@ -20,8 +20,6 @@
 
 @property (assign,nonatomic) BOOL notFirstLaunch;
 
-@property NSMutableArray* newsTableContent;
-
 @end
 
 @implementation NewsTableViewController
@@ -33,7 +31,8 @@
     [self setTitle:ONLINE];
     [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
         [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
-            self.newsTableContent = newsList;
+            [[GlobalNewsArray instance] newArray];
+            [[GlobalNewsArray instance] setNews:newsList];
             [self checkForFavorites];
         }];
     }];
@@ -42,7 +41,6 @@
 - (void)initFavoritesNewsList
 {
     [self setTitle:FAVORITE];
-    self.newsTableContent = [NSMutableArray new];
     if (IS_IPAD) {
         [self loadData];
     }
@@ -85,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.newsTableContent.count;
+    return [[GlobalNewsArray instance] newsCount];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,10 +96,10 @@
 {
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NEWS_CELL_IDENTIFICATOR forIndexPath:indexPath];
     
-    TUTNews* newsToShow = [self.newsTableContent objectAtIndex:indexPath.row];
+    TUTNews* newsToShow = [[GlobalNewsArray instance] newsAtIndex:indexPath.row];
     
     [cell setNewsItem:newsToShow];
-    
+    cell.row = indexPath.row;
     if (!newsToShow.image) {
         [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
@@ -110,7 +108,7 @@
                 UIImage* thumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:imgUrl]];
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [cell.imageView setImage:thumb];
-                    newsToShow.image=thumb;
+                    [[[GlobalNewsArray instance] newsAtIndex:indexPath.row] setImage:thumb];
                     [cell setNeedsLayout];
                 });
             });
@@ -122,8 +120,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!IS_IPAD) return;
+    [[GlobalNewsArray instance] setSelectedNews:indexPath.row];
     IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-    [splitController loadNews:[self.newsTableContent objectAtIndex:indexPath.row]];
+    [splitController loadNews];
     [self trackNewsOpening];
 }
 
@@ -133,7 +132,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NewsCell* cell = (NewsCell*)sender;
-    [(WebViewController*)[segue destinationViewController] initWithNews:cell.newsItem];
+    [[GlobalNewsArray instance] setSelectedNews:cell.row];
+    [(WebViewController*)[segue destinationViewController] initNews];
     [self trackNewsOpening];
 }
 
@@ -162,7 +162,8 @@
         [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionTop];
         self.notFirstLaunch = YES;
         IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-        [splitController loadNews:[self.newsTableContent objectAtIndex:0]];
+        [[GlobalNewsArray instance] setSelectedNews:0];
+        [splitController loadNews];
     }
 }
 
@@ -172,10 +173,10 @@
         [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
             NSArray* requestResult = data;
             if (requestResult) {
-                self.newsTableContent = [NSMutableArray new];
+                [[GlobalNewsArray instance] newArray];
                 for (NSManagedObject* object in requestResult) {
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
-                    [self.newsTableContent insertObject:favoriteNews atIndex:self.newsTableContent.count];
+                    [[GlobalNewsArray instance] insertNews:favoriteNews];
                 }
                 [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
             }
@@ -188,7 +189,7 @@
     [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
         NSMutableArray* requestResult = data;
         if (requestResult) {
-            for (TUTNews* object in self.newsTableContent) {
+            for (TUTNews* object in [[GlobalNewsArray instance] news]) {
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
                 NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
                 if (filteredArray.firstObject) {

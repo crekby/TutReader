@@ -114,7 +114,7 @@
                                 <connections>
                                     <outlet property="newsDescription" destination="rTJ-hB-Vrn" id="lIN-cM-Obz"/>
                                     <outlet property="newsTitle" destination="QMR-pm-tWh" id="DJJ-a4-Icb"/>
-                                    <segue destination="QeF-Ny-lGz" kind="push" id="u3G-fY-TUz"/>
+                                    <segue destination="QeF-Ny-lGz" kind="push" id="mnE-qv-Cdu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -182,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVq-Va-o4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1751" y="80"/>
+            <point key="canvasLocation" x="2855" y="80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S6d-3Q-eRw">
@@ -201,6 +201,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QhY-21-lM5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="254" y="80"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Mqy-8Q-pg1">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="Z8h-3T-SPw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="iGL-wo-aFW"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y1d-VL-ntA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1763" y="80"/>
         </scene>
         <!--Share View Controller-->
         <scene sceneID="irT-RY-eFn">

@@ -10,7 +10,7 @@
 
 @interface IpadMainViewController : UISplitViewController
 
-- (void) loadNews:(TUTNews*) news;
+- (void) loadNews;
 - (void) reloadNewsTable;
 
 @end

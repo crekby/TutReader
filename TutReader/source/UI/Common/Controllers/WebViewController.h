@@ -13,6 +13,6 @@
 
 @interface WebViewController : UIViewController <UIWebViewDelegate,NSFetchedResultsControllerDelegate,UIPopoverControllerDelegate,UINavigationControllerDelegate>
 
-- (void) initWithNews:(TUTNews*) news;
+- (void) initNews;
 
 @end

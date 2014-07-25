@@ -27,23 +27,12 @@
 
 #pragma mark - Init Methods
 
-- (id)init
+- (void)initNews
 {
-    if (self = [super init])
-    {
-        if (!IS_IOS7) {
-            
-        }
-    }
-    return self;
-}
-
-- (void)initWithNews:(TUTNews *)news
-{
-    if (news) {
+    self.loadedNews = [[GlobalNewsArray instance] selectedNews];
+    if (self.loadedNews) {
         if (self.webView.isLoading) [self.webView stopLoading];
         [self.activityIndicator startAnimating];
-        self.loadedNews = news;
         UIImage* starImage;
         if (IS_IOS7) {
             starImage = (self.loadedNews.isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
@@ -186,6 +175,11 @@
     NSLog(@"web view error %@",error.localizedDescription);
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
     [self.activityIndicator stopAnimating];
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return !(navigationType==UIWebViewNavigationTypeLinkClicked);
 }
 
 #pragma mark - Private Methods

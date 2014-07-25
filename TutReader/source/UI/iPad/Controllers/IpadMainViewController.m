@@ -16,13 +16,13 @@
 
 @implementation IpadMainViewController
 
-- (void)loadNews:(TUTNews *)news
+- (void)loadNews
 {
     for (UIViewController* controller in self.viewControllers) {
         UINavigationController* nav = (UINavigationController*)controller;
         if (nav.topViewController.class==WebViewController.class)
         {
-            [(WebViewController*)nav.topViewController initWithNews:news];
+            [(WebViewController*)nav.topViewController initNews];
         }
     }
 }
