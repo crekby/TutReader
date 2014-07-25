@@ -21,6 +21,8 @@
 
 @property (assign,nonatomic) BOOL notFirstLaunch;
 
+@property (retain, nonatomic) UIRefreshControl* refreshControl;
+
 @end
 
 @implementation NewsTableViewController
@@ -65,6 +67,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.newsTableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     if (IS_IPAD) {
         [self initOnlineNewsList];
     }
@@ -208,6 +213,19 @@
         }
     }];
     
+}
+
+- (void) refresh
+{
+    if ([self.title  isEqual: ONLINE])
+    {
+        [self initOnlineNewsList];
+    }
+    else
+    {
+        [self initFavoritesNewsList];
+    }
+    [self.refreshControl endRefreshing];
 }
 
 - (void) trackNewsOpening
