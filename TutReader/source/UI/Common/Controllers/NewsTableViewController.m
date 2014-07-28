@@ -78,6 +78,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if ([self.title isEqualToString:ONLINE]) {
+        [self reloadTableView];
+    }
     [self loadData];
 }
 
@@ -129,6 +132,12 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewsCell* newsCell = (NewsCell*) cell;
+    [newsCell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:newsCell.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!IS_IPAD) return;
@@ -137,6 +146,7 @@
     [splitController loadNews];
     [self trackNewsOpening];
 }
+
 
 
 #pragma mark - PrepareForSegue

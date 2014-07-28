@@ -43,6 +43,7 @@
 		156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA30197CFE9200813E2D /* PersistenceFacade.m */; };
 		156AFA37197D088E00813E2D /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA36197D088E00813E2D /* XMLParser.m */; };
 		15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5764919810C5D00E55E3F /* Twitter.framework */; };
+		15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = 15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */; };
 		15F8331C19823BBC00E91714 /* GlobalNewsArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F8331B19823BBC00E91714 /* GlobalNewsArray.m */; };
 		15F8331F19824FD700E91714 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F8331E19824FD700E91714 /* PageViewController.m */; };
 /* End PBXBuildFile section */
@@ -114,6 +115,7 @@
 		156AFA35197D088E00813E2D /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLParser.h; path = Source/Models/XMLParser.h; sourceTree = "<group>"; };
 		156AFA36197D088E00813E2D /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLParser.m; path = Source/Models/XMLParser.m; sourceTree = "<group>"; };
 		15A5764919810C5D00E55E3F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITV_accessory_disclosure.png; sourceTree = "<group>"; };
 		15F8331A19823BBC00E91714 /* GlobalNewsArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalNewsArray.h; path = Source/Models/GlobalNewsArray.h; sourceTree = "<group>"; };
 		15F8331B19823BBC00E91714 /* GlobalNewsArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalNewsArray.m; path = Source/Models/GlobalNewsArray.m; sourceTree = "<group>"; };
 		15F8331D19824FD700E91714 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageViewController.h; path = Source/UI/Common/Controllers/PageViewController.h; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				1561829A1976C93D00D16B5F /* UI */,
 				1561827A1976C3DB00D16B5F /* Images.xcassets */,
 				15060E091980066E00E68EB1 /* ShareAssets.xcassets */,
+				15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				156182761976C3DB00D16B5F /* Main_iPad.storyboard in Resources */,
 				1561827B1976C3DB00D16B5F /* Images.xcassets in Resources */,
 				156182731976C3DB00D16B5F /* Main_iPhone.storyboard in Resources */,
+				15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */,
 				15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */,
 				1561826A1976C3DB00D16B5F /* InfoPlist.strings in Resources */,
 			);

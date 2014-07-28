@@ -15,4 +15,7 @@
 
 @property (nonatomic) int row;
 
+@property (nonatomic, weak) IBOutlet UIButton* shareButton;
+
+
 @end
