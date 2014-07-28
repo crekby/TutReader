@@ -15,6 +15,7 @@
 #import "PersistenceFacade.h"
 #import "PageViewController.h"
 #import "FavoriteNewsManager.h"
+#import "CategoryTableViewController.h"
 
 @interface NewsTableViewController () <SwipeableCellDelegate>
 
@@ -34,7 +35,7 @@
 
 - (void)initOnlineNewsList
 {
-    [self setTitle:ONLINE];
+    //[self setTitle:ONLINE];
     [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
         [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
             [[GlobalNewsArray instance] newArray];
@@ -85,11 +86,49 @@
         [self reloadTableView];
     }
     [self loadData];
+    
+    UIButton *titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
+    [titleLabel setTitle:@"Categories" forState:UIControlStateNormal];
+    titleLabel.frame = CGRectMake(0, 0, 70, 44);
+    [titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
+    [titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+
+    self.navigationItem.titleView = titleLabel;
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Title Bar Button Actions
+
+- (void) titleActionUpOutside:(UIButton*) sender
 {
-    [super didReceiveMemoryWarning];
+    [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+}
+
+- (void) titleActionDowmInside:(UIButton*) sender
+{
+    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
+
+
+- (void) titleActionUpInside:(UIButton*) sender
+{
+    [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+    CategoryTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
+    controller.view.frame = CGRectMake(10, self.view.frame.origin.y, 300, 0);
+    [self.view.superview addSubview:controller.view];
+    //[self addChildViewController:controller];
+    //[self.view addSubview:controller.view];
+    
+    //UIView animateKeyframesWithDuration:<#(NSTimeInterval)#> delay:<#(NSTimeInterval)#> options:<#(UIViewKeyframeAnimationOptions)#> animations:<#^(void)animations#> completion:<#^(BOOL finished)completion#>
+    
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:0.2f];
+    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    controller.view.frame = CGRectMake(10, self.view.frame.origin.y, 300, 220);
+    [UIView commitAnimations];
 }
 
 #pragma mark - Table view data source
@@ -161,6 +200,9 @@
         [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
+                if ([self.title isEqualToString:FAVORITE]) {
+                    [self removeNewsAtIndex:cell.row];
+                }
             }
         }];
     }
@@ -297,6 +339,18 @@
     {
         [cell.shareButton setImage:([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE] forState:UIControlStateNormal];
     }
+}
+
+#warning Bug when deleting last row
+
+- (void)removeNewsAtIndex:(int)index
+{
+    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+    [self.newsTableView beginUpdates];
+    [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    [[GlobalNewsArray instance] removeNewsAtIndex:index];
+    [self.newsTableView endUpdates];
+    [self.newsTableView reloadData];
 }
 
 @end

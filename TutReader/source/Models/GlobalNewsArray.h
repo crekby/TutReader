@@ -24,5 +24,6 @@
 - (void) setSelectedNews:(int) index;
 - (int) selectedItem;
 - (int) indexOfViewController:(WebViewController*) controller;
+- (void) removeNewsAtIndex:(int) index;
 
 @end

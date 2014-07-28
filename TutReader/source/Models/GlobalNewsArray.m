@@ -45,6 +45,14 @@ SINGLETON(GlobalNewsArray)
         return nil;
 }
 
+- (void) removeNewsAtIndex:(int) index
+{
+    NSLog(@"%d",_localNewsArray.count);
+    if (index<_localNewsArray.count) {
+        [_localNewsArray removeObjectAtIndex:index];
+    }
+}
+
 - (void) insertNews: (TUTNews*) news;
 {
     [_localNewsArray insertObject:news atIndex:_localNewsArray.count];
