@@ -88,6 +88,9 @@
                                             <state key="normal">
                                                 <color key="titleShadowColor" red="0.21395964470000001" green="0.3717019063" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="cellFavoriteButtonAction:" destination="XLv-Mw-PGg" eventType="touchUpInside" id="H6M-4b-Msx"/>
+                                            </connections>
                                         </button>
                                         <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5b-rS-Kap">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>

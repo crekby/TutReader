@@ -94,6 +94,9 @@ static CGFloat const kBounceValue = 10.0f;
                     CGFloat constant = MIN(adjustment, [self buttonTotalWidth]); //5
                     if (constant == [self buttonTotalWidth]) { //6
                         [self setConstraintsToShowAllButtons:YES notifyDelegateDidOpen:NO];
+                        if ([self.delegate respondsToSelector:@selector(cellDidOpen:)]) {
+                            [self.delegate cellDidOpen:self];
+                        }
                     } else { //7
                         self.contentViewRightConstraint.constant = constant;
                     }
@@ -110,6 +113,9 @@ static CGFloat const kBounceValue = 10.0f;
                 if (self.contentViewRightConstraint.constant >= halfOfButtonOne) { //3
                     //Open all the way
                     [self setConstraintsToShowAllButtons:YES notifyDelegateDidOpen:YES];
+                    if ([self.delegate respondsToSelector:@selector(cellDidOpen:)]) {
+                        [self.delegate cellDidOpen:self];
+                    }
                 } else {
                     //Re-close
                     [self resetConstraintContstantsToZero:YES notifyDelegateDidClose:YES];
@@ -124,6 +130,9 @@ static CGFloat const kBounceValue = 10.0f;
                     //Close
                     self.shareButton.hidden = YES;
                     [self resetConstraintContstantsToZero:YES notifyDelegateDidClose:YES];
+                    if ([self.delegate respondsToSelector:@selector(cellDidClose:)]) {
+                        [self.delegate cellDidClose:self];
+                    }
                 }
             }
             break;
@@ -145,7 +154,7 @@ static CGFloat const kBounceValue = 10.0f;
 - (void)updateConstraintsIfNeeded:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     float duration = 0;
     if (animated) {
-        duration = 0.1;
+        duration = 0.3;
     }
     
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -179,7 +188,7 @@ static CGFloat const kBounceValue = 10.0f;
         }];
     }];
     self.shareButton.hidden = YES;
-
+    self.isSwipeOpen = NO;
 }
 
 - (void)setConstraintsToShowAllButtons:(BOOL)animated notifyDelegateDidOpen:(BOOL)notifyDelegate
@@ -205,6 +214,7 @@ static CGFloat const kBounceValue = 10.0f;
             self.startingRightLayoutConstraintConstant = self.contentViewRightConstraint.constant;
         }];
     }];
+    self.isSwipeOpen = YES;
 }
 
 - (void)prepareForReuse {
@@ -218,5 +228,18 @@ static CGFloat const kBounceValue = 10.0f;
     return YES;
 }
 
+#pragma mark - Private methods
+
+- (IBAction)cellFavoriteButtonAction:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(buttonAction:)]) {
+        [self.delegate buttonAction:self];
+    }
+}
+
+- (void) closeSwipe
+{
+    [self resetConstraintContstantsToZero:YES notifyDelegateDidClose:YES];
+}
 
 @end

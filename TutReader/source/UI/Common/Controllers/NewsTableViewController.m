@@ -14,14 +14,17 @@
 #import "RemoteFacade.h"
 #import "PersistenceFacade.h"
 #import "PageViewController.h"
+#import "FavoriteNewsManager.h"
 
-@interface NewsTableViewController ()
+@interface NewsTableViewController () <SwipeableCellDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
 @property (assign,nonatomic) BOOL notFirstLaunch;
 
 @property (retain, nonatomic) UIRefreshControl* refreshControl;
+
+@property (strong, nonatomic) NewsCell* openSwipeCell;
 
 @end
 
@@ -115,6 +118,7 @@
     
     [cell setNewsItem:newsToShow];
     cell.row = indexPath.row;
+    if (!cell.delegate) cell.delegate = self;
     if (!newsToShow.image) {
         [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
@@ -147,7 +151,41 @@
     [self trackNewsOpening];
 }
 
+#pragma mark - SwipeCell delegate Action
 
+- (void)buttonAction:(UITableViewCell *)sender
+{
+    NewsCell* cell = (NewsCell*) sender;
+    TUTNews* news = [[GlobalNewsArray instance] newsAtIndex:cell.row];
+    if (news.isFavorite) {
+        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
+            if (!error) {
+                [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
+            }
+        }];
+    }
+    else
+    {
+        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
+            if (!error) {
+                [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
+            }
+        }];
+    }
+}
+
+-(void)cellDidOpen:(UITableViewCell *)sender
+{
+    if (self.openSwipeCell) {
+        [self.openSwipeCell closeSwipe];
+    }
+    self.openSwipeCell = (NewsCell*) sender;
+}
+
+- (void)cellDidClose:(UITableViewCell *)sender
+{
+    self.openSwipeCell = nil;
+}
 
 #pragma mark - PrepareForSegue
 
@@ -247,6 +285,17 @@
     else
     {
         [[GoogleAnalyticsManager instance] trackOpenFavoriteNews];
+    }
+}
+
+- (void) changeImage:(NewsCell*) cell
+{
+    if (IS_IOS7) {
+        [cell.shareButton setImage:([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [cell.shareButton setImage:([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE] forState:UIControlStateNormal];
     }
 }
 

@@ -12,6 +12,7 @@
 #import "PersistenceFacade.h"
 #import "ShareViewController.h"
 #import "ShareManager.h"
+#import "FavoriteNewsManager.h"
 
 @interface PageViewController() <ShareViewControllerDelegate>
 
@@ -91,24 +92,15 @@
 
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
 {
-    [[GlobalNewsArray instance] selectedNews].isFavorite = ![[GlobalNewsArray instance] selectedNews].isFavorite;
-    if ([[GlobalNewsArray instance] selectedNews].isFavorite) {
-        [[PersistenceFacade instance] addObjectToCoreData:[[GlobalNewsArray instance] selectedNews] withCallback:^( NSManagedObjectID *ID, NSError* error){
-            if (!error) {
-                [[GlobalNewsArray instance] selectedNews].coreDataObjectID = ID;
-                [[GoogleAnalyticsManager instance] trackAddedToFavorites];
-                [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
-            }
+    if (![[GlobalNewsArray instance] selectedNews].isFavorite) {
+        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
+            [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
         }];
     }
     else
     {
-        [[PersistenceFacade instance] deleteObjectFromCoreData:[[GlobalNewsArray instance] selectedNews] withCallback:^(id data, NSError* error){
-            if (!error)
-            {
-                [[GoogleAnalyticsManager instance] trackDeleteFromFavorites];
-                [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
-            }
+        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
+            [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
         }];
         
     }

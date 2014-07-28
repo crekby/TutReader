@@ -9,13 +9,25 @@
 #import <UIKit/UIKit.h>
 #import "TUTNews.h"
 
+@protocol SwipeableCellDelegate <NSObject>
+@optional
+- (void)buttonAction:(UITableViewCell*) sender;
+- (void)cellDidOpen:(UITableViewCell *) sender;
+- (void)cellDidClose:(UITableViewCell *) sender;
+@end
+
 @interface NewsCell : UITableViewCell
 
+@property (nonatomic, weak) id <SwipeableCellDelegate> delegate;
+
 @property (nonatomic, strong) TUTNews* newsItem;
-
 @property (nonatomic) int row;
-
 @property (nonatomic, weak) IBOutlet UIButton* shareButton;
 
+@property (nonatomic) BOOL isSwipeOpen;
+
+- (void) closeSwipe;
 
 @end
+
+
