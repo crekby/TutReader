@@ -94,9 +94,6 @@ static CGFloat const kBounceValue = 10.0f;
                     CGFloat constant = MIN(adjustment, [self buttonTotalWidth]); //5
                     if (constant == [self buttonTotalWidth]) { //6
                         [self setConstraintsToShowAllButtons:YES notifyDelegateDidOpen:NO];
-                        if ([self.delegate respondsToSelector:@selector(cellDidOpen:)]) {
-                            [self.delegate cellDidOpen:self];
-                        }
                     } else { //7
                         self.contentViewRightConstraint.constant = constant;
                     }
@@ -113,9 +110,6 @@ static CGFloat const kBounceValue = 10.0f;
                 if (self.contentViewRightConstraint.constant >= halfOfButtonOne) { //3
                     //Open all the way
                     [self setConstraintsToShowAllButtons:YES notifyDelegateDidOpen:YES];
-                    if ([self.delegate respondsToSelector:@selector(cellDidOpen:)]) {
-                        [self.delegate cellDidOpen:self];
-                    }
                 } else {
                     //Re-close
                     [self resetConstraintContstantsToZero:YES notifyDelegateDidClose:YES];
@@ -130,9 +124,6 @@ static CGFloat const kBounceValue = 10.0f;
                     //Close
                     self.shareButton.hidden = YES;
                     [self resetConstraintContstantsToZero:YES notifyDelegateDidClose:YES];
-                    if ([self.delegate respondsToSelector:@selector(cellDidClose:)]) {
-                        [self.delegate cellDidClose:self];
-                    }
                 }
             }
             break;
@@ -169,6 +160,12 @@ static CGFloat const kBounceValue = 10.0f;
 - (void)resetConstraintContstantsToZero:(BOOL)animated notifyDelegateDidClose:(BOOL)endEditing
 {
 	//TODO: Notify delegate.
+    if (self.isSwipeOpen) {
+        self.isSwipeOpen = NO;
+        if ([self.delegate respondsToSelector:@selector(cellDidClose:)]) {
+            [self.delegate cellDidClose:self];
+        }
+    }
     
     if (self.startingRightLayoutConstraintConstant == 0 &&
         self.contentViewRightConstraint.constant == 0) {
@@ -194,6 +191,12 @@ static CGFloat const kBounceValue = 10.0f;
 - (void)setConstraintsToShowAllButtons:(BOOL)animated notifyDelegateDidOpen:(BOOL)notifyDelegate
 {
 	//TODO: Notify delegate.
+    if (!self.isSwipeOpen) {
+        self.isSwipeOpen = YES;
+        if ([self.delegate respondsToSelector:@selector(cellDidOpen:)]) {
+            [self.delegate cellDidOpen:self];
+        }
+    }
     
     //1
     if (self.startingRightLayoutConstraintConstant == [self buttonTotalWidth] &&
