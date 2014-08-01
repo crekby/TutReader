@@ -12,6 +12,7 @@
 @interface GlobalNewsArray : NSMutableArray
 
 + (GlobalNewsArray*) instance;
+@property (nonatomic) NSString* newsURL;
 
 - (void) newArray;
 - (void) setNews:(NSMutableArray*) news;
@@ -25,5 +26,6 @@
 - (int) selectedItem;
 - (int) indexOfViewController:(WebViewController*) controller;
 - (void) removeNewsAtIndex:(int) index;
+- (int) rowForNews:(TUTNews*) news;
 
 @end

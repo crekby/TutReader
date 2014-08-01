@@ -47,7 +47,6 @@ SINGLETON(GlobalNewsArray)
 
 - (void) removeNewsAtIndex:(int) index
 {
-    NSLog(@"%d",_localNewsArray.count);
     if (index<_localNewsArray.count) {
         [_localNewsArray removeObjectAtIndex:index];
     }
@@ -66,6 +65,11 @@ SINGLETON(GlobalNewsArray)
 - (void) setSelectedNews:(int) index
 {
     self.selectedItem = index;
+}
+
+- (int) rowForNews:(TUTNews*) news
+{
+    return [_localNewsArray indexOfObject:news];
 }
 
 - (TUTNews*) selectedNews

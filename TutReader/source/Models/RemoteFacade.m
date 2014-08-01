@@ -24,7 +24,7 @@ SINGLETON(RemoteFacade)
     }
     if ([Reachability reachabilityWithHostName:@"tut.by"].currentReachabilityStatus != NotReachable)
     {
-        NSURL* url = [NSURL URLWithString:RSS_URL];
+        NSURL* url = [NSURL URLWithString:[GlobalNewsArray instance].newsURL];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
         [request setHTTPMethod:@"GET"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];

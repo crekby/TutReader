@@ -27,6 +27,8 @@
         self.isFavorite = ([object valueForKey:@"isFavorite"]==[NSNumber numberWithInt:1])?YES:NO;
         self.coreDataObjectID = [object valueForKey:@"objectID"];
         self.bigImageURL = [object valueForKey:@"bigImageUrl"];
+        self.category = [object valueForKey:@"category"];
+        
     }
     return self;
 }

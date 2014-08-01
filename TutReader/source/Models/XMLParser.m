@@ -65,13 +65,13 @@ SINGLETON(XMLParser)
 {
     if (self.items) {
         if ([elementName isEqualToString:XML_TITLE]) {
-            [self.currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
-            self.news.newsTitle = self.currentElementValue;
+            //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
+            self.news.newsTitle = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         if ([elementName isEqualToString:XML_NEWS_URL])
         {
-            [self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
-            self.news.newsURL = self.currentElementValue;
+            //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
+            self.news.newsURL = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         if ([elementName isEqualToString:XML_NEWS_TEXT]) {
             if (self.currentElementValue.length>3) {
@@ -88,10 +88,10 @@ SINGLETON(XMLParser)
                 }
                 else
                 {
-                    if (self.currentElementValue.length>3) {
-                        [self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
-                        self.news.text = self.currentElementValue;
-                    }
+                    //if (self.currentElementValue.length>3) {
+                        //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
+                        self.news.text = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    //}
                 }
             }
         }
@@ -100,12 +100,20 @@ SINGLETON(XMLParser)
                 self.news.bigImageURL = self.enclosure;
             }
         }
+
+        if ([elementName isEqualToString:@"category"]) {
+            if (self.currentElementValue.length>3) {
+                //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,4)];
+                self.news.category = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                //NSLog(@"Category - %@",self.news.category);
+            }
+        }
         if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {
             NSDateFormatter* formater = [NSDateFormatter new];
             [formater setDateFormat:XML_DATE_FORMAT];
             NSDate* date = [formater dateFromString:self.currentElementValue];
             self.news.pubDate = date;
-            if (![self.news.newsURL isEqual:HOME_PAGE]) {
+            if (![self.news.newsURL isEqual:HOME_PAGE] && ![self.news.newsURL isEqual:AUTO_PAGE] && ![self.news.newsURL isEqual:IT_PAGE] && ![self.news.newsURL isEqual:LADY_PAGE] && ![self.news.newsURL isEqual:SPORT_PAGE]) {
                 [self.newsItemsList insertObject:self.news atIndex:self.newsItemsList.count];
             }
         }

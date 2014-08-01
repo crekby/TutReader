@@ -78,6 +78,10 @@ typedef enum
 #define FACEBOOK_SHARE_FAILED_BODY_ALERT   @"Message sending was failed"
 #define FACEBOOK_SHARE_NOT_AVAILABLE_ALERT @"Please set up facebook preferences in a device settings"
 
+// CATEGORIES
+
+#define TUT_PREFIX               @"http://news.tut.by/rss/"
+
 // VIEW TITLES
 
 #define ONLINE                   @"Online"
@@ -94,8 +98,12 @@ typedef enum
 
 // URLs
 
-#define RSS_URL                  @"http://news.tut.by/rss/all.rss"
+#define RSS_URL                  @"http://news.tut.by/rss/all.rss" //@"http://m.tut.by/rss/all.rss"
 #define HOME_PAGE                @"http://news.tut.by/"
+#define AUTO_PAGE                @"http://auto.tut.by/"
+#define IT_PAGE                  @"http://it.tut.by/"
+#define LADY_PAGE                @"http://lady.tut.by/"
+#define SPORT_PAGE               @"http://sport.tut.by/"
 
 // RESOURCES
 

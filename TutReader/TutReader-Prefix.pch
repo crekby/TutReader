@@ -21,5 +21,8 @@
     #import "NewsItem.h"
     #import "GoogleAnalyticsManager.h"
     #import "GlobalNewsArray.h"
+    #import "CategoryManager.h"
+    #import "GlobalCategoriesArray.h"
 
 #endif
+

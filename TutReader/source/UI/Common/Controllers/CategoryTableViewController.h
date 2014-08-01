@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CategoryControllerDelegate <NSObject>
+
+@optional
+- (void) categoriesWillClose;
+- (void) categoriesDidClose;
+@end
+
 @interface CategoryTableViewController : UITableViewController
+
+@property (nonatomic, strong) id <CategoryControllerDelegate> delegate;
+
+@property (nonatomic, assign) BOOL isOpen;
+@property (nonatomic, strong) NSMutableArray* categoriesContent;
+
+- (void) openCategoryListAboveView:(UIView*) view;
+- (void) closeCategoryList;
 
 @end

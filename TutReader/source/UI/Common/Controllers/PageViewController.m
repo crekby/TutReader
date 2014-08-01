@@ -121,6 +121,7 @@
         return;
     }
     [[GlobalNewsArray instance] setSelectedNews:index];
+    [self changeImage:[self.navigationItem.rightBarButtonItems objectAtIndex:1]];
     if (IS_IPAD) {
         IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
         [splitController selectRow:index];

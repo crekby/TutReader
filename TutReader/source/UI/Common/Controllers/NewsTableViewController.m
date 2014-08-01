@@ -17,7 +17,7 @@
 #import "FavoriteNewsManager.h"
 #import "CategoryTableViewController.h"
 
-@interface NewsTableViewController () <SwipeableCellDelegate>
+@interface NewsTableViewController () <SwipeableCellDelegate,CategoryControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
@@ -26,6 +26,14 @@
 @property (retain, nonatomic) UIRefreshControl* refreshControl;
 
 @property (strong, nonatomic) NewsCell* openSwipeCell;
+
+@property (strong, nonatomic) CategoryTableViewController* categoryController;
+
+@property (strong, nonatomic) NSSet* categorySet;
+
+@property (strong, nonatomic) NSMutableArray* tableContent;
+
+@property (strong, nonatomic) NSMutableArray* selectedCategories;
 
 @end
 
@@ -40,9 +48,18 @@
         [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
             [[GlobalNewsArray instance] newArray];
             [[GlobalNewsArray instance] setNews:newsList];
+            [self initCategoryList];
             [self checkForFavorites];
         }];
     }];
+}
+
+- (void)initCategoryList
+{
+    self.categorySet = [NSSet new];
+    for (TUTNews* news in [[GlobalNewsArray instance] news]) {
+        self.categorySet = [self.categorySet setByAddingObject:news.category];
+    }
 }
 
 - (void)initFavoritesNewsList
@@ -83,19 +100,30 @@
 {
     [super viewDidAppear:animated];
     if ([self.title isEqualToString:ONLINE]) {
-        [self reloadTableView];
+        //[self reloadTableView];
+        [self initOnlineNewsList];
+        UIButton *titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
+        [titleLabel setTitle:@"Categories" forState:UIControlStateNormal];
+        titleLabel.frame = CGRectMake(0, 0, 70, 44);
+        [titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
+        [titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
+        [titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+        self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
+        self.categoryController.delegate = self;
+        self.tabBarController.navigationItem.titleView = titleLabel;
+    }
+    else
+    {
+        if (self.tabBarController.navigationItem.titleView) {
+            self.tabBarController.navigationItem.titleView = nil;
+        }
     }
     [self loadData];
     
-    UIButton *titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
-    [titleLabel setTitle:@"Categories" forState:UIControlStateNormal];
-    titleLabel.frame = CGRectMake(0, 0, 70, 44);
-    [titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    [titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    [titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
-    [titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
-
-    self.navigationItem.titleView = titleLabel;
+    
+    //self.navigationItem.titleView = titleLabel;
 }
 
 #pragma mark - Title Bar Button Actions
@@ -107,28 +135,30 @@
 
 - (void) titleActionDowmInside:(UIButton*) sender
 {
-    [sender setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [sender setTitleColor:[UIColor colorWithRed:0.7 green:0.7 blue:1 alpha:1] forState:UIControlStateNormal];
 }
 
 
 - (void) titleActionUpInside:(UIButton*) sender
 {
     [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
-    CategoryTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
-    controller.view.frame = CGRectMake(10, self.view.frame.origin.y, 300, 0);
-    [self.view.superview addSubview:controller.view];
-    //[self addChildViewController:controller];
-    //[self.view addSubview:controller.view];
-    
-    //UIView animateKeyframesWithDuration:<#(NSTimeInterval)#> delay:<#(NSTimeInterval)#> options:<#(UIViewKeyframeAnimationOptions)#> animations:<#^(void)animations#> completion:<#^(BOOL finished)completion#>
-    
-    
-    [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationDuration:0.2f];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    controller.view.frame = CGRectMake(10, self.view.frame.origin.y, 300, 220);
-    [UIView commitAnimations];
+    if (self.categoryController.isOpen) {
+        [sender setTitle:@"Categories" forState:UIControlStateNormal];
+        [self.categoryController closeCategoryList];
+        [self reloadTableView];
+    }
+    else
+    {
+        [sender setTitle:@"Categories" forState:UIControlStateNormal];
+        [self.categoryController openCategoryListAboveView:self.view];
+    }
+}
+
+#pragma mark - Category Table View Delegate Methods
+
+- (void)categoriesDidClose
+{
+    [self initOnlineNewsList];
 }
 
 #pragma mark - Table view data source
@@ -184,6 +214,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!IS_IPAD) return;
+    if (self.categoryController.isOpen) {
+        [self.categoryController closeCategoryList];
+    }
     [[GlobalNewsArray instance] setSelectedNews:indexPath.row];
     IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
     [splitController loadNews];
@@ -233,12 +266,15 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    if (self.categoryController.isOpen) {
+        [self.categoryController closeCategoryList];
+    }
     NewsCell* cell = (NewsCell*)sender;
-    [[GlobalNewsArray instance] setSelectedNews:cell.row];
+    [[GlobalNewsArray instance] setSelectedNews:[[GlobalNewsArray instance] rowForNews:cell.newsItem]];
     [(PageViewController*)[segue destinationViewController] initNews];
     [self trackNewsOpening];
 }
-                                                                     
+
 #pragma mark - IBActions
 
 - (IBAction)ChangeSourceButtonAction:(UISegmentedControl*)sender
@@ -251,6 +287,7 @@
         [self initFavoritesNewsList];
     }
 }
+
 
 #pragma mark - Private Methods
 
@@ -352,5 +389,6 @@
     [self.newsTableView endUpdates];
     [self.newsTableView reloadData];
 }
+
 
 @end

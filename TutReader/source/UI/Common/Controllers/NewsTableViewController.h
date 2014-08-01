@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewsTableViewController : UITableViewController <NSURLConnectionDelegate,NSXMLParserDelegate>
+@interface NewsTableViewController : UITableViewController <NSURLConnectionDelegate,NSXMLParserDelegate,UIGestureRecognizerDelegate>
 
 - (void) initOnlineNewsList;
 - (void) initFavoritesNewsList;
