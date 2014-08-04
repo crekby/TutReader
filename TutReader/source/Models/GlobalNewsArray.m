@@ -86,7 +86,13 @@ SINGLETON(GlobalNewsArray)
 
 - (TUTNews*) selectedNews
 {
-    return _localNewsArray[self.selectedItem];
+    if (_localNewsArray.count>self.selectedItem) {
+        return _localNewsArray[self.selectedItem];
+    }
+    else
+    {
+        return nil;
+    }
 }
 
 - (int) selectedItem

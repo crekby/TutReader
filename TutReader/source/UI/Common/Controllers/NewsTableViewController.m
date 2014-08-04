@@ -432,14 +432,12 @@
     }
 }
 
-#warning Bug when deleting last row
-
 - (void)removeNewsAtIndex:(int)index
 {
     NSIndexPath* indexPath = [NSIndexPath indexPathForRow:index inSection:0];
     [self.newsTableView beginUpdates];
-    [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [[GlobalNewsArray instance] removeNewsAtIndex:index];
+    [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self.newsTableView endUpdates];
     [self.newsTableView reloadData];
 }

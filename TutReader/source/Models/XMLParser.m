@@ -65,12 +65,10 @@ SINGLETON(XMLParser)
 {
     if (self.items) {
         if ([elementName isEqualToString:XML_TITLE]) {
-            //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
             self.news.newsTitle = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         if ([elementName isEqualToString:XML_NEWS_URL])
         {
-            //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,self.currentElementValue.length)];
             self.news.newsURL = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
         if ([elementName isEqualToString:XML_NEWS_TEXT]) {
@@ -88,10 +86,7 @@ SINGLETON(XMLParser)
                 }
                 else
                 {
-                    //if (self.currentElementValue.length>3) {
-                        //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,15)];
                         self.news.text = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                    //}
                 }
             }
         }
@@ -103,9 +98,7 @@ SINGLETON(XMLParser)
 
         if ([elementName isEqualToString:@"category"]) {
             if (self.currentElementValue.length>3) {
-                //[self.currentElementValue replaceOccurrencesOfString:@"\n\t\t" withString:[NSString new] options:NSLiteralSearch range:NSMakeRange(0,4)];
                 self.news.category = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                //NSLog(@"Category - %@",self.news.category);
             }
         }
         if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {
