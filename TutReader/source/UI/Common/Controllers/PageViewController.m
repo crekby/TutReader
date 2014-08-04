@@ -17,6 +17,7 @@
 @interface PageViewController() <ShareViewControllerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIPopoverController *sharePopover;
+@property (nonatomic) UIBarButtonItem* favoriteBarButton;
 
 @end
 
@@ -36,6 +37,7 @@
     }
     WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"webView"];
     [controller initNews];
+    [self changeImage:self.favoriteBarButton];
     self.title = controller.loadedNews.newsTitle;
     [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
@@ -59,7 +61,7 @@
     {
         starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
     }
-    UIBarButtonItem* favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
+    self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
     shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
     if (IS_IPAD) {
@@ -67,7 +69,7 @@
             self.title = [[GlobalNewsArray instance] selectedNews].newsTitle;
         }
     }
-    self.navigationItem.rightBarButtonItems = @[favoriteBarButton,shareBarButton];
+    self.navigationItem.rightBarButtonItems = @[self.favoriteBarButton,shareBarButton];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChange)
                                                  name:UIDeviceOrientationDidChangeNotification

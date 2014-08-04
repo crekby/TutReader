@@ -13,6 +13,7 @@
 
 + (GlobalNewsArray*) instance;
 @property (nonatomic) NSString* newsURL;
+@property (nonatomic) BOOL needToRaload;
 
 - (void) newArray;
 - (void) setNews:(NSMutableArray*) news;
@@ -27,5 +28,6 @@
 - (int) indexOfViewController:(WebViewController*) controller;
 - (void) removeNewsAtIndex:(int) index;
 - (int) rowForNews:(TUTNews*) news;
+- (BOOL)needToRaload;
 
 @end

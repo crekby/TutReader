@@ -43,15 +43,18 @@
 
 - (void)initOnlineNewsList
 {
-    //[self setTitle:ONLINE];
-    [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
-        [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
-            [[GlobalNewsArray instance] newArray];
-            [[GlobalNewsArray instance] setNews:newsList];
-            [self initCategoryList];
-            [self checkForFavorites];
+    [self setTitle:ONLINE];
+    if ([[GlobalNewsArray instance] needToRaload]) {
+        [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
+            [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
+                [[GlobalNewsArray instance] newArray];
+                [[GlobalNewsArray instance] setNews:newsList];
+                [[GlobalNewsArray instance] setNeedToRaload:NO];
+                [self initCategoryList];
+                [self checkForFavorites];
+            }];
         }];
-    }];
+    }
 }
 
 - (void)initCategoryList
@@ -80,7 +83,7 @@
 - (void) selectRow:(int) row
 {
     NSIndexPath* index = [NSIndexPath indexPathForRow:row inSection:0];
-    [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionTop];
+    [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 #pragma mark - Lifecycle
@@ -92,7 +95,10 @@
     [self.newsTableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     if (IS_IPAD) {
-        [self initOnlineNewsList];
+        if ([self.title isEqualToString:ONLINE]) {
+            [self initOnlineNewsList];
+        }
+        
     }
 }
 
@@ -101,15 +107,31 @@
     [super viewDidAppear:animated];
     if ([self.title isEqualToString:ONLINE]) {
         //[self reloadTableView];
+        if (!IS_IPAD) {
+            [[GlobalNewsArray instance] setNeedToRaload:YES];
+        }
         [self initOnlineNewsList];
         UIButton *titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
         [titleLabel setTitle:@"Categories" forState:UIControlStateNormal];
         titleLabel.frame = CGRectMake(0, 0, 70, 44);
-        [titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        if (IS_IOS7) {
+            [titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        }
+        else
+        {
+            [titleLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
         [titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
         [titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
         [titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+        UIStoryboard* storyboard;
+        if (IS_IPAD) {
+            storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle bundleForClass:[self class]]];
+        }
+        else
+        {
+          storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+        }
         self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
         self.categoryController.delegate = self;
         self.tabBarController.navigationItem.titleView = titleLabel;
@@ -130,7 +152,13 @@
 
 - (void) titleActionUpOutside:(UIButton*) sender
 {
-    [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    if (IS_IOS7) {
+        [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
 }
 
 - (void) titleActionDowmInside:(UIButton*) sender
@@ -141,11 +169,17 @@
 
 - (void) titleActionUpInside:(UIButton*) sender
 {
-    [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    if (IS_IOS7) {
+        [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
     if (self.categoryController.isOpen) {
         [sender setTitle:@"Categories" forState:UIControlStateNormal];
         [self.categoryController closeCategoryList];
-        [self reloadTableView];
+        //[self reloadTableView];
     }
     else
     {
@@ -158,6 +192,7 @@
 
 - (void)categoriesDidClose
 {
+    self.notFirstLaunch = NO;
     [self initOnlineNewsList];
 }
 
@@ -297,12 +332,15 @@
     if (!self.notFirstLaunch)
     {
         if (!IS_IPAD) return;
-        NSIndexPath* index = [NSIndexPath indexPathForRow:0 inSection:0];
-        [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionTop];
-        self.notFirstLaunch = YES;
-        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-        [[GlobalNewsArray instance] setSelectedNews:0];
-        [splitController loadNews];
+        if ([GlobalNewsArray instance].newsCount>0)
+        {
+            NSIndexPath* index = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionTop];
+            self.notFirstLaunch = YES;
+            IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
+            [[GlobalNewsArray instance] setSelectedNews:0];
+            [splitController loadNews];
+        }
     }
 }
 

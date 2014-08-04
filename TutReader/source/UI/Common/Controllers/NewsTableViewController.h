@@ -14,5 +14,6 @@
 - (void) initFavoritesNewsList;
 - (void) reloadNews;
 - (void) selectRow:(int) row;
+- (void)removeNewsAtIndex:(int)index;
 
 @end

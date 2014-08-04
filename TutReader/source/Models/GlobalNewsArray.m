@@ -37,6 +37,18 @@ SINGLETON(GlobalNewsArray)
     return _localNewsArray;
 }
 
+- (void)setNewsURL:(NSString *)newsURL
+{
+    if (newsURL!=_newsURL) {
+        _newsURL = newsURL;
+        self.needToRaload = YES;
+    }
+    else
+    {
+        self.needToRaload = NO;
+    }
+}
+
 - (TUTNews*) newsAtIndex:(int) index
 {
     if (index<_localNewsArray.count)

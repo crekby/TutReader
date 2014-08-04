@@ -8,12 +8,15 @@
         <!--Category Table View Controller-->
         <scene sceneID="KZQ-mU-OmU">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zeb-z1-U5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController storyboardIdentifier="CategoriesTableView" id="bcM-KZ-BwB" customClass="CategoryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="VCb-32-lGB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                        <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexTrackingBackgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="categoryCell" rowHeight="40" id="GcR-WP-vM9" customClass="CategoryCell">
@@ -31,6 +34,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="4a0-4r-62X" secondAttribute="bottom" constant="9" id="Z3D-Rh-xYQ"/>
                                         <constraint firstItem="4a0-4r-62X" firstAttribute="leading" secondItem="8xK-Uw-3hB" secondAttribute="leading" constant="20" id="okq-9H-B9T"/>
@@ -38,7 +42,7 @@
                                         <constraint firstAttribute="trailing" secondItem="4a0-4r-62X" secondAttribute="trailing" constant="20" id="xfp-XI-wUO"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="50" maxY="0.0"/>
                                 <connections>
                                     <outlet property="category" destination="4a0-4r-62X" id="HJf-4q-mY9"/>
@@ -54,7 +58,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="220"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zeb-z1-U5d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1644" y="-42"/>
         </scene>
@@ -63,12 +66,12 @@
             <objects>
                 <tableViewController title="Online" id="CHD-rX-f2F" customClass="NewsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="hhM-dh-GM0">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsCell" rowHeight="80" id="XLv-Mw-PGg" customClass="NewsCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XLv-Mw-PGg" id="wnN-e7-4yk">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -157,6 +160,7 @@
                             <outlet property="delegate" destination="CHD-rX-f2F" id="KWX-38-dum"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Online" image="public" id="NZE-u2-fQO"/>
                     <navigationItem key="navigationItem" title="Online" id="vvK-sC-fcz"/>
                     <connections>
@@ -219,7 +223,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8u4-Vk-rve" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Q9r-Qn-Tpk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Q9r-Qn-Tpk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -427,12 +431,12 @@
             <objects>
                 <tableViewController title="Favorite" id="T1R-UF-dB1" customClass="NewsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="cwd-Er-nsV">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="newsCell" rowHeight="80" id="dO2-Lj-9hU" customClass="NewsCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="80"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dO2-Lj-9hU" id="y5P-9U-IiP">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="79"/>
@@ -521,6 +525,7 @@
                             <outlet property="delegate" destination="T1R-UF-dB1" id="yL4-ST-IVE"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Favorite" image="iconNavBarFavoritesEnabled" id="9gW-8A-CuS"/>
                     <navigationItem key="navigationItem" title="Favorite" id="xAa-sP-3nV"/>
                     <connections>
@@ -535,6 +540,7 @@
         <scene sceneID="TV9-Eo-NlX">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xk0-4G-Btm" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="lTH-h2-SWo"/>
                     <nil key="simulatedBottomBarMetrics"/>

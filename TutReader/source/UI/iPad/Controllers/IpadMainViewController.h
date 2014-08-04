@@ -13,5 +13,6 @@
 - (void) loadNews;
 - (void) reloadNewsTable;
 - (void) selectRow: (int) row;
+- (void) removeRowAtIndex:(int)index;
 
 @end

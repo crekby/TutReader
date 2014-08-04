@@ -43,9 +43,22 @@
 {
     for (UIViewController* controller in self.viewControllers) {
         UINavigationController* nav = (UINavigationController*)controller;
-        if (nav.topViewController.class==NewsTableViewController.class)
+        if (nav.topViewController.class==UITabBarController.class)
         {
-            [(NewsTableViewController*)nav.topViewController selectRow:row];
+            UITabBarController* tabBar = (UITabBarController*) nav.topViewController;
+            [(NewsTableViewController*)tabBar.viewControllers[tabBar.selectedIndex] selectRow:row];
+        }
+    }
+}
+
+- (void)removeRowAtIndex:(int)index
+{
+    for (UIViewController* controller in self.viewControllers) {
+        UINavigationController* nav = (UINavigationController*)controller;
+        if (nav.topViewController.class==UITabBarController.class)
+        {
+            UITabBarController* tabBar = (UITabBarController*) nav.topViewController;
+            [(NewsTableViewController*)tabBar.viewControllers[tabBar.selectedIndex] removeNewsAtIndex:index];
         }
     }
 }

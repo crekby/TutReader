@@ -55,21 +55,20 @@
     if ([self.delegate respondsToSelector:@selector(categoriesWillClose)]) {
         [self.delegate categoriesWillClose];
     }
-    [UIView animateKeyframesWithDuration:0.3f delay:0.0f options:UIViewKeyframeAnimationOptionBeginFromCurrentState animations:^(){
-        self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-220, 300, 0);
-    } completion:^(BOOL finish)
-    {
-        if (finish)
+    [UIView animateWithDuration:0.3f animations:^(){
+        self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-220, 300, 0);} completion:^(BOOL finish)
         {
-            if ([self.delegate respondsToSelector:@selector(categoriesDidClose)]) {
-                [self.delegate categoriesDidClose];
+            if (finish)
+            {
+                if ([self.delegate respondsToSelector:@selector(categoriesDidClose)]) {
+                    [self.delegate categoriesDidClose];
+                }
+                self.isOpen = NO;
+                [self.view removeFromSuperview];
+                self.firstTime = YES;
+                
             }
-            self.isOpen = NO;
-            [self.view removeFromSuperview];
-            self.firstTime = YES;
-            
-        }
-    }];
+        }];
 }
 
 #pragma mark - Table view data source
@@ -116,15 +115,6 @@
     }
     
     cell.category.text = categoryItem.name;
-    
-    /*if ([[self.categoriesContent objectAtIndex:indexPath.row] hasPrefix:@"►"] || [[self.categoriesContent objectAtIndex:indexPath.row] hasPrefix:@"▼"]) {
-        cell.contentViewLeftConstraint.constant = 20;
-    }
-    else
-    {
-        cell.contentViewLeftConstraint.constant = 50;
-    }
-    cell.category.text = [self.categoriesContent objectAtIndex:indexPath.row];*/
     
     return cell;
 }
