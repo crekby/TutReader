@@ -100,6 +100,15 @@
         }
         
     }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
+    }
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -413,6 +422,13 @@
     else
     {
         [cell.shareButton setImage:([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE] forState:UIControlStateNormal];
+    }
+}
+
+- (void) changeOrientation
+{
+    if (self.categoryController.isOpen) {
+        self.categoryController.view.frame = CGRectMake(self.view.frame.size.width/2-150, self.view.frame.origin.y, 300, 220);
     }
 }
 
