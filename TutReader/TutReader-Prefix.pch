@@ -23,6 +23,6 @@
     #import "GlobalNewsArray.h"
     #import "CategoryManager.h"
     #import "GlobalCategoriesArray.h"
-
+    #import "LocalizationSystem.h"
 #endif
 

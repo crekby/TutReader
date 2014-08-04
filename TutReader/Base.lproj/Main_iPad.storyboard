@@ -148,7 +148,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Online" image="public" id="kvf-FK-ZPy"/>
+                    <tabBarItem key="tabBarItem" title="" image="public" id="kvf-FK-ZPy"/>
                     <navigationItem key="navigationItem" title="Online" id="ASn-en-CAA"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="852"/>
@@ -221,7 +221,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="dmx-Cc-XhY">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7TV-RX-Wzk" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7TV-RX-Wzk" customClass="TabBarController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cFm-7P-fgh"/>
@@ -392,7 +392,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Favorite" image="iconNavBarFavorites" id="sP2-s1-jqm"/>
+                    <tabBarItem key="tabBarItem" title="" image="iconNavBarFavorites" id="sP2-s1-jqm"/>
                     <navigationItem key="navigationItem" title="Favorite" id="Sg3-JU-fFp"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="852"/>

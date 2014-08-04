@@ -35,6 +35,8 @@
 
 @property (strong, nonatomic) NSMutableArray* selectedCategories;
 
+@property (nonatomic, strong) UIButton *titleLabel;
+
 @end
 
 @implementation NewsTableViewController
@@ -43,7 +45,7 @@
 
 - (void)initOnlineNewsList
 {
-    [self setTitle:ONLINE];
+    [self setTag:ONLINE];
     if ([[GlobalNewsArray instance] needToRaload]) {
         [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
             [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
@@ -67,7 +69,7 @@
 
 - (void)initFavoritesNewsList
 {
-    [self setTitle:FAVORITE];
+    [self setTag:FAVORITE];
     if (IS_IPAD) {
         [self loadData];
     }
@@ -75,7 +77,7 @@
 
 -(void)reloadNews
 {
-    if ([self.title isEqualToString:FAVORITE]) {
+    if (self.tag == FAVORITE) {
         [self initFavoritesNewsList];
     }
 }
@@ -95,7 +97,7 @@
     [self.newsTableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     if (IS_IPAD) {
-        if ([self.title isEqualToString:ONLINE]) {
+        if (self.tag == ONLINE) {
             [self initOnlineNewsList];
         }
         
@@ -104,6 +106,29 @@
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
+    self.titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.titleLabel setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
+    self.titleLabel.frame = CGRectMake(0, 0, 70, 44);
+    if (IS_IOS7) {
+        [self.titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.titleLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    [self.titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
+    [self.titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
+    [self.titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+    UIStoryboard* storyboard;
+    if (IS_IPAD) {
+        storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle bundleForClass:[self class]]];
+    }
+    else
+    {
+        storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+    }
+    self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
+    self.categoryController.delegate = self;
 }
 
 - (void)dealloc
@@ -114,36 +139,11 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if ([self.title isEqualToString:ONLINE]) {
+    if (self.tag == ONLINE) {
         //[self reloadTableView];
-        if (!IS_IPAD) {
-            [[GlobalNewsArray instance] setNeedToRaload:YES];
-        }
+        [[GlobalNewsArray instance] setNeedToRaload:YES];
         [self initOnlineNewsList];
-        UIButton *titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
-        [titleLabel setTitle:@"Categories" forState:UIControlStateNormal];
-        titleLabel.frame = CGRectMake(0, 0, 70, 44);
-        if (IS_IOS7) {
-            [titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        }
-        else
-        {
-            [titleLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        }
-        [titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
-        [titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
-        [titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
-        UIStoryboard* storyboard;
-        if (IS_IPAD) {
-            storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle bundleForClass:[self class]]];
-        }
-        else
-        {
-          storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
-        }
-        self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
-        self.categoryController.delegate = self;
-        self.tabBarController.navigationItem.titleView = titleLabel;
+        self.tabBarController.navigationItem.titleView = self.titleLabel;
     }
     else
     {
@@ -151,6 +151,7 @@
             self.tabBarController.navigationItem.titleView = nil;
         }
     }
+    
     [self loadData];
     
     
@@ -186,13 +187,11 @@
         [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     if (self.categoryController.isOpen) {
-        [sender setTitle:@"Categories" forState:UIControlStateNormal];
         [self.categoryController closeCategoryList];
         //[self reloadTableView];
     }
     else
     {
-        [sender setTitle:@"Categories" forState:UIControlStateNormal];
         [self.categoryController openCategoryListAboveView:self.view];
     }
 }
@@ -277,7 +276,7 @@
         [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
-                if ([self.title isEqualToString:FAVORITE]) {
+                if (self.tag == FAVORITE) {
                     [self removeNewsAtIndex:cell.row];
                 }
             }
@@ -355,14 +354,16 @@
 
 - (void)loadData
 {
-    if ([self.title isEqualToString:FAVORITE]) {
+    if (self.tag == FAVORITE) {
         [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
             NSArray* requestResult = data;
             if (requestResult) {
                 [[GlobalNewsArray instance] newArray];
                 for (NSManagedObject* object in requestResult) {
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
-                    [[GlobalNewsArray instance] insertNews:favoriteNews];
+                    if (favoriteNews.newsURL) {
+                        [[GlobalNewsArray instance] insertNews:favoriteNews];
+                    }
                 }
                 [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
             }
@@ -391,7 +392,7 @@
 
 - (void) refresh
 {
-    if ([self.title  isEqual: ONLINE])
+    if (self.tag  == ONLINE)
     {
         [self initOnlineNewsList];
     }
@@ -404,7 +405,7 @@
 
 - (void) trackNewsOpening
 {
-    if ([self.title  isEqual: ONLINE])
+    if (self.tag == ONLINE)
     {
         [[GoogleAnalyticsManager instance] trackOpenOnlineNews];
     }
@@ -440,6 +441,21 @@
     [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     [self.newsTableView endUpdates];
     [self.newsTableView reloadData];
+}
+
+- (void) localizeTabBarItem
+{
+    if (self.tag == ONLINE) {
+        self.tabBarItem.title = AMLocalizedString(@"ONLINE_TITLE", nil);
+        [self.titleLabel setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
+        [self.titleLabel sizeToFit];
+        [self.titleLabel setNeedsDisplay];
+        [self.titleLabel.superview sizeToFit];
+    }
+    else
+    {
+        self.tabBarItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
+    }
 }
 
 

@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  TutReader
+
+  Created by crekby on 8/4/14.
+  Copyright (c) 2014 crekby. All rights reserved.
+*/
+
+
+"ONLINE_TITLE" = "Online";
+"FAVORITE_TITLE" = "Favorite";
+"CATEGORIES_TITLE" = "Categories";
+
+"NO_INTERNET_CONNECTION_TITLE"       = "Internet Connection";
+"NO_INTERNET_CONNECTION_MESSAGE"     = "There is no internet connection";
+
+"HOST_NOT_REACHABLE_TITLE"           = "Host not reachable";
+"HOST_NOT_REACHABLE_MESSAGE"         = "News host not reachable. Try again later";
+
+"EMAIL_SHARE_TITLE_ALERT"            = "Email Share";
+"EMAIL_SHARE_SEND_BODY_ALERT"        = "Email was successfuly send";
+"EMAIL_SHARE_FAILED_ALERT"           = "Email sending was failed";
+"EMAIL_SHARE_NOT_AVAILABLE_ALERT"    = "Please set up email preferences in a device settings";
+
+"TWEETER_SHARE_TITLE_ALERT"          = "Tweeter";
+"TWEETER_SHARE_SEND_BODY_ALERT"      = "Tweet was successfuly send";
+"TWEETER_SHARE_FAILED_BODY_ALERT"    = "Tweet sending was failed";
+"TWEETER_SHARE_NOT_AVAILABLE_ALERT"  = "Please set up tweeter preferences in a device settings";
+
+"FACEBOOK_SHARE_TITLE_ALERT"         = "Facebook";
+"FACEBOOK_SHARE_SEND_BODY_ALERT"     = "Message was successfuly send";
+"FACEBOOK_SHARE_FAILED_BODY_ALERT"   = "Message sending was failed";
+"FACEBOOK_SHARE_NOT_AVAILABLE_ALERT" = "Please set up facebook preferences in a device settings";

@@ -19,8 +19,24 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //[[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
+    [LocalizationSystem sharedLocalSystem];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"app_version"];
     [[GlobalCategoriesArray instance] initCategories];
     return YES;
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    NSString* lang = [[NSUserDefaults standardUserDefaults] objectForKey:@"lang"];
+    if (!lang || [lang isEqualToString:@"0"]) {
+        [[LocalizationSystem sharedLocalSystem] setLanguage:@"en"];
+    }
+    else
+    {
+        [[LocalizationSystem sharedLocalSystem] setLanguage:@"ru"];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_LOCALIZATION object:nil];
 }
 
 - (BOOL)application: (UIApplication *)application

@@ -161,7 +161,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Online" image="public" id="NZE-u2-fQO"/>
+                    <tabBarItem key="tabBarItem" title="" image="public" id="NZE-u2-fQO"/>
                     <navigationItem key="navigationItem" title="Online" id="vvK-sC-fcz"/>
                     <connections>
                         <outlet property="newsTableView" destination="hhM-dh-GM0" id="pPc-Di-bKK"/>
@@ -526,7 +526,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Favorite" image="iconNavBarFavoritesEnabled" id="9gW-8A-CuS"/>
+                    <tabBarItem key="tabBarItem" title="" image="iconNavBarFavoritesEnabled" id="9gW-8A-CuS"/>
                     <navigationItem key="navigationItem" title="Favorite" id="xAa-sP-3nV"/>
                     <connections>
                         <outlet property="newsTableView" destination="cwd-Er-nsV" id="Xfw-GU-Ad8"/>
@@ -539,7 +539,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="TV9-Eo-NlX">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xk0-4G-Btm" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="xk0-4G-Btm" customClass="TabBarController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="lTH-h2-SWo"/>
@@ -573,6 +573,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="t4u-kM-tXT"/>
+        <segue reference="F2V-AB-Ujp"/>
     </inferredMetricsTieBreakers>
 </document>

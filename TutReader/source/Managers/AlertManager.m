@@ -21,63 +21,63 @@ SINGLETON(AlertManager)
 
 - (void) showEmailShareIsSendAlert
 {
-    [self showAlertWithTitle: EMAIL_SHARE_TITLE_ALERT andText:EMAIL_SHARE_SEND_BODY_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"EMAIL_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"EMAIL_SHARE_SEND_BODY_ALERT",nil)];
 }
 
 - (void) showEmailShareIsFailedAlert
 {
-    [self showAlertWithTitle:EMAIL_SHARE_TITLE_ALERT andText:EMAIL_SHARE_FAILED_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"EMAIL_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"EMAIL_SHARE_FAILED_ALERT",nil)];
 }
 
 - (void) showEmailShareNotAvailible
 {
-    [self showAlertWithTitle:EMAIL_SHARE_TITLE_ALERT andText:EMAIL_SHARE_NOT_AVAILABLE_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"EMAIL_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"EMAIL_SHARE_NOT_AVAILABLE_ALERT",nil)];
 }
 
 #pragma mark - Twitter share alerts
 
 - (void) showTweetShareIsSendAlert
 {
-    [self showAlertWithTitle:TWEETER_SHARE_TITLE_ALERT andText:TWEETER_SHARE_SEND_BODY_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"TWEETER_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"TWEETER_SHARE_SEND_BODY_ALERT",nil)];
 }
 
 - (void) showTweetShareIsFailedAlert
 {
-    [self showAlertWithTitle:TWEETER_SHARE_TITLE_ALERT andText:TWEETER_SHARE_FAILED_BODY_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"TWEETER_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"TWEETER_SHARE_FAILED_BODY_ALERT",nil)];
 }
 
 - (void) showTweeterShareNotAvailible
 {
-    [self showAlertWithTitle:TWEETER_SHARE_TITLE_ALERT andText:TWEETER_SHARE_NOT_AVAILABLE_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"TWEETER_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"TWEETER_SHARE_NOT_AVAILABLE_ALERT",nil)];
 }
 
 #pragma mark - Facebook share alerts
 
 - (void) showFacebookShareIsSendAlert
 {
-    [self showAlertWithTitle:FACEBOOK_SHARE_TITLE_ALERT andText:FACEBOOK_SHARE_SEND_BODY_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"FACEBOOK_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"FACEBOOK_SHARE_SEND_BODY_ALERT",nil)];
 }
 
 - (void) showFacebookShareIsFailedAlert
 {
-    [self showAlertWithTitle:FACEBOOK_SHARE_TITLE_ALERT andText:FACEBOOK_SHARE_FAILED_BODY_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"FACEBOOK_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"FACEBOOK_SHARE_FAILED_BODY_ALERT",nil)];
 }
 
 - (void) showFacebookShareNotAvailible
 {
-    [self showAlertWithTitle:FACEBOOK_SHARE_TITLE_ALERT andText:FACEBOOK_SHARE_NOT_AVAILABLE_ALERT];
+    [self showAlertWithTitle:AMLocalizedString(@"FACEBOOK_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"FACEBOOK_SHARE_NOT_AVAILABLE_ALERT",nil)];
 }
 
 #pragma mark - Internet connection alerts
 
 - (void) showNoInternetConnectionAlert
 {
-    [self showAlertWithTitle:NO_INTERNET_CONNECTION_TITLE andText:NO_INTERNET_CONNECTION_MESSAGE];
+    [self showAlertWithTitle:AMLocalizedString(@"NO_INTERNET_CONNECTION_TITLE",nil) andText:AMLocalizedString(@"NO_INTERNET_CONNECTION_MESSAGE",nil)];
 }
 
 - (void) showHostNotReachableAlert
 {
-    [self showAlertWithTitle:HOST_NOT_REACHABLE_TITLE andText:HOST_NOT_REACHABLE_MESSAGE];
+    [self showAlertWithTitle:AMLocalizedString(@"HOST_NOT_REACHABLE_TITLE",nil) andText:AMLocalizedString(@"HOST_NOT_REACHABLE_MESSAGE",nil)];
 }
 
 #pragma mark - private methods

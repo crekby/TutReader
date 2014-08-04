@@ -10,6 +10,7 @@
 #import "webViewController.h"
 #import "NewsTableViewController.h"
 #import "PageViewController.h"
+#import "TabBarController.h"
 
 @interface IpadMainViewController ()
 
@@ -43,7 +44,7 @@
 {
     for (UIViewController* controller in self.viewControllers) {
         UINavigationController* nav = (UINavigationController*)controller;
-        if (nav.topViewController.class==UITabBarController.class)
+        if (nav.topViewController.class==TabBarController.class)
         {
             UITabBarController* tabBar = (UITabBarController*) nav.topViewController;
             [(NewsTableViewController*)tabBar.viewControllers[tabBar.selectedIndex] selectRow:row];

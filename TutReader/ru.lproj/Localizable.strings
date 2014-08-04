@@ -1,0 +1,34 @@
+/* 
+  Localizable.strings
+  TutReader
+
+  Created by crekby on 8/4/14.
+  Copyright (c) 2014 crekby. All rights reserved.
+*/
+
+
+
+"ONLINE_TITLE" = "Онлайн";
+"FAVORITE_TITLE" = "Избранные";
+"CATEGORIES_TITLE" = "Рубрики";
+
+"NO_INTERNET_CONNECTION_TITLE"       = "Интернет Соединение";
+"NO_INTERNET_CONNECTION_MESSAGE"     = "Интернет соединение отсуствует";
+
+"HOST_NOT_REACHABLE_TITLE"           = "Сайт Не Доступен";
+"HOST_NOT_REACHABLE_MESSAGE"         = "Сайт не доступен, Повторите попытку пожже";
+
+"EMAIL_SHARE_TITLE_ALERT"            = "Email";
+"EMAIL_SHARE_SEND_BODY_ALERT"        = "Письмо успешно послано";
+"EMAIL_SHARE_FAILED_ALERT"           = "Не удалось отправить письмо";
+"EMAIL_SHARE_NOT_AVAILABLE_ALERT"    = "Настройте Email аккаунт в настройках телефона";
+
+"TWEETER_SHARE_TITLE_ALERT"          = "Tweeter";
+"TWEETER_SHARE_SEND_BODY_ALERT"      = "Твит успешно послан";
+"TWEETER_SHARE_FAILED_BODY_ALERT"    = "Не удалос отправить твит";
+"TWEETER_SHARE_NOT_AVAILABLE_ALERT"  = "настройте Tweeter аккаунт в настройках телефона";
+
+"FACEBOOK_SHARE_TITLE_ALERT"         = "Facebook";
+"FACEBOOK_SHARE_SEND_BODY_ALERT"     = "Сообщение успешно послано";
+"FACEBOOK_SHARE_FAILED_BODY_ALERT"   = "Не удалось отправить сообщение";
+"FACEBOOK_SHARE_NOT_AVAILABLE_ALERT" = "Настройте Facebook аккаунт в настойках телофона";

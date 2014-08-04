@@ -10,10 +10,13 @@
 
 @interface NewsTableViewController : UITableViewController <NSURLConnectionDelegate,NSXMLParserDelegate,UIGestureRecognizerDelegate>
 
+@property (nonatomic) int tag;
+
 - (void) initOnlineNewsList;
 - (void) initFavoritesNewsList;
 - (void) reloadNews;
 - (void) selectRow:(int) row;
 - (void)removeNewsAtIndex:(int)index;
+- (void) localizeTabBarItem;
 
 @end
