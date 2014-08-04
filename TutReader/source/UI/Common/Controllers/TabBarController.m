@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.viewControllers[0] setTag:ONLINE];
     [self checkLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(checkLocalization)

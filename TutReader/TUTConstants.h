@@ -67,8 +67,8 @@ typedef enum
 
 typedef enum
 {
-    ONLINE = 0,
-    FAVORITE
+    FAVORITE = 0,
+    ONLINE = 1
 } newsTypes;
 
 // CELLS IDENTIFICATORS
