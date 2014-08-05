@@ -15,7 +15,7 @@ SINGLETON(RemoteFacade)
 
 #pragma mark - Get Data From RSS Server
 
-- (void) getOnlineNewsDataWithCallback:(CallbackWithDataAndError) callback
+- (void) getOnlineNewsDataWithURL:(NSString*) newsUrl andCallback:(CallbackWithDataAndError) callback
 {
     if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus==NotReachable)
     {
@@ -24,7 +24,7 @@ SINGLETON(RemoteFacade)
     }
     if ([Reachability reachabilityWithHostName:@"tut.by"].currentReachabilityStatus != NotReachable)
     {
-        NSURL* url = [NSURL URLWithString:[GlobalNewsArray instance].newsURL];
+        NSURL* url = [NSURL URLWithString:newsUrl];
         NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
         [request setHTTPMethod:@"GET"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: YES];

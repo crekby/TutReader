@@ -118,7 +118,7 @@
 {
     [self setType:ONLINE];
     if ([[GlobalNewsArray instance] needToRaload]) {
-        [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
+        [[RemoteFacade instance] getOnlineNewsDataWithURL:[[GlobalNewsArray instance] newsURL] andCallback:^(NSData* data, NSError *error){
             [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
                 [[GlobalNewsArray instance] setNews:newsList];
                 [[GlobalNewsArray instance] setNeedToRaload:NO];

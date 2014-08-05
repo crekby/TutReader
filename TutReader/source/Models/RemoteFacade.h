@@ -12,6 +12,6 @@
 
 + (RemoteFacade*)instance;
 
-- (void) getOnlineNewsDataWithCallback:(CallbackWithDataAndError) callback;
+- (void) getOnlineNewsDataWithURL:(NSString*) url andCallback:(CallbackWithDataAndError) callback;
 
 @end
