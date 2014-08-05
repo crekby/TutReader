@@ -425,11 +425,11 @@
 - (void) changeImage:(NewsCell*) cell
 {
     if (IS_IOS7) {
-        [cell.shareButton setImage:([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
+        [cell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:cell.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
     }
     else
     {
-        [cell.shareButton setImage:([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE] forState:UIControlStateNormal];
+        [cell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:cell.row].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE] forState:UIControlStateNormal];
     }
     [cell.shareButton setNeedsDisplay];
 }
