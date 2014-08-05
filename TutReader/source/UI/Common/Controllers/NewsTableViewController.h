@@ -10,7 +10,7 @@
 
 @interface NewsTableViewController : UITableViewController <NSURLConnectionDelegate,NSXMLParserDelegate,UIGestureRecognizerDelegate>
 
-@property (nonatomic) int tag;
+@property (nonatomic) int type;
 
 - (void) initOnlineNewsList;
 - (void) initFavoritesNewsList;

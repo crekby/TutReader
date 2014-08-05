@@ -2,7 +2,7 @@
 //  NewsItem.m
 //  TutReader
 //
-//  Created by crekby on 7/23/14.
+//  Created by crekby on 8/5/14.
 //  Copyright (c) 2014 crekby. All rights reserved.
 //
 
@@ -11,7 +11,6 @@
 
 @implementation NewsItem
 
-@dynamic image;
 @dynamic imageUrl;
 @dynamic isFavorite;
 @dynamic newsUrl;

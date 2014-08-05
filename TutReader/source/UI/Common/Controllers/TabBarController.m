@@ -27,7 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.viewControllers[0] setTag:ONLINE];
+    [(NewsTableViewController*)self.viewControllers[0] setType:ONLINE];
+    [(NewsTableViewController*)self.viewControllers[1] setType:FAVORITE];
     [self checkLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(checkLocalization)
