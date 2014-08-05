@@ -260,10 +260,13 @@
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
     }
-    [[GlobalNewsArray instance] setSelectedNews:indexPath.row];
-    IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-    [splitController loadNews];
-    [self trackNewsOpening];
+    if (indexPath.row != [[GlobalNewsArray instance] selectedItem]) {
+        [[GlobalNewsArray instance] setSelectedNews:indexPath.row];
+        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
+        [splitController loadNews];
+        [self trackNewsOpening];
+    }
+    
 }
 
 #pragma mark - SwipeCell delegate Action
@@ -274,8 +277,10 @@
     TUTNews* news = [[GlobalNewsArray instance] newsAtIndex:cell.row];
     if (news.isFavorite) {
         [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
+            NSLog(@"%@",error.localizedDescription);
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
+                //[self changeImage:cell];
                 if (self.tag == FAVORITE) {
                     [self removeNewsAtIndex:cell.row];
                 }
@@ -285,7 +290,9 @@
     else
     {
         [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
+            NSLog(@"%@",error.localizedDescription);
             if (!error) {
+                //[self changeImage:cell];
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
             }
         }];
@@ -343,7 +350,7 @@
         if ([GlobalNewsArray instance].newsCount>0)
         {
             NSIndexPath* index = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionTop];
+            [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
             self.notFirstLaunch = YES;
             IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
             [[GlobalNewsArray instance] setSelectedNews:0];
@@ -424,6 +431,7 @@
     {
         [cell.shareButton setImage:([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE] forState:UIControlStateNormal];
     }
+    [cell.shareButton setNeedsDisplay];
 }
 
 - (void) changeOrientation

@@ -31,3 +31,6 @@
 "FACEBOOK_SHARE_SEND_BODY_ALERT"     = "Message was successfuly send";
 "FACEBOOK_SHARE_FAILED_BODY_ALERT"   = "Message sending was failed";
 "FACEBOOK_SHARE_NOT_AVAILABLE_ALERT" = "Please set up facebook preferences in a device settings";
+
+"WHATSAPP_SHARE_TITLE_ALERT"         = "WhatsApp";
+"WHATSAPP_SHARE_NOT_AVAILABLE_ALERT" = "WhatsApp sharing is not available";

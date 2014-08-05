@@ -51,7 +51,7 @@
     self.dataSource = self;
     if (IS_IPAD) {
         WebViewController* controller = [[WebViewController alloc] init];
-        [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil ];
+        //[self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil ];
     }
     UIImage* starImage;
     if (IS_IOS7) {
@@ -74,7 +74,6 @@
                                              selector:@selector(orientationChange)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -117,18 +116,8 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
     self.title = [(WebViewController*)self.viewControllers[0] loadedNews].newsTitle;
-    WebViewController* controller = (WebViewController*)[pageViewController.viewControllers objectAtIndex:0];
-    NSInteger index = [[GlobalNewsArray instance] indexOfViewController:controller];
-    if (index == NSNotFound) {
-        return;
-    }
-    [[GlobalNewsArray instance] setSelectedNews:index];
-    [self changeImage:[self.navigationItem.rightBarButtonItems objectAtIndex:1]];
-    if (IS_IPAD) {
-        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-        [splitController selectRow:index];
-    }
-    
+    WebViewController* controller = (WebViewController*)[self.viewControllers objectAtIndex:0];
+    [self selectRow:controller];
 }
 
 -(NSUInteger)pageViewControllerSupportedInterfaceOrientations:(UIPageViewController *)pageViewController
@@ -189,6 +178,12 @@
     [[ShareManager instance] shareByGooglePlus:[[GlobalNewsArray instance] selectedNews] inController:self];
 }
 
+- (void)shareViewController:(UIViewController *)vc whatsAppShareButtonTapped:(id)sender
+{
+    [self.sharePopover dismissPopoverAnimated:YES];
+    [[ShareManager instance] shareByWatsApp:[[GlobalNewsArray instance] selectedNews]];
+}
+
 #pragma mark - Private methods
 
 - (WebViewController*) viewControllerAtIndex:(int)index storyboard:(UIStoryboard*)storyboard
@@ -205,13 +200,13 @@
     if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) || [[UIDevice currentDevice] orientation]==0) {
         shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewPortrait"];
         self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
-        [self.sharePopover setPopoverContentSize:CGSizeMake(115, 330)];
+        [self.sharePopover setPopoverContentSize:CGSizeMake(115, 411)];
     }
     else
     {
         shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewLandscape"];
         self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
-        [self.sharePopover setPopoverContentSize:CGSizeMake(330, 115)];
+        [self.sharePopover setPopoverContentSize:CGSizeMake(411, 115)];
     }
     [self.sharePopover setDelegate:self];
     [shareViewController setDelegate:self];
@@ -234,6 +229,27 @@
 {
     if (self.sharePopover.isPopoverVisible) {
         [self.sharePopover dismissPopoverAnimated:YES];
+    }
+}
+
+- (void) selectRow:(WebViewController*) controller
+{
+    NSInteger index;
+    if (controller) {
+        index = [[GlobalNewsArray instance] indexOfViewController:controller];
+    }
+    else
+    {
+        index = [[GlobalNewsArray instance] selectedItem];
+    }
+    if (index == NSNotFound) {
+        return;
+    }
+    [[GlobalNewsArray instance] setSelectedNews:index];
+    [self changeImage:[self.navigationItem.rightBarButtonItems objectAtIndex:1]];
+    if (IS_IPAD) {
+        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
+        [splitController selectRow:index];
     }
 }
 

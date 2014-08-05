@@ -17,6 +17,7 @@
 -(void)shareViewController:(UIViewController*)vc twitterShareButtonTapped:(id)sender;
 -(void)shareViewController:(UIViewController*)vc facebookShareButtonTapped:(id)sender;
 -(void)shareViewController:(UIViewController*)vc googlePlusShareButtonTapped:(id)sender;
+-(void)shareViewController:(UIViewController*)vc whatsAppShareButtonTapped:(id)sender;
 @end
 
 

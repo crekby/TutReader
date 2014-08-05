@@ -15,7 +15,7 @@ SINGLETON(FavoriteNewsManager)
 
 - (void) addNewsToFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
 {
-    [[GlobalNewsArray instance] newsAtIndex:index].isFavorite = ![[GlobalNewsArray instance] newsAtIndex:index].isFavorite;
+    [[GlobalNewsArray instance] newsAtIndex:index].isFavorite = ![[[GlobalNewsArray instance] newsAtIndex:index] isFavorite];
     [[PersistenceFacade instance] addObjectToCoreData:[[GlobalNewsArray instance] newsAtIndex:index] withCallback:^( NSManagedObjectID *ID, NSError* error){
         if (!error) {
             [[GlobalNewsArray instance] newsAtIndex:index].coreDataObjectID = ID;
@@ -33,7 +33,7 @@ SINGLETON(FavoriteNewsManager)
 
 - (void) removeNewsFromFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
 {
-    [[GlobalNewsArray instance] newsAtIndex:index].isFavorite = ![[GlobalNewsArray instance] newsAtIndex:index].isFavorite;
+    [[GlobalNewsArray instance] newsAtIndex:index].isFavorite = ![[[GlobalNewsArray instance] newsAtIndex:index] isFavorite];
     [[PersistenceFacade instance] deleteObjectFromCoreData:[[GlobalNewsArray instance] newsAtIndex:index] withCallback:^(id data, NSError* error){
         if (!error)
         {

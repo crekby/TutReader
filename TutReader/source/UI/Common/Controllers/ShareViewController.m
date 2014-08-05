@@ -44,5 +44,12 @@
     }
 }
 
+-(IBAction)whatsAppShareButtonTapped:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(shareViewController:whatsAppShareButtonTapped:)]) {
+        [self.delegate shareViewController:self whatsAppShareButtonTapped:sender];
+    }
+}
+
 
 @end

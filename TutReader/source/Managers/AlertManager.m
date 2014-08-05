@@ -29,7 +29,7 @@ SINGLETON(AlertManager)
     [self showAlertWithTitle:AMLocalizedString(@"EMAIL_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"EMAIL_SHARE_FAILED_ALERT",nil)];
 }
 
-- (void) showEmailShareNotAvailible
+- (void) showEmailShareNotAvailable
 {
     [self showAlertWithTitle:AMLocalizedString(@"EMAIL_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"EMAIL_SHARE_NOT_AVAILABLE_ALERT",nil)];
 }
@@ -46,7 +46,7 @@ SINGLETON(AlertManager)
     [self showAlertWithTitle:AMLocalizedString(@"TWEETER_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"TWEETER_SHARE_FAILED_BODY_ALERT",nil)];
 }
 
-- (void) showTweeterShareNotAvailible
+- (void) showTweeterShareNotAvailable
 {
     [self showAlertWithTitle:AMLocalizedString(@"TWEETER_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"TWEETER_SHARE_NOT_AVAILABLE_ALERT",nil)];
 }
@@ -63,9 +63,16 @@ SINGLETON(AlertManager)
     [self showAlertWithTitle:AMLocalizedString(@"FACEBOOK_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"FACEBOOK_SHARE_FAILED_BODY_ALERT",nil)];
 }
 
-- (void) showFacebookShareNotAvailible
+- (void) showFacebookShareNotAvailable
 {
     [self showAlertWithTitle:AMLocalizedString(@"FACEBOOK_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"FACEBOOK_SHARE_NOT_AVAILABLE_ALERT",nil)];
+}
+
+#pragma mark - WhatsApp sharing
+
+- (void) showWhatsAppSharingNotAvailable
+{
+    [self showAlertWithTitle:AMLocalizedString(@"WHATSAPP_SHARE_TITLE_ALERT",nil) andText:AMLocalizedString(@"WHATSAPP_SHARE_NOT_AVAILABLE_ALERT",nil)];
 }
 
 #pragma mark - Internet connection alerts

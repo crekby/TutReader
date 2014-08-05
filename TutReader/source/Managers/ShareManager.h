@@ -20,5 +20,6 @@
 - (void) shareBytwitter: (TUTNews*) news inController:(UIViewController*) viewController;
 - (void) shareByFacebook: (TUTNews*) news inController:(UIViewController*) viewController;
 - (void) shareByGooglePlus: (TUTNews*) news inController:(UIViewController*) viewController;
+- (void) shareByWatsApp: (TUTNews*) news;
 
 @end

@@ -17,15 +17,17 @@
 
 - (void) showEmailShareIsSendAlert;
 - (void) showEmailShareIsFailedAlert;
-- (void) showEmailShareNotAvailible;
+- (void) showEmailShareNotAvailable;
 
 - (void) showTweetShareIsSendAlert;
 - (void) showTweetShareIsFailedAlert;
-- (void) showTweeterShareNotAvailible;
+- (void) showTweeterShareNotAvailable;
 
 - (void) showFacebookShareIsSendAlert;
 - (void) showFacebookShareIsFailedAlert;
-- (void) showFacebookShareNotAvailible;
+- (void) showFacebookShareNotAvailable;
+
+- (void) showWhatsAppSharingNotAvailable;
 
 - (void) showAlertWithError:(NSString*) error;
 

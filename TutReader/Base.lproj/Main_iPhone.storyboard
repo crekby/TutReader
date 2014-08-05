@@ -216,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVq-Va-o4Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3971" y="450"/>
+            <point key="canvasLocation" x="4143" y="450"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="S6d-3Q-eRw">
@@ -255,7 +255,7 @@
                         <viewControllerLayoutGuide type="bottom" id="8EA-uN-RMO"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qsm-re-kF9">
-                        <rect key="frame" x="0.0" y="0.0" width="115" height="330"/>
+                        <rect key="frame" x="0.0" y="0.0" width="115" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCX-oR-yRL">
@@ -314,6 +314,16 @@
                                     <action selector="twitterShareButtonTapped:" destination="bUd-Vg-q8c" eventType="touchUpInside" id="JSU-mM-GvZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aRc-qF-gto">
+                                <rect key="frame" x="27" y="330" width="61" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="iconShareWhatsApp">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="whatsAppShareButtonTapped:" destination="bUd-Vg-q8c" eventType="touchUpInside" id="Gwi-cg-Lza"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -323,14 +333,14 @@
                             <constraint firstItem="0Tb-Gt-iLw" firstAttribute="leading" secondItem="Cfh-vb-feU" secondAttribute="trailing" constant="-61" id="ISK-GE-a72"/>
                             <constraint firstItem="zex-KW-zXe" firstAttribute="centerY" secondItem="RCX-oR-yRL" secondAttribute="centerY" constant="75" id="MkJ-bD-RAX"/>
                             <constraint firstItem="zex-KW-zXe" firstAttribute="leading" secondItem="RCX-oR-yRL" secondAttribute="trailing" constant="-61" id="fZg-sp-yXs"/>
-                            <constraint firstAttribute="centerY" secondItem="Cfh-vb-feU" secondAttribute="centerY" constant="114.5" id="kYU-Vh-NbE"/>
+                            <constraint firstAttribute="centerY" secondItem="Cfh-vb-feU" secondAttribute="centerY" constant="155" id="kYU-Vh-NbE"/>
                             <constraint firstItem="0Tb-Gt-iLw" firstAttribute="centerY" secondItem="RCX-oR-yRL" secondAttribute="centerY" constant="-77" id="zE3-Zu-t4Q"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="115" height="330"/>
+                    <size key="freeformSize" width="115" height="411"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="leB-oc-o3m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -345,7 +355,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Aec-Yl-lFi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cHR-nA-Ghr">
-                        <rect key="frame" x="0.0" y="0.0" width="330" height="115"/>
+                        <rect key="frame" x="0.0" y="0.0" width="411" height="115"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TNH-hI-l9i">
@@ -404,6 +414,16 @@
                                     <action selector="twitterShareButtonTapped:" destination="1ex-j4-Phl" eventType="touchUpInside" id="K7E-ps-dI7"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ijr-RA-WfK">
+                                <rect key="frame" x="330" y="27" width="116" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button" image="iconShareWhatsApp">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="whatsAppShareButtonTapped:" destination="1ex-j4-Phl" eventType="touchUpInside" id="SUH-XM-dX8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -420,11 +440,11 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="330" height="115"/>
+                    <size key="freeformSize" width="411" height="115"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fW7-3u-BIC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3582" y="646"/>
+            <point key="canvasLocation" x="3587" y="800"/>
         </scene>
         <!--News Table View Controller - Favorite-->
         <scene sceneID="QXP-YH-kwV">
@@ -565,6 +585,7 @@
         <image name="iconShareGooglePlus" width="61" height="61"/>
         <image name="iconShareMail" width="61" height="61"/>
         <image name="iconShareTwitter" width="61" height="61"/>
+        <image name="iconShareWhatsApp" width="61" height="61"/>
         <image name="public" width="16" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

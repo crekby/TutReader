@@ -35,7 +35,7 @@ SINGLETON(ShareManager);
     }
     else
     {
-        [[AlertManager instance] showEmailShareNotAvailible];
+        [[AlertManager instance] showEmailShareNotAvailable];
     }
 }
 
@@ -80,6 +80,20 @@ SINGLETON(ShareManager);
     if (![_signInInstance trySilentAuthentication]) {
         [_signInInstance authenticate];
     }
+}
+
+- (void) shareByWatsApp: (TUTNews*) news
+{
+    
+    NSString * shareStr = [[NSString stringWithFormat:@"whatsapp://send?text=%@%%20%%20%@",news.newsTitle,news.newsURL] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *whatsappURL = [NSURL URLWithString:shareStr];
+   if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
+        [[UIApplication sharedApplication] openURL: whatsappURL];
+        }
+        else
+        {
+            [[AlertManager instance] showWhatsAppSharingNotAvailable];
+        }
 }
 
 
@@ -147,7 +161,7 @@ SINGLETON(ShareManager);
     {
         if (type==SocialNetworkTypeTwitter)
         {
-            [[AlertManager instance] showTweeterShareNotAvailible];
+            [[AlertManager instance] showTweeterShareNotAvailable];
         }
         else
         {
