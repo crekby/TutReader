@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#warning уверен, что все делегаты должны быть паблик?
 @interface PageViewController : UIPageViewController <UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIPopoverControllerDelegate,UINavigationControllerDelegate>
 
 - (void) initNews;

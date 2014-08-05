@@ -66,6 +66,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+#warning сделай метод, типа showLoadingIndicators(BOOL)show и в нем будешь отображать и прятать все, что нужно
     [self.activityIndicator stopAnimating];
 
 }
@@ -73,6 +74,7 @@
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     NSLog(@"web view error %@",error.localizedDescription);
+    #warning сделай метод, типа showLoadingIndicators(BOOL)show и в нем будешь отображать и прятать все, что нужно
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
     [self.activityIndicator stopAnimating];
 }

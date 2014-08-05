@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CategoryCell : UITableViewCell
-
+#warning почему паблик?
 @property (nonatomic, weak) IBOutlet UILabel* category;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *contentViewLeftConstraint;

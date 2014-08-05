@@ -28,6 +28,7 @@ SINGLETON(GlobalNewsArray)
 {
     if (news) {
         [self newArray];
+#warning где проверка if(_news != news) - возможны лишние действия
         _localNewsArray = news;
     }
 }

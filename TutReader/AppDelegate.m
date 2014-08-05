@@ -20,8 +20,10 @@
 {   
     //[[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
     [LocalizationSystem sharedLocalSystem];
+#warning для настроек лучше сделать отдельный класс, который будет содержать всю работу с локальными настройками
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"app_version"];
+#warning лучше добавить метод updateAfterBackground и в нем сделать проверку на кэш
     BOOL delCache = [[NSUserDefaults standardUserDefaults]boolForKey:@"del_cache"];
     if (delCache) {
         [[CacheFilesManager instance] clearCache];
@@ -36,6 +38,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+#warning строки в константы
     NSString* lang = [[NSUserDefaults standardUserDefaults] objectForKey:@"lang"];
     if (!lang || [lang isEqualToString:@"0"]) {
         [[LocalizationSystem sharedLocalSystem] setLanguage:@"en"];
@@ -114,7 +117,7 @@
 }
 
 #pragma mark - Application's Documents directory
-
+#warning лучше в константы
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];

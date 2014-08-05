@@ -12,6 +12,7 @@
 
 @property (nonatomic) int type;
 
+#warning почему все эти методы паблик? Они все дергаются из других классов?
 - (void) initOnlineNewsList;
 - (void) initFavoritesNewsList;
 - (void) reloadNews;

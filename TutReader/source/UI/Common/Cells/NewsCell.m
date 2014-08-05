@@ -26,9 +26,10 @@
 static CGFloat const kBounceValue = 10.0f;
 
 @implementation NewsCell
-
+#warning где "pragma mark" ???
 - (void)setNewsItem:(TUTNews *) item
 {
+#warning где проверка if(_newsItem != item) ?
     _newsItem = item;
     _newsTitle.text = item.newsTitle;
     _newsDescription.text = item.text;
@@ -43,6 +44,7 @@ static CGFloat const kBounceValue = 10.0f;
     self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panThisCell:)];
     self.panRecognizer.delegate = self;
     [self.myContentView addGestureRecognizer:self.panRecognizer];
+#warning зачем ты удаляешь self.imageView и снова добавляешь ???
     [self.imageView removeFromSuperview];
     [self.myContentView addSubview:self.imageView];
 }
@@ -143,6 +145,8 @@ static CGFloat const kBounceValue = 10.0f;
 }
 
 - (void)updateConstraintsIfNeeded:(BOOL)animated completion:(void (^)(BOOL finished))completion {
+    
+#warning лучше float duration = (animated) ? 0.3f : 0.0f;
     float duration = 0;
     if (animated) {
         duration = 0.3;

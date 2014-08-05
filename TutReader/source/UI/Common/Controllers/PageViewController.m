@@ -90,7 +90,7 @@
 }
 
 #pragma mark - IBActions
-
+#warning лучше btnShareDidTap
 - (void) favoriteButtonAction:(UIBarButtonItem*) sender
 {
     if (![[GlobalNewsArray instance] selectedNews].isFavorite) {

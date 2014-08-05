@@ -19,11 +19,12 @@
 @implementation GlobalCategoriesArray
 
 SINGLETON(GlobalCategoriesArray)
-
+#warning в названии метдов "init" используется только там, где идет выделение памяти, лучше назвать что-то типа setup
 - (void)initCategories
 {
     self.localCategoryArray = [NSMutableArray new];
     [GlobalNewsArray instance].newsURL = RSS_URL;
+#warning если хардкодишь количество, то выноси в константы
     for (int i=0; i<5; i++) {
         CategoryItem* catItem = [CategoryItem new];
         catItem.name = [CategoryManager nameForCategoryID:i];
@@ -33,6 +34,7 @@ SINGLETON(GlobalCategoriesArray)
         for (id subString in dict) {
             SubCategoryItem* subCatItem = [SubCategoryItem new];
             subCatItem.name = [NSString stringWithFormat:@"%@",subString];
+#warning почитай про "modern obj c"
             subCatItem.rssURL = [dict valueForKey:subCatItem.name];
             subCatItem.parent = i;
             [catItem.subCategories insertObject:subCatItem atIndex:catItem.subCategories.count];

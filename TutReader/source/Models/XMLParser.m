@@ -22,6 +22,7 @@
 
 @implementation XMLParser
 {
+#warning не создавай в implementation айварные переменные. Выноси в интерфейс
     CallbackWithDataAndError globalCallback;
 }
 

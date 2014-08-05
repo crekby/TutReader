@@ -21,9 +21,11 @@
 @property (nonatomic, weak) id <SwipeableCellDelegate> delegate;
 
 @property (nonatomic, strong) TUTNews* newsItem;
+#warning ячейки переиспользуются, хранить индекс строки чревато багами
 @property (nonatomic) int row;
+#warning почему кнопка паблик?
 @property (nonatomic, weak) IBOutlet UIButton* shareButton;
-
+#warning почему она паблик?
 @property (nonatomic) BOOL isSwipeOpen;
 
 - (void) closeSwipe;

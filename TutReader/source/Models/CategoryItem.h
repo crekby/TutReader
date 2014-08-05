@@ -7,7 +7,7 @@
 //
 
 #import "SubCategoryItem.h"
-
+#warning название не говорит о том, что это за подкатегория
 @interface CategoryItem : SubCategoryItem
 
 @property (nonatomic, strong) NSMutableArray* subCategories;

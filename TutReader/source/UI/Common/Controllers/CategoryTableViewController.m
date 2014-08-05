@@ -86,6 +86,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#warning в константы!
     CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
     
     CategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
@@ -103,7 +104,7 @@
         }
     }
     
-    
+ #warning в константы!
     if ([categoryItem isKindOfClass: NSClassFromString(@"CategoryItem")]) {
         cell.contentViewLeftConstraint.constant = 20;
         if (IS_IOS7) cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 50);
@@ -125,7 +126,7 @@
     cell.category.textColor = [UIColor blackColor];
     [cell setNeedsLayout];
     CategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
-
+#warning в константы!
     if ([categoryItem isKindOfClass: NSClassFromString(@"CategoryItem")])
     {
         NSMutableArray* indexArray = [NSMutableArray new];

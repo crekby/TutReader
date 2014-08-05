@@ -74,6 +74,7 @@
     [self.titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
     [self.titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
     UIStoryboard* storyboard;
+#warning можно просто self.storyboard
     if (IS_IPAD) {
         storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle bundleForClass:[self class]]];
     }
@@ -97,6 +98,7 @@
         //[self reloadTableView];
         [[GlobalNewsArray instance] setNeedToRaload:YES];
         [self initOnlineNewsList];
+#warning почему не в veiewWillAppear?
         self.tabBarController.navigationItem.titleView = self.titleLabel;
     }
     else
@@ -173,6 +175,7 @@
 
 - (void) titleActionDowmInside:(UIButton*) sender
 {
+#warning цвет в константы
     [sender setTitleColor:[UIColor colorWithRed:0.7 green:0.7 blue:1 alpha:1] forState:UIControlStateNormal];
 }
 
@@ -254,6 +257,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+#warning зачет отрицание, если можно if(IS_IPHONE)
     if (!IS_IPAD) return;
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
@@ -268,7 +272,7 @@
 }
 
 #pragma mark - SwipeCell delegate Action
-
+#warning какой баттон экшн? что здесь происходит? название ни о чем не говорит
 - (void)buttonAction:(UITableViewCell *)sender
 {
     NewsCell* cell = (NewsCell*) sender;
@@ -346,6 +350,7 @@
 
 - (void)loadData
 {
+#warning что за тайп? название переменной ни о чем не говорит
     if (self.type == FAVORITE) {
         [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
             NSArray* requestResult = data;
@@ -365,6 +370,7 @@
 
 - (void) checkForFavorites
 {
+#warning выглядит очень непонятно. Что тут вообще происходит? Ты в базе хранишь только фейвориты, так может лучше и выборку сделать по тайтлу и не нужно будет все эти фильтры?
     [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
         NSMutableArray* requestResult = data;
         if (requestResult) {
@@ -399,6 +405,7 @@
 {
     if (self.type == ONLINE)
     {
+#warning зачем два метода, если можно просто передать bool isOnline и в реазлизации выставить нужный заголовок?
         [[GoogleAnalyticsManager instance] trackOpenOnlineNews];
     }
     else
@@ -409,6 +416,7 @@
 
 - (void) changeImage:(NewsCell*) cell
 {
+#warning можно упростить! догадаешься как? ;)
     if (IS_IOS7) {
         [cell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:cell.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
     }
