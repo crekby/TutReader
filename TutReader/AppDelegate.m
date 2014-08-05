@@ -26,6 +26,10 @@
     if (delCache) {
         [[CacheFilesManager instance] clearCache];
     }
+    else
+    {
+        [[CacheFilesManager instance] checkCacheForSize];
+    }
     [[GlobalCategoriesArray instance] initCategories];
     return YES;
 }

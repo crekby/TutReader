@@ -35,6 +35,13 @@ SINGLETON(CacheFilesManager)
     }
 }
 
+- (void)checkCacheForSize
+{
+    if ([self folderSize]>10000000) {
+        [self clearCache];
+    }
+}
+
 - (void)deleteCacheFile:(NSString *)filePath
 {
     NSFileManager *fileMgr = [[NSFileManager alloc] init];
@@ -64,6 +71,25 @@ SINGLETON(CacheFilesManager)
     NSString* cacheFile = [cacheDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",[imageDataString md5String]]];
     [file writeToFile:cacheFile atomically:YES];
     return cacheFile;
+}
+
+#pragma mark - Private Methods
+
+- (unsigned long long int)folderSize {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"ImageCache/"];
+    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:cacheDirectory error:nil];
+    NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
+    NSString *fileName;
+    unsigned long long int fileSize = 0;
+    NSError* error;
+    while (fileName = [filesEnumerator nextObject]) {
+        //fileDictionary = [[NSFileManager defaultManager] fileAttributesAtPath: traverseLink:YES];
+        NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:[cacheDirectory stringByAppendingPathComponent:fileName] error:&error];
+        fileSize += [fileDictionary fileSize];
+    }
+    
+    return fileSize;
 }
 
 @end

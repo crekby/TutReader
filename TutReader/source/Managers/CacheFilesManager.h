@@ -17,4 +17,6 @@
 - (void) deleteCacheFile:(NSString*) filePath;
 - (void) copyFrom:(NSString*) from To:(NSString*) to;
 
+- (void) checkCacheForSize;
+
 @end
