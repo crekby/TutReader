@@ -24,5 +24,6 @@
     #import "CategoryManager.h"
     #import "GlobalCategoriesArray.h"
     #import "LocalizationSystem.h"
+    #import "CacheFilesManager.h"
 #endif
 

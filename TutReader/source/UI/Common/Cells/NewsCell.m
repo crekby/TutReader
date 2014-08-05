@@ -32,8 +32,8 @@ static CGFloat const kBounceValue = 10.0f;
     _newsItem = item;
     _newsTitle.text = item.newsTitle;
     _newsDescription.text = item.text;
-    if (item.image) {
-        self.imageView.image = item.image;
+    if (item.imageCacheUrl) {
+        self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:item.imageCacheUrl]];
     }
 }
 

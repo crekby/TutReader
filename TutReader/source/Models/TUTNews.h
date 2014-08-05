@@ -14,12 +14,13 @@
 @property (nonatomic, retain) NSString* newsURL;
 @property (nonatomic, retain) NSString* newsTitle;
 @property (nonatomic, retain) NSString* text;
-@property (nonatomic, retain) UIImage* image;
+//@property (nonatomic, retain) UIImage* image;
 @property (nonatomic) BOOL isFavorite;
 @property (nonatomic, retain) NSDate* pubDate;
 @property (nonatomic, retain) NSString* bigImageURL;
 @property (nonatomic, retain) NSString* category;
 @property (nonatomic, retain) NSManagedObjectID* coreDataObjectID;
+@property (nonatomic, retain) NSString* imageCacheUrl;
 
 - (id) initWithManagedObject:(NSManagedObject*) object;
 

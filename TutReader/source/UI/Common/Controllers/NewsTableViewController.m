@@ -16,6 +16,7 @@
 #import "PageViewController.h"
 #import "FavoriteNewsManager.h"
 #import "CategoryTableViewController.h"
+#import "NSString+MD5.h"
 
 @interface NewsTableViewController () <SwipeableCellDelegate,CategoryControllerDelegate>
 
@@ -231,15 +232,18 @@
     [cell setNewsItem:newsToShow];
     cell.row = indexPath.row;
     if (!cell.delegate) cell.delegate = self;
-    if (!newsToShow.image) {
+    if (!newsToShow.imageCacheUrl) {
         [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
             NSURL* imgUrl = [NSURL URLWithString:newsToShow.imageURL];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                UIImage* thumb = [UIImage imageWithData:[NSData dataWithContentsOfURL:imgUrl]];
+                NSData* imageData = [NSData dataWithContentsOfURL:imgUrl];
+                newsToShow.imageCacheUrl = [[CacheFilesManager instance] addCacheFile:imageData];
+                UIImage* thumb = [UIImage imageWithData:imageData];
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [cell.imageView setImage:thumb];
-                    [[[GlobalNewsArray instance] newsAtIndex:indexPath.row] setImage:thumb];
+                    NSLog(@"%d",indexPath.row);
+                    //[[[GlobalNewsArray instance] newsAtIndex:indexPath.row] setImage:thumb];
                     [cell setNeedsLayout];
                 });
             });

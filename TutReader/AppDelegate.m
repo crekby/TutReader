@@ -17,11 +17,15 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+{   
     //[[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
     [LocalizationSystem sharedLocalSystem];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [[NSUserDefaults standardUserDefaults] setObject:version forKey:@"app_version"];
+    BOOL delCache = [[NSUserDefaults standardUserDefaults]boolForKey:@"del_cache"];
+    if (delCache) {
+        [[CacheFilesManager instance] clearCache];
+    }
     [[GlobalCategoriesArray instance] initCategories];
     return YES;
 }

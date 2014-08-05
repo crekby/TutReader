@@ -47,6 +47,8 @@
 		156E5D7C198B7AC700D8B6DC /* CategoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 156E5D7B198B7AC700D8B6DC /* CategoryItem.m */; };
 		156E5D7F198B7B4C00D8B6DC /* GlobalCategoriesArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 156E5D7E198B7B4C00D8B6DC /* GlobalCategoriesArray.m */; };
 		156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156E5D80198BB13E00D8B6DC /* QuartzCore.framework */; };
+		15878A061990DB260017374B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A051990DB260017374B /* NSString+MD5.m */; };
+		15878A091990FDA50017374B /* CacheFilesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A081990FDA50017374B /* CacheFilesManager.m */; };
 		1592205B198F9876001CF232 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1592205A198F9876001CF232 /* Settings.bundle */; };
 		15922063198FA699001CF232 /* LocalizationSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 15922062198FA699001CF232 /* LocalizationSystem.m */; };
 		15922069198FA76B001CF232 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1592206B198FA76B001CF232 /* Localizable.strings */; };
@@ -134,6 +136,10 @@
 		156E5D7D198B7B4C00D8B6DC /* GlobalCategoriesArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalCategoriesArray.h; path = Source/Models/GlobalCategoriesArray.h; sourceTree = "<group>"; };
 		156E5D7E198B7B4C00D8B6DC /* GlobalCategoriesArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalCategoriesArray.m; path = Source/Models/GlobalCategoriesArray.m; sourceTree = "<group>"; };
 		156E5D80198BB13E00D8B6DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		15878A041990DB260017374B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Source/Categories/NSString+MD5.h"; sourceTree = "<group>"; };
+		15878A051990DB260017374B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "Source/Categories/NSString+MD5.m"; sourceTree = "<group>"; };
+		15878A071990FDA50017374B /* CacheFilesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CacheFilesManager.h; path = Source/Managers/CacheFilesManager.h; sourceTree = "<group>"; };
+		15878A081990FDA50017374B /* CacheFilesManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CacheFilesManager.m; path = Source/Managers/CacheFilesManager.m; sourceTree = "<group>"; };
 		1592205A198F9876001CF232 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		15922062198FA699001CF232 /* LocalizationSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalizationSystem.m; sourceTree = "<group>"; };
 		15922064198FA69E001CF232 /* LocalizationSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalizationSystem.h; sourceTree = "<group>"; };
@@ -211,6 +217,8 @@
 				151F4C95198A704D0019B26D /* CategoryManager.m */,
 				15922064198FA69E001CF232 /* LocalizationSystem.h */,
 				15922062198FA699001CF232 /* LocalizationSystem.m */,
+				15878A071990FDA50017374B /* CacheFilesManager.h */,
+				15878A081990FDA50017374B /* CacheFilesManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -220,6 +228,8 @@
 			children = (
 				15060E0E19800BC900E68EB1 /* UIPopover+Iphone.h */,
 				15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */,
+				15878A041990DB260017374B /* NSString+MD5.h */,
+				15878A051990DB260017374B /* NSString+MD5.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -593,12 +603,14 @@
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
 				1592206F198FB35B001CF232 /* TabBarController.m in Sources */,
 				15060E081980040400E68EB1 /* ShareManager.m in Sources */,
+				15878A061990DB260017374B /* NSString+MD5.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
 				15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */,
 				15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */,
 				156E5D7C198B7AC700D8B6DC /* CategoryItem.m in Sources */,
 				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,
 				156E5D7F198B7B4C00D8B6DC /* GlobalCategoriesArray.m in Sources */,
+				15878A091990FDA50017374B /* CacheFilesManager.m in Sources */,
 				15922063198FA699001CF232 /* LocalizationSystem.m in Sources */,
 				154F68EA1980528100FF3238 /* ShareViewController.m in Sources */,
 				156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */,

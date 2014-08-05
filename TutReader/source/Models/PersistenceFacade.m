@@ -71,6 +71,9 @@ SINGLETON(PersistenceFacade)
     NSEntityDescription *entity = [NSEntityDescription entityForName:CD_ENTYTY inManagedObjectContext:context];
     NewsItem* newManagedObject = [NSEntityDescription insertNewObjectForEntityForName:[entity name]
                                                       inManagedObjectContext:context];
+    NSString* cacheDir = news.imageCacheUrl;
+    news.imageCacheUrl = [cacheDir stringByReplacingOccurrencesOfString:@"ImageCache" withString:@"FavoriteCache"];
+    [[CacheFilesManager instance] copyFrom:cacheDir To:news.imageCacheUrl];
     [newManagedObject initWithTUTNews:news];
 
     NSError *error = nil;
@@ -92,7 +95,8 @@ SINGLETON(PersistenceFacade)
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;
     NSManagedObjectContext *context = appDelegate.managedObjectContext;
-    NSManagedObject* objectToDelete = [managedObjectContext objectWithID:news.coreDataObjectID];
+    NewsItem* objectToDelete = (NewsItem*)[managedObjectContext objectWithID:news.coreDataObjectID];
+    [[CacheFilesManager instance] deleteCacheFile:objectToDelete.imageUrl];
     [context deleteObject:objectToDelete];
     NSError* error;
     if (![context save:&error]) {

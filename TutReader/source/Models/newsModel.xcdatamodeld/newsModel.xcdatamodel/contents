@@ -3,7 +3,6 @@
     <entity name="NewsItem" representedClassName="NewsItem" syncable="YES">
         <attribute name="bigImageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isFavorite" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="newsUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,6 +11,6 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="NewsItem" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="NewsItem" positionX="-63" positionY="-18" width="128" height="165"/>
     </elements>
 </model>

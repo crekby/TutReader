@@ -21,8 +21,8 @@
 
 - (void)initWithTUTNews:(TUTNews *)news
 {
-    self.image = [NSData dataWithData:UIImageJPEGRepresentation(news.image,1.0)];
-    self.imageUrl = news.imageURL;
+    //self.image = [NSData dataWithData:UIImageJPEGRepresentation(news.image,1.0)];
+    self.imageUrl = news.imageCacheUrl;
     self.isFavorite = (news.isFavorite)?[NSNumber numberWithInt:1]:[NSNumber numberWithInt:0];
     self.newsUrl = news.newsURL;
     self.pubDate = news.pubDate;

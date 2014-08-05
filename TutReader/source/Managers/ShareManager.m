@@ -151,7 +151,7 @@ SINGLETON(ShareManager);
 {
     if ([SLComposeViewController isAvailableForServiceType:(type==SocialNetworkTypeTwitter)?SLServiceTypeTwitter:SLServiceTypeFacebook]) {
         SLComposeViewController* controller = [SLComposeViewController composeViewControllerForServiceType:(type==SocialNetworkTypeTwitter)?SLServiceTypeTwitter:SLServiceTypeFacebook];
-        [controller addImage:news.image];
+        [controller addImage:[UIImage imageWithData:[NSData dataWithContentsOfFile:news.imageCacheUrl]]];
         [controller addURL:[NSURL URLWithString:news.newsURL]];
         [controller setInitialText:[self shrinkText:news.newsTitle ToLenght:SOCIAL_NETWORK_TEXT_LENGHT]];
         controller.completionHandler = callback;
