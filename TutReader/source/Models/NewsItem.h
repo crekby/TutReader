@@ -2,7 +2,7 @@
 //  NewsItem.h
 //  TutReader
 //
-//  Created by crekby on 7/23/14.
+//  Created by crekby on 8/5/14.
 //  Copyright (c) 2014 crekby. All rights reserved.
 //
 
@@ -10,9 +10,9 @@
 #import <CoreData/CoreData.h>
 
 
+@class TUTNews;
 @interface NewsItem : NSManagedObject
 
-@property (nonatomic, retain) NSData * image;
 @property (nonatomic, retain) NSString * imageUrl;
 @property (nonatomic, retain) NSNumber * isFavorite;
 @property (nonatomic, retain) NSString * newsUrl;
@@ -20,6 +20,6 @@
 @property (nonatomic, retain) NSString * text;
 @property (nonatomic, retain) NSString * title;
 
-- (void) initWithTUTNews:(TUTNews*) news;
+- (void)initWithTUTNews:(TUTNews*) news;
 
 @end

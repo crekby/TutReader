@@ -67,6 +67,7 @@ SINGLETON(GlobalNewsArray)
 - (void) insertNews: (TUTNews*) news;
 {
     [_localNewsArray insertObject:news atIndex:_localNewsArray.count];
+    NSLog(@"%d",_localNewsArray.count);
 }
 
 - (void) refreshNewsList

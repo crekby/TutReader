@@ -42,53 +42,6 @@
 
 @implementation NewsTableViewController
 
-#pragma mark - Init Data Methods
-
-- (void)initOnlineNewsList
-{
-    [self setTag:ONLINE];
-    if ([[GlobalNewsArray instance] needToRaload]) {
-        [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
-            [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
-                [[GlobalNewsArray instance] newArray];
-                [[GlobalNewsArray instance] setNews:newsList];
-                [[GlobalNewsArray instance] setNeedToRaload:NO];
-                [self initCategoryList];
-                [self checkForFavorites];
-            }];
-        }];
-    }
-}
-
-- (void)initCategoryList
-{
-    self.categorySet = [NSSet new];
-    for (TUTNews* news in [[GlobalNewsArray instance] news]) {
-        self.categorySet = [self.categorySet setByAddingObject:news.category];
-    }
-}
-
-- (void)initFavoritesNewsList
-{
-    [self setTag:FAVORITE];
-    if (IS_IPAD) {
-        [self loadData];
-    }
-}
-
--(void)reloadNews
-{
-    if (self.tag == FAVORITE) {
-        [self initFavoritesNewsList];
-    }
-}
-
-- (void) selectRow:(int) row
-{
-    NSIndexPath* index = [NSIndexPath indexPathForRow:row inSection:0];
-    [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-}
-
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
@@ -98,7 +51,7 @@
     [self.newsTableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     if (IS_IPAD) {
-        if (self.tag == ONLINE) {
+        if (self.type == ONLINE) {
             [self initOnlineNewsList];
         }
         
@@ -140,7 +93,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (self.tag == ONLINE) {
+    if (self.type == ONLINE) {
         //[self reloadTableView];
         [[GlobalNewsArray instance] setNeedToRaload:YES];
         [self initOnlineNewsList];
@@ -157,6 +110,52 @@
     
     
     //self.navigationItem.titleView = titleLabel;
+}
+
+#pragma mark - Init Data Methods
+
+- (void)initOnlineNewsList
+{
+    [self setType:ONLINE];
+    if ([[GlobalNewsArray instance] needToRaload]) {
+        [[RemoteFacade instance] getOnlineNewsDataWithCallback:^(NSData* data, NSError *error){
+            [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
+                [[GlobalNewsArray instance] setNews:newsList];
+                [[GlobalNewsArray instance] setNeedToRaload:NO];
+                [self initCategoryList];
+                [self checkForFavorites];
+            }];
+        }];
+    }
+}
+
+- (void)initCategoryList
+{
+    self.categorySet = [NSSet new];
+    for (TUTNews* news in [[GlobalNewsArray instance] news]) {
+        self.categorySet = [self.categorySet setByAddingObject:news.category];
+    }
+}
+
+- (void)initFavoritesNewsList
+{
+    [self setType:FAVORITE];
+    if (IS_IPAD) {
+        [self loadData];
+    }
+}
+
+-(void)reloadNews
+{
+    if (self.type == FAVORITE) {
+        [self initFavoritesNewsList];
+    }
+}
+
+- (void) selectRow:(int) row
+{
+    NSIndexPath* index = [NSIndexPath indexPathForRow:row inSection:0];
+    [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 }
 
 #pragma mark - Title Bar Button Actions
@@ -231,6 +230,7 @@
     
     [cell setNewsItem:newsToShow];
     cell.row = indexPath.row;
+    [cell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:indexPath.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
     if (!cell.delegate) cell.delegate = self;
     if (!newsToShow.imageCacheUrl) {
         [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
@@ -243,7 +243,6 @@
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [cell.imageView setImage:thumb];
                     NSLog(@"%d",indexPath.row);
-                    //[[[GlobalNewsArray instance] newsAtIndex:indexPath.row] setImage:thumb];
                     [cell setNeedsLayout];
                 });
             });
@@ -252,11 +251,6 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NewsCell* newsCell = (NewsCell*) cell;
-    [newsCell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:newsCell.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -285,7 +279,7 @@
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
                 //[self changeImage:cell];
-                if (self.tag == FAVORITE) {
+                if (self.type == FAVORITE) {
                     [self removeNewsAtIndex:cell.row];
                 }
             }
@@ -329,19 +323,6 @@
     [self trackNewsOpening];
 }
 
-#pragma mark - IBActions
-
-- (IBAction)ChangeSourceButtonAction:(UISegmentedControl*)sender
-{
-    if (sender.selectedSegmentIndex==0) {
-        [self initOnlineNewsList];
-    }
-    else
-    {
-        [self initFavoritesNewsList];
-    }
-}
-
 
 #pragma mark - Private Methods
 
@@ -365,12 +346,12 @@
 
 - (void)loadData
 {
-    if (self.tag == FAVORITE) {
+    if (self.type == FAVORITE) {
         [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
             NSArray* requestResult = data;
             if (requestResult) {
                 [[GlobalNewsArray instance] newArray];
-                for (NSManagedObject* object in requestResult) {
+                for (NewsItem* object in requestResult) {
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                     if (favoriteNews.newsURL) {
                         [[GlobalNewsArray instance] insertNews:favoriteNews];
@@ -403,7 +384,7 @@
 
 - (void) refresh
 {
-    if (self.tag  == ONLINE)
+    if (self.type  == ONLINE)
     {
         [self initOnlineNewsList];
     }
@@ -416,7 +397,7 @@
 
 - (void) trackNewsOpening
 {
-    if (self.tag == ONLINE)
+    if (self.type == ONLINE)
     {
         [[GoogleAnalyticsManager instance] trackOpenOnlineNews];
     }
@@ -457,7 +438,7 @@
 
 - (void) localizeTabBarItem
 {
-    if (self.tag == ONLINE) {
+    if (self.type == ONLINE) {
         self.tabBarItem.title = AMLocalizedString(@"ONLINE_TITLE", nil);
         [self.titleLabel setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
         [self.titleLabel sizeToFit];

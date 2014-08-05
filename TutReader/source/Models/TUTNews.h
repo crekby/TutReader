@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NewsItem.h"
 
 @interface TUTNews : NSObject
 
@@ -22,6 +23,6 @@
 @property (nonatomic, retain) NSManagedObjectID* coreDataObjectID;
 @property (nonatomic, retain) NSString* imageCacheUrl;
 
-- (id) initWithManagedObject:(NSManagedObject*) object;
+- (id) initWithManagedObject:(NewsItem*) object;
 
 @end
