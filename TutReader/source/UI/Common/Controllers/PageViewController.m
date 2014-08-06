@@ -114,7 +114,6 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
-#warning doesn't updating favorite button in navigation controller
     self.title = [(WebViewController*)self.viewControllers[0] loadedNews].newsTitle;
     WebViewController* controller = (WebViewController*)[self.viewControllers objectAtIndex:0];
     [self selectRow:controller];
@@ -216,12 +215,13 @@
 
 - (void) changeImage:(UIBarButtonItem*) btn
 {
+    NSLog(@"%@",btn.image);
     if (IS_IOS7) {
-        btn.image = ([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+        btn.image = ([[GlobalNewsArray instance] selectedNews].isFavorite)? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE;
     }
     else
     {
-        btn.image = ([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
+        btn.image = ([[GlobalNewsArray instance] selectedNews].isFavorite)? STAR_FULL_WHITE_IMAGE : STAR_HOLLOW_WHITE_IMAGE;
     }
 }
 
@@ -246,7 +246,7 @@
         return;
     }
     [[GlobalNewsArray instance] setSelectedNews:index];
-    [self changeImage:[self.navigationItem.rightBarButtonItems objectAtIndex:1]];
+    [self changeImage:self.favoriteBarButton];
     if (IS_IPAD) {
         IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
         [splitController selectRow:index];

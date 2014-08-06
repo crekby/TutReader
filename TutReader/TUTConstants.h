@@ -123,6 +123,13 @@ typedef enum
 
 #define IMAGE_NOT_AVAILABLE      @"No Image"
 
+// IMAGES
+
+#define STAR_FULL_IMAGE          ([UIImage imageNamed:STAR_FULL])
+#define STAR_HOLLOW_IMAGE        ([UIImage imageNamed:STAR_HOLLOW])
+#define STAR_FULL_WHITE_IMAGE    ([UIImage imageNamed:STAR_FULL_WHITE])
+#define STAR_HOLLOW_WHITE_IMAGE  ([UIImage imageNamed:STAR_HOLLOW_WHITE])
+
 // CORE DATA TITLES
 
 #define CD_ENTYTY                @"NewsItem"

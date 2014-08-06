@@ -400,11 +400,10 @@
 
 - (void) changeImage:(NewsCell*) cell
 {
-#warning можно упростить! догадаешься как? ;)
     int index = [self.newsTableView indexPathForCell:cell].row;
     BOOL favorite = [[GlobalNewsArray instance] newsAtIndex:index].isFavorite;
-    if (IS_IOS7) [cell setButtonImage:(favorite) ? [UIImage imageNamed:STAR_FULL] : [UIImage imageNamed:STAR_HOLLOW]];
-    else [cell setButtonImage:(favorite) ? [UIImage imageNamed:STAR_FULL_WHITE] : [UIImage imageNamed:STAR_HOLLOW_WHITE]];
+    if (IS_IOS7) [cell setButtonImage:(favorite) ? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE];
+    else [cell setButtonImage:(favorite) ? STAR_FULL_WHITE_IMAGE : STAR_HOLLOW_WHITE_IMAGE];
 }
 
 - (void) changeOrientation

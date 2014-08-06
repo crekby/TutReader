@@ -16,6 +16,8 @@
 + (GlobalNewsArray*) instance;
 @property (nonatomic) NSString* newsURL;
 @property (nonatomic) BOOL needToRaloadNews;
+@property (nonatomic,readonly) int selectedItem;
+
 
 - (void) clearArray;
 - (void) setNews:(NSMutableArray*) news;
@@ -25,7 +27,6 @@
 - (void) insertNews: (TUTNews*) news;
 - (TUTNews*) selectedNews;
 - (void) setSelectedNews:(int) index;
-- (int) selectedItem;
 - (void) removeNewsAtIndex:(int) index;
 - (int) indexForNews:(TUTNews*) news;
 

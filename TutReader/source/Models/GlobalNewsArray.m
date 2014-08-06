@@ -11,7 +11,6 @@
 @interface GlobalNewsArray()
 
 @property (nonatomic, strong) NSMutableArray* localNewsArray;
-@property (nonatomic) int selectedItem;
 
 @end
 
@@ -80,7 +79,7 @@ SINGLETON(GlobalNewsArray)
 
 - (void) setSelectedNews:(int) index
 {
-    self.selectedItem = index;
+    _selectedItem = index;
 }
 
 - (int) indexForNews:(TUTNews*) news
@@ -97,11 +96,6 @@ SINGLETON(GlobalNewsArray)
     {
         return nil;
     }
-}
-
-- (int) selectedItem
-{
-    return _selectedItem;
 }
 
 
