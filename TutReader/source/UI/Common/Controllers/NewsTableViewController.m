@@ -240,7 +240,6 @@
                 UIImage* thumb = [UIImage imageWithData:imageData];
                 dispatch_sync(dispatch_get_main_queue(), ^{
                     [cell setImage:thumb];
-                    NSLog(@"%d",indexPath.row);
                     [cell setNeedsLayout];
                 });
             });
@@ -328,7 +327,7 @@
     [self.newsTableView reloadData];
     if (!self.notFirstLaunch)
     {
-        if (!IS_IPAD) return;
+        if (IS_IPHONE) return;
         if ([GlobalNewsArray instance].news.count>0)
         {
             NSIndexPath* index = [NSIndexPath indexPathForRow:0 inSection:0];

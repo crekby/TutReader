@@ -11,19 +11,18 @@
 
 #warning создай класс DataProvider и вынеси туда методы, которые тебе нужны. GlobalNewsArray выглядит херовенько ;)
 
-@interface GlobalNewsArray : NSMutableArray
+@interface GlobalNewsArray : NSObject
 
 + (GlobalNewsArray*) instance;
-@property (nonatomic) NSString* newsURL;
-@property (nonatomic) BOOL needToRaloadNews;
-@property (nonatomic,readonly) int selectedItem;
+@property (nonatomic, assign) NSString* newsURL;
+@property (nonatomic, assign) BOOL needToRaloadNews;
+@property (nonatomic, readonly) int selectedItem;
 
 
 - (void) clearArray;
 - (void) setNews:(NSMutableArray*) news;
 - (NSMutableArray*) news;
 - (TUTNews*) newsAtIndex:(int) index;
-- (void) refreshNewsList;
 - (void) insertNews: (TUTNews*) news;
 - (TUTNews*) selectedNews;
 - (void) setSelectedNews:(int) index;

@@ -26,16 +26,7 @@
 
 - (void)initNews
 {
-    UIStoryboard *storyboard;
-    if (IS_IPAD)
-    {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle bundleForClass:[self class]]];
-    }
-    else
-    {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
-    }
-    WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"webView"];
+    WebViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"webView"];
     [controller initNews];
     [self changeImage:self.favoriteBarButton];
     self.title = controller.loadedNews.newsTitle;
@@ -55,11 +46,11 @@
     }
     UIImage* starImage;
     if (IS_IOS7) {
-        starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW];
+        starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?STAR_FULL_IMAGE:STAR_HOLLOW_IMAGE;
     }
     else
     {
-        starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
+        starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?STAR_FULL_WHITE_IMAGE:STAR_HOLLOW_WHITE_IMAGE;
     }
     self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnShareDidTap:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
@@ -139,7 +130,8 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSUInteger index = [[GlobalNewsArray instance] indexForNews:[(WebViewController*)viewController loadedNews]];
+    TUTNews* newsItem = [(WebViewController*)viewController loadedNews];
+    NSUInteger index = [[GlobalNewsArray instance] indexForNews:newsItem];
     if (index == NSNotFound) {
         return nil;
     }
@@ -215,7 +207,6 @@
 
 - (void) changeImage:(UIBarButtonItem*) btn
 {
-    NSLog(@"%@",btn.image);
     if (IS_IOS7) {
         btn.image = ([[GlobalNewsArray instance] selectedNews].isFavorite)? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE;
     }

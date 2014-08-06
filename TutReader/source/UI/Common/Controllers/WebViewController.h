@@ -13,7 +13,7 @@
 
 @interface WebViewController : UIViewController <UIWebViewDelegate,NSFetchedResultsControllerDelegate,UIPopoverControllerDelegate,UINavigationControllerDelegate>
 
-@property (nonatomic,weak) TUTNews* loadedNews;
+@property (nonatomic, strong) TUTNews* loadedNews;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 - (void) initNews;
