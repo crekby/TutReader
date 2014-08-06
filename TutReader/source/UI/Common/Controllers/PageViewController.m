@@ -88,7 +88,7 @@
     {
         [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
-            NSNumber* rowToSelect = [NSNumber numberWithInt:[[GlobalNewsArray instance] selectedItem]];
+            NSNumber* rowToSelect = @([[GlobalNewsArray instance] selectedItem]);
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
 
@@ -243,7 +243,7 @@
     [[GlobalNewsArray instance] setSelectedNews:index];
     [self changeImage:self.favoriteBarButton];
     if (IS_IPAD) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:[NSNumber numberWithInt:index]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@(index)];
     }
 }
 

@@ -23,7 +23,7 @@
         self.text = object.text;
         self.newsURL = object.newsUrl;
         self.imageCacheUrl = object.imageUrl;
-        self.isFavorite = (object.isFavorite==[NSNumber numberWithInt:1])?YES:NO;
+        self.isFavorite = ([object.isFavorite  isEqual: @1]) ? YES : NO;
         self.coreDataObjectID = object.objectID;
         
     }

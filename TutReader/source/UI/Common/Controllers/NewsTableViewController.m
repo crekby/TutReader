@@ -164,10 +164,12 @@
 
 - (void) selectRow:(NSNotification*)notification
 {
-    #warning need to add check for empty table
-    NSNumber* rowToSelect = notification.object;
-    NSIndexPath* index = [NSIndexPath indexPathForRow:rowToSelect.intValue inSection:0];
-    [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    #warning need to implement reloading web view
+    if ([GlobalNewsArray instance].news.count>0) {
+        NSNumber* rowToSelect = notification.object;
+        NSIndexPath* index = [NSIndexPath indexPathForRow:rowToSelect.intValue inSection:0];
+        [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    }
 }
 
 #pragma mark - Title Bar Button Actions
@@ -289,7 +291,7 @@
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
                 if (self.newsType == FAVORITE) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:[NSNumber numberWithInt:index]];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:@(index)];
 
                 }
             }
@@ -343,7 +345,7 @@
         if (IS_IPHONE) return;
         if ([GlobalNewsArray instance].news.count>0)
         {
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:[NSNumber numberWithInt:0]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@0];
             self.notFirstLaunch = YES;
             [[GlobalNewsArray instance] setSelectedNews:0];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
