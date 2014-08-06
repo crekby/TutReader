@@ -90,8 +90,12 @@
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             NSNumber* rowToSelect = @([[GlobalNewsArray instance] selectedItem]);
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
+            if ([GlobalNewsArray instance].selectedItem>=[GlobalNewsArray instance].news.count) {
+                [[GlobalNewsArray instance] setSelectedNews:[GlobalNewsArray instance].news.count-1];
+                rowToSelect = @([GlobalNewsArray instance].news.count-1);
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
-
+            [self setupNews];
         }];
     }
 }
