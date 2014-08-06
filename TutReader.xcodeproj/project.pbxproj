@@ -38,7 +38,6 @@
 		156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA1D197CEF3400813E2D /* NewsCell.m */; };
 		156AFA23197CEF5000813E2D /* NewsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA20197CEF5000813E2D /* NewsTableViewController.m */; };
 		156AFA24197CEF5000813E2D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA22197CEF5000813E2D /* WebViewController.m */; };
-		156AFA27197CEF7600813E2D /* IpadMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA26197CEF7600813E2D /* IpadMainViewController.m */; };
 		156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA2C197CF82400813E2D /* RemoteFacade.m */; };
 		156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA30197CFE9200813E2D /* PersistenceFacade.m */; };
 		156AFA37197D088E00813E2D /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA36197D088E00813E2D /* XMLParser.m */; };
@@ -120,8 +119,6 @@
 		156AFA20197CEF5000813E2D /* NewsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsTableViewController.m; path = Source/UI/Common/Controllers/NewsTableViewController.m; sourceTree = "<group>"; };
 		156AFA21197CEF5000813E2D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebViewController.h; path = Source/UI/Common/Controllers/WebViewController.h; sourceTree = "<group>"; };
 		156AFA22197CEF5000813E2D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WebViewController.m; path = Source/UI/Common/Controllers/WebViewController.m; sourceTree = "<group>"; };
-		156AFA25197CEF7600813E2D /* IpadMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IpadMainViewController.h; path = Source/UI/iPad/Controllers/IpadMainViewController.h; sourceTree = "<group>"; };
-		156AFA26197CEF7600813E2D /* IpadMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IpadMainViewController.m; path = Source/UI/iPad/Controllers/IpadMainViewController.m; sourceTree = "<group>"; };
 		156AFA2B197CF82400813E2D /* RemoteFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RemoteFacade.h; path = Source/Models/RemoteFacade.h; sourceTree = "<group>"; };
 		156AFA2C197CF82400813E2D /* RemoteFacade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RemoteFacade.m; path = Source/Models/RemoteFacade.m; sourceTree = "<group>"; };
 		156AFA2F197CFE9200813E2D /* PersistenceFacade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersistenceFacade.h; path = Source/Models/PersistenceFacade.h; sourceTree = "<group>"; };
@@ -403,15 +400,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		15712C651979138300A73DC5 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				156AFA25197CEF7600813E2D /* IpadMainViewController.h */,
-				156AFA26197CEF7600813E2D /* IpadMainViewController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
 		15712C69197954AA00A73DC5 /* source */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,17 +430,8 @@
 			isa = PBXGroup;
 			children = (
 				15712C5E19790E5300A73DC5 /* Common */,
-				15712C6D1979557900A73DC5 /* iPad */,
 			);
 			name = UI;
-			sourceTree = "<group>";
-		};
-		15712C6D1979557900A73DC5 /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				15712C651979138300A73DC5 /* Controllers */,
-			);
-			name = iPad;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -624,7 +603,6 @@
 				156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */,
 				156E5D79198B7A6F00D8B6DC /* NewsSubCategoryItem.m in Sources */,
 				15F8331F19824FD700E91714 /* PageViewController.m in Sources */,
-				156AFA27197CEF7600813E2D /* IpadMainViewController.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
 				156AFA1B197CEE3F00813E2D /* newsModel.xcdatamodeld in Sources */,

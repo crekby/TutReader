@@ -8,7 +8,6 @@
 
 #import "PageViewController.h"
 #import "WebViewController.h"
-#import "IpadMainViewController.h"
 #import "PersistenceFacade.h"
 #import "ShareViewController.h"
 #import "ShareManager.h"
@@ -22,16 +21,6 @@
 @end
 
 @implementation PageViewController
-
-
-- (void)initNews
-{
-    WebViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"webView"];
-    [controller initNews];
-    [self changeImage:self.favoriteBarButton];
-    self.title = controller.loadedNews.newsTitle;
-    [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-}
 
 #pragma mark - Lifecycle
 
@@ -52,7 +41,7 @@
     {
         starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?STAR_FULL_WHITE_IMAGE:STAR_HOLLOW_WHITE_IMAGE;
     }
-    self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnShareDidTap:)];
+    self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnFavoriteDidTap:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
     shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
     if (IS_IPAD) {
@@ -64,6 +53,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationChange)
                                                  name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setupNews)
+                                                 name:PAGE_VIEW_CONTROLLER_SETUP_NEWS
                                                object:nil];
 }
 
@@ -81,23 +74,26 @@
 }
 
 #pragma mark - IBActions
-- (void) btnShareDidTap:(UIBarButtonItem*) sender
+- (void) btnFavoriteDidTap:(UIBarButtonItem*) sender
 {
     if (![[GlobalNewsArray instance] selectedNews].isFavorite) {
         [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
+            if (IS_IPAD) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_RELOAD_NEWS object:nil];
+            }
         }];
     }
     else
     {
         [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
+            NSNumber* rowToSelect = [NSNumber numberWithInt:[[GlobalNewsArray instance] selectedItem]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
+#warning need to add check for empty table
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
+
         }];
-        
-    }
-    if (IS_IPAD) {
-        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-        [splitController reloadNewsTable];
     }
 }
 
@@ -177,10 +173,19 @@
 
 #pragma mark - Private methods
 
+- (void)setupNews
+{
+    WebViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"webView"];
+    [controller setupNews];
+    [self changeImage:self.favoriteBarButton];
+    self.title = controller.loadedNews.newsTitle;
+    [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+}
+
 - (WebViewController*) viewControllerAtIndex:(int)index storyboard:(UIStoryboard*)storyboard
 {
     WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"webView"];
-    [controller initWithNews:[[GlobalNewsArray instance] newsAtIndex:index]];
+    [controller setupWithNews:[[GlobalNewsArray instance] newsAtIndex:index]];
     return controller;
 }
 
@@ -239,9 +244,9 @@
     [[GlobalNewsArray instance] setSelectedNews:index];
     [self changeImage:self.favoriteBarButton];
     if (IS_IPAD) {
-        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-        [splitController selectRow:index];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:[NSNumber numberWithInt:index]];
     }
 }
+
 
 @end

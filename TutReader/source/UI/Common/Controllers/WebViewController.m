@@ -7,7 +7,6 @@
 //
 
 #import "WebViewController.h"
-#import "IpadMainViewController.h"
 #import "PersistenceFacade.h"
 #import "ShareViewController.h"
 #import "ShareManager.h"
@@ -23,12 +22,12 @@
 
 #pragma mark - Init Methods
 
-- (void) initNews
+- (void) setupNews
 {
-    [self initWithNews:[[GlobalNewsArray instance] selectedNews]];
+    [self setupWithNews:[[GlobalNewsArray instance] selectedNews]];
 }
 
-- (void)initWithNews:(TUTNews*) news
+- (void)setupWithNews:(TUTNews*) news
 {
     self.loadedNews = news;
     if (self.loadedNews) {

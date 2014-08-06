@@ -10,7 +10,6 @@
 #import "webViewController.h"
 #import "TUTNews.h"
 #import "newsCell.h"
-#import "ipadMainViewController.h"
 #import "RemoteFacade.h"
 #import "PersistenceFacade.h"
 #import "PageViewController.h"
@@ -76,6 +75,18 @@
     UIStoryboard* storyboard = self.storyboard;
     self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
     self.categoryController.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadNews)
+                                                 name:NEWS_TABLE_VIEW_RELOAD_NEWS
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(selectRow:)
+                                                 name:NEWS_TABLE_VIEW_SELECT_ROW
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(removeNewsAtIndex:)
+                                                 name:NEWS_TABLE_VIEW_REMOVE_ROW
+                                               object:nil];
 }
 
 - (void)dealloc
@@ -151,9 +162,10 @@
     }
 }
 
-- (void) selectRow:(int) row
+- (void) selectRow:(NSNotification*)notification
 {
-    NSIndexPath* index = [NSIndexPath indexPathForRow:row inSection:0];
+    NSNumber* rowToSelect = notification.object;
+    NSIndexPath* index = [NSIndexPath indexPathForRow:rowToSelect.intValue inSection:0];
     [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
 }
 
@@ -257,8 +269,7 @@
     }
     if (indexPath.row != [[GlobalNewsArray instance] selectedItem]) {
         [[GlobalNewsArray instance] setSelectedNews:indexPath.row];
-        IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
-        [splitController loadNews];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
         [self trackNewsOpening];
     }
     
@@ -277,7 +288,8 @@
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
                 if (self.newsType == FAVORITE) {
-                    [self removeNewsAtIndex:index];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:[NSNumber numberWithInt:index]];
+
                 }
             }
         }];
@@ -315,7 +327,7 @@
     }
     NewsCell* cell = (NewsCell*)sender;
     [[GlobalNewsArray instance] setSelectedNews:[[GlobalNewsArray instance] indexForNews:cell.newsItem]];
-    [(PageViewController*)[segue destinationViewController] initNews];
+    [(PageViewController*)[segue destinationViewController] setupNews];
     [self trackNewsOpening];
 }
 
@@ -330,12 +342,10 @@
         if (IS_IPHONE) return;
         if ([GlobalNewsArray instance].news.count>0)
         {
-            NSIndexPath* index = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:[NSNumber numberWithInt:0]];
             self.notFirstLaunch = YES;
-            IpadMainViewController* splitController = (IpadMainViewController*)self.splitViewController;
             [[GlobalNewsArray instance] setSelectedNews:0];
-            [splitController loadNews];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
         }
     }
 }
@@ -412,15 +422,20 @@
     }
 }
 
-- (void)removeNewsAtIndex:(int)index
+- (void)removeNewsAtIndex:(NSNotification*)notification
 {
-    NSIndexPath* indexPath = [NSIndexPath indexPathForRow:index inSection:0];
-    [self.newsTableView beginUpdates];
-    [[GlobalNewsArray instance] removeNewsAtIndex:index];
-    [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    [self.newsTableView endUpdates];
-    [self.newsTableView reloadData];
+    if (self.newsType==FAVORITE) {
+        int index = [(NSNumber*)notification.object intValue];
+        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        [self.newsTableView beginUpdates];
+        [[GlobalNewsArray instance] removeNewsAtIndex:index];
+        [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.newsTableView endUpdates];
+        [self.newsTableView reloadData];
+    }
 }
+
+
 
 - (void) localizeTabBarItem
 {
@@ -436,6 +451,7 @@
         self.tabBarItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
     }
 }
+
 
 
 @end

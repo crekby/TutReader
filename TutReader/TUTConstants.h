@@ -71,7 +71,11 @@ typedef enum
 
 // NOTIFICATIONS
 
-#define UPDATE_LOCALIZATION      @"Update_Localization"
+#define UPDATE_LOCALIZATION              @"Update_Localization"
+#define PAGE_VIEW_CONTROLLER_SETUP_NEWS  @"PageViewControllerSetupNews"
+#define NEWS_TABLE_VIEW_RELOAD_NEWS      @"NewsTableViewReloadNews"
+#define NEWS_TABLE_VIEW_SELECT_ROW       @"NewsTableViewSelectRow"
+#define NEWS_TABLE_VIEW_REMOVE_ROW       @"NewsTableViewRemoveRow"
 
 // VIEW TITLES
 

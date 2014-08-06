@@ -12,9 +12,6 @@
 
 @property (nonatomic) int newsType;
 
-- (void) reloadNews;
-- (void) selectRow:(int) row;
-- (void)removeNewsAtIndex:(int)index;
 - (void) localizeTabBarItem;
 
 @end

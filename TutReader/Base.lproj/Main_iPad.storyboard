@@ -186,10 +186,10 @@
             </objects>
             <point key="canvasLocation" x="1377" y="-1405"/>
         </scene>
-        <!--Ipad Main View Controller-->
+        <!--Split View Controller-->
         <scene sceneID="eik-t1-ATQ">
             <objects>
-                <splitViewController id="UQq-pE-Mg1" customClass="IpadMainViewController" sceneMemberID="viewController">
+                <splitViewController id="UQq-pE-Mg1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <connections>
                         <segue destination="eKE-kp-Efh" kind="relationship" relationship="masterViewController" id="LEa-DC-lRM"/>

@@ -10,6 +10,6 @@
 
 @interface PageViewController : UIPageViewController 
 
-- (void) initNews;
+- (void)setupNews;
 
 @end
