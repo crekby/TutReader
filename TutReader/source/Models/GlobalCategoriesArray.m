@@ -32,7 +32,6 @@ SINGLETON(GlobalCategoriesArray)
         for (NSDictionary* subString in dict) {
             NewsSubCategoryItem* subCatItem = [NewsSubCategoryItem new];
             subCatItem.name = [NSString stringWithFormat:@"%@",subString];
-#warning почитай про "modern obj c"
             subCatItem.rssURL = dict[subCatItem.name];
             [catItem.subCategories insertObject:subCatItem atIndex:catItem.subCategories.count];
         }

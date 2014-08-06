@@ -90,7 +90,6 @@
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             NSNumber* rowToSelect = [NSNumber numberWithInt:[[GlobalNewsArray instance] selectedItem]];
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
-#warning need to add check for empty table
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
 
         }];
