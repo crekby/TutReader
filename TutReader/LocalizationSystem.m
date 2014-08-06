@@ -10,13 +10,15 @@
 
 @implementation LocalizationSystem
 
+SINGLETON(LocalizationSystem)
+
 //Singleton instance
 static LocalizationSystem *_sharedLocalSystem = nil;
 
 //Current application bungle to get the languages.
 static NSBundle *bundle = nil;
 
-+ (LocalizationSystem *)sharedLocalSystem
+/*+ (LocalizationSystem *)sharedLocalSystem
 {
 	@synchronized([LocalizationSystem class])
 	{
@@ -39,7 +41,7 @@ static NSBundle *bundle = nil;
 	}
 	// to avoid compiler warning
 	return nil;
-}
+}*/
 
 
 - (id)init

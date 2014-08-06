@@ -11,7 +11,7 @@
 
 @protocol SwipeableCellDelegate <NSObject>
 @optional
-- (void)buttonAction:(UITableViewCell*) sender;
+- (void)favoriteButtonAction:(UITableViewCell*) sender;
 - (void)cellDidOpen:(UITableViewCell *) sender;
 - (void)cellDidClose:(UITableViewCell *) sender;
 @end
@@ -21,14 +21,13 @@
 @property (nonatomic, weak) id <SwipeableCellDelegate> delegate;
 
 @property (nonatomic, strong) TUTNews* newsItem;
-#warning ячейки переиспользуются, хранить индекс строки чревато багами
-@property (nonatomic) int row;
-#warning почему кнопка паблик?
-@property (nonatomic, weak) IBOutlet UIButton* shareButton;
-#warning почему она паблик?
-@property (nonatomic) BOOL isSwipeOpen;
+@property (nonatomic, readonly, assign) BOOL isSwipeOpen;
 
 - (void) closeSwipe;
+
+- (void) setButtonImage:(UIImage*) image;
+
+- (void)setImage:(UIImage *)image;
 
 @end
 

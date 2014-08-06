@@ -10,11 +10,8 @@
 
 @interface NewsTableViewController : UITableViewController <NSURLConnectionDelegate,NSXMLParserDelegate,UIGestureRecognizerDelegate>
 
-@property (nonatomic) int type;
+@property (nonatomic) int newsType;
 
-#warning почему все эти методы паблик? Они все дергаются из других классов?
-- (void) initOnlineNewsList;
-- (void) initFavoritesNewsList;
 - (void) reloadNews;
 - (void) selectRow:(int) row;
 - (void)removeNewsAtIndex:(int)index;

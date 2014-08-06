@@ -19,7 +19,7 @@
 
 SINGLETON(GlobalNewsArray)
 
-- (void) newArray
+- (void) clearArray
 {
     _localNewsArray = [NSMutableArray new];
 }
@@ -27,9 +27,11 @@ SINGLETON(GlobalNewsArray)
 - (void) setNews:(NSMutableArray*) news
 {
     if (news) {
-        [self newArray];
-#warning где проверка if(_news != news) - возможны лишние действия
-        _localNewsArray = news;
+        if (_localNewsArray!=news) {
+            [self clearArray];
+            _localNewsArray = news;
+        }
+        
     }
 }
 
@@ -42,11 +44,11 @@ SINGLETON(GlobalNewsArray)
 {
     if (newsURL!=_newsURL) {
         _newsURL = newsURL;
-        self.needToRaload = YES;
+        self.needToRaloadNews = YES;
     }
     else
     {
-        self.needToRaload = NO;
+        self.needToRaloadNews = NO;
     }
 }
 
@@ -81,7 +83,7 @@ SINGLETON(GlobalNewsArray)
     self.selectedItem = index;
 }
 
-- (int) rowForNews:(TUTNews*) news
+- (int) indexForNews:(TUTNews*) news
 {
     return [_localNewsArray indexOfObject:news];
 }
@@ -102,14 +104,5 @@ SINGLETON(GlobalNewsArray)
     return _selectedItem;
 }
 
-- (int) newsCount
-{
-    return _localNewsArray.count;
-}
-
-- (int) indexOfViewController:(WebViewController*) controller
-{
-    return [_localNewsArray indexOfObject:controller.loadedNews];
-}
 
 @end

@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 crekby. All rights reserved.
 //
 
-#import "SubCategoryItem.h"
-#warning название не говорит о том, что это за подкатегория
-@interface CategoryItem : SubCategoryItem
+#import "NewsSubCategoryItem.h"
+
+@interface NewsCategoryItem : NewsSubCategoryItem
 
 @property (nonatomic, strong) NSMutableArray* subCategories;
 

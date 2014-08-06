@@ -16,6 +16,7 @@ static className *_##classNameInstance; \
 // DEVICE IDENTIFICATORS
 
 #define IS_IPAD ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+#define IS_IPHONE ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
 #define IS_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 #define IS_RETINA ([[UIScreen mainScreen] scale] == 2.0)
 
@@ -55,6 +56,15 @@ typedef enum
 #define GOOGLE_ANALYTICS_ID      @"UA-53128142-1"
 #define GA_DEFAULT_TRACKING_VALUE @1
 
+// SETTINGS
+
+#define LANGUAGE_SETTINGS_IDENTIFICATOR     @"lang"
+#define ENGLISH_LANGUAGE_IDENTIFICATOR      @"en"
+#define RUSSIAN_LANGUAGE_IDENTIFICATOR      @"ru"
+#define DELETE_CACHE_SETTINGS_IDENTIFICATOR @"del_cache"
+#define APP_VERSION                         @"CFBundleShortVersionString"
+#define APP_VERSION_SETTINGS_IDENTIFICATOR  @"app_version"
+
 // CATEGORIES
 
 #define TUT_PREFIX               @"http://news.tut.by/rss/"
@@ -71,9 +81,22 @@ typedef enum
     ONLINE = 1
 } newsTypes;
 
+// CLASSES NAMES
+
+#define NEWS_CATEGORY_ITEM_CLASS      @"NewsCategoryItem"
+
 // CELLS IDENTIFICATORS
 
 #define NEWS_CELL_IDENTIFICATOR  @"newsCell"
+#define CATEGORY_CELL_IDENTIFICATOR @"categoryCell"
+
+// COLORS
+
+#define CATEGORY_BUTTON_HIGHLIGHTED_COLOR ([UIColor colorWithRed:0.7 green:0.7 blue:1 alpha:1])
+
+// SANDBOX PATHS
+
+#define DOCUMENTS_DIRECTORY      ([[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject])
 
 // SEGUE IDENTIFICATORS
 
@@ -88,6 +111,7 @@ typedef enum
 #define IT_PAGE                  @"http://it.tut.by/"
 #define LADY_PAGE                @"http://lady.tut.by/"
 #define SPORT_PAGE               @"http://sport.tut.by/"
+#define MAIN_CATEGORIES_COUNT    5
 
 // RESOURCES
 

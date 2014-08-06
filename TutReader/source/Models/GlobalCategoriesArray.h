@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CategoryItem.h"
+#import "NewsCategoryItem.h"
 
 @interface GlobalCategoriesArray : NSObject
 
 + (GlobalCategoriesArray*) instance;
 
-- (void) initCategories;
+- (void) setupCategories;
 
 - (NSMutableArray*) categories;
-- (CategoryItem*) categoryAtIndex:(int) index;
+- (NewsCategoryItem*) categoryAtIndex:(int) index;
 
 - (void) expandCategoryAtIndex:(int) index;
 - (void) closeCategoryAtIndex:(int) index;

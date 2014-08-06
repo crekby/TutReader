@@ -8,8 +8,8 @@
 
 #import "CategoryTableViewController.h"
 #import "CategoryCell.h"
-#import "SubCategoryItem.h"
-#import "CategoryItem.h"
+#import "NewsSubCategoryItem.h"
+#import "NewsCategoryItem.h"
 
 
 @interface CategoryTableViewController ()
@@ -86,36 +86,34 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning в константы!
-    CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"categoryCell" forIndexPath:indexPath];
+    CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:CATEGORY_CELL_IDENTIFICATOR forIndexPath:indexPath];
     
-    CategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
+    NewsCategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
     
     if (tableView.indexPathForSelectedRow.row!=indexPath.row) {
-        if (cell.category.textColor==[UIColor blackColor]) {
-            cell.category.textColor = [UIColor whiteColor];
+        if ([cell titleColor] == [UIColor blackColor]) {
+            [cell setTitleColor:[UIColor whiteColor]];
         }
     }
     else
     {
         if (!self.firstTime)
         {
-            cell.category.textColor = [UIColor blackColor];
+            [cell setTitleColor:[UIColor blackColor]];
         }
     }
     
- #warning в константы!
-    if ([categoryItem isKindOfClass: NSClassFromString(@"CategoryItem")]) {
-        cell.contentViewLeftConstraint.constant = 20;
+    if ([categoryItem isKindOfClass: NSClassFromString(NEWS_CATEGORY_ITEM_CLASS)]) {
+        [cell setLeftMargin: 20];
         if (IS_IOS7) cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 50);
     }
     else
     {
-        cell.contentViewLeftConstraint.constant = 50;
+        [cell setLeftMargin: 50];
         if (IS_IOS7) cell.separatorInset = UIEdgeInsetsMake(0, 50, 0, 50);
     }
     
-    cell.category.text = categoryItem.name;
+    [cell setCategoryTitle: categoryItem.name];
     
     return cell;
 }
@@ -123,11 +121,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CategoryCell* cell = (CategoryCell*)[tableView cellForRowAtIndexPath:indexPath];
-    cell.category.textColor = [UIColor blackColor];
+    [cell setTitleColor: [UIColor blackColor]];
     [cell setNeedsLayout];
-    CategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
-#warning в константы!
-    if ([categoryItem isKindOfClass: NSClassFromString(@"CategoryItem")])
+    NewsCategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
+    if ([categoryItem isKindOfClass: NSClassFromString(NEWS_CATEGORY_ITEM_CLASS)])
     {
         NSMutableArray* indexArray = [NSMutableArray new];
         if (categoryItem.isOpen)
@@ -157,7 +154,7 @@
     }
     else
     {
-        [GlobalNewsArray instance].newsURL = [(SubCategoryItem*)[[GlobalCategoriesArray instance].categories objectAtIndex:indexPath.row] rssURL];
+        [GlobalNewsArray instance].newsURL = [(NewsSubCategoryItem*)[[GlobalCategoriesArray instance].categories objectAtIndex:indexPath.row] rssURL];
         [self closeCategoryList];
     }
     
@@ -175,7 +172,7 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CategoryCell* cell = (CategoryCell*)[tableView cellForRowAtIndexPath:indexPath];
-    cell.category.textColor = [UIColor whiteColor];
+    [cell setTitleColor: [UIColor whiteColor]];
     [cell setNeedsLayout];
 }
 @end

@@ -7,8 +7,8 @@
 //
 
 #import "GlobalCategoriesArray.h"
-#import "CategoryItem.h"
-#import "SubCategoryItem.h"
+#import "NewsCategoryItem.h"
+#import "NewsSubCategoryItem.h"
 
 @interface GlobalCategoriesArray()
 
@@ -19,24 +19,21 @@
 @implementation GlobalCategoriesArray
 
 SINGLETON(GlobalCategoriesArray)
-#warning в названии метдов "init" используется только там, где идет выделение памяти, лучше назвать что-то типа setup
-- (void)initCategories
+- (void)setupCategories
 {
     self.localCategoryArray = [NSMutableArray new];
     [GlobalNewsArray instance].newsURL = RSS_URL;
-#warning если хардкодишь количество, то выноси в константы
-    for (int i=0; i<5; i++) {
-        CategoryItem* catItem = [CategoryItem new];
+    for (int i=0; i<MAIN_CATEGORIES_COUNT; i++) {
+        NewsCategoryItem* catItem = [NewsCategoryItem new];
         catItem.name = [CategoryManager nameForCategoryID:i];
         catItem.isOpen = NO;
         catItem.subCategories = [NSMutableArray new];
         NSDictionary* dict = [NSDictionary dictionaryWithDictionary:[CategoryManager subcategoriesByCategoryID:i]];
-        for (id subString in dict) {
-            SubCategoryItem* subCatItem = [SubCategoryItem new];
+        for (NSDictionary* subString in dict) {
+            NewsSubCategoryItem* subCatItem = [NewsSubCategoryItem new];
             subCatItem.name = [NSString stringWithFormat:@"%@",subString];
 #warning почитай про "modern obj c"
-            subCatItem.rssURL = [dict valueForKey:subCatItem.name];
-            subCatItem.parent = i;
+            subCatItem.rssURL = dict[subCatItem.name];
             [catItem.subCategories insertObject:subCatItem atIndex:catItem.subCategories.count];
         }
         [self.localCategoryArray insertObject:catItem atIndex:self.localCategoryArray.count];
@@ -48,7 +45,7 @@ SINGLETON(GlobalCategoriesArray)
     return _localCategoryArray;
 }
 
-- (CategoryItem *)categoryAtIndex:(int)index
+- (NewsCategoryItem *)categoryAtIndex:(int)index
 {
     return _localCategoryArray[index];
 }

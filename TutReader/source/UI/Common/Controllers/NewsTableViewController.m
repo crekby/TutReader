@@ -51,7 +51,7 @@
     [self.newsTableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
     if (IS_IPAD) {
-        if (self.type == ONLINE) {
+        if (self.newsType == ONLINE) {
             [self initOnlineNewsList];
         }
         
@@ -73,15 +73,7 @@
     [self.titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self.titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
     [self.titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
-    UIStoryboard* storyboard;
-#warning можно просто self.storyboard
-    if (IS_IPAD) {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPad" bundle:[NSBundle bundleForClass:[self class]]];
-    }
-    else
-    {
-        storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
-    }
+    UIStoryboard* storyboard = self.storyboard;
     self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
     self.categoryController.delegate = self;
 }
@@ -91,14 +83,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
-    if (self.type == ONLINE) {
-        //[self reloadTableView];
-        [[GlobalNewsArray instance] setNeedToRaload:YES];
-        [self initOnlineNewsList];
-#warning почему не в veiewWillAppear?
+    [super viewWillAppear:animated];
+    if (self.newsType == ONLINE) {
         self.tabBarController.navigationItem.titleView = self.titleLabel;
     }
     else
@@ -107,7 +95,16 @@
             self.tabBarController.navigationItem.titleView = nil;
         }
     }
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.newsType == ONLINE) {
+        //[self reloadTableView];
+        [[GlobalNewsArray instance] setNeedToRaloadNews:YES];
+        [self initOnlineNewsList];
+    }
     [self loadData];
     
     
@@ -118,14 +115,14 @@
 
 - (void)initOnlineNewsList
 {
-    [self setType:ONLINE];
-    if ([[GlobalNewsArray instance] needToRaload]) {
+    [self setNewsType:ONLINE];
+    if ([[GlobalNewsArray instance] needToRaloadNews]) {
         [[RemoteFacade instance] getOnlineNewsDataWithURL:[[GlobalNewsArray instance] newsURL] andCallback:^(NSData* data, NSError *error){
             [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
                 [[GlobalNewsArray instance] setNews:newsList];
-                [[GlobalNewsArray instance] setNeedToRaload:NO];
+                [[GlobalNewsArray instance] setNeedToRaloadNews:NO];
                 [self initCategoryList];
-                [self checkForFavorites];
+                [self checkWhichNewsIsFavorite];
             }];
         }];
     }
@@ -141,7 +138,7 @@
 
 - (void)initFavoritesNewsList
 {
-    [self setType:FAVORITE];
+    [self setNewsType:FAVORITE];
     if (IS_IPAD) {
         [self loadData];
     }
@@ -149,7 +146,7 @@
 
 -(void)reloadNews
 {
-    if (self.type == FAVORITE) {
+    if (self.newsType == FAVORITE) {
         [self initFavoritesNewsList];
     }
 }
@@ -175,8 +172,7 @@
 
 - (void) titleActionDowmInside:(UIButton*) sender
 {
-#warning цвет в константы
-    [sender setTitleColor:[UIColor colorWithRed:0.7 green:0.7 blue:1 alpha:1] forState:UIControlStateNormal];
+    [sender setTitleColor: CATEGORY_BUTTON_HIGHLIGHTED_COLOR forState:UIControlStateNormal];
 }
 
 
@@ -216,7 +212,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[GlobalNewsArray instance] newsCount];
+    return [GlobalNewsArray instance].news.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -232,11 +228,10 @@
     TUTNews* newsToShow = [[GlobalNewsArray instance] newsAtIndex:indexPath.row];
     
     [cell setNewsItem:newsToShow];
-    cell.row = indexPath.row;
-    [cell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:indexPath.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
+    [cell setButtonImage:([[GlobalNewsArray instance] newsAtIndex:indexPath.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW]];
     if (!cell.delegate) cell.delegate = self;
     if (!newsToShow.imageCacheUrl) {
-        [cell.imageView setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
+        [cell setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
         if (newsToShow.imageURL!=nil) {
             NSURL* imgUrl = [NSURL URLWithString:newsToShow.imageURL];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -244,7 +239,7 @@
                 newsToShow.imageCacheUrl = [[CacheFilesManager instance] addCacheFile:imageData];
                 UIImage* thumb = [UIImage imageWithData:imageData];
                 dispatch_sync(dispatch_get_main_queue(), ^{
-                    [cell.imageView setImage:thumb];
+                    [cell setImage:thumb];
                     NSLog(@"%d",indexPath.row);
                     [cell setNeedsLayout];
                 });
@@ -257,8 +252,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning зачет отрицание, если можно if(IS_IPHONE)
-    if (!IS_IPAD) return;
+    if (IS_IPHONE) return;
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
     }
@@ -272,29 +266,28 @@
 }
 
 #pragma mark - SwipeCell delegate Action
-#warning какой баттон экшн? что здесь происходит? название ни о чем не говорит
-- (void)buttonAction:(UITableViewCell *)sender
+
+- (void)favoriteButtonAction:(UITableViewCell *)sender
 {
     NewsCell* cell = (NewsCell*) sender;
-    TUTNews* news = [[GlobalNewsArray instance] newsAtIndex:cell.row];
+    int index = [self.newsTableView indexPathForCell:cell].row;
+    TUTNews* news = [[GlobalNewsArray instance] newsAtIndex:index];
     if (news.isFavorite) {
-        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:index andCallBack:^(id data, NSError* error){
             NSLog(@"%@",error.localizedDescription);
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
-                //[self changeImage:cell];
-                if (self.type == FAVORITE) {
-                    [self removeNewsAtIndex:cell.row];
+                if (self.newsType == FAVORITE) {
+                    [self removeNewsAtIndex:index];
                 }
             }
         }];
     }
     else
     {
-        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:cell.row andCallBack:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:index andCallBack:^(id data, NSError* error){
             NSLog(@"%@",error.localizedDescription);
             if (!error) {
-                //[self changeImage:cell];
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
             }
         }];
@@ -322,7 +315,7 @@
         [self.categoryController closeCategoryList];
     }
     NewsCell* cell = (NewsCell*)sender;
-    [[GlobalNewsArray instance] setSelectedNews:[[GlobalNewsArray instance] rowForNews:cell.newsItem]];
+    [[GlobalNewsArray instance] setSelectedNews:[[GlobalNewsArray instance] indexForNews:cell.newsItem]];
     [(PageViewController*)[segue destinationViewController] initNews];
     [self trackNewsOpening];
 }
@@ -336,7 +329,7 @@
     if (!self.notFirstLaunch)
     {
         if (!IS_IPAD) return;
-        if ([GlobalNewsArray instance].newsCount>0)
+        if ([GlobalNewsArray instance].news.count>0)
         {
             NSIndexPath* index = [NSIndexPath indexPathForRow:0 inSection:0];
             [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
@@ -350,12 +343,11 @@
 
 - (void)loadData
 {
-#warning что за тайп? название переменной ни о чем не говорит
-    if (self.type == FAVORITE) {
+    if (self.newsType == FAVORITE) {
         [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
             NSArray* requestResult = data;
             if (requestResult) {
-                [[GlobalNewsArray instance] newArray];
+                [[GlobalNewsArray instance] clearArray];
                 for (NewsItem* object in requestResult) {
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                     if (favoriteNews.newsURL) {
@@ -368,7 +360,7 @@
     }
 }
 
-- (void) checkForFavorites
+- (void) checkWhichNewsIsFavorite
 {
 #warning выглядит очень непонятно. Что тут вообще происходит? Ты в базе хранишь только фейвориты, так может лучше и выборку сделать по тайтлу и не нужно будет все эти фильтры?
     [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
@@ -390,7 +382,7 @@
 
 - (void) refresh
 {
-    if (self.type  == ONLINE)
+    if (self.newsType  == ONLINE)
     {
         [self initOnlineNewsList];
     }
@@ -403,28 +395,16 @@
 
 - (void) trackNewsOpening
 {
-    if (self.type == ONLINE)
-    {
-#warning зачем два метода, если можно просто передать bool isOnline и в реазлизации выставить нужный заголовок?
-        [[GoogleAnalyticsManager instance] trackOpenOnlineNews];
-    }
-    else
-    {
-        [[GoogleAnalyticsManager instance] trackOpenFavoriteNews];
-    }
+    [[GoogleAnalyticsManager instance] trackOpenNews:self.newsType];
 }
 
 - (void) changeImage:(NewsCell*) cell
 {
 #warning можно упростить! догадаешься как? ;)
-    if (IS_IOS7) {
-        [cell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:cell.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [cell.shareButton setImage:([[GlobalNewsArray instance] newsAtIndex:cell.row].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE] forState:UIControlStateNormal];
-    }
-    [cell.shareButton setNeedsDisplay];
+    int index = [self.newsTableView indexPathForCell:cell].row;
+    BOOL favorite = [[GlobalNewsArray instance] newsAtIndex:index].isFavorite;
+    if (IS_IOS7) [cell setButtonImage:(favorite) ? [UIImage imageNamed:STAR_FULL] : [UIImage imageNamed:STAR_HOLLOW]];
+    else [cell setButtonImage:(favorite) ? [UIImage imageNamed:STAR_FULL_WHITE] : [UIImage imageNamed:STAR_HOLLOW_WHITE]];
 }
 
 - (void) changeOrientation
@@ -446,7 +426,7 @@
 
 - (void) localizeTabBarItem
 {
-    if (self.type == ONLINE) {
+    if (self.newsType == ONLINE) {
         self.tabBarItem.title = AMLocalizedString(@"ONLINE_TITLE", nil);
         [self.titleLabel setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
         [self.titleLabel sizeToFit];

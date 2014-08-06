@@ -8,6 +8,13 @@
 
 #import "CategoryCell.h"
 
+@interface CategoryCell ()
+
+@property (nonatomic, weak) IBOutlet UILabel* category;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *contentViewLeftConstraint;
+
+@end
+
 @implementation CategoryCell
 
 
@@ -30,6 +37,26 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)setCategoryTitle:(NSString *)title
+{
+    self.category.text = title;
+}
+
+- (void) setLeftMargin:(int) margin
+{
+    self.contentViewLeftConstraint.constant = margin;
+}
+
+- (void) setTitleColor:(UIColor*) color
+{
+    self.category.textColor = color;
+}
+
+- (UIColor *)titleColor
+{
+    return self.category.textColor;
 }
 
 @end

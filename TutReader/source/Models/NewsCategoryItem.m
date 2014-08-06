@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 crekby. All rights reserved.
 //
 
-#import "CategoryItem.h"
+#import "NewsCategoryItem.h"
 
-@implementation CategoryItem
+@implementation NewsCategoryItem
 
 
 

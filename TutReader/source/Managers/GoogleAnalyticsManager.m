@@ -11,6 +11,7 @@
 #import "GAITracker.h"
 #import "GAIFields.h"
 #import "GAIDictionaryBuilder.h"
+#import <sys/sysctl.h>
 
 @implementation GoogleAnalyticsManager
 
@@ -43,6 +44,12 @@ SINGLETON(GoogleAnalyticsManager)
 {
     [self trackEventWithAction:@"Open News" andLabel:@"Online" andCategory:@"News Opens"];
 }
+
+- (void) trackOpenNews:(int) newsType
+{
+    (newsType==ONLINE) ? [self trackOpenOnlineNews] : [self trackOpenFavoriteNews];
+}
+
 
 - (void) trackOpenFavoriteNews
 {

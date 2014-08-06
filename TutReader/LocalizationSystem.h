@@ -9,23 +9,23 @@
 #import <Foundation/Foundation.h>
 
 #define AMLocalizedString(key, comment) \
-[[LocalizationSystem sharedLocalSystem] localizedStringForKey:(key) value:(comment)]
+[[LocalizationSystem instance] localizedStringForKey:(key) value:(comment)]
 
 #define LocalizationSetLanguage(language) \
-[[LocalizationSystem sharedLocalSystem] setLanguage:(language)]
+[[LocalizationSystem instance] setLanguage:(language)]
 
 #define LocalizationGetLanguage \
-[[LocalizationSystem sharedLocalSystem] getLanguage]
+[[LocalizationSystem instance] getLanguage]
 
 #define LocalizationReset \
-[[LocalizationSystem sharedLocalSystem] resetLocalization]
+[[LocalizationSystem instance] resetLocalization]
 
 @interface LocalizationSystem : NSObject {
 	NSString *language;
 }
 
 // you really shouldn't care about this functions and use the MACROS
-+ (LocalizationSystem *)sharedLocalSystem;
++ (LocalizationSystem *) instance;
 
 //gets the string localized
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;

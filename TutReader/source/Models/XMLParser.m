@@ -16,15 +16,12 @@
 @property NSMutableArray* newsItemsList;
 @property TUTNews* news;
 @property NSString* enclosure;
+@property (nonatomic, strong) CallbackWithDataAndError globalCallback;
 
 @end
 
 
 @implementation XMLParser
-{
-#warning не создавай в implementation айварные переменные. Выноси в интерфейс
-    CallbackWithDataAndError globalCallback;
-}
 
 SINGLETON(XMLParser)
 
@@ -33,7 +30,7 @@ SINGLETON(XMLParser)
     NSXMLParser* parser = [[NSXMLParser alloc] initWithData:data];
     [parser setDelegate:self];
     self.newsItemsList = [NSMutableArray new];
-    globalCallback = callback;
+    _globalCallback = callback;
     [parser parse];
 }
 
@@ -118,8 +115,8 @@ SINGLETON(XMLParser)
 
 -(void) parserDidEndDocument:(NSXMLParser *)parser
 {
-    if (globalCallback) {
-        globalCallback(self.newsItemsList,nil);
+    if (_globalCallback) {
+        _globalCallback(self.newsItemsList,nil);
     }
 }
 

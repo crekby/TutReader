@@ -13,6 +13,9 @@
 @property (nonatomic, weak) IBOutlet UILabel* newsTitle;
 @property (nonatomic, weak) IBOutlet UILabel* newsDescription;
 
+@property (nonatomic, strong) IBOutlet UIImageView* NewsImageView;
+
+@property (nonatomic, weak) IBOutlet UIButton* shareButton;
 
 @property (nonatomic, strong) IBOutlet UIView* myContentView;
 @property (nonatomic, strong) UIPanGestureRecognizer *panRecognizer;
@@ -26,15 +29,16 @@
 static CGFloat const kBounceValue = 10.0f;
 
 @implementation NewsCell
-#warning где "pragma mark" ???
 - (void)setNewsItem:(TUTNews *) item
 {
-#warning где проверка if(_newsItem != item) ?
-    _newsItem = item;
-    _newsTitle.text = item.newsTitle;
-    _newsDescription.text = item.text;
-    if (item.imageCacheUrl) {
-        self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:item.imageCacheUrl]];
+    if(_newsItem != item)
+    {
+        _newsItem = item;
+        _newsTitle.text = item.newsTitle;
+        _newsDescription.text = item.text;
+        if (item.imageCacheUrl) {
+            self.NewsImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfFile:item.imageCacheUrl]];
+        }
     }
 }
 
@@ -44,9 +48,6 @@ static CGFloat const kBounceValue = 10.0f;
     self.panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panThisCell:)];
     self.panRecognizer.delegate = self;
     [self.myContentView addGestureRecognizer:self.panRecognizer];
-#warning зачем ты удаляешь self.imageView и снова добавляешь ???
-    [self.imageView removeFromSuperview];
-    [self.myContentView addSubview:self.imageView];
 }
 
 - (void)panThisCell:(UIPanGestureRecognizer *)recognizer {
@@ -146,12 +147,7 @@ static CGFloat const kBounceValue = 10.0f;
 
 - (void)updateConstraintsIfNeeded:(BOOL)animated completion:(void (^)(BOOL finished))completion {
     
-#warning лучше float duration = (animated) ? 0.3f : 0.0f;
-    float duration = 0;
-    if (animated) {
-        duration = 0.3;
-    }
-    
+    float duration = (animated) ? 0.3f : 0.0f;
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self layoutIfNeeded];
     } completion:completion];
@@ -165,7 +161,7 @@ static CGFloat const kBounceValue = 10.0f;
 {
 	//TODO: Notify delegate.
     if (self.isSwipeOpen) {
-        self.isSwipeOpen = NO;
+        _isSwipeOpen = NO;
         if ([self.delegate respondsToSelector:@selector(cellDidClose:)]) {
             [self.delegate cellDidClose:self];
         }
@@ -189,14 +185,14 @@ static CGFloat const kBounceValue = 10.0f;
         }];
     }];
     self.shareButton.hidden = YES;
-    self.isSwipeOpen = NO;
+    _isSwipeOpen = NO;
 }
 
 - (void)setConstraintsToShowAllButtons:(BOOL)animated notifyDelegateDidOpen:(BOOL)notifyDelegate
 {
 	//TODO: Notify delegate.
     if (!self.isSwipeOpen) {
-        self.isSwipeOpen = YES;
+        _isSwipeOpen = YES;
         if ([self.delegate respondsToSelector:@selector(cellDidOpen:)]) {
             [self.delegate cellDidOpen:self];
         }
@@ -221,7 +217,7 @@ static CGFloat const kBounceValue = 10.0f;
             self.startingRightLayoutConstraintConstant = self.contentViewRightConstraint.constant;
         }];
     }];
-    self.isSwipeOpen = YES;
+    _isSwipeOpen = YES;
 }
 
 - (void)prepareForReuse {
@@ -239,14 +235,25 @@ static CGFloat const kBounceValue = 10.0f;
 
 - (IBAction)cellFavoriteButtonAction:(id)sender
 {
-    if ([self.delegate respondsToSelector:@selector(buttonAction:)]) {
-        [self.delegate buttonAction:self];
+    if ([self.delegate respondsToSelector:@selector(favoriteButtonAction:)]) {
+        [self.delegate favoriteButtonAction: self];
     }
+}
+
+- (void)setButtonImage:(UIImage *)image
+{
+    [self.shareButton setImage:image forState:UIControlStateNormal];
+    [self.shareButton setNeedsDisplay];
 }
 
 - (void) closeSwipe
 {
     [self resetConstraintContstantsToZero:YES notifyDelegateDidClose:YES];
+}
+
+- (void)setImage:(UIImage *)image
+{
+    self.NewsImageView.image = image;
 }
 
 @end

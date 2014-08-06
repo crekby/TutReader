@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 crekby. All rights reserved.
 //
 
-#import "SubCategoryItem.h"
+#import "NewsSubCategoryItem.h"
 
-@implementation SubCategoryItem
+@implementation NewsSubCategoryItem
 
 @end

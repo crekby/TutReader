@@ -52,7 +52,7 @@
         if (self.webView.isLoading) [self.webView stopLoading];
         NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];
         [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
-        [self.activityIndicator startAnimating];
+        [self showLoadingIndicator:YES];
     }
 }
 
@@ -65,18 +65,13 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-#warning сделай метод, типа showLoadingIndicators(BOOL)show и в нем будешь отображать и прятать все, что нужно
-    [self.activityIndicator stopAnimating];
-
+    [self showLoadingIndicator:NO];
 }
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     NSLog(@"web view error %@",error.localizedDescription);
-    #warning сделай метод, типа showLoadingIndicators(BOOL)show и в нем будешь отображать и прятать все, что нужно
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-    [self.activityIndicator stopAnimating];
+    [self showLoadingIndicator:NO];
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -86,6 +81,11 @@
 
 #pragma mark - Private Methods
 
+- (void) showLoadingIndicator:(BOOL) show
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: show];
+    (show)?[self.activityIndicator startAnimating]:[self.activityIndicator stopAnimating];
+}
 
 
 @end

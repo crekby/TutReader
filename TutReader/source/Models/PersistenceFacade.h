@@ -13,8 +13,7 @@
 + (PersistenceFacade*)instance;
 
 - (void) getNewsItemsListFromData:(NSData*) data dataType:(int)type withCallback: (CallbackWithDataAndError) callback;
-#warning лучше addNewsItem, a не object, и лучше save, а не add
-- (void) addObjectToCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback;
+- (void) saveNewsItemToCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback;
 - (void) deleteObjectFromCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback;
 
 @end

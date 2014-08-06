@@ -13,8 +13,7 @@
 + (GoogleAnalyticsManager*)instance;
 
 - (void) setupGoogleAnalyticsWithID:(NSString*) ID;
-- (void) trackOpenOnlineNews;
-- (void) trackOpenFavoriteNews;
+- (void) trackOpenNews:(int) newsType;
 - (void) trackAddedToFavorites;
 - (void) trackDeleteFromFavorites;
 

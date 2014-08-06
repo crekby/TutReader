@@ -16,7 +16,7 @@ SINGLETON(FavoriteNewsManager)
 - (void) addNewsToFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
 {
     [[GlobalNewsArray instance] newsAtIndex:index].isFavorite = ![[[GlobalNewsArray instance] newsAtIndex:index] isFavorite];
-    [[PersistenceFacade instance] addObjectToCoreData:[[GlobalNewsArray instance] newsAtIndex:index] withCallback:^( NSManagedObjectID *ID, NSError* error){
+    [[PersistenceFacade instance] saveNewsItemToCoreData:[[GlobalNewsArray instance] newsAtIndex:index] withCallback:^( NSManagedObjectID *ID, NSError* error){
         if (!error) {
             [[GlobalNewsArray instance] newsAtIndex:index].coreDataObjectID = ID;
             [[GoogleAnalyticsManager instance] trackAddedToFavorites];

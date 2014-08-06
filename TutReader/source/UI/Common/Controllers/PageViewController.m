@@ -14,7 +14,7 @@
 #import "ShareManager.h"
 #import "FavoriteNewsManager.h"
 
-@interface PageViewController() <ShareViewControllerDelegate>
+@interface PageViewController() <ShareViewControllerDelegate,UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIPopoverControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIPopoverController *sharePopover;
 @property (nonatomic) UIBarButtonItem* favoriteBarButton;
@@ -50,7 +50,7 @@
     self.delegate = self;
     self.dataSource = self;
     if (IS_IPAD) {
-        WebViewController* controller = [[WebViewController alloc] init];
+        //WebViewController* controller = [[WebViewController alloc] init];
         //[self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil ];
     }
     UIImage* starImage;
@@ -61,7 +61,7 @@
     {
         starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?[UIImage imageNamed:STAR_FULL_WHITE]:[UIImage imageNamed:STAR_HOLLOW_WHITE];
     }
-    self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(favoriteButtonAction:)];
+    self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnShareDidTap:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
     shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
     if (IS_IPAD) {
@@ -90,8 +90,7 @@
 }
 
 #pragma mark - IBActions
-#warning лучше btnShareDidTap
-- (void) favoriteButtonAction:(UIBarButtonItem*) sender
+- (void) btnShareDidTap:(UIBarButtonItem*) sender
 {
     if (![[GlobalNewsArray instance] selectedNews].isFavorite) {
         [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
@@ -115,6 +114,7 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
+#warning doesn't updating favorite button in navigation controller
     self.title = [(WebViewController*)self.viewControllers[0] loadedNews].newsTitle;
     WebViewController* controller = (WebViewController*)[self.viewControllers objectAtIndex:0];
     [self selectRow:controller];
@@ -129,7 +129,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSUInteger index = [[GlobalNewsArray instance] indexOfViewController:(WebViewController*)viewController];
+    NSUInteger index = [[GlobalNewsArray instance] indexForNews:[(WebViewController*)viewController loadedNews]];
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
@@ -140,13 +140,13 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSUInteger index = [[GlobalNewsArray instance] indexOfViewController:(WebViewController*)viewController];
+    NSUInteger index = [[GlobalNewsArray instance] indexForNews:[(WebViewController*)viewController loadedNews]];
     if (index == NSNotFound) {
         return nil;
     }
     
     index++;
-    if (index == [[GlobalNewsArray instance] newsCount]) {
+    if (index == [GlobalNewsArray instance].news.count) {
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
@@ -236,7 +236,7 @@
 {
     NSInteger index;
     if (controller) {
-        index = [[GlobalNewsArray instance] indexOfViewController:controller];
+        index = [[GlobalNewsArray instance] indexForNews:controller.loadedNews];
     }
     else
     {

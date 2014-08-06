@@ -64,7 +64,7 @@ SINGLETON(PersistenceFacade)
 
 #pragma mark - Core Data Methods
 
-- (void) addObjectToCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback
+- (void) saveNewsItemToCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *context = appDelegate.managedObjectContext;
