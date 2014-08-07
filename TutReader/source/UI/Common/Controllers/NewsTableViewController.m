@@ -29,7 +29,7 @@
 
 @property (strong, nonatomic) CategoryTableViewController* categoryController;
 
-@property (strong, nonatomic) NSSet* categorySet;
+//@property (strong, nonatomic) NSSet* categorySet;
 
 @property (strong, nonatomic) NSMutableArray* tableContent;
 
@@ -375,6 +375,7 @@
         [self initFavoritesNewsList];
     }
     [self.refreshControl endRefreshing];
+    [self showActivityIndicator:NO];
 }
 
 - (void) trackNewsOpening
