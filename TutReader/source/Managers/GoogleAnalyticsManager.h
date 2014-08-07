@@ -14,6 +14,7 @@
 
 - (void) setupGoogleAnalyticsWithID:(NSString*) ID;
 - (void) trackOpenNews:(int) newsType;
+#warning а вот эти два метода разве нельзя объеденить?
 - (void) trackAddedToFavorites;
 - (void) trackDeleteFromFavorites;
 

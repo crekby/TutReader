@@ -1,4 +1,4 @@
-//
+ //
 //  webViewController.m
 //  TutReader
 //
@@ -24,6 +24,7 @@
 
 - (void) setupNews
 {
+#warning плохое название! Я думал, что илет сетап целого массива новостей setNewsItem
     [self setupWithNews:[[DataProvider instance] selectedNews]];
 }
 
@@ -41,9 +42,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+#warning почему в сториборд не задал делегат?
     self.webView.delegate = self;
 }
 
+#warning почему не viewWillAppear? Зачем ждать отображения новости?
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
