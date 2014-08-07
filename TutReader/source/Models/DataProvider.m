@@ -7,6 +7,8 @@
 //
 
 #import "DataProvider.h"
+#import "RemoteFacade.h"
+#import "PersistenceFacade.h"
 
 @interface DataProvider()
 
@@ -102,6 +104,58 @@ SINGLETON(DataProvider)
     {
         return nil;
     }
+}
+
+- (void)setupOnlineNews
+{
+    if (self.needToRaloadNews) {
+        [[RemoteFacade instance] getOnlineNewsDataWithURL:[[DataProvider instance] newsURL] andCallback:^(NSData* data, NSError *error){
+            [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
+                [self setNews:newsList];
+                [self setNeedToRaloadNews:NO];
+                [self checkWhichOnlineNewsIsFavorite];
+            }];
+        }];
+    }
+}
+
+- (void) checkWhichOnlineNewsIsFavorite
+{
+#warning выглядит очень непонятно. Что тут вообще происходит? Ты в базе хранишь только фейвориты, так может лучше и выборку сделать по тайтлу и не нужно будет все эти фильтры?
+    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
+        NSMutableArray* requestResult = data;
+        if (requestResult) {
+            for (TUTNews* object in _localNewsArray) {
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
+                NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
+                if (filteredArray.firstObject) {
+                    object.isFavorite = YES;
+                    object.coreDataObjectID = [(NewsItem*)filteredArray.firstObject objectID];
+                }
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE object:nil];
+            //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
+        }
+    }];
+    
+}
+
+- (void)setupFavoriteNews
+{
+    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
+        NSArray* requestResult = data;
+        if (requestResult) {
+            [self clearArray];
+            for (NewsItem* object in requestResult) {
+                TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
+                if (favoriteNews.newsURL) {
+                    [self insertNews:favoriteNews];
+                }
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE object:nil];
+            //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
+        }
+    }];
 }
 
 

@@ -87,6 +87,10 @@
                                              selector:@selector(removeNewsAtIndex:)
                                                  name:NEWS_TABLE_VIEW_REMOVE_ROW
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadTableView)
+                                                 name:NEWS_TABLE_VIEW_REFRESH_TABLE
+                                               object:nil];
 }
 
 - (void)dealloc
@@ -126,25 +130,8 @@
 
 - (void)initOnlineNewsList
 {
+    [[DataProvider instance] setupOnlineNews];
     [self setNewsType:ONLINE];
-    if ([[DataProvider instance] needToRaloadNews]) {
-        [[RemoteFacade instance] getOnlineNewsDataWithURL:[[DataProvider instance] newsURL] andCallback:^(NSData* data, NSError *error){
-            [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
-                [[DataProvider instance] setNews:newsList];
-                [[DataProvider instance] setNeedToRaloadNews:NO];
-                [self initCategoryList];
-                [self checkWhichOnlineNewsIsFavorite];
-            }];
-        }];
-    }
-}
-
-- (void)initCategoryList
-{
-    self.categorySet = [NSSet new];
-    for (TUTNews* news in [[DataProvider instance] news]) {
-        self.categorySet = [self.categorySet setByAddingObject:news.category];
-    }
 }
 
 - (void)initFavoritesNewsList
@@ -159,6 +146,13 @@
 {
     if (self.newsType == FAVORITE) {
         [self initFavoritesNewsList];
+    }
+}
+
+- (void)loadData
+{
+    if (self.newsType == FAVORITE) {
+        [[DataProvider instance] setupFavoriteNews];
     }
 }
 
@@ -354,44 +348,6 @@
     }
 }
 
-- (void)loadData
-{
-    if (self.newsType == FAVORITE) {
-        [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
-            NSArray* requestResult = data;
-            if (requestResult) {
-                [[DataProvider instance] clearArray];
-                for (NewsItem* object in requestResult) {
-                    TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
-                    if (favoriteNews.newsURL) {
-                        [[DataProvider instance] insertNews:favoriteNews];
-                    }
-                }
-                [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
-            }
-        }];
-    }
-}
-
-- (void) checkWhichOnlineNewsIsFavorite
-{
-#warning выглядит очень непонятно. Что тут вообще происходит? Ты в базе хранишь только фейвориты, так может лучше и выборку сделать по тайтлу и не нужно будет все эти фильтры?
-    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
-        NSMutableArray* requestResult = data;
-        if (requestResult) {
-            for (TUTNews* object in [[DataProvider instance] news]) {
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
-                NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
-                if (filteredArray.firstObject) {
-                    object.isFavorite = YES;
-                    object.coreDataObjectID = [(NewsItem*)filteredArray.firstObject objectID];
-                }
-            }
-            [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
-        }
-    }];
-    
-}
 
 - (void) refresh
 {
