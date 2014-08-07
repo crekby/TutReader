@@ -154,7 +154,7 @@
     }
     else
     {
-        [GlobalNewsArray instance].newsURL = [(NewsSubCategoryItem*)[[GlobalCategoriesArray instance].categories objectAtIndex:indexPath.row] rssURL];
+        [DataProvider instance].newsURL = [(NewsSubCategoryItem*)[[GlobalCategoriesArray instance].categories objectAtIndex:indexPath.row] rssURL];
         [self closeCategoryList];
     }
     

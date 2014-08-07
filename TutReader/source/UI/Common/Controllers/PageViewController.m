@@ -35,18 +35,18 @@
     }
     UIImage* starImage;
     if (IS_IOS7) {
-        starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?STAR_FULL_IMAGE:STAR_HOLLOW_IMAGE;
+        starImage = ([[DataProvider instance] selectedNews].isFavorite)?STAR_FULL_IMAGE:STAR_HOLLOW_IMAGE;
     }
     else
     {
-        starImage = ([[GlobalNewsArray instance] selectedNews].isFavorite)?STAR_FULL_WHITE_IMAGE:STAR_HOLLOW_WHITE_IMAGE;
+        starImage = ([[DataProvider instance] selectedNews].isFavorite)?STAR_FULL_WHITE_IMAGE:STAR_HOLLOW_WHITE_IMAGE;
     }
     self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnFavoriteDidTap:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
     shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
     if (IS_IPAD) {
-        if ([[GlobalNewsArray instance] selectedNews].newsURL) {
-            self.title = [[GlobalNewsArray instance] selectedNews].newsTitle;
+        if ([[DataProvider instance] selectedNews].newsURL) {
+            self.title = [[DataProvider instance] selectedNews].newsTitle;
         }
     }
     self.navigationItem.rightBarButtonItems = @[self.favoriteBarButton,shareBarButton];
@@ -76,8 +76,8 @@
 #pragma mark - IBActions
 - (void) btnFavoriteDidTap:(UIBarButtonItem*) sender
 {
-    if (![[GlobalNewsArray instance] selectedNews].isFavorite) {
-        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
+    if (![[DataProvider instance] selectedNews].isFavorite) {
+        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:[[DataProvider instance] selectedItem] andCallBack:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             if (IS_IPAD) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_RELOAD_NEWS object:nil];
@@ -86,13 +86,13 @@
     }
     else
     {
-        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:[[GlobalNewsArray instance] selectedItem] andCallBack:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:[[DataProvider instance] selectedItem] andCallBack:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
-            NSNumber* rowToSelect = @([[GlobalNewsArray instance] selectedItem]);
+            NSNumber* rowToSelect = @([[DataProvider instance] selectedItem]);
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
-            if ([GlobalNewsArray instance].selectedItem>=[GlobalNewsArray instance].news.count) {
-                [[GlobalNewsArray instance] setSelectedNews:[GlobalNewsArray instance].news.count-1];
-                rowToSelect = @([GlobalNewsArray instance].news.count-1);
+            if ([DataProvider instance].selectedItem>=[DataProvider instance].news.count) {
+                [[DataProvider instance] setSelectedNews:[DataProvider instance].news.count-1];
+                rowToSelect = @([DataProvider instance].news.count-1);
             }
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
             [self setupNews];
@@ -118,7 +118,7 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSUInteger index = [[GlobalNewsArray instance] indexForNews:[(WebViewController*)viewController loadedNews]];
+    NSUInteger index = [[DataProvider instance] indexForNews:[(WebViewController*)viewController loadedNews]];
     if ((index == 0) || (index == NSNotFound)) {
         return nil;
     }
@@ -130,13 +130,13 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     TUTNews* newsItem = [(WebViewController*)viewController loadedNews];
-    NSUInteger index = [[GlobalNewsArray instance] indexForNews:newsItem];
+    NSUInteger index = [[DataProvider instance] indexForNews:newsItem];
     if (index == NSNotFound) {
         return nil;
     }
     
     index++;
-    if (index == [GlobalNewsArray instance].news.count) {
+    if (index == [DataProvider instance].news.count) {
         return nil;
     }
     return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
@@ -147,31 +147,31 @@
 - (void)shareViewController:(UIViewController *)vc mailShareButtonTapped:(id)sender
 {
     [self.sharePopover dismissPopoverAnimated:YES];
-    [[ShareManager instance] shareByEmail:[[GlobalNewsArray instance] selectedNews] inController:self];
+    [[ShareManager instance] shareByEmail:[[DataProvider instance] selectedNews] inController:self];
 }
 
 - (void)shareViewController:(UIViewController *)vc twitterShareButtonTapped:(id)sender
 {
     [self.sharePopover dismissPopoverAnimated:YES];
-    [[ShareManager instance] shareBytwitter:[[GlobalNewsArray instance] selectedNews] inController:self];
+    [[ShareManager instance] shareBytwitter:[[DataProvider instance] selectedNews] inController:self];
 }
 
 - (void)shareViewController:(UIViewController *)vc facebookShareButtonTapped:(id)sender
 {
     [self.sharePopover dismissPopoverAnimated:YES];
-    [[ShareManager instance] shareByFacebook:[[GlobalNewsArray instance] selectedNews] inController:self];
+    [[ShareManager instance] shareByFacebook:[[DataProvider instance] selectedNews] inController:self];
 }
 
 - (void)shareViewController:(UIViewController *)vc googlePlusShareButtonTapped:(id)sender
 {
     [self.sharePopover dismissPopoverAnimated:YES];
-    [[ShareManager instance] shareByGooglePlus:[[GlobalNewsArray instance] selectedNews] inController:self];
+    [[ShareManager instance] shareByGooglePlus:[[DataProvider instance] selectedNews] inController:self];
 }
 
 - (void)shareViewController:(UIViewController *)vc whatsAppShareButtonTapped:(id)sender
 {
     [self.sharePopover dismissPopoverAnimated:YES];
-    [[ShareManager instance] shareByWatsApp:[[GlobalNewsArray instance] selectedNews]];
+    [[ShareManager instance] shareByWatsApp:[[DataProvider instance] selectedNews]];
 }
 
 #pragma mark - Private methods
@@ -188,7 +188,7 @@
 - (WebViewController*) viewControllerAtIndex:(int)index storyboard:(UIStoryboard*)storyboard
 {
     WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"webView"];
-    [controller setupWithNews:[[GlobalNewsArray instance] newsAtIndex:index]];
+    [controller setupWithNews:[[DataProvider instance] newsAtIndex:index]];
     return controller;
 }
 
@@ -216,11 +216,11 @@
 - (void) changeImage:(UIBarButtonItem*) btn
 {
     if (IS_IOS7) {
-        btn.image = ([[GlobalNewsArray instance] selectedNews].isFavorite)? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE;
+        btn.image = ([[DataProvider instance] selectedNews].isFavorite)? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE;
     }
     else
     {
-        btn.image = ([[GlobalNewsArray instance] selectedNews].isFavorite)? STAR_FULL_WHITE_IMAGE : STAR_HOLLOW_WHITE_IMAGE;
+        btn.image = ([[DataProvider instance] selectedNews].isFavorite)? STAR_FULL_WHITE_IMAGE : STAR_HOLLOW_WHITE_IMAGE;
     }
 }
 
@@ -235,16 +235,16 @@
 {
     NSInteger index;
     if (controller) {
-        index = [[GlobalNewsArray instance] indexForNews:controller.loadedNews];
+        index = [[DataProvider instance] indexForNews:controller.loadedNews];
     }
     else
     {
-        index = [[GlobalNewsArray instance] selectedItem];
+        index = [[DataProvider instance] selectedItem];
     }
     if (index == NSNotFound) {
         return;
     }
-    [[GlobalNewsArray instance] setSelectedNews:index];
+    [[DataProvider instance] setSelectedNews:index];
     [self changeImage:self.favoriteBarButton];
     if (IS_IPAD) {
         [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@(index)];

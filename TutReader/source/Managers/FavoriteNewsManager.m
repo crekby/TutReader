@@ -15,10 +15,10 @@ SINGLETON(FavoriteNewsManager)
 
 - (void) addNewsToFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
 {
-    [[GlobalNewsArray instance] newsAtIndex:index].isFavorite = ![[[GlobalNewsArray instance] newsAtIndex:index] isFavorite];
-    [[PersistenceFacade instance] saveNewsItemToCoreData:[[GlobalNewsArray instance] newsAtIndex:index] withCallback:^( NSManagedObjectID *ID, NSError* error){
+    [[DataProvider instance] newsAtIndex:index].isFavorite = ![[[DataProvider instance] newsAtIndex:index] isFavorite];
+    [[PersistenceFacade instance] saveNewsItemToCoreData:[[DataProvider instance] newsAtIndex:index] withCallback:^( NSManagedObjectID *ID, NSError* error){
         if (!error) {
-            [[GlobalNewsArray instance] newsAtIndex:index].coreDataObjectID = ID;
+            [[DataProvider instance] newsAtIndex:index].coreDataObjectID = ID;
             [[GoogleAnalyticsManager instance] trackAddedToFavorites];
             if (callback) {
                 callback(nil,nil);
@@ -33,8 +33,8 @@ SINGLETON(FavoriteNewsManager)
 
 - (void) removeNewsFromFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
 {
-    [[GlobalNewsArray instance] newsAtIndex:index].isFavorite = ![[[GlobalNewsArray instance] newsAtIndex:index] isFavorite];
-    [[PersistenceFacade instance] deleteObjectFromCoreData:[[GlobalNewsArray instance] newsAtIndex:index] withCallback:^(id data, NSError* error){
+    [[DataProvider instance] newsAtIndex:index].isFavorite = ![[[DataProvider instance] newsAtIndex:index] isFavorite];
+    [[PersistenceFacade instance] deleteObjectFromCoreData:[[DataProvider instance] newsAtIndex:index] withCallback:^(id data, NSError* error){
         if (!error)
         {
             [[GoogleAnalyticsManager instance] trackDeleteFromFavorites];

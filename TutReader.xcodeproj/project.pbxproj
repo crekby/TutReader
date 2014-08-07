@@ -57,7 +57,7 @@
 		15E65FED198668660059BEB5 /* FavoriteNewsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEC198668660059BEB5 /* FavoriteNewsManager.m */; };
 		15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */; };
 		15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = 15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */; };
-		15F8331C19823BBC00E91714 /* GlobalNewsArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F8331B19823BBC00E91714 /* GlobalNewsArray.m */; };
+		15F8331C19823BBC00E91714 /* DataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F8331B19823BBC00E91714 /* DataProvider.m */; };
 		15F8331F19824FD700E91714 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F8331E19824FD700E91714 /* PageViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -153,8 +153,8 @@
 		15E65FEE19868F7F0059BEB5 /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryTableViewController.h; path = Source/UI/Common/Controllers/CategoryTableViewController.h; sourceTree = "<group>"; };
 		15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryTableViewController.m; path = Source/UI/Common/Controllers/CategoryTableViewController.m; sourceTree = "<group>"; };
 		15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITV_accessory_disclosure.png; sourceTree = "<group>"; };
-		15F8331A19823BBC00E91714 /* GlobalNewsArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalNewsArray.h; path = Source/Models/GlobalNewsArray.h; sourceTree = "<group>"; };
-		15F8331B19823BBC00E91714 /* GlobalNewsArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalNewsArray.m; path = Source/Models/GlobalNewsArray.m; sourceTree = "<group>"; };
+		15F8331A19823BBC00E91714 /* DataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataProvider.h; path = Source/Models/DataProvider.h; sourceTree = "<group>"; };
+		15F8331B19823BBC00E91714 /* DataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataProvider.m; path = Source/Models/DataProvider.m; sourceTree = "<group>"; };
 		15F8331D19824FD700E91714 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PageViewController.h; path = Source/UI/Common/Controllers/PageViewController.h; sourceTree = "<group>"; };
 		15F8331E19824FD700E91714 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageViewController.m; path = Source/UI/Common/Controllers/PageViewController.m; sourceTree = "<group>"; };
 		731387ED6E404FC383024DBE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,8 +204,8 @@
 				156AFA36197D088E00813E2D /* XMLParser.m */,
 				15060DF7197F995400E68EB1 /* Reachability.h */,
 				15060DF8197F995400E68EB1 /* Reachability.m */,
-				15F8331A19823BBC00E91714 /* GlobalNewsArray.h */,
-				15F8331B19823BBC00E91714 /* GlobalNewsArray.m */,
+				15F8331A19823BBC00E91714 /* DataProvider.h */,
+				15F8331B19823BBC00E91714 /* DataProvider.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -580,7 +580,7 @@
 				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
 				15060E05197FE74E00E68EB1 /* GoogleAnalyticsManager.m in Sources */,
 				151F4C96198A704D0019B26D /* CategoryManager.m in Sources */,
-				15F8331C19823BBC00E91714 /* GlobalNewsArray.m in Sources */,
+				15F8331C19823BBC00E91714 /* DataProvider.m in Sources */,
 				151F4C99198A88320019B26D /* CategoryCell.m in Sources */,
 				15E65FED198668660059BEB5 /* FavoriteNewsManager.m in Sources */,
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,

@@ -113,7 +113,7 @@
     [super viewDidAppear:animated];
     if (self.newsType == ONLINE) {
         //[self reloadTableView];
-        [[GlobalNewsArray instance] setNeedToRaloadNews:YES];
+        [[DataProvider instance] setNeedToRaloadNews:YES];
         [self initOnlineNewsList];
     }
     [self loadData];
@@ -127,11 +127,11 @@
 - (void)initOnlineNewsList
 {
     [self setNewsType:ONLINE];
-    if ([[GlobalNewsArray instance] needToRaloadNews]) {
-        [[RemoteFacade instance] getOnlineNewsDataWithURL:[[GlobalNewsArray instance] newsURL] andCallback:^(NSData* data, NSError *error){
+    if ([[DataProvider instance] needToRaloadNews]) {
+        [[RemoteFacade instance] getOnlineNewsDataWithURL:[[DataProvider instance] newsURL] andCallback:^(NSData* data, NSError *error){
             [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
-                [[GlobalNewsArray instance] setNews:newsList];
-                [[GlobalNewsArray instance] setNeedToRaloadNews:NO];
+                [[DataProvider instance] setNews:newsList];
+                [[DataProvider instance] setNeedToRaloadNews:NO];
                 [self initCategoryList];
                 [self checkWhichOnlineNewsIsFavorite];
             }];
@@ -142,7 +142,7 @@
 - (void)initCategoryList
 {
     self.categorySet = [NSSet new];
-    for (TUTNews* news in [[GlobalNewsArray instance] news]) {
+    for (TUTNews* news in [[DataProvider instance] news]) {
         self.categorySet = [self.categorySet setByAddingObject:news.category];
     }
 }
@@ -164,11 +164,12 @@
 
 - (void) selectRow:(NSNotification*)notification
 {
-    #warning need to implement reloading web view
-    if ([GlobalNewsArray instance].news.count>0) {
+    if ([DataProvider instance].news.count>0) {
         NSNumber* rowToSelect = notification.object;
-        NSIndexPath* index = [NSIndexPath indexPathForRow:rowToSelect.intValue inSection:0];
-        [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+        if ([self.newsTableView numberOfRowsInSection:0]>rowToSelect.intValue) {
+            NSIndexPath* index = [NSIndexPath indexPathForRow:rowToSelect.intValue inSection:0];
+            [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+        }
     }
 }
 
@@ -227,7 +228,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [GlobalNewsArray instance].news.count;
+    return [DataProvider instance].news.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -240,10 +241,10 @@
 {
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NEWS_CELL_IDENTIFICATOR forIndexPath:indexPath];
     
-    TUTNews* newsToShow = [[GlobalNewsArray instance] newsAtIndex:indexPath.row];
+    TUTNews* newsToShow = [[DataProvider instance] newsAtIndex:indexPath.row];
     
     [cell setNewsItem:newsToShow];
-    [cell setButtonImage:([[GlobalNewsArray instance] newsAtIndex:indexPath.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW]];
+    [cell setButtonImage:([[DataProvider instance] newsAtIndex:indexPath.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW]];
     if (!cell.delegate) cell.delegate = self;
     if (!newsToShow.imageCacheUrl) {
         [cell setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
@@ -270,8 +271,8 @@
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
     }
-    if (indexPath.row != [[GlobalNewsArray instance] selectedItem]) {
-        [[GlobalNewsArray instance] setSelectedNews:indexPath.row];
+    if (indexPath.row != [[DataProvider instance] selectedItem]) {
+        [[DataProvider instance] setSelectedNews:indexPath.row];
         [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
         [self trackNewsOpening];
     }
@@ -284,7 +285,7 @@
 {
     NewsCell* cell = (NewsCell*) sender;
     int index = [self.newsTableView indexPathForCell:cell].row;
-    TUTNews* news = [[GlobalNewsArray instance] newsAtIndex:index];
+    TUTNews* news = [[DataProvider instance] newsAtIndex:index];
     if (news.isFavorite) {
         [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:index andCallBack:^(id data, NSError* error){
             NSLog(@"%@",error.localizedDescription);
@@ -329,7 +330,7 @@
         [self.categoryController closeCategoryList];
     }
     NewsCell* cell = (NewsCell*)sender;
-    [[GlobalNewsArray instance] setSelectedNews:[[GlobalNewsArray instance] indexForNews:cell.newsItem]];
+    [[DataProvider instance] setSelectedNews:[[DataProvider instance] indexForNews:cell.newsItem]];
     [(PageViewController*)[segue destinationViewController] setupNews];
     [self trackNewsOpening];
 }
@@ -343,12 +344,12 @@
     if (!self.notFirstLaunch)
     {
         if (IS_IPHONE) return;
-        if ([GlobalNewsArray instance].news.count>0)
+        if ([DataProvider instance].news.count>0)
         {
+            [[DataProvider instance] setSelectedNews:0];
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@0];
-            self.notFirstLaunch = YES;
-            [[GlobalNewsArray instance] setSelectedNews:0];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
+            self.notFirstLaunch = YES;
         }
     }
 }
@@ -359,11 +360,11 @@
         [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
             NSArray* requestResult = data;
             if (requestResult) {
-                [[GlobalNewsArray instance] clearArray];
+                [[DataProvider instance] clearArray];
                 for (NewsItem* object in requestResult) {
                     TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                     if (favoriteNews.newsURL) {
-                        [[GlobalNewsArray instance] insertNews:favoriteNews];
+                        [[DataProvider instance] insertNews:favoriteNews];
                     }
                 }
                 [self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
@@ -378,7 +379,7 @@
     [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
         NSMutableArray* requestResult = data;
         if (requestResult) {
-            for (TUTNews* object in [[GlobalNewsArray instance] news]) {
+            for (TUTNews* object in [[DataProvider instance] news]) {
                 NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
                 NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
                 if (filteredArray.firstObject) {
@@ -413,7 +414,7 @@
 - (void) changeImage:(NewsCell*) cell
 {
     int index = [self.newsTableView indexPathForCell:cell].row;
-    BOOL favorite = [[GlobalNewsArray instance] newsAtIndex:index].isFavorite;
+    BOOL favorite = [[DataProvider instance] newsAtIndex:index].isFavorite;
     if (IS_IOS7) [cell setButtonImage:(favorite) ? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE];
     else [cell setButtonImage:(favorite) ? STAR_FULL_WHITE_IMAGE : STAR_HOLLOW_WHITE_IMAGE];
 }
@@ -431,7 +432,7 @@
         int index = [(NSNumber*)notification.object intValue];
         NSIndexPath* indexPath = [NSIndexPath indexPathForRow:index inSection:0];
         [self.newsTableView beginUpdates];
-        [[GlobalNewsArray instance] removeNewsAtIndex:index];
+        [[DataProvider instance] removeNewsAtIndex:index];
         [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
         [self.newsTableView endUpdates];
         [self.newsTableView reloadData];

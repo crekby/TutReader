@@ -7,13 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WebViewController.h"
 
-#warning создай класс DataProvider и вынеси туда методы, которые тебе нужны. GlobalNewsArray выглядит херовенько ;)
+@interface DataProvider : NSObject
 
-@interface GlobalNewsArray : NSObject
-
-+ (GlobalNewsArray*) instance;
++ (DataProvider*) instance;
 @property (nonatomic, assign) NSString* newsURL;
 @property (nonatomic, assign) BOOL needToRaloadNews;
 @property (nonatomic, readonly) int selectedItem;

@@ -20,7 +20,7 @@
     #import "AlertManager.h"
     #import "NewsItem.h"
     #import "GoogleAnalyticsManager.h"
-    #import "GlobalNewsArray.h"
+    #import "DataProvider.h"
     #import "CategoryManager.h"
     #import "GlobalCategoriesArray.h"
     #import "LocalizationSystem.h"

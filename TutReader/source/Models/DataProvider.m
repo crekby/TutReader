@@ -6,17 +6,17 @@
 //  Copyright (c) 2014 crekby. All rights reserved.
 //
 
-#import "GlobalNewsArray.h"
+#import "DataProvider.h"
 
-@interface GlobalNewsArray()
+@interface DataProvider()
 
 @property (nonatomic, strong) NSMutableArray* localNewsArray;
 
 @end
 
-@implementation GlobalNewsArray
+@implementation DataProvider
 
-SINGLETON(GlobalNewsArray)
+SINGLETON(DataProvider)
 
 - (void) clearArray
 {
@@ -78,7 +78,19 @@ SINGLETON(GlobalNewsArray)
 
 - (int) indexForNews:(TUTNews*) news
 {
-    return [_localNewsArray indexOfObject:news];
+    int index = [_localNewsArray indexOfObject:news];
+    if (index == NSNotFound) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(newsTitle ==  %@)",news.newsTitle];
+        NSArray *filteredArray = [_localNewsArray filteredArrayUsingPredicate:predicate];
+        if (filteredArray.firstObject) {
+            index = [_localNewsArray indexOfObject:filteredArray.firstObject];
+        }
+        else
+        {
+            return NSNotFound;
+        }
+    }
+    return index;
 }
 
 - (TUTNews*) selectedNews

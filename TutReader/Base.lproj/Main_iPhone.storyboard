@@ -176,9 +176,18 @@
                     <navigationItem key="navigationItem" title="Online" id="vvK-sC-fcz"/>
                     <connections>
                         <outlet property="newsTableView" destination="hhM-dh-GM0" id="pPc-Di-bKK"/>
+                        <outlet property="searchDisplayController" destination="T1D-l5-ztp" id="GH1-tD-Zl0"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nqH-YV-TbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="T1D-l5-ztp">
+                    <connections>
+                        <outlet property="delegate" destination="CHD-rX-f2F" id="r9x-cb-lhs"/>
+                        <outlet property="searchContentsController" destination="CHD-rX-f2F" id="Jh9-3C-nGC"/>
+                        <outlet property="searchResultsDataSource" destination="CHD-rX-f2F" id="HK5-67-bCK"/>
+                        <outlet property="searchResultsDelegate" destination="CHD-rX-f2F" id="lY2-s0-BvF"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="2328" y="84"/>
         </scene>
@@ -560,6 +569,7 @@
                                     <outlet property="newsDescription" destination="TVJ-gV-ArP" id="1EJ-Fg-Egh"/>
                                     <outlet property="newsTitle" destination="1Ga-4F-z2R" id="9Q4-xF-fMM"/>
                                     <outlet property="shareButton" destination="9Mf-Ri-Kxy" id="xeN-9y-QKv"/>
+                                    <segue destination="Z8h-3T-SPw" kind="push" id="RG7-nF-Ce2"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -616,4 +626,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="RG7-nF-Ce2"/>
+    </inferredMetricsTieBreakers>
 </document>

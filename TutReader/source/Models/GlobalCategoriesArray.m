@@ -22,7 +22,7 @@ SINGLETON(GlobalCategoriesArray)
 - (void)setupCategories
 {
     self.localCategoryArray = [NSMutableArray new];
-    [GlobalNewsArray instance].newsURL = RSS_URL;
+    [DataProvider instance].newsURL = RSS_URL;
     for (int i=0; i<MAIN_CATEGORIES_COUNT; i++) {
         NewsCategoryItem* catItem = [NewsCategoryItem new];
         catItem.name = [CategoryManager nameForCategoryID:i];

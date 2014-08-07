@@ -24,7 +24,7 @@
 
 - (void) setupNews
 {
-    [self setupWithNews:[[GlobalNewsArray instance] selectedNews]];
+    [self setupWithNews:[[DataProvider instance] selectedNews]];
 }
 
 - (void)setupWithNews:(TUTNews*) news
