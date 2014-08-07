@@ -76,6 +76,7 @@ typedef enum
 #define NEWS_TABLE_VIEW_RELOAD_NEWS      @"NewsTableViewReloadNews"
 #define NEWS_TABLE_VIEW_SELECT_ROW       @"NewsTableViewSelectRow"
 #define NEWS_TABLE_VIEW_REMOVE_ROW       @"NewsTableViewRemoveRow"
+#define NEWS_TABLE_VIEW_REFRESH_TABLE    @"NewsTAbleViewRefreshTable"
 
 // VIEW TITLES
 
