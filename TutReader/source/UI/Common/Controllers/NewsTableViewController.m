@@ -63,6 +63,7 @@
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
+#warning плохое название! titleLabel - это label где-то, но никак не кнопка
     self.titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.titleLabel setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
     self.titleLabel.frame = CGRectMake(0, 0, 70, 44);
@@ -73,12 +74,22 @@
     {
         [self.titleLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
+#warning зачем создавать экшны для того, что ты и так можешь сделать set....for 
+    /*
+     UIControlStateNormal       = 0,
+     UIControlStateHighlighted  = 1 << 0,                  // used when UIControl isHighlighted is set
+     UIControlStateDisabled     = 1 << 1,
+     UIControlStateSelected     = 1 << 2,                  // flag usable by app (see below)
+     UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use
+     UIControlStateReserved
+    */
     [self.titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
     [self.titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
     [self.titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
     UIStoryboard* storyboard = self.storyboard;
     self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
     self.categoryController.delegate = self;
+#warning выноси подписку на нотификации в отдельный метод, типа registerForNotification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadNews)
                                                  name:NEWS_TABLE_VIEW_RELOAD_NEWS
@@ -276,7 +287,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (IS_IPHONE) return;
+#warning ставь скобки даже если одна операция
+    if (IS_IPHONE) {
+        return;
+    }
+    
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
     }
@@ -351,12 +366,24 @@
 {
     [self.newsTableView reloadData];
     [self showActivityIndicator:NO];
+<<<<<<< HEAD
     if (self.isViewLoaded && self.view.window){
         if (IS_IPHONE) return;
         if ([DataProvider instance].news.count>0)
         {
             [[DataProvider instance] setSelectedNews:self.selectedNews];
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)];
+=======
+    if (!self.notFirstLaunch)
+    {
+#warning ставь скобки и не скупись на пробелы и новые строки. две следующие строки слабо читаемы - каша
+        if (IS_IPHONE) return;
+        if ([DataProvider instance].news.count>0)
+        {
+            [[DataProvider instance] setSelectedNews:0];
+#warning сразу две нотификайии? что-то мне подсказывает, что так быть не должно
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@0];
+>>>>>>> Develop/feture/categories
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
             self.notFirstLaunch = YES;
         }

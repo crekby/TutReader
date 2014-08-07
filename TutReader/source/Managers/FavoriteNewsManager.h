@@ -11,7 +11,7 @@
 @interface FavoriteNewsManager : NSObject
 
 + (FavoriteNewsManager*) instance;
-
+#warning можно обойтись одним методом
 - (void) addNewsToFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback;
 - (void) removeNewsFromFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback;
 

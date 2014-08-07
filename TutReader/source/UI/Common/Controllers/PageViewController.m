@@ -35,10 +35,12 @@
     }
     UIImage* starImage;
     if (IS_IOS7) {
+#warning что тебе пробелы плохого сделали? Ну не читабельна эта строка!!!!
         starImage = ([[DataProvider instance] selectedNews].isFavorite)?STAR_FULL_IMAGE:STAR_HOLLOW_IMAGE;
     }
     else
     {
+#warning почему не сделать метод, который будет тебе возвращать картинку и все эти проверки будет делать у себя внутри?
         starImage = ([[DataProvider instance] selectedNews].isFavorite)?STAR_FULL_WHITE_IMAGE:STAR_HOLLOW_WHITE_IMAGE;
     }
     self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnFavoriteDidTap:)];
@@ -76,8 +78,10 @@
 #pragma mark - IBActions
 - (void) btnFavoriteDidTap:(UIBarButtonItem*) sender
 {
+    
     if (![[DataProvider instance] selectedNews].isFavorite) {
         [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:[[DataProvider instance] selectedItem] andCallBack:^(id data, NSError* error){
+#warning если у тебя тут фоновый поток (в чем я сильно сомневаюсь), то почему ты только картинку изменяешь в главном потоке, а нотификацию для перегрузки таблицы в фоне?
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             if (IS_IPAD) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_RELOAD_NEWS object:nil];
@@ -178,6 +182,7 @@
 
 - (void)setupNews
 {
+#warning константы!!!!
     WebViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"webView"];
     [controller setupNews];
     [self changeImage:self.favoriteBarButton];
@@ -197,12 +202,14 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
     ShareViewController *shareViewController;
     if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) || [[UIDevice currentDevice] orientation]==0) {
+        #warning где константы???
         shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewPortrait"];
         self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
         [self.sharePopover setPopoverContentSize:CGSizeMake(115, 411)];
     }
     else
     {
+        #warning где константы???
         shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewLandscape"];
         self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
         [self.sharePopover setPopoverContentSize:CGSizeMake(411, 115)];
@@ -215,6 +222,7 @@
 
 - (void) changeImage:(UIBarButtonItem*) btn
 {
+#warning вот такой иф у тебя ни в одном классе встречается, но при этом делает одно и то же!
     if (IS_IOS7) {
         btn.image = ([[DataProvider instance] selectedNews].isFavorite)? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE;
     }
@@ -224,6 +232,7 @@
     }
 }
 
+#warning плохое название!
 - (void) orientationChange
 {
     if (self.sharePopover.isPopoverVisible) {

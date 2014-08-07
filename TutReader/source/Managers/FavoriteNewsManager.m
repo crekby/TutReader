@@ -15,6 +15,7 @@ SINGLETON(FavoriteNewsManager)
 
 - (void) addNewsToFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
 {
+#warning плохо! уже говорил, что работа с базой не должна быть завязана на работу какого-то глобального массива! Просто передаешь новость, которую нужно либо добавить, либо удалить!
     [[DataProvider instance] newsAtIndex:index].isFavorite = ![[[DataProvider instance] newsAtIndex:index] isFavorite];
     [[PersistenceFacade instance] saveNewsItemToCoreData:[[DataProvider instance] newsAtIndex:index] withCallback:^( NSManagedObjectID *ID, NSError* error){
         if (!error) {

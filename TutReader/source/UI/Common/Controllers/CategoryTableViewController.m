@@ -36,6 +36,7 @@
 - (void)openCategoryListAboveView:(UIView *)view
 {
     [self.view setAutoresizingMask:UIViewAutoresizingNone];
+#warning дублирование кода!
     self.view.frame = CGRectMake(view.frame.size.width/2-150, self.view.frame.origin.y-220, 300, 0);
     [self.tableView setContentOffset:CGPointMake(0, 0)];
     [view.superview addSubview:self.tableView];
@@ -55,6 +56,7 @@
     if ([self.delegate respondsToSelector:@selector(categoriesWillClose)]) {
         [self.delegate categoriesWillClose];
     }
+    #warning дублирование кода!
     [UIView animateWithDuration:0.3f animations:^(){
         self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-220, 300, 0);} completion:^(BOOL finish)
         {
@@ -102,13 +104,14 @@
             [cell setTitleColor:[UIColor blackColor]];
         }
     }
-    
+ #warning дублирование кода!
     if ([categoryItem isKindOfClass: NSClassFromString(NEWS_CATEGORY_ITEM_CLASS)]) {
         [cell setLeftMargin: 20];
         if (IS_IOS7) cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 50);
     }
     else
     {
+#warning дублирование кода!
         [cell setLeftMargin: 50];
         if (IS_IOS7) cell.separatorInset = UIEdgeInsetsMake(0, 50, 0, 50);
     }
@@ -122,8 +125,10 @@
 {
     CategoryCell* cell = (CategoryCell*)[tableView cellForRowAtIndexPath:indexPath];
     [cell setTitleColor: [UIColor blackColor]];
+#warning зачем setNeedsLayout ?
     [cell setNeedsLayout];
     NewsCategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
+#warning чем тебе не нравится  [NewsCategoryItem class] и не нужно никаких констант и не нужно бояться переименовать класс
     if ([categoryItem isKindOfClass: NSClassFromString(NEWS_CATEGORY_ITEM_CLASS)])
     {
         NSMutableArray* indexArray = [NSMutableArray new];
