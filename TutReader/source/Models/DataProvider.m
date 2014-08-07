@@ -121,7 +121,6 @@ SINGLETON(DataProvider)
 
 - (void) checkWhichOnlineNewsIsFavorite
 {
-#warning выглядит очень непонятно. Что тут вообще происходит? Ты в базе хранишь только фейвориты, так может лучше и выборку сделать по тайтлу и не нужно будет все эти фильтры?
     [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
         NSMutableArray* requestResult = data;
         if (requestResult) {

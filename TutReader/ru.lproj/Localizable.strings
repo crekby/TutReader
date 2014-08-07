@@ -34,4 +34,4 @@
 "FACEBOOK_SHARE_NOT_AVAILABLE_ALERT" = "Настройте Facebook аккаунт в настойках телофона";
 
 "WHATSAPP_SHARE_TITLE_ALERT"         = "WhatsApp";
-"WHATSAPP_NOT_AVAILABLE"             = "WhatsApp не доступен";
+"WHATSAPP_SHARE_NOT_AVAILABLE_ALERT" = "WhatsApp не доступен";
