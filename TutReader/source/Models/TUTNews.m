@@ -25,7 +25,7 @@
         self.imageCacheUrl = object.imageUrl;
         self.isFavorite = ([object.isFavorite  isEqual: @1]) ? YES : NO;
         self.coreDataObjectID = object.objectID;
-        
+        self.bigImageURL = object.bigImageUrl;
     }
     return self;
 }

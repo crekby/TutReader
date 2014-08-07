@@ -37,6 +37,8 @@
 
 @property (nonatomic, strong) UIButton *titleLabel;
 
+@property (nonatomic, strong) UIView* activityIndicatorView;
+
 @end
 
 @implementation NewsTableViewController
@@ -132,6 +134,7 @@
 {
     [[DataProvider instance] setupOnlineNews];
     [self setNewsType:ONLINE];
+    [self showActivityIndicator:YES];
 }
 
 - (void)initFavoritesNewsList
@@ -139,6 +142,7 @@
     [self setNewsType:FAVORITE];
     if (IS_IPAD) {
         [self loadData];
+        [self showActivityIndicator:YES];
     }
 }
 
@@ -335,6 +339,7 @@
 - (void) reloadTableView
 {
     [self.newsTableView reloadData];
+    [self showActivityIndicator:NO];
     if (!self.notFirstLaunch)
     {
         if (IS_IPHONE) return;
@@ -395,6 +400,26 @@
     }
 }
 
+
+- (void) showActivityIndicator:(BOOL) show
+{
+    if (show) {
+        [self.newsTableView setUserInteractionEnabled:NO];
+        self.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-30, self.view.frame.size.height/2-30, 60, 60)];
+        self.activityIndicatorView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+        self.activityIndicatorView.layer.cornerRadius = 10.0f;
+        UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator.frame = CGRectMake(self.activityIndicatorView.frame.size.width/2-18.5, self.activityIndicatorView.frame.size.height/2-18.5, 37, 37);
+        [self.activityIndicatorView addSubview:indicator];
+        [indicator startAnimating];
+        [self.view addSubview:self.activityIndicatorView];
+    }
+    else
+    {
+        [self.newsTableView setUserInteractionEnabled:YES];
+        [self.activityIndicatorView removeFromSuperview];
+    }
+}
 
 
 - (void) localizeTabBarItem

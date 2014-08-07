@@ -17,6 +17,7 @@
 @dynamic pubDate;
 @dynamic text;
 @dynamic title;
+@dynamic bigImageUrl;
 
 - (void)initWithTUTNews:(TUTNews *)news
 {
@@ -27,6 +28,7 @@
     self.pubDate = news.pubDate;
     self.text = news.text;
     self.title = news.newsTitle;
+    self.bigImageUrl = news.bigImageURL;
 }
 
 @end

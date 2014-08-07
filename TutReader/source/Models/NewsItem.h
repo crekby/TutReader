@@ -14,6 +14,7 @@
 @interface NewsItem : NSManagedObject
 
 @property (nonatomic, retain) NSString * imageUrl;
+@property (nonatomic, retain) NSString * bigImageUrl;
 @property (nonatomic, retain) NSNumber * isFavorite;
 @property (nonatomic, retain) NSString * newsUrl;
 @property (nonatomic, retain) NSDate * pubDate;
