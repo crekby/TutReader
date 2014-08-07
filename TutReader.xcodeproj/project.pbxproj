@@ -45,6 +45,7 @@
 		156E5D7C198B7AC700D8B6DC /* NewsCategoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 156E5D7B198B7AC700D8B6DC /* NewsCategoryItem.m */; };
 		156E5D7F198B7B4C00D8B6DC /* GlobalCategoriesArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 156E5D7E198B7B4C00D8B6DC /* GlobalCategoriesArray.m */; };
 		156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156E5D80198BB13E00D8B6DC /* QuartzCore.framework */; };
+		158321F11993AEBA00D1F648 /* FavoriteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 158321F01993AEBA00D1F648 /* FavoriteImage.m */; };
 		15878A061990DB260017374B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A051990DB260017374B /* NSString+MD5.m */; };
 		15878A091990FDA50017374B /* CacheFilesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A081990FDA50017374B /* CacheFilesManager.m */; };
 		15878A0C19910C2B0017374B /* NewsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A0B19910C2B0017374B /* NewsItem.m */; };
@@ -132,6 +133,8 @@
 		156E5D7D198B7B4C00D8B6DC /* GlobalCategoriesArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalCategoriesArray.h; path = Source/Models/GlobalCategoriesArray.h; sourceTree = "<group>"; };
 		156E5D7E198B7B4C00D8B6DC /* GlobalCategoriesArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalCategoriesArray.m; path = Source/Models/GlobalCategoriesArray.m; sourceTree = "<group>"; };
 		156E5D80198BB13E00D8B6DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		158321EF1993AEBA00D1F648 /* FavoriteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteImage.h; path = Source/Models/FavoriteImage.h; sourceTree = "<group>"; };
+		158321F01993AEBA00D1F648 /* FavoriteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FavoriteImage.m; path = Source/Models/FavoriteImage.m; sourceTree = "<group>"; };
 		15878A041990DB260017374B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Source/Categories/NSString+MD5.h"; sourceTree = "<group>"; };
 		15878A051990DB260017374B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+MD5.m"; path = "Source/Categories/NSString+MD5.m"; sourceTree = "<group>"; };
 		15878A071990FDA50017374B /* CacheFilesManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CacheFilesManager.h; path = Source/Managers/CacheFilesManager.h; sourceTree = "<group>"; };
@@ -206,6 +209,8 @@
 				15060DF8197F995400E68EB1 /* Reachability.m */,
 				15F8331A19823BBC00E91714 /* DataProvider.h */,
 				15F8331B19823BBC00E91714 /* DataProvider.m */,
+				158321EF1993AEBA00D1F648 /* FavoriteImage.h */,
+				158321F01993AEBA00D1F648 /* FavoriteImage.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -588,6 +593,7 @@
 				15060E081980040400E68EB1 /* ShareManager.m in Sources */,
 				15878A061990DB260017374B /* NSString+MD5.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
+				158321F11993AEBA00D1F648 /* FavoriteImage.m in Sources */,
 				15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */,
 				15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */,
 				156E5D7C198B7AC700D8B6DC /* NewsCategoryItem.m in Sources */,

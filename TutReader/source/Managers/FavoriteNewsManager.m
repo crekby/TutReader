@@ -13,40 +13,40 @@
 
 SINGLETON(FavoriteNewsManager)
 
-- (void) addNewsToFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
+- (void)favoriteNewsOperation:(int)operation withNews:(TUTNews *)newsItem andCallback:(CallbackWithDataAndError)callback
 {
-#warning плохо! уже говорил, что работа с базой не должна быть завязана на работу какого-то глобального массива! Просто передаешь новость, которую нужно либо добавить, либо удалить!
-    [[DataProvider instance] newsAtIndex:index].isFavorite = ![[[DataProvider instance] newsAtIndex:index] isFavorite];
-    [[PersistenceFacade instance] saveNewsItemToCoreData:[[DataProvider instance] newsAtIndex:index] withCallback:^( NSManagedObjectID *ID, NSError* error){
-        if (!error) {
-            [[DataProvider instance] newsAtIndex:index].coreDataObjectID = ID;
-            [[GoogleAnalyticsManager instance] trackAddedToFavorites];
-            if (callback) {
-                callback(nil,nil);
+    newsItem.isFavorite = !newsItem.isFavorite;
+    
+    if (operation == ADD_TO_FAVORITE) {
+        [[PersistenceFacade instance] saveNewsItemToCoreData:newsItem withCallback:^( NSManagedObjectID *ID, NSError* error){
+            if (!error) {
+                newsItem.coreDataObjectID = ID;
+                [[GoogleAnalyticsManager instance] trackFavoriteOperations:ADD_TO_FAVORITE];
+                if (callback) {
+                    callback(nil,nil);
+                }
             }
-        }
-        else if (callback)
-        {
-            callback(nil,error);
-        }
-    }];
-}
-
-- (void) removeNewsFromFavoriteWithIndex:(int) index andCallBack:(CallbackWithDataAndError) callback
-{
-    [[DataProvider instance] newsAtIndex:index].isFavorite = ![[[DataProvider instance] newsAtIndex:index] isFavorite];
-    [[PersistenceFacade instance] deleteObjectFromCoreData:[[DataProvider instance] newsAtIndex:index] withCallback:^(id data, NSError* error){
-        if (!error)
-        {
-            [[GoogleAnalyticsManager instance] trackDeleteFromFavorites];
-            if (callback) {
-                callback(nil,nil);
+            else if (callback)
+            {
+                callback(nil,error);
             }
-        }
-        else if (callback) {
-            callback(nil,error);
-        }
-    }];
+        }];
+    }
+    else
+    {
+        [[PersistenceFacade instance] deleteObjectFromCoreData:newsItem withCallback:^(id data, NSError* error){
+            if (!error)
+            {
+                [[GoogleAnalyticsManager instance] trackFavoriteOperations:REMOVE_FROM_FAVORITE];
+                if (callback) {
+                    callback(nil,nil);
+                }
+            }
+            else if (callback) {
+                callback(nil,error);
+            }
+        }];
+    }
 }
 
 @end

@@ -42,7 +42,7 @@ SINGLETON(SettingsManager)
     [LocalizationSystem instance];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:APP_VERSION];
     [[NSUserDefaults standardUserDefaults] setObject:version forKey:APP_VERSION_SETTINGS_IDENTIFICATOR];
-#warning а где метод synchronize???
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
 

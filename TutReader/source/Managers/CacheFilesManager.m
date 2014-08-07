@@ -18,8 +18,7 @@ SINGLETON(CacheFilesManager)
     NSFileManager *fileMgr = [[NSFileManager alloc] init];
     NSError *error = nil;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    #warning где константы???
-    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"ImageCache/"];
+    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:IMAGE_CACHE_DIRECTORY];
     NSArray *directoryContents = [fileMgr contentsOfDirectoryAtPath:cacheDirectory error:&error];
     if (error == nil) {
         for (NSString *path in directoryContents) {
@@ -38,10 +37,12 @@ SINGLETON(CacheFilesManager)
 
 - (void)checkCacheForSize
 {
-    #warning где константы???
-    if ([self folderSize]>10000000) {
-        [self clearCache];
-    }
+    [self calculateFolderSizeWithCallback:^(NSNumber* fileSize, NSError* error)
+    {
+        if (fileSize.unsignedLongLongValue>MAX_CACHE_SIZE_BYTES) {
+            [self clearCache];
+        }
+    }];
 }
 
 - (void)deleteCacheFile:(NSString *)filePath
@@ -55,8 +56,7 @@ SINGLETON(CacheFilesManager)
 {
     NSFileManager *fileMgr = [[NSFileManager alloc] init];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    #warning где константы???
-    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"FavoriteCache/"];
+    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:FAVORITE_CACHE_DIRECTORY];
     NSError* error;
     if (![[NSFileManager defaultManager] fileExistsAtPath:cacheDirectory])
         [[NSFileManager defaultManager] createDirectoryAtPath:cacheDirectory withIntermediateDirectories:NO attributes:nil error:&error]; //Create folder
@@ -66,8 +66,7 @@ SINGLETON(CacheFilesManager)
 - (NSString *)addCacheFile:(NSData *)file
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    #warning где константы???
-    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"ImageCache/"];
+    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:IMAGE_CACHE_DIRECTORY];
     NSError* error;
     if (![[NSFileManager defaultManager] fileExistsAtPath:cacheDirectory])
         [[NSFileManager defaultManager] createDirectoryAtPath:cacheDirectory withIntermediateDirectories:NO attributes:nil error:&error]; //Create folder
@@ -79,11 +78,11 @@ SINGLETON(CacheFilesManager)
 
 #pragma mark - Private Methods
 
-#warning где константы???
-#warning почему не в фоне подсчет?
-- (unsigned long long int)folderSize {
+- (void)calculateFolderSizeWithCallback:(CallbackWithDataAndError) callback
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"ImageCache/"];
+    NSString *cacheDirectory = [[paths objectAtIndex:0] stringByAppendingPathComponent:IMAGE_CACHE_DIRECTORY];
     NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:cacheDirectory error:nil];
     NSEnumerator *filesEnumerator = [filesArray objectEnumerator];
     NSString *fileName;
@@ -94,8 +93,10 @@ SINGLETON(CacheFilesManager)
         NSDictionary *fileDictionary = [[NSFileManager defaultManager] attributesOfItemAtPath:[cacheDirectory stringByAppendingPathComponent:fileName] error:&error];
         fileSize += [fileDictionary fileSize];
     }
-    
-    return fileSize;
+        if (callback) {
+            callback(@(fileSize),nil);
+        }
+    });
 }
 
 @end

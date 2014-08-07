@@ -27,15 +27,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [(NewsTableViewController*)self.viewControllers[0] setNewsType:ONLINE];
-    [(NewsTableViewController*)self.viewControllers[1] setNewsType:FAVORITE];
     [self checkLocalization];
-#warning зачем нотификация во viewDidLoad? У тебя два контроллера, которые будут тоже загружатся в память, почему сразу не установить им локализованные тайтлы?
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(checkLocalization)
                                                  name:UPDATE_LOCALIZATION
                                                object:nil];
-    // Do any additional setup after loading the view.
 }
 
 -(void)dealloc

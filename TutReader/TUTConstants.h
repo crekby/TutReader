@@ -86,6 +86,14 @@ typedef enum
     ONLINE = 1
 } newsTypes;
 
+// GOOGLE ANALYTICS FAVORITE OPERATIONS
+
+typedef enum
+{
+    ADD_TO_FAVORITE = 0,
+    REMOVE_FROM_FAVORITE
+} FavoriteOperations;
+
 // CLASSES NAMES
 
 #define NEWS_CATEGORY_ITEM_CLASS      @"NewsCategoryItem"
@@ -95,6 +103,13 @@ typedef enum
 #define NEWS_CELL_IDENTIFICATOR  @"newsCell"
 #define CATEGORY_CELL_IDENTIFICATOR @"categoryCell"
 
+// VIEW CONTROLLERS IDENTIFICATORS
+
+#define CATEGORY_TABLE_VIEW_CONTROLLER_IDENTIFICATOR  @"CategoriesTableView"
+#define WEB_VIEW_CONTROLLER_IDENTIFICATOR             @"webView"
+#define SHARE_VIEW_CONTROLLER_PORTRAIT_IDENTIFICATOR  @"shareViewPortrait"
+#define SHARE_VIEW_CONTROLLER_LANDSCAPE_IDENTIFICATOR @"shareViewLandscape"
+
 // COLORS
 
 #define CATEGORY_BUTTON_HIGHLIGHTED_COLOR ([UIColor colorWithRed:0.7 green:0.7 blue:1 alpha:1])
@@ -102,6 +117,9 @@ typedef enum
 // SANDBOX PATHS
 
 #define DOCUMENTS_DIRECTORY      ([[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject])
+#define IMAGE_CACHE_DIRECTORY    @"ImageCache/"
+#define FAVORITE_CACHE_DIRECTORY @"FavoriteCache/"
+#define MAX_CACHE_SIZE_BYTES     10000000
 
 // SEGUE IDENTIFICATORS
 

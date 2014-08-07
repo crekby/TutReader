@@ -17,6 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 - (void) setupNews;
-- (void) setupWithNews:(TUTNews*) news;
+- (void) loadWithNews:(TUTNews*) news;
 
 @end

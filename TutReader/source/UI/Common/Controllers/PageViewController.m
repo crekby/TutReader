@@ -33,16 +33,7 @@
         //WebViewController* controller = [[WebViewController alloc] init];
         //[self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil ];
     }
-    UIImage* starImage;
-    if (IS_IOS7) {
-#warning что тебе пробелы плохого сделали? Ну не читабельна эта строка!!!!
-        starImage = ([[DataProvider instance] selectedNews].isFavorite)?STAR_FULL_IMAGE:STAR_HOLLOW_IMAGE;
-    }
-    else
-    {
-#warning почему не сделать метод, который будет тебе возвращать картинку и все эти проверки будет делать у себя внутри?
-        starImage = ([[DataProvider instance] selectedNews].isFavorite)?STAR_FULL_WHITE_IMAGE:STAR_HOLLOW_WHITE_IMAGE;
-    }
+    UIImage* starImage = [[FavoriteImage instance] imageForNews:[[DataProvider instance] selectedNews]];
     self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnFavoriteDidTap:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
     shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
@@ -53,7 +44,7 @@
     }
     self.navigationItem.rightBarButtonItems = @[self.favoriteBarButton,shareBarButton];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChange)
+                                             selector:@selector(orientationChangeNotificationAction)
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -80,8 +71,7 @@
 {
     
     if (![[DataProvider instance] selectedNews].isFavorite) {
-        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:[[DataProvider instance] selectedItem] andCallBack:^(id data, NSError* error){
-#warning если у тебя тут фоновый поток (в чем я сильно сомневаюсь), то почему ты только картинку изменяешь в главном потоке, а нотификацию для перегрузки таблицы в фоне?
+        [[FavoriteNewsManager instance] favoriteNewsOperation:ADD_TO_FAVORITE withNews:[DataProvider instance].selectedNews andCallback:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             if (IS_IPAD) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_RELOAD_NEWS object:nil];
@@ -90,7 +80,7 @@
     }
     else
     {
-        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:[[DataProvider instance] selectedItem] andCallBack:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[DataProvider instance].selectedNews andCallback:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             NSNumber* rowToSelect = @([[DataProvider instance] selectedItem]);
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
@@ -182,8 +172,7 @@
 
 - (void)setupNews
 {
-#warning константы!!!!
-    WebViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"webView"];
+    WebViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:WEB_VIEW_CONTROLLER_IDENTIFICATOR];
     [controller setupNews];
     [self changeImage:self.favoriteBarButton];
     self.title = controller.loadedNews.newsTitle;
@@ -192,8 +181,8 @@
 
 - (WebViewController*) viewControllerAtIndex:(int)index storyboard:(UIStoryboard*)storyboard
 {
-    WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"webView"];
-    [controller setupWithNews:[[DataProvider instance] newsAtIndex:index]];
+    WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:WEB_VIEW_CONTROLLER_IDENTIFICATOR];
+    [controller loadWithNews:[[DataProvider instance] newsAtIndex:index]];
     return controller;
 }
 
@@ -202,15 +191,13 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
     ShareViewController *shareViewController;
     if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]) || [[UIDevice currentDevice] orientation]==0) {
-        #warning где константы???
-        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewPortrait"];
+        shareViewController = [storyboard instantiateViewControllerWithIdentifier:SHARE_VIEW_CONTROLLER_PORTRAIT_IDENTIFICATOR];
         self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
         [self.sharePopover setPopoverContentSize:CGSizeMake(115, 411)];
     }
     else
     {
-        #warning где константы???
-        shareViewController = [storyboard instantiateViewControllerWithIdentifier:@"shareViewLandscape"];
+        shareViewController = [storyboard instantiateViewControllerWithIdentifier:SHARE_VIEW_CONTROLLER_LANDSCAPE_IDENTIFICATOR];
         self.sharePopover = [[UIPopoverController alloc] initWithContentViewController:shareViewController];
         [self.sharePopover setPopoverContentSize:CGSizeMake(411, 115)];
     }
@@ -222,18 +209,10 @@
 
 - (void) changeImage:(UIBarButtonItem*) btn
 {
-#warning вот такой иф у тебя ни в одном классе встречается, но при этом делает одно и то же!
-    if (IS_IOS7) {
-        btn.image = ([[DataProvider instance] selectedNews].isFavorite)? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE;
-    }
-    else
-    {
-        btn.image = ([[DataProvider instance] selectedNews].isFavorite)? STAR_FULL_WHITE_IMAGE : STAR_HOLLOW_WHITE_IMAGE;
-    }
+    btn.image = [[FavoriteImage instance] imageForNews:[[DataProvider instance] selectedNews]];
 }
 
-#warning плохое название!
-- (void) orientationChange
+- (void) orientationChangeNotificationAction
 {
     if (self.sharePopover.isPopoverVisible) {
         [self.sharePopover dismissPopoverAnimated:YES];

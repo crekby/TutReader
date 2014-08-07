@@ -24,11 +24,10 @@
 
 - (void) setupNews
 {
-#warning плохое название! Я думал, что илет сетап целого массива новостей setNewsItem
-    [self setupWithNews:[[DataProvider instance] selectedNews]];
+    [self loadWithNews:[[DataProvider instance] selectedNews]];
 }
 
-- (void)setupWithNews:(TUTNews*) news
+- (void)loadWithNews:(TUTNews*) news
 {
     self.loadedNews = news;
     if (self.loadedNews) {
@@ -39,17 +38,9 @@
 
 #pragma mark - Lifecycle
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
-#warning почему в сториборд не задал делегат?
-    self.webView.delegate = self;
-}
-
-#warning почему не viewWillAppear? Зачем ждать отображения новости?
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     if (self.loadedNews.newsURL) {
         if (self.webView.isLoading) [self.webView stopLoading];
         NSURL* url = [NSURL URLWithString:self.loadedNews.newsURL];

@@ -56,14 +56,16 @@ SINGLETON(GoogleAnalyticsManager)
     [self trackEventWithAction:@"Open News" andLabel:@"Favorite" andCategory:@"News Opens"];
 }
 
-- (void) trackAddedToFavorites
+- (void)trackFavoriteOperations:(int)operation
 {
-    [self trackEventWithAction:@"Operation" andLabel:@"News Added To Favorite List" andCategory:@"Favorites Operations"];
-}
-
-- (void) trackDeleteFromFavorites
-{
-    [self trackEventWithAction:@"Operation" andLabel:@"News Deleted from Favorite List" andCategory:@"Favorites Operations"];
+    if (operation == ADD_TO_FAVORITE)
+    {
+        [self trackEventWithAction:@"Operation" andLabel:@"News Added To Favorite List" andCategory:@"Favorites Operations"];
+    }
+    else
+    {
+        [self trackEventWithAction:@"Operation" andLabel:@"News Deleted from Favorite List" andCategory:@"Favorites Operations"];
+    }
 }
 
 - (void) trackEventWithAction:(NSString *)action andLabel:(NSString *)label andCategory:(NSString*) category

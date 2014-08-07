@@ -26,5 +26,6 @@
     #import "LocalizationSystem.h"
     #import "CacheFilesManager.h"
     #import "SettingsManager.h"
+    #import "FavoriteImage.h"
 #endif
 

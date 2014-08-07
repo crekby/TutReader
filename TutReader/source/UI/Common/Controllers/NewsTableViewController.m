@@ -35,7 +35,7 @@
 
 //@property (strong, nonatomic) NSMutableArray* selectedCategories;
 
-@property (nonatomic, strong) UIButton *titleLabel;
+@property (nonatomic, strong) UIButton *categoryNavigationItemButton;
 
 @property (nonatomic, strong) UIView* activityIndicatorView;
 
@@ -50,6 +50,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.newsType = (self.view.tag==ONLINE) ? ONLINE : FAVORITE;
+    
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.newsTableView addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
@@ -63,49 +66,25 @@
     {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
-#warning плохое название! titleLabel - это label где-то, но никак не кнопка
-    self.titleLabel = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.titleLabel setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
-    self.titleLabel.frame = CGRectMake(0, 0, 70, 44);
+    self.categoryNavigationItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.categoryNavigationItemButton setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
+    self.categoryNavigationItemButton.frame = CGRectMake(0, 0, 70, 44);
+    
     if (IS_IOS7) {
-        [self.titleLabel setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [self.categoryNavigationItemButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     }
     else
     {
-        [self.titleLabel setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.categoryNavigationItemButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
-#warning зачем создавать экшны для того, что ты и так можешь сделать set....for 
-    /*
-     UIControlStateNormal       = 0,
-     UIControlStateHighlighted  = 1 << 0,                  // used when UIControl isHighlighted is set
-     UIControlStateDisabled     = 1 << 1,
-     UIControlStateSelected     = 1 << 2,                  // flag usable by app (see below)
-     UIControlStateApplication  = 0x00FF0000,              // additional flags available for application use
-     UIControlStateReserved
-    */
-    [self.titleLabel addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    [self.titleLabel addTarget:self action:@selector(titleActionDowmInside:) forControlEvents:UIControlEventTouchDown];
-    [self.titleLabel addTarget:self action:@selector(titleActionUpOutside:) forControlEvents:UIControlEventTouchUpOutside];
+    
+    [self.categoryNavigationItemButton setTitleColor:CATEGORY_BUTTON_HIGHLIGHTED_COLOR forState:UIControlStateHighlighted];
+
+    [self.categoryNavigationItemButton addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
     UIStoryboard* storyboard = self.storyboard;
-    self.categoryController = [storyboard instantiateViewControllerWithIdentifier:@"CategoriesTableView"];
+    self.categoryController = [storyboard instantiateViewControllerWithIdentifier:CATEGORY_TABLE_VIEW_CONTROLLER_IDENTIFICATOR];
     self.categoryController.delegate = self;
-#warning выноси подписку на нотификации в отдельный метод, типа registerForNotification
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadNews)
-                                                 name:NEWS_TABLE_VIEW_RELOAD_NEWS
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(selectRow:)
-                                                 name:NEWS_TABLE_VIEW_SELECT_ROW
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(removeNewsAtIndex:)
-                                                 name:NEWS_TABLE_VIEW_REMOVE_ROW
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadTableView)
-                                                 name:NEWS_TABLE_VIEW_REFRESH_TABLE
-                                               object:nil];
+    [self registerForNotification];
 }
 
 - (void)dealloc
@@ -117,7 +96,7 @@
 {
     [super viewWillAppear:animated];
     if (self.newsType == ONLINE) {
-        self.tabBarController.navigationItem.titleView = self.titleLabel;
+        self.tabBarController.navigationItem.titleView = self.categoryNavigationItemButton;
     }
     else
     {
@@ -170,7 +149,7 @@
 -(void)reloadNews
 {
     if (self.newsType == FAVORITE) {
-        [self initFavoritesNewsList];
+        [self performSelectorOnMainThread:@selector(initFavoritesNewsList) withObject:nil waitUntilDone:YES];
     }
 }
 
@@ -204,12 +183,6 @@
         [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
 }
-
-- (void) titleActionDowmInside:(UIButton*) sender
-{
-    [sender setTitleColor: CATEGORY_BUTTON_HIGHLIGHTED_COLOR forState:UIControlStateNormal];
-}
-
 
 - (void) titleActionUpInside:(UIButton*) sender
 {
@@ -287,7 +260,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning ставь скобки даже если одна операция
     if (IS_IPHONE) {
         return;
     }
@@ -311,7 +283,7 @@
     int index = [self.newsTableView indexPathForCell:cell].row;
     TUTNews* news = [[DataProvider instance] newsAtIndex:index];
     if (news.isFavorite) {
-        [[FavoriteNewsManager instance] removeNewsFromFavoriteWithIndex:index andCallBack:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[[DataProvider instance] newsAtIndex:index] andCallback:^(id data, NSError* error){
             NSLog(@"%@",error.localizedDescription);
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
@@ -324,7 +296,7 @@
     }
     else
     {
-        [[FavoriteNewsManager instance] addNewsToFavoriteWithIndex:index andCallBack:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] favoriteNewsOperation:ADD_TO_FAVORITE withNews:[[DataProvider instance] newsAtIndex:index] andCallback:^(id data, NSError* error){
             NSLog(@"%@",error.localizedDescription);
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
@@ -366,24 +338,18 @@
 {
     [self.newsTableView reloadData];
     [self showActivityIndicator:NO];
-<<<<<<< HEAD
-    if (self.isViewLoaded && self.view.window){
-        if (IS_IPHONE) return;
+    if (self.isViewLoaded && self.view.window)
+    {
+
+        if (IS_IPHONE)
+        {
+            return;
+        }
+        
         if ([DataProvider instance].news.count>0)
         {
             [[DataProvider instance] setSelectedNews:self.selectedNews];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)];
-=======
-    if (!self.notFirstLaunch)
-    {
-#warning ставь скобки и не скупись на пробелы и новые строки. две следующие строки слабо читаемы - каша
-        if (IS_IPHONE) return;
-        if ([DataProvider instance].news.count>0)
-        {
-            [[DataProvider instance] setSelectedNews:0];
-#warning сразу две нотификайии? что-то мне подсказывает, что так быть не должно
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@0];
->>>>>>> Develop/feture/categories
+            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)]];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
             self.notFirstLaunch = YES;
         }
@@ -413,9 +379,7 @@
 - (void) changeImage:(NewsCell*) cell
 {
     int index = [self.newsTableView indexPathForCell:cell].row;
-    BOOL favorite = [[DataProvider instance] newsAtIndex:index].isFavorite;
-    if (IS_IOS7) [cell setButtonImage:(favorite) ? STAR_FULL_IMAGE : STAR_HOLLOW_IMAGE];
-    else [cell setButtonImage:(favorite) ? STAR_FULL_WHITE_IMAGE : STAR_HOLLOW_WHITE_IMAGE];
+    [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndex:index]]];
 }
 
 - (void) changeOrientation
@@ -464,10 +428,10 @@
 {
     if (self.newsType == ONLINE) {
         self.tabBarItem.title = AMLocalizedString(@"ONLINE_TITLE", nil);
-        [self.titleLabel setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
-        [self.titleLabel sizeToFit];
-        [self.titleLabel setNeedsDisplay];
-        [self.titleLabel.superview sizeToFit];
+        [self.categoryNavigationItemButton setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
+        [self.categoryNavigationItemButton sizeToFit];
+        [self.categoryNavigationItemButton setNeedsDisplay];
+        [self.categoryNavigationItemButton.superview sizeToFit];
     }
     else
     {
@@ -475,6 +439,25 @@
     }
 }
 
+- (void)registerForNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadNews)
+                                                 name:NEWS_TABLE_VIEW_RELOAD_NEWS
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(selectRow:)
+                                                 name:NEWS_TABLE_VIEW_SELECT_ROW
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(removeNewsAtIndex:)
+                                                 name:NEWS_TABLE_VIEW_REMOVE_ROW
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reloadTableView)
+                                                 name:NEWS_TABLE_VIEW_REFRESH_TABLE
+                                               object:nil];
+}
 
 
 @end

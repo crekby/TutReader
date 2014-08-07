@@ -26,22 +26,21 @@
     [super viewDidLoad];
     self.categoriesContent = [GlobalCategoriesArray instance].categories;
     self.firstTime = YES;
-    self.tableView.layer.cornerRadius = 10.0f;
+//    self.tableView.layer.cornerRadius = 10.0f;
     self.tableView.layer.borderWidth = 1.0f;
-    self.tableView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.tableView.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    //self.tableView.backgroundColor = [UIColor clearColor];
     //self.tableView.layer.masksToBounds = YES;
 }
 
 - (void)openCategoryListAboveView:(UIView *)view
 {
     [self.view setAutoresizingMask:UIViewAutoresizingNone];
-#warning дублирование кода!
-    self.view.frame = CGRectMake(view.frame.size.width/2-150, self.view.frame.origin.y-220, 300, 0);
+    self.view.frame = CGRectMake(view.frame.size.width/2-161, self.view.frame.origin.y-220, 322, 0);
     [self.tableView setContentOffset:CGPointMake(0, 0)];
     [view.superview addSubview:self.tableView];
     [UIView animateWithDuration:0.3f animations:^(){
-        self.view.frame = CGRectMake(view.frame.size.width/2-150, view.frame.origin.y, 300, 220);
+        self.view.frame = CGRectMake(self.view.frame.origin.x, view.frame.origin.y, self.view.frame.size.width, 220);
     } completion:^(BOOL finish)
     {
         if (finish) {
@@ -56,9 +55,8 @@
     if ([self.delegate respondsToSelector:@selector(categoriesWillClose)]) {
         [self.delegate categoriesWillClose];
     }
-    #warning дублирование кода!
     [UIView animateWithDuration:0.3f animations:^(){
-        self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-220, 300, 0);} completion:^(BOOL finish)
+        self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-self.view.frame.size.height, self.view.frame.size.width, 0);}completion:^(BOOL finish)
         {
             if (finish)
             {
@@ -94,7 +92,7 @@
     
     if (tableView.indexPathForSelectedRow.row!=indexPath.row) {
         if ([cell titleColor] == [UIColor blackColor]) {
-            [cell setTitleColor:[UIColor whiteColor]];
+            [cell setTitleColor:[UIColor blackColor]];
         }
     }
     else
@@ -104,14 +102,12 @@
             [cell setTitleColor:[UIColor blackColor]];
         }
     }
- #warning дублирование кода!
     if ([categoryItem isKindOfClass: NSClassFromString(NEWS_CATEGORY_ITEM_CLASS)]) {
         [cell setLeftMargin: 20];
         if (IS_IOS7) cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 50);
     }
     else
     {
-#warning дублирование кода!
         [cell setLeftMargin: 50];
         if (IS_IOS7) cell.separatorInset = UIEdgeInsetsMake(0, 50, 0, 50);
     }
@@ -125,11 +121,9 @@
 {
     CategoryCell* cell = (CategoryCell*)[tableView cellForRowAtIndexPath:indexPath];
     [cell setTitleColor: [UIColor blackColor]];
-#warning зачем setNeedsLayout ?
-    [cell setNeedsLayout];
     NewsCategoryItem* categoryItem = [self.categoriesContent objectAtIndex:indexPath.row];
-#warning чем тебе не нравится  [NewsCategoryItem class] и не нужно никаких констант и не нужно бояться переименовать класс
-    if ([categoryItem isKindOfClass: NSClassFromString(NEWS_CATEGORY_ITEM_CLASS)])
+    
+    if ([categoryItem isKindOfClass: [NewsCategoryItem class]])
     {
         NSMutableArray* indexArray = [NSMutableArray new];
         if (categoryItem.isOpen)
@@ -177,7 +171,7 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CategoryCell* cell = (CategoryCell*)[tableView cellForRowAtIndexPath:indexPath];
-    [cell setTitleColor: [UIColor whiteColor]];
+    [cell setTitleColor: [UIColor blackColor]];
     [cell setNeedsLayout];
 }
 @end
