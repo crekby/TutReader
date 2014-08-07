@@ -148,7 +148,7 @@
 
 -(void)reloadNews
 {
-    if (self.newsType == FAVORITE) {
+    if (self.newsType == FAVORITE && self.isViewLoaded && self.view.window) {
         [self performSelectorOnMainThread:@selector(initFavoritesNewsList) withObject:nil waitUntilDone:YES];
     }
 }
