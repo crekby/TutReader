@@ -33,11 +33,13 @@
 
 @property (strong, nonatomic) NSMutableArray* tableContent;
 
-@property (strong, nonatomic) NSMutableArray* selectedCategories;
+//@property (strong, nonatomic) NSMutableArray* selectedCategories;
 
 @property (nonatomic, strong) UIButton *titleLabel;
 
 @property (nonatomic, strong) UIView* activityIndicatorView;
+
+@property (nonatomic, assign) int selectedNews;
 
 @end
 
@@ -112,6 +114,12 @@
             self.tabBarController.navigationItem.titleView = nil;
         }
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    self.selectedNews = [self.newsTableView indexPathForSelectedRow].row;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -216,6 +224,7 @@
 - (void)categoriesDidClose
 {
     self.notFirstLaunch = NO;
+    self.selectedNews = 0;
     [self initOnlineNewsList];
 }
 
@@ -342,13 +351,12 @@
 {
     [self.newsTableView reloadData];
     [self showActivityIndicator:NO];
-    if (!self.notFirstLaunch)
-    {
+    if (self.isViewLoaded && self.view.window){
         if (IS_IPHONE) return;
         if ([DataProvider instance].news.count>0)
         {
-            [[DataProvider instance] setSelectedNews:0];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@0];
+            [[DataProvider instance] setSelectedNews:self.selectedNews];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
             self.notFirstLaunch = YES;
         }
