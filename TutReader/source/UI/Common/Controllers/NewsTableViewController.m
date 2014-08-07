@@ -237,7 +237,7 @@
     TUTNews* newsToShow = [[DataProvider instance] newsAtIndex:indexPath.row];
     
     [cell setNewsItem:newsToShow];
-    [cell setButtonImage:([[DataProvider instance] newsAtIndex:indexPath.row].isFavorite)?[UIImage imageNamed:STAR_FULL]:[UIImage imageNamed:STAR_HOLLOW]];
+    [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndex:indexPath.row]]];
     if (!cell.delegate) cell.delegate = self;
     if (!newsToShow.imageCacheUrl) {
         [cell setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
@@ -263,7 +263,10 @@
     if (IS_IPHONE) {
         return;
     }
-    
+    if (self.openSwipeCell) {
+        [self.openSwipeCell closeSwipe];
+    }
+    self.openSwipeCell = nil;
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
     }
