@@ -132,9 +132,11 @@
 
 - (void)initOnlineNewsList
 {
-    [[DataProvider instance] setupOnlineNews];
-    [self setNewsType:ONLINE];
-    [self showActivityIndicator:YES];
+    if ([[DataProvider instance] needToRaloadNews]) {
+        [[DataProvider instance] setupOnlineNews];
+        [self setNewsType:ONLINE];
+        [self showActivityIndicator:YES];
+    }
 }
 
 - (void)initFavoritesNewsList
