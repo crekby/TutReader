@@ -14,6 +14,6 @@
 
 - (void) getNewsItemsListFromData:(NSData*) data dataType:(int)type withCallback: (CallbackWithDataAndError) callback;
 - (void) saveNewsItemToCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback;
-- (void) deleteObjectFromCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback;
+- (void) deleteNewsItemFromCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback;
 
 @end

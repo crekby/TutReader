@@ -90,7 +90,7 @@ SINGLETON(PersistenceFacade)
 
 }
 
-- (void) deleteObjectFromCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback
+- (void) deleteNewsItemFromCoreData:(TUTNews*) news withCallback:(CallbackWithDataAndError) callback
 {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     NSManagedObjectContext *managedObjectContext = appDelegate.managedObjectContext;

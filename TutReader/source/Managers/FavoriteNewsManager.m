@@ -34,7 +34,7 @@ SINGLETON(FavoriteNewsManager)
     }
     else
     {
-        [[PersistenceFacade instance] deleteObjectFromCoreData:newsItem withCallback:^(id data, NSError* error){
+        [[PersistenceFacade instance] deleteNewsItemFromCoreData:newsItem withCallback:^(id data, NSError* error){
             if (!error)
             {
                 [[GoogleAnalyticsManager instance] trackFavoriteOperations:REMOVE_FROM_FAVORITE];
