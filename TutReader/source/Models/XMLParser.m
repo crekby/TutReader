@@ -93,12 +93,6 @@ SINGLETON(XMLParser)
                 self.news.bigImageURL = self.enclosure;
             }
         }
-
-        if ([elementName isEqualToString:@"category"]) {
-            if (self.currentElementValue.length>3) {
-                self.news.category = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            }
-        }
         if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {
             NSDateFormatter* formater = [NSDateFormatter new];
             [formater setDateFormat:XML_DATE_FORMAT];

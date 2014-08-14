@@ -16,9 +16,9 @@
 - (void) setupCategories;
 
 - (NSMutableArray*) categories;
-- (NewsCategoryItem*) categoryAtIndex:(int) index;
+- (NewsCategoryItem*) categoryAtIndex:(unsigned long) index;
 
-- (void) expandCategoryAtIndex:(int) index;
-- (void) closeCategoryAtIndex:(int) index;
+- (void) expandCategoryAtIndex:(unsigned long) index;
+- (void) closeCategoryAtIndex:(unsigned long) index;
 
 @end

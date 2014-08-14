@@ -39,7 +39,7 @@
 
 @property (nonatomic, strong) UIView* activityIndicatorView;
 
-@property (nonatomic, assign) int selectedNews;
+@property (nonatomic, assign) unsigned long selectedNews;
 
 @end
 
@@ -283,7 +283,7 @@
 - (void)favoriteButtonAction:(UITableViewCell *)sender
 {
     NewsCell* cell = (NewsCell*) sender;
-    int index = [self.newsTableView indexPathForCell:cell].row;
+    unsigned long index = [self.newsTableView indexPathForCell:cell].row;
     TUTNews* news = [[DataProvider instance] newsAtIndex:index];
     if (news.isFavorite) {
         [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[[DataProvider instance] newsAtIndex:index] andCallback:^(id data, NSError* error){
@@ -381,7 +381,7 @@
 
 - (void) changeImage:(NewsCell*) cell
 {
-    int index = [self.newsTableView indexPathForCell:cell].row;
+    unsigned long index = [self.newsTableView indexPathForCell:cell].row;
     [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndex:index]]];
 }
 

@@ -10,7 +10,7 @@
 
 @implementation CategoryManager
 
-+(id)subcategoriesByCategoryID:(int)ID
++(id)subcategoriesByCategoryID:(unsigned long)ID
 {
     switch (ID) {
         case TUT:
@@ -34,13 +34,13 @@
     }
 }
 
-+ (int)subcategoriesCountByCategoryID:(int)ID
++ (unsigned long)subcategoriesCountByCategoryID:(unsigned long)ID
 {
     NSArray* array = [self subcategoriesByCategoryID:ID];
     return array.count;
 }
 
-+ (id)nameForCategoryID:(int)ID
++ (id)nameForCategoryID:(unsigned long)ID
 {
     switch (ID) {
         case TUT:

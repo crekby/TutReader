@@ -179,7 +179,7 @@
     [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
-- (WebViewController*) viewControllerAtIndex:(int)index storyboard:(UIStoryboard*)storyboard
+- (WebViewController*) viewControllerAtIndex:(unsigned long)index storyboard:(UIStoryboard*)storyboard
 {
     WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:WEB_VIEW_CONTROLLER_IDENTIFICATOR];
     [controller loadWithNews:[[DataProvider instance] newsAtIndex:index]];

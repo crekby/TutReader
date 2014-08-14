@@ -53,7 +53,7 @@ SINGLETON(DataProvider)
     }
 }
 
-- (TUTNews*) newsAtIndex:(int) index
+- (TUTNews*) newsAtIndex:(unsigned long) index
 {
     if (index<_localNewsArray.count)
         return _localNewsArray[index];
@@ -61,7 +61,7 @@ SINGLETON(DataProvider)
         return nil;
 }
 
-- (void) removeNewsAtIndex:(int) index
+- (void) removeNewsAtIndex:(unsigned long) index
 {
     if (index<_localNewsArray.count) {
         [_localNewsArray removeObjectAtIndex:index];
@@ -73,14 +73,14 @@ SINGLETON(DataProvider)
     [_localNewsArray insertObject:news atIndex:_localNewsArray.count];
 }
 
-- (void) setSelectedNews:(int) index
+- (void) setSelectedNews:(unsigned long) index
 {
     _selectedItem = index;
 }
 
-- (int) indexForNews:(TUTNews*) news
+- (unsigned long) indexForNews:(TUTNews*) news
 {
-    int index = [_localNewsArray indexOfObject:news];
+    unsigned long index = [_localNewsArray indexOfObject:news];
     if (index == NSNotFound) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(newsTitle ==  %@)",news.newsTitle];
         NSArray *filteredArray = [_localNewsArray filteredArrayUsingPredicate:predicate];

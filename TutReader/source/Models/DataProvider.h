@@ -13,15 +13,15 @@
 + (DataProvider*) instance;
 @property (nonatomic, assign) NSString* newsURL;
 @property (nonatomic, assign) BOOL needToRaloadNews;
-@property (nonatomic, readonly) int selectedItem;
+@property (nonatomic, readonly) unsigned long selectedItem;
 
 
 - (NSMutableArray*) news;
-- (TUTNews*) newsAtIndex:(int) index;
+- (TUTNews*) newsAtIndex:(unsigned long) index;
 - (TUTNews*) selectedNews;
-- (void) setSelectedNews:(int) index;
-- (void) removeNewsAtIndex:(int) index;
-- (int) indexForNews:(TUTNews*) news;
+- (void) setSelectedNews:(unsigned long) index;
+- (void) removeNewsAtIndex:(unsigned long) index;
+- (unsigned long) indexForNews:(TUTNews*) news;
 
 
 - (void) setupOnlineNews;

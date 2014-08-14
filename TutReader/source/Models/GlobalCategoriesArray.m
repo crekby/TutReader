@@ -44,14 +44,14 @@ SINGLETON(GlobalCategoriesArray)
     return _localCategoryArray;
 }
 
-- (NewsCategoryItem *)categoryAtIndex:(int)index
+- (NewsCategoryItem *)categoryAtIndex:(unsigned long)index
 {
     return _localCategoryArray[index];
 }
 
-- (void)expandCategoryAtIndex:(int)index
+- (void)expandCategoryAtIndex:(unsigned long)index
 {
-    NSLog(@"EXpand - %d",[self.localCategoryArray[index] subCategories].count);
+    NSLog(@"EXpand - %lu",(unsigned long)[self.localCategoryArray[index] subCategories].count);
     NSIndexSet* set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, [_localCategoryArray[index] subCategories].count)];
     NSSortDescriptor *sortDescriptor;
     sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name"
@@ -60,9 +60,9 @@ SINGLETON(GlobalCategoriesArray)
     [_localCategoryArray insertObjects:[[_localCategoryArray[index] subCategories] sortedArrayUsingDescriptors:sortDescriptors] atIndexes:set];
 }
 
-- (void) closeCategoryAtIndex:(int)index
+- (void) closeCategoryAtIndex:(unsigned long)index
 {
-    NSLog(@"Close - %d",[self.localCategoryArray[index] subCategories].count);
+    NSLog(@"Close - %lu",(unsigned long)[self.localCategoryArray[index] subCategories].count);
     NSIndexSet* set = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, [_localCategoryArray[index] subCategories].count)];
     [_localCategoryArray removeObjectsAtIndexes:set];
 }

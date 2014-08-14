@@ -17,7 +17,8 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{   
+{
+#warning google analytics turned off
     //[[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
     [[SettingsManager instance] setupSettings];
     [[GlobalCategoriesArray instance] setupCategories];

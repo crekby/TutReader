@@ -10,7 +10,7 @@
 
 @interface CategoryManager : NSObject
 
-+ (id) subcategoriesByCategoryID:(int) ID;
++ (id) subcategoriesByCategoryID:(unsigned long) ID;
 
 + (id) subcategoriesForTUT;
 + (id) subcategoriesForAuto;
@@ -18,9 +18,9 @@
 + (id) subcategoriesForLady;
 + (id) subcategoriesForSport;
 
-+ (id) nameForCategoryID:(int) ID;
++ (id) nameForCategoryID:(unsigned long) ID;
 
-+ (int) subcategoriesCountByCategoryID:(int) ID;
++ (unsigned long) subcategoriesCountByCategoryID:(unsigned long) ID;
 
 typedef enum
 {
