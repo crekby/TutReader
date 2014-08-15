@@ -324,9 +324,6 @@
            stringByReplacingOccurrencesOfString:@"0:00" withString:@""]
           stringByReplacingOccurrencesOfString:@"<u>" withString:@""]
          stringByReplacingOccurrencesOfString:@"</u>" withString:@" "];
-    
-    html = [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
     while ([html rangeOfString:@"<!--"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<!--"].location;
         unsigned long end = [html rangeOfString:@"-->" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 3;
@@ -412,6 +409,8 @@
             html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
         }
     }
+    
+    html = [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     return html;
 }
