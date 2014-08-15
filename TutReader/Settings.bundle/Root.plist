@@ -50,6 +50,56 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Speech Syntesiser</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Speaking Speed</string>
+			<key>Key</key>
+			<string>speakingSpeed</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSSliderSpecifier</string>
+			<key>Key</key>
+			<string>speakingRate</string>
+			<key>DefaultValue</key>
+			<real>0.2</real>
+			<key>MinimumValue</key>
+			<real>0.01</real>
+			<key>MaximumValue</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Speaking Pitch</string>
+			<key>Key</key>
+			<string>s</string>
+			<key>DefaultValue</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSSliderSpecifier</string>
+			<key>Key</key>
+			<string>speakingPitch</string>
+			<key>DefaultValue</key>
+			<integer>1</integer>
+			<key>MinimumValue</key>
+			<real>0.1</real>
+			<key>MaximumValue</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

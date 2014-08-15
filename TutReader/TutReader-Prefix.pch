@@ -27,5 +27,6 @@
     #import "CacheFilesManager.h"
     #import "SettingsManager.h"
     #import "FavoriteImage.h"
+    #import "SpeechManager.h"
 #endif
 

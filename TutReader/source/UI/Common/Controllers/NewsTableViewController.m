@@ -115,13 +115,12 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (self.newsType == ONLINE) {
-        //[self reloadTableView];
-        [[DataProvider instance] setNeedToRaloadNews:YES];
-        [self initOnlineNewsList];
-    }
-    [self loadData];
-    
+        if (self.newsType == ONLINE) {
+            //[self reloadTableView];
+            [[DataProvider instance] setNeedToRaloadNews:YES];
+            [self initOnlineNewsList];
+        }
+        [self loadData];
     
     //self.navigationItem.titleView = titleLabel;
 }
@@ -172,17 +171,6 @@
 }
 
 #pragma mark - Title Bar Button Actions
-
-- (void) titleActionUpOutside:(UIButton*) sender
-{
-    if (IS_IOS7) {
-        [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
-}
 
 - (void) titleActionUpInside:(UIButton*) sender
 {
