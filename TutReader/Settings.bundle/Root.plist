@@ -98,7 +98,7 @@
 			<key>MinimumValue</key>
 			<real>0.1</real>
 			<key>MaximumValue</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 	</array>
 	<key>StringsTable</key>

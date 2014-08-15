@@ -49,8 +49,11 @@ SINGLETON(SpeechManager)
 
 - (void)continueSpeaking
 {
-    [self.syntesizer continueSpeaking];
-    NSLog(@"continue speaking");
+    if (self.syntesizer.isSpeaking && self.syntesizer.paused) {
+        [self.syntesizer continueSpeaking];
+        NSLog(@"continue speaking");
+    }
+    
 }
 
 - (void)startSpeaking
@@ -67,7 +70,7 @@ SINGLETON(SpeechManager)
 
 - (void)pauseSpeaking
 {
-        [self.syntesizer pauseSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    [self.syntesizer pauseSpeakingAtBoundary:AVSpeechBoundaryImmediate];
     NSLog(@"pause speaking");
 }
 
