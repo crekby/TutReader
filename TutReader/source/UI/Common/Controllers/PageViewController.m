@@ -41,7 +41,14 @@
     self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnFavoriteDidTap:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];
     shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
-    self.speechButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"speech"] style:UIBarButtonItemStyleBordered target:self action:@selector(speechButtonDidTap:)];
+    self.speechButton = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStyleBordered target:self action:@selector(speechButtonDidTap:)];
+    if ([[SpeechManager instance] isSpeaking]) {
+        self.speechButton.image = [UIImage imageNamed:@"pause"];
+    }
+    else
+    {
+        self.speechButton.image = [UIImage imageNamed:@"speech"];
+    }
     if (IS_IPAD) {
         if ([[DataProvider instance] selectedNews].newsURL) {
             self.title = [[DataProvider instance] selectedNews].newsTitle;
