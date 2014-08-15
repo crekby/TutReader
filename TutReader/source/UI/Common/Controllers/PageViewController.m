@@ -299,7 +299,7 @@
         
     }
     html = [html stringByReplacingCharactersInRange:NSMakeRange(location, html.length - location) withString:@""];
-    html = [[[[[[[[[[[[[[[[[[[[[[[[[html stringByReplacingOccurrencesOfString:@"<div>" withString:@""]
+    html = [[[[[[[[[[[[[[[[[[[[[[[[[[[html stringByReplacingOccurrencesOfString:@"<div>" withString:@""]
                                 stringByReplacingOccurrencesOfString:@"</div>" withString:@" "]
                                stringByReplacingOccurrencesOfString:@"<br>" withString:@""]
                               stringByReplacingOccurrencesOfString:@"<strong>" withString:@""]
@@ -323,7 +323,10 @@
             stringByReplacingOccurrencesOfString:@"</i>" withString:@" "]
            stringByReplacingOccurrencesOfString:@"0:00" withString:@""]
           stringByReplacingOccurrencesOfString:@"<u>" withString:@""]
-         stringByReplacingOccurrencesOfString:@"</u>" withString:@" "];
+         stringByReplacingOccurrencesOfString:@"</u>" withString:@" "]
+        stringByReplacingOccurrencesOfString:@"&amp;" withString:@""]
+       stringByReplacingOccurrencesOfString:@"</iframe>" withString:@""];
+    
     while ([html rangeOfString:@"<!--"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<!--"].location;
         unsigned long end = [html rangeOfString:@"-->" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 3;
@@ -405,6 +408,14 @@
     while ([html rangeOfString:@"<video"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<video"].location;
         unsigned long end = [html rangeOfString:@"</video>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 8;
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
+    }
+    
+    while ([html rangeOfString:@"<noscript"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<noscript"].location;
+        unsigned long end = [html rangeOfString:@"</noscript>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 11;
         if (start != NSNotFound && end != NSNotFound) {
             html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
         }
