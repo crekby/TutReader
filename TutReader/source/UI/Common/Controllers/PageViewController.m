@@ -455,6 +455,11 @@
         }
     }
     
+    if ([html rangeOfString:@"Открыть/cкачать видео"].location != NSNotFound) {
+        unsigned long end = [html rangeOfString:@")"].location+1;
+        html = [html stringByReplacingCharactersInRange:NSMakeRange(0, end) withString:@""];
+    }
+    
     html = [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     return html;
