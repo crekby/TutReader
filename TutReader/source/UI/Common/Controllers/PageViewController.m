@@ -318,6 +318,16 @@
         
     }
     html = [html stringByReplacingCharactersInRange:NSMakeRange(location, html.length - location) withString:@""];
+    
+    unsigned long captionImageLocation = [html rangeOfString:@"<div class=\"article_image_caption\""].location;
+    if (captionImageLocation != NSNotFound) {
+        unsigned long end = [html rangeOfString:@"</div>" options:NSLiteralSearch range:NSMakeRange(captionImageLocation, html.length-captionImageLocation)].location + 6;
+        if (end<html.length && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(captionImageLocation, end-captionImageLocation) withString:@""];
+        }
+    }
+    
+    
     html = [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[html stringByReplacingOccurrencesOfString:@"<div>" withString:@""]
                                                 stringByReplacingOccurrencesOfString:@"</div>" withString:@" "]
                                                stringByReplacingOccurrencesOfString:@"<br>" withString:@""]
