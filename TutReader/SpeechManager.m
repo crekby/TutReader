@@ -36,14 +36,22 @@ SINGLETON(SpeechManager)
 
 - (BOOL)isSpeaking
 {
-    return self.syntesizer.isSpeaking;
+    if (self.syntesizer.isSpeaking && !self.syntesizer.isPaused) {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
 }
 
 - (void)stopSpeaking
 {
-    [self.syntesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-    if (self.playPauseButton) {
-        self.playPauseButton.image = [UIImage imageNamed:@"speech"];
+    if (self.syntesizer.isSpeaking) {
+        [self.syntesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+        if (self.playPauseButton) {
+            self.playPauseButton.image = [UIImage imageNamed:@"speech"];
+        }
     }
 }
 
@@ -70,8 +78,10 @@ SINGLETON(SpeechManager)
 
 - (void)pauseSpeaking
 {
-    [self.syntesizer pauseSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-    NSLog(@"pause speaking");
+    if (self.syntesizer.isSpeaking && !self.syntesizer.isPaused) {
+        [self.syntesizer pauseSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+        NSLog(@"pause speaking");
+    }
 }
 
 - (void)speakText:(NSString *)text
