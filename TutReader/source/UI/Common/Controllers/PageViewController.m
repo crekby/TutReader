@@ -119,9 +119,13 @@
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
 {
-    self.title = [(WebViewController*)self.viewControllers[0] loadedNews].newsTitle;
-    WebViewController* controller = (WebViewController*)[self.viewControllers objectAtIndex:0];
-    [self selectRow:controller];
+    [(WebViewController*)previousViewControllers[0] setNeedToLoadOnViewAppear:NO];
+    if ([(WebViewController*)previousViewControllers[0] loadedNews].newsTitle != [(WebViewController*)pageViewController.viewControllers[0] loadedNews].newsTitle)
+    {
+        self.title = [(WebViewController*)self.viewControllers[0] loadedNews].newsTitle;
+        WebViewController* controller = (WebViewController*)[self.viewControllers objectAtIndex:0];
+        [self selectRow:controller];
+    }
 }
 
 -(NSUInteger)pageViewControllerSupportedInterfaceOrientations:(UIPageViewController *)pageViewController
@@ -218,6 +222,7 @@
     [controller setupNews];
     [self changeImage:self.favoriteBarButton];
     self.title = controller.loadedNews.newsTitle;
+    controller.needToLoadOnViewAppear = YES;
     [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
 }
 
@@ -225,6 +230,7 @@
 {
     WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:WEB_VIEW_CONTROLLER_IDENTIFICATOR];
     [controller loadWithNews:[[DataProvider instance] newsAtIndex:index]];
+    controller.needToLoadOnViewAppear = YES;
     return controller;
 }
 
@@ -299,7 +305,7 @@
         
     }
     html = [html stringByReplacingCharactersInRange:NSMakeRange(location, html.length - location) withString:@""];
-    html = [[[[[[[[[[[[[[[[[[[[[[[[[[[html stringByReplacingOccurrencesOfString:@"<div>" withString:@""]
+    html = [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[html stringByReplacingOccurrencesOfString:@"<div>" withString:@""]
                                 stringByReplacingOccurrencesOfString:@"</div>" withString:@" "]
                                stringByReplacingOccurrencesOfString:@"<br>" withString:@""]
                               stringByReplacingOccurrencesOfString:@"<strong>" withString:@""]
@@ -325,7 +331,14 @@
           stringByReplacingOccurrencesOfString:@"<u>" withString:@""]
          stringByReplacingOccurrencesOfString:@"</u>" withString:@" "]
         stringByReplacingOccurrencesOfString:@"&amp;" withString:@""]
-       stringByReplacingOccurrencesOfString:@"</iframe>" withString:@""];
+       stringByReplacingOccurrencesOfString:@"</iframe>" withString:@""]
+      stringByReplacingOccurrencesOfString:@"<ol>" withString:@""]
+     stringByReplacingOccurrencesOfString:@"</ol>" withString:@""]
+    stringByReplacingOccurrencesOfString:@"<li>" withString:@""]
+   stringByReplacingOccurrencesOfString:@"</li>" withString:@""]
+  stringByReplacingOccurrencesOfString:@"<ul>" withString:@""]
+ stringByReplacingOccurrencesOfString:@"</ul>" withString:@""]
+stringByReplacingOccurrencesOfString:@"</span>" withString:@""];
     
     while ([html rangeOfString:@"<!--"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<!--"].location;
@@ -408,6 +421,14 @@
     while ([html rangeOfString:@"<video"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<video"].location;
         unsigned long end = [html rangeOfString:@"</video>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 8;
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
+    }
+    
+    while ([html rangeOfString:@"<span"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<span"].location;
+        unsigned long end = [html rangeOfString:@">" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 1;
         if (start != NSNotFound && end != NSNotFound) {
             html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
         }

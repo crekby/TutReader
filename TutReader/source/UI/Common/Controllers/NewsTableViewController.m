@@ -376,7 +376,7 @@
 - (void) changeOrientation
 {
     if (self.categoryController.isOpen) {
-        self.categoryController.view.frame = CGRectMake(self.view.frame.size.width/2-160, self.view.frame.origin.y, 320, 220);
+        self.categoryController.view.frame = CGRectMake(0, self.view.frame.origin.y, self.view.frame.size.width, 220);
     }
 }
 

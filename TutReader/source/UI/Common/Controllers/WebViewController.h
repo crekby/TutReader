@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) TUTNews* loadedNews;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic, assign) BOOL needToLoadOnViewAppear;
 
 - (void) setupNews;
 - (void) loadWithNews:(TUTNews*) news;
