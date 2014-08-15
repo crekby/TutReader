@@ -62,10 +62,6 @@
         }
         
     }
-    else
-    {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
-    }
     self.categoryNavigationItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.categoryNavigationItemButton setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
     self.categoryNavigationItemButton.frame = CGRectMake(0, 0, 70, 44);
@@ -85,6 +81,7 @@
     self.categoryController = [storyboard instantiateViewControllerWithIdentifier:CATEGORY_TABLE_VIEW_CONTROLLER_IDENTIFICATOR];
     self.categoryController.delegate = self;
     [self registerForNotification];
+    self.afterRotation = NO;
 }
 
 - (void)dealloc
@@ -115,12 +112,19 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-        if (self.newsType == ONLINE) {
-            //[self reloadTableView];
-            [[DataProvider instance] setNeedToRaloadNews:YES];
-            [self initOnlineNewsList];
+    if (self.afterRotation) {
+        if (IS_IPAD) {
+            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)]];
         }
-        [self loadData];
+        self.afterRotation = NO;
+        return;
+    }
+    if (self.newsType == ONLINE) {
+        //[self reloadTableView];
+        [[DataProvider instance] setNeedToRaloadNews:YES];
+        [self initOnlineNewsList];
+    }
+    [self loadData];
     
     //self.navigationItem.titleView = titleLabel;
 }
@@ -375,6 +379,9 @@
 
 - (void) changeOrientation
 {
+    if (self.notFirstLaunch) {
+        self.afterRotation = YES;
+    }
     if (self.categoryController.isOpen) {
         self.categoryController.view.frame = CGRectMake(0, self.view.frame.origin.y, self.view.frame.size.width, 220);
     }
@@ -447,6 +454,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadTableView)
                                                  name:NEWS_TABLE_VIEW_REFRESH_TABLE
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(changeOrientation)
+                                                 name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
 }
 

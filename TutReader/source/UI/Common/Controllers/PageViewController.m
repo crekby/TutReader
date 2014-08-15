@@ -13,6 +13,8 @@
 #import "ShareManager.h"
 #import "FavoriteNewsManager.h"
 #import <AVFoundation/AVSpeechSynthesis.h>
+#import "TabBarController.h"
+#import "NewsTableViewController.h"
 
 
 @interface PageViewController() <ShareViewControllerDelegate,UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIPopoverControllerDelegate,UINavigationControllerDelegate>
@@ -77,6 +79,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    TabBarController* tabBar = (TabBarController*)self.navigationController.viewControllers[0];
+    [(NewsTableViewController*)tabBar.selectedViewController setAfterRotation:YES];
     if (self.sharePopover.isPopoverVisible) {
         [self.sharePopover dismissPopoverAnimated:YES];
     }

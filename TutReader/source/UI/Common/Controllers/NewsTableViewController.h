@@ -11,6 +11,8 @@
 @interface NewsTableViewController : UITableViewController <NSURLConnectionDelegate,NSXMLParserDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic) int newsType;
+@property (nonatomic, assign) BOOL afterRotation;
+
 
 - (void) localizeTabBarItem;
 
