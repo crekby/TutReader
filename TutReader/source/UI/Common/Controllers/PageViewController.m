@@ -299,7 +299,7 @@
         
     }
     html = [html stringByReplacingCharactersInRange:NSMakeRange(location, html.length - location) withString:@""];
-    html = [[[[[[[[[[[[[[[[[[[[[[html stringByReplacingOccurrencesOfString:@"<div>" withString:@""]
+    html = [[[[[[[[[[[[[[[[[[[[[[[[[html stringByReplacingOccurrencesOfString:@"<div>" withString:@""]
                                 stringByReplacingOccurrencesOfString:@"</div>" withString:@" "]
                                stringByReplacingOccurrencesOfString:@"<br>" withString:@""]
                               stringByReplacingOccurrencesOfString:@"<strong>" withString:@""]
@@ -320,9 +320,23 @@
                stringByReplacingOccurrencesOfString:@"<b>" withString:@""]
               stringByReplacingOccurrencesOfString:@"</b>" withString:@" "]
              stringByReplacingOccurrencesOfString:@"<i>" withString:@""]
-            stringByReplacingOccurrencesOfString:@"</i>" withString:@" "];
+            stringByReplacingOccurrencesOfString:@"</i>" withString:@" "]
+           stringByReplacingOccurrencesOfString:@"0:00" withString:@""]
+          stringByReplacingOccurrencesOfString:@"<u>" withString:@""]
+         stringByReplacingOccurrencesOfString:@"</u>" withString:@" "];
     
     html = [html stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    while ([html rangeOfString:@"<!--"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<!--"].location;
+        unsigned long end = [html rangeOfString:@"-->" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 3;
+        if (end > html.length) {
+            end = html.length;
+        }
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
+    }
     
     while ([html rangeOfString:@"<img"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<img"].location;
@@ -369,7 +383,7 @@
     
     while ([html rangeOfString:@"<iframe"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<iframe"].location;
-        unsigned long end = [html rangeOfString:@"</iframe>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 9;
+        unsigned long end = [html rangeOfString:@">" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 1;
         if (start != NSNotFound && end != NSNotFound) {
             html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
         }
@@ -383,9 +397,20 @@
         }
     }
     
-    unsigned long comments = [html rangeOfString:@"<!--"].location;
-    if (comments != NSNotFound) {
-        html = [html stringByReplacingCharactersInRange:NSMakeRange(comments, html.length-comments) withString:@""];
+    while ([html rangeOfString:@"<canvas"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<canvas"].location;
+        unsigned long end = [html rangeOfString:@"</canvas>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 9;
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
+    }
+    
+    while ([html rangeOfString:@"<video"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<video"].location;
+        unsigned long end = [html rangeOfString:@"</video>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 8;
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
     }
     
     return html;
