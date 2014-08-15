@@ -25,6 +25,16 @@
     return YES;
 }
 
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [[SpeechManager instance] pauseSpeaking];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    [[SpeechManager instance] continueSpeaking];
+}
+
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     [[SettingsManager instance] updateAfterBackground];
