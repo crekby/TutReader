@@ -59,8 +59,8 @@ SINGLETON(SpeechManager)
     if (self.speakingText) {
         [self.syntesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
         self.utterance = [[AVSpeechUtterance alloc] initWithString:self.speakingText];
-        self.utterance.rate = SPEECH_SYNTESIZER_RATE;
-        self.utterance.pitchMultiplier = SPEECH_SYNTESIZER_PITCH;
+        self.utterance.rate = [[NSUserDefaults standardUserDefaults] floatForKey:@"speakingRate"];
+        self.utterance.pitchMultiplier = [[NSUserDefaults standardUserDefaults] floatForKey:@"speakingPitch"];
         self.utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"ru-RU"];
         [self.syntesizer speakUtterance:self.utterance];
     }
