@@ -45,11 +45,11 @@
     shareBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showPopover:)];
     self.speechButton = [[UIBarButtonItem alloc] initWithImage:nil style:UIBarButtonItemStyleBordered target:self action:@selector(speechButtonDidTap:)];
     if ([[SpeechManager instance] isSpeaking]) {
-        self.speechButton.image = [UIImage imageNamed:@"pause"];
+        self.speechButton.image = PAUSE_IMAGE;
     }
     else
     {
-        self.speechButton.image = [UIImage imageNamed:@"speech"];
+        self.speechButton.image = SPEAK_IMAGE;
     }
     if (IS_IPAD) {
         if ([[DataProvider instance] selectedNews].newsURL) {
@@ -210,9 +210,6 @@
     
     html = [self getTextFromHtml:html];
 
-        
-       // NSCharacterSet *notAllowedChars = [[NSCharacterSet characterSetWithCharactersInString:@"йцукенгшщзхъфывапролджэёячсмитьбюЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЁЯЧСМИТЬБЮ 1234567890 ,.:"] invertedSet];
-        //html = [[html componentsSeparatedByCharactersInSet:notAllowedChars] componentsJoinedByString:@""];
         NSLog(@"%@",html);
 
 
@@ -498,6 +495,5 @@
     
     return html;
 }
-
 
 @end

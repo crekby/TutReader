@@ -73,6 +73,7 @@ SINGLETON(SpeechManager)
         self.utterance.pitchMultiplier = [[NSUserDefaults standardUserDefaults] floatForKey:@"speakingPitch"];
         self.utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"ru-RU"];
         [self.syntesizer speakUtterance:self.utterance];
+        NSLog(@"start speaking");
     }
 }
 
@@ -93,14 +94,14 @@ SINGLETON(SpeechManager)
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didStartSpeechUtterance:(AVSpeechUtterance *)utterance
 {
     if (self.playPauseButton) {
-        self.playPauseButton.image = [UIImage imageNamed:@"pause"];
+        self.playPauseButton.image = PAUSE_IMAGE;
     }
 }
 
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance
 {
     if (self.playPauseButton) {
-        self.playPauseButton.image = [UIImage imageNamed:@"speech"];
+        self.playPauseButton.image = SPEAK_IMAGE;
     }
 }
 

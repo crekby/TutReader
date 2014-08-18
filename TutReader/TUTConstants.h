@@ -153,6 +153,9 @@ typedef enum
 #define STAR_FULL_WHITE_IMAGE    ([UIImage imageNamed:STAR_FULL_WHITE])
 #define STAR_HOLLOW_WHITE_IMAGE  ([UIImage imageNamed:STAR_HOLLOW_WHITE])
 
+#define SPEAK_IMAGE              ([UIImage imageNamed:@"speech"])
+#define PAUSE_IMAGE              ([UIImage imageNamed:@"pause"])
+
 // CORE DATA TITLES
 
 #define CD_ENTYTY                @"NewsItem"

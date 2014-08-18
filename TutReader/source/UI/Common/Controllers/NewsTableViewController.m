@@ -114,6 +114,7 @@
     [super viewDidAppear:animated];
     if (self.afterRotation) {
         if (IS_IPAD) {
+            self.selectedNews = [[DataProvider instance]  selectedItem];
             [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)]];
         }
         self.afterRotation = NO;
