@@ -341,13 +341,13 @@
             return;
         }
         
-        if ([DataProvider instance].news.count>0)
-        {
+//        if ([DataProvider instance].news.count>0)
+//        {
             [[DataProvider instance] setSelectedNews:self.selectedNews];
             [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)]];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
             self.notFirstLaunch = YES;
-        }
+        //}
     }
 }
 

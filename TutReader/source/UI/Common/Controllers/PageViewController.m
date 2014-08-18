@@ -374,6 +374,14 @@
         }
     }
     
+    while ([html rangeOfString:@"<select"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<select"].location;
+        unsigned long end = [html rangeOfString:@"</select>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 9;
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
+    }
+    
     while ([html rangeOfString:@"<img"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<img"].location;
         unsigned long end = [html rangeOfString:@">" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 1;
@@ -384,6 +392,14 @@
     
     while ([html rangeOfString:@"<a"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<a"].location;
+        unsigned long end = [html rangeOfString:@">" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 1;
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
+    }
+    
+    while ([html rangeOfString:@"<p"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<p"].location;
         unsigned long end = [html rangeOfString:@">" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 1;
         if (start != NSNotFound && end != NSNotFound) {
             html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
@@ -460,6 +476,14 @@
     while ([html rangeOfString:@"<noscript"].location != NSNotFound) {
         unsigned long start = [html rangeOfString:@"<noscript"].location;
         unsigned long end = [html rangeOfString:@"</noscript>" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 11;
+        if (start != NSNotFound && end != NSNotFound) {
+            html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
+        }
+    }
+    
+    while ([html rangeOfString:@"<blockquote"].location != NSNotFound) {
+        unsigned long start = [html rangeOfString:@"<blockquote"].location;
+        unsigned long end = [html rangeOfString:@">" options:NSLiteralSearch range:NSMakeRange(start, html.length-start)].location + 1;
         if (start != NSNotFound && end != NSNotFound) {
             html = [html stringByReplacingCharactersInRange:NSMakeRange(start, end-start) withString:@""];
         }
