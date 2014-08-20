@@ -67,7 +67,7 @@
     self.categoryNavigationItemButton.frame = CGRectMake(0, 0, 70, 44);
     
     if (IS_IOS7) {
-        [self.categoryNavigationItemButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [self.categoryNavigationItemButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
     }
     else
     {
@@ -179,13 +179,6 @@
 
 - (void) titleActionUpInside:(UIButton*) sender
 {
-    if (IS_IOS7) {
-        [sender setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    }
-    else
-    {
-        [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
         //[self reloadTableView];

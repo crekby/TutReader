@@ -52,6 +52,24 @@
             </objects>
             <point key="canvasLocation" x="3320" y="-1577"/>
         </scene>
+        <!--Graph Controller-->
+        <scene sceneID="yFe-qm-Ns6">
+            <objects>
+                <viewController storyboardIdentifier="graphViewController" id="bBl-uA-eyP" customClass="GraphController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="AtT-ZN-QgK"/>
+                        <viewControllerLayoutGuide type="bottom" id="qdK-tP-Xmg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CaL-8e-O1p">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vTF-Zf-t4w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3320" y="-388"/>
+        </scene>
         <!--News Table View Controller - Online-->
         <scene sceneID="6vT-t0-v96">
             <objects>
@@ -238,7 +256,13 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7TV-RX-Wzk" customClass="TabBarController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="cFm-7P-fgh"/>
+                    <navigationItem key="navigationItem" id="cFm-7P-fgh">
+                        <barButtonItem key="rightBarButtonItem" title="Graph" id="JBS-HQ-mLo">
+                            <connections>
+                                <action selector="graphButtonDidTap:" destination="7TV-RX-Wzk" id="aDg-aI-z5V"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="H5x-AN-lbj">
                         <autoresizingMask key="autoresizingMask"/>

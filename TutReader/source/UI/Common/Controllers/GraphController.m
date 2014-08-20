@@ -59,8 +59,6 @@
     self.max = 0;
     
     for (TUTNews* newsItem in [[DataProvider instance] news]) {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"<your date format goes here"];
         NSDate *date = newsItem.pubDate;
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];

@@ -8,6 +8,7 @@
 
 #import "TabBarController.h"
 #import "NewsTableViewController.h"
+#import "GraphController.h"
 
 @interface TabBarController ()
 
@@ -43,6 +44,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)graphButtonDidTap:(id)sender {
+    GraphController* graph = [self.storyboard instantiateViewControllerWithIdentifier:@"graphViewController"];
+    [graph setModalTransitionStyle:UIModalTransitionStylePartialCurl];
+    [self.splitViewController presentViewController:graph animated:YES completion:nil];
 }
 
 - (void)checkLocalization
