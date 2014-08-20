@@ -467,6 +467,25 @@
             </objects>
             <point key="canvasLocation" x="3587" y="800"/>
         </scene>
+        <!--Graph Controller - Graph-->
+        <scene sceneID="OaM-GA-cTY">
+            <objects>
+                <viewController id="Xhe-UC-5jH" customClass="GraphController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Fdi-4c-sUL"/>
+                        <viewControllerLayoutGuide type="bottom" id="eTs-bU-cO6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EEy-Vg-PA0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Graph" id="BKQ-aK-5CN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JJo-7u-TmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2328" y="1535"/>
+        </scene>
         <!--News Table View Controller - Favorite-->
         <scene sceneID="QXP-YH-kwV">
             <objects>
@@ -603,6 +622,7 @@
                     <connections>
                         <segue destination="CHD-rX-f2F" kind="relationship" relationship="viewControllers" id="hms-A6-cTa"/>
                         <segue destination="T1R-UF-dB1" kind="relationship" relationship="viewControllers" id="eJ4-zJ-Aw6"/>
+                        <segue destination="Xhe-UC-5jH" kind="relationship" relationship="viewControllers" id="vGa-NK-HCr"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i69-ZQ-TN9" userLabel="First Responder" sceneMemberID="firstResponder"/>

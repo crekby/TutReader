@@ -53,6 +53,10 @@
 		15922063198FA699001CF232 /* LocalizationSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 15922062198FA699001CF232 /* LocalizationSystem.m */; };
 		15922069198FA76B001CF232 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1592206B198FA76B001CF232 /* Localizable.strings */; };
 		1592206F198FB35B001CF232 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1592206E198FB35B001CF232 /* TabBarController.m */; };
+		159A613619A3982F008956DE /* GraphController.m in Sources */ = {isa = PBXBuildFile; fileRef = 159A613519A3982F008956DE /* GraphController.m */; };
+		159A613919A399A7008956DE /* CorePlotHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 159A613819A399A7008956DE /* CorePlotHeaders */; };
+		159A613B19A399B0008956DE /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A613A19A399B0008956DE /* libCorePlot-CocoaTouch.a */; };
+		159A613D19A39BBE008956DE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A613C19A39BBE008956DE /* Accelerate.framework */; };
 		159BC879199DEA670072C54B /* SpeechManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 159BC878199DEA670072C54B /* SpeechManager.m */; };
 		15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5764919810C5D00E55E3F /* Twitter.framework */; };
 		15E5B61519922099001140FA /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E5B61419922099001140FA /* SettingsManager.m */; };
@@ -150,6 +154,11 @@
 		1592206C198FA80E001CF232 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1592206D198FB35B001CF232 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TabBarController.h; path = Source/UI/Common/Controllers/TabBarController.h; sourceTree = "<group>"; };
 		1592206E198FB35B001CF232 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBarController.m; path = Source/UI/Common/Controllers/TabBarController.m; sourceTree = "<group>"; };
+		159A613419A3982F008956DE /* GraphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphController.h; path = Source/UI/Common/Controllers/GraphController.h; sourceTree = "<group>"; };
+		159A613519A3982F008956DE /* GraphController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphController.m; path = Source/UI/Common/Controllers/GraphController.m; sourceTree = "<group>"; };
+		159A613819A399A7008956DE /* CorePlotHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CorePlotHeaders; sourceTree = "<group>"; };
+		159A613A19A399B0008956DE /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		159A613C19A39BBE008956DE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		159BC877199DEA670072C54B /* SpeechManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechManager.h; sourceTree = "<group>"; };
 		159BC878199DEA670072C54B /* SpeechManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechManager.m; sourceTree = "<group>"; };
 		15A5764919810C5D00E55E3F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -174,6 +183,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				159A613D19A39BBE008956DE /* Accelerate.framework in Frameworks */,
 				15F9D71D199CC4AA008A8F06 /* AVFoundation.framework in Frameworks */,
 				156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */,
 				15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */,
@@ -183,6 +193,7 @@
 				156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */,
 				156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */,
 				051597C514C44F93AED2A5BE /* libPods.a in Frameworks */,
+				159A613B19A399B0008956DE /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +291,7 @@
 		1561825E1976C3DB00D16B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				159A613C19A39BBE008956DE /* Accelerate.framework */,
 				15F9D71C199CC4AA008A8F06 /* AVFoundation.framework */,
 				156E5D80198BB13E00D8B6DC /* QuartzCore.framework */,
 				15A5764919810C5D00E55E3F /* Twitter.framework */,
@@ -297,6 +309,7 @@
 		156182651976C3DB00D16B5F /* TutReader */ = {
 			isa = PBXGroup;
 			children = (
+				159A613719A3999B008956DE /* CorePlot */,
 				15712C69197954AA00A73DC5 /* source */,
 				15712C6A197954C900A73DC5 /* resources */,
 				156182661976C3DB00D16B5F /* Supporting Files */,
@@ -410,6 +423,8 @@
 				15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */,
 				1592206D198FB35B001CF232 /* TabBarController.h */,
 				1592206E198FB35B001CF232 /* TabBarController.m */,
+				159A613419A3982F008956DE /* GraphController.h */,
+				159A613519A3982F008956DE /* GraphController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -446,6 +461,15 @@
 				15712C5E19790E5300A73DC5 /* Common */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		159A613719A3999B008956DE /* CorePlot */ = {
+			isa = PBXGroup;
+			children = (
+				159A613A19A399B0008956DE /* libCorePlot-CocoaTouch.a */,
+				159A613819A399A7008956DE /* CorePlotHeaders */,
+			);
+			name = CorePlot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -531,6 +555,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				156182761976C3DB00D16B5F /* Main_iPad.storyboard in Resources */,
+				159A613919A399A7008956DE /* CorePlotHeaders in Resources */,
 				1561827B1976C3DB00D16B5F /* Images.xcassets in Resources */,
 				156182731976C3DB00D16B5F /* Main_iPhone.storyboard in Resources */,
 				15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */,
@@ -601,6 +626,7 @@
 				1592206F198FB35B001CF232 /* TabBarController.m in Sources */,
 				15060E081980040400E68EB1 /* ShareManager.m in Sources */,
 				15878A061990DB260017374B /* NSString+MD5.m in Sources */,
+				159A613619A3982F008956DE /* GraphController.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
 				158321F11993AEBA00D1F648 /* FavoriteImage.m in Sources */,
 				15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */,
@@ -771,6 +797,10 @@
 				GCC_PREFIX_HEADER = "TutReader/TutReader-Prefix.pch";
 				INFOPLIST_FILE = "TutReader/TutReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TutReader",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "C9AB82B6-1D45-4947-8A9F-120C9EC8B132";
 				WRAPPER_EXTENSION = app;
@@ -788,6 +818,10 @@
 				GCC_PREFIX_HEADER = "TutReader/TutReader-Prefix.pch";
 				INFOPLIST_FILE = "TutReader/TutReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TutReader",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "C9AB82B6-1D45-4947-8A9F-120C9EC8B132";
 				WRAPPER_EXTENSION = app;
