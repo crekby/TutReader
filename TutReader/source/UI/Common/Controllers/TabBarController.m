@@ -55,7 +55,9 @@
 - (void)checkLocalization
 {
     for (NewsTableViewController* newsController in self.viewControllers) {
-        [newsController localizeTabBarItem];
+        if ([newsController respondsToSelector:@selector(localizeTabBarItem)]) {
+            [newsController localizeTabBarItem];
+        }
     }
 }
 

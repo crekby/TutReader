@@ -15,7 +15,7 @@ SINGLETON(RemoteFacade)
 
 #pragma mark - Get Data From RSS Server
 
-- (void) getOnlineNewsDataWithURL:(NSString*) newsUrl andCallback:(CallbackWithDataAndError) callback
+- (void) getDataWithURL:(NSString*) newsUrl andCallback:(CallbackWithDataAndError) callback
 {
     if ([Reachability reachabilityForInternetConnection].currentReachabilityStatus==NotReachable)
     {
@@ -49,4 +49,5 @@ SINGLETON(RemoteFacade)
         [[AlertManager instance] showHostNotReachableAlert];
     }
 }
+
 @end

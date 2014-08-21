@@ -134,6 +134,9 @@ typedef enum
 #define IT_PAGE                  @"http://it.tut.by/"
 #define LADY_PAGE                @"http://lady.tut.by/"
 #define SPORT_PAGE               @"http://sport.tut.by/"
+
+#define CURRENCY_RATES_PAGE      @"http://finance.tut.by/currency/currsql.php?mode=xml"
+
 #define MAIN_CATEGORIES_COUNT    5
 
 // RESOURCES

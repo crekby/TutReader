@@ -45,6 +45,11 @@
 		156E5D7C198B7AC700D8B6DC /* NewsCategoryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 156E5D7B198B7AC700D8B6DC /* NewsCategoryItem.m */; };
 		156E5D7F198B7B4C00D8B6DC /* GlobalCategoriesArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 156E5D7E198B7B4C00D8B6DC /* GlobalCategoriesArray.m */; };
 		156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156E5D80198BB13E00D8B6DC /* QuartzCore.framework */; };
+		15787E8C19A5EB1A00218BD5 /* currency@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15787E8B19A5EB1A00218BD5 /* currency@2x.png */; };
+		15787E9519A5F4B300218BD5 /* CurrencyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9419A5F4B300218BD5 /* CurrencyTableViewController.m */; };
+		15787E9919A5F9D600218BD5 /* CurrencyParcer.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9819A5F9D600218BD5 /* CurrencyParcer.m */; };
+		15787E9C19A5FE0B00218BD5 /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9B19A5FE0B00218BD5 /* Currency.m */; };
+		15787E9F19A6002B00218BD5 /* CurrencyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9E19A6002B00218BD5 /* CurrencyCell.m */; };
 		158321F11993AEBA00D1F648 /* FavoriteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 158321F01993AEBA00D1F648 /* FavoriteImage.m */; };
 		15878A061990DB260017374B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A051990DB260017374B /* NSString+MD5.m */; };
 		15878A091990FDA50017374B /* CacheFilesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A081990FDA50017374B /* CacheFilesManager.m */; };
@@ -139,6 +144,15 @@
 		156E5D7D198B7B4C00D8B6DC /* GlobalCategoriesArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GlobalCategoriesArray.h; path = Source/Models/GlobalCategoriesArray.h; sourceTree = "<group>"; };
 		156E5D7E198B7B4C00D8B6DC /* GlobalCategoriesArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GlobalCategoriesArray.m; path = Source/Models/GlobalCategoriesArray.m; sourceTree = "<group>"; };
 		156E5D80198BB13E00D8B6DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		15787E8B19A5EB1A00218BD5 /* currency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "currency@2x.png"; path = "Images.xcassets/currency.imageset/currency@2x.png"; sourceTree = "<group>"; };
+		15787E9319A5F4B300218BD5 /* CurrencyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrencyTableViewController.h; path = Source/UI/Common/Controllers/CurrencyTableViewController.h; sourceTree = "<group>"; };
+		15787E9419A5F4B300218BD5 /* CurrencyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrencyTableViewController.m; path = Source/UI/Common/Controllers/CurrencyTableViewController.m; sourceTree = "<group>"; };
+		15787E9719A5F9D600218BD5 /* CurrencyParcer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrencyParcer.h; path = Source/Models/CurrencyParcer.h; sourceTree = "<group>"; };
+		15787E9819A5F9D600218BD5 /* CurrencyParcer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrencyParcer.m; path = Source/Models/CurrencyParcer.m; sourceTree = "<group>"; };
+		15787E9A19A5FE0B00218BD5 /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Currency.h; path = Source/Models/Currency.h; sourceTree = "<group>"; };
+		15787E9B19A5FE0B00218BD5 /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Currency.m; path = Source/Models/Currency.m; sourceTree = "<group>"; };
+		15787E9D19A6002B00218BD5 /* CurrencyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrencyCell.h; path = Source/UI/Common/Cells/CurrencyCell.h; sourceTree = "<group>"; };
+		15787E9E19A6002B00218BD5 /* CurrencyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrencyCell.m; path = Source/UI/Common/Cells/CurrencyCell.m; sourceTree = "<group>"; };
 		158321EF1993AEBA00D1F648 /* FavoriteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteImage.h; path = Source/Models/FavoriteImage.h; sourceTree = "<group>"; };
 		158321F01993AEBA00D1F648 /* FavoriteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FavoriteImage.m; path = Source/Models/FavoriteImage.m; sourceTree = "<group>"; };
 		15878A041990DB260017374B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Source/Categories/NSString+MD5.h"; sourceTree = "<group>"; };
@@ -228,6 +242,8 @@
 				15F8331B19823BBC00E91714 /* DataProvider.m */,
 				158321EF1993AEBA00D1F648 /* FavoriteImage.h */,
 				158321F01993AEBA00D1F648 /* FavoriteImage.m */,
+				15787E9719A5F9D600218BD5 /* CurrencyParcer.h */,
+				15787E9819A5F9D600218BD5 /* CurrencyParcer.m */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -368,6 +384,8 @@
 				156E5D78198B7A6F00D8B6DC /* NewsSubCategoryItem.m */,
 				156E5D7A198B7AC700D8B6DC /* NewsCategoryItem.h */,
 				156E5D7B198B7AC700D8B6DC /* NewsCategoryItem.m */,
+				15787E9A19A5FE0B00218BD5 /* Currency.h */,
+				15787E9B19A5FE0B00218BD5 /* Currency.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -379,6 +397,8 @@
 				156AFA1D197CEF3400813E2D /* NewsCell.m */,
 				151F4C97198A88320019B26D /* CategoryCell.h */,
 				151F4C98198A88320019B26D /* CategoryCell.m */,
+				15787E9D19A6002B00218BD5 /* CurrencyCell.h */,
+				15787E9E19A6002B00218BD5 /* CurrencyCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -425,6 +445,8 @@
 				1592206E198FB35B001CF232 /* TabBarController.m */,
 				159A613419A3982F008956DE /* GraphController.h */,
 				159A613519A3982F008956DE /* GraphController.m */,
+				15787E9319A5F4B300218BD5 /* CurrencyTableViewController.h */,
+				15787E9419A5F4B300218BD5 /* CurrencyTableViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -450,6 +472,7 @@
 				1561827A1976C3DB00D16B5F /* Images.xcassets */,
 				15060E091980066E00E68EB1 /* ShareAssets.xcassets */,
 				15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */,
+				15787E8B19A5EB1A00218BD5 /* currency@2x.png */,
 				1592206B198FA76B001CF232 /* Localizable.strings */,
 			);
 			name = resources;
@@ -559,6 +582,7 @@
 				1561827B1976C3DB00D16B5F /* Images.xcassets in Resources */,
 				156182731976C3DB00D16B5F /* Main_iPhone.storyboard in Resources */,
 				15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */,
+				15787E8C19A5EB1A00218BD5 /* currency@2x.png in Resources */,
 				15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */,
 				15922069198FA76B001CF232 /* Localizable.strings in Resources */,
 				1561826A1976C3DB00D16B5F /* InfoPlist.strings in Resources */,
@@ -614,12 +638,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15787E9C19A5FE0B00218BD5 /* Currency.m in Sources */,
 				15060DF9197F995400E68EB1 /* Reachability.m in Sources */,
 				156AFA23197CEF5000813E2D /* NewsTableViewController.m in Sources */,
 				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
 				15060E05197FE74E00E68EB1 /* GoogleAnalyticsManager.m in Sources */,
 				151F4C96198A704D0019B26D /* CategoryManager.m in Sources */,
 				15F8331C19823BBC00E91714 /* DataProvider.m in Sources */,
+				15787E9519A5F4B300218BD5 /* CurrencyTableViewController.m in Sources */,
 				151F4C99198A88320019B26D /* CategoryCell.m in Sources */,
 				15E65FED198668660059BEB5 /* FavoriteNewsManager.m in Sources */,
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
@@ -636,6 +662,7 @@
 				15878A0C19910C2B0017374B /* NewsItem.m in Sources */,
 				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,
 				156E5D7F198B7B4C00D8B6DC /* GlobalCategoriesArray.m in Sources */,
+				15787E9919A5F9D600218BD5 /* CurrencyParcer.m in Sources */,
 				15878A091990FDA50017374B /* CacheFilesManager.m in Sources */,
 				15922063198FA699001CF232 /* LocalizationSystem.m in Sources */,
 				154F68EA1980528100FF3238 /* ShareViewController.m in Sources */,
@@ -645,6 +672,7 @@
 				156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */,
 				156E5D79198B7A6F00D8B6DC /* NewsSubCategoryItem.m in Sources */,
 				15F8331F19824FD700E91714 /* PageViewController.m in Sources */,
+				15787E9F19A6002B00218BD5 /* CurrencyCell.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
 				156AFA1B197CEE3F00813E2D /* newsModel.xcdatamodeld in Sources */,

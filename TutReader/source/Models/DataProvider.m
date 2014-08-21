@@ -109,7 +109,7 @@ SINGLETON(DataProvider)
 - (void)setupOnlineNews
 {
     if (self.needToRaloadNews) {
-        [[RemoteFacade instance] getOnlineNewsDataWithURL:[[DataProvider instance] newsURL] andCallback:^(NSData* data, NSError *error){
+        [[RemoteFacade instance] getDataWithURL:[[DataProvider instance] newsURL] andCallback:^(NSData* data, NSError *error){
             [[PersistenceFacade instance] getNewsItemsListFromData:data dataType:XML_DATA_TYPE withCallback:^(NSMutableArray* newsList, NSError *error){
                 [self setNews:newsList];
                 [self setNeedToRaloadNews:NO];
