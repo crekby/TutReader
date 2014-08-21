@@ -81,22 +81,24 @@
     cell.buy.text = currency.exchangeBuy;
     cell.sell.text = currency.exchangeSell;
     
+    cell.contentView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
+    
     if (currency.buyArrow == 1) {
-        cell.buyView.backgroundColor = [UIColor greenColor];
+        cell.buyView.backgroundColor = [UIColor colorWithRed:0 green:0.9 blue:0 alpha:0.5];
     } else if (currency.buyArrow == -1) {
-        cell.buyView.backgroundColor = [UIColor redColor];
+        cell.buyView.backgroundColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:0.5];
     } else
     {
-        cell.buyView.backgroundColor = [UIColor whiteColor];
+        cell.buyView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
     }
     
     if (currency.sellArrow == 1) {
-        cell.sellView.backgroundColor = [UIColor greenColor];
+        cell.sellView.backgroundColor = [UIColor colorWithRed:0 green:0.9 blue:0 alpha:0.5];
     } else if (currency.sellArrow == -1) {
-        cell.sellView.backgroundColor = [UIColor redColor];
+        cell.sellView.backgroundColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:0.5];
     } else
     {
-        cell.sellView.backgroundColor = [UIColor whiteColor];
+        cell.sellView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
     }
     
     return cell;
