@@ -52,6 +52,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.tabBarController.navigationItem.titleView) {
+        self.tabBarController.navigationItem.titleView = nil;
+    }
+}
+
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
