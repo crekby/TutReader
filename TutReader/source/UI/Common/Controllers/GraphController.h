@@ -12,4 +12,6 @@
 
 @property (nonatomic, strong) CPTGraphHostingView *hostView;
 
+-(void)initPlot;
+
 @end

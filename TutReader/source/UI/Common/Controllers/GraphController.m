@@ -34,7 +34,9 @@
 
 - (void) OrientationDidChangeNotification:(NSNotification*) notification
 {
-    self.hostView.frame = self.view.frame;
+    if (IS_IPHONE) {
+        self.hostView.frame = self.view.frame;
+    }
 }
 
 #pragma mark - UIViewController lifecycle methods
@@ -46,6 +48,7 @@
                                                  name:UIDeviceOrientationDidChangeNotification
                                                object:nil];
 }
+
 
 - (void)dealloc
 {

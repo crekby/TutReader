@@ -15,6 +15,7 @@
 #import <AVFoundation/AVSpeechSynthesis.h>
 #import "TabBarController.h"
 #import "NewsTableViewController.h"
+#import "GraphController.h"
 
 
 @interface PageViewController() <ShareViewControllerDelegate,UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIPopoverControllerDelegate,UINavigationControllerDelegate>
