@@ -247,14 +247,29 @@
     [self changeImage:self.favoriteBarButton];
     self.title = controller.loadedNews.newsTitle;
     controller.needToLoadOnViewAppear = YES;
+    UIPageViewController* pageController = self;
     if (self.viewControllers.count > 0) {
         if (![controller.loadedNews.newsTitle isEqualToString:[(WebViewController*)self.viewControllers[0] loadedNews].newsTitle]) {
-            [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+            [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished){
+                if(finished)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [pageController setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+                    });
+                }
+            }];
         }
     }
     else
     {
-        [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+        [self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:^(BOOL finished){
+            if(finished)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [pageController setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:NULL];
+                });
+            }
+        }];
     }
     
 }

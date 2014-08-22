@@ -208,10 +208,10 @@
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, view.frame.size.height / 2 - 9, tableView.frame.size.width, 18)];
-    [dateLabel setFont:[UIFont boldSystemFontOfSize:14]];
-    [dateLabel setText:[[DataProvider instance].datesInSection objectAtIndex:section]];
+    dateLabel.font = [UIFont boldSystemFontOfSize:14];
+    dateLabel.text = [[DataProvider instance].datesInSection objectAtIndex:section];
     [view addSubview:dateLabel];
-    [view setBackgroundColor:[UIColor colorWithRed:166/255.0 green:177/255.0 blue:186/255.0 alpha:1.0]];
+    view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
     return view;
 }
 
@@ -262,7 +262,7 @@
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
     }
-    //if (indexPath.row != [[DataProvider instance] selectedItem] && indexPath.section != [[DataProvider instance] selectedSection]) {
+    if (indexPath != [[DataProvider instance] selectedItem]) {
         [[DataProvider instance] setSelectedNews:indexPath];
         if (IS_IPHONE) {
             PageViewController* pageController = [self.storyboard instantiateViewControllerWithIdentifier:@"pageView"];
@@ -275,7 +275,7 @@
             [self trackNewsOpening];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
         }
-    //}
+    }
     
 }
 
