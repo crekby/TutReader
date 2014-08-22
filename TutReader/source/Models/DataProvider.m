@@ -143,22 +143,23 @@ SINGLETON(DataProvider)
 
 - (void) checkWhichOnlineNewsIsFavorite
 {
-#warning
-//    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
-//        NSMutableArray* requestResult = data;
-//        if (requestResult) {
-//            for (TUTNews* object in _localNewsArray) {
-//                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
-//                NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
-//                if (filteredArray.firstObject) {
-//                    object.isFavorite = YES;
-//                    object.coreDataObjectID = [(NewsItem*)filteredArray.firstObject objectID];
-//                }
-//            }
+    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
+        NSMutableArray* requestResult = data;
+        if (requestResult) {
+            for (int i=0; i<self.numberOfSections; i++) {
+                for (TUTNews* object in _localNewsArray[i]) {
+                    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
+                    NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
+                    if (filteredArray.firstObject) {
+                        object.isFavorite = YES;
+                        object.coreDataObjectID = [(NewsItem*)filteredArray.firstObject objectID];
+                    }
+                }
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE object:nil];
-//            //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
-//        }
-//    }];
+            //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
+        }
+    }];
     
 }
 
