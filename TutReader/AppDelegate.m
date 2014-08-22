@@ -18,8 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-#warning google analytics turned off
-    //[[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
+    [[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
     [[SettingsManager instance] setupSettings];
     [[GlobalCategoriesArray instance] setupCategories];
     return YES;

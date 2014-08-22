@@ -200,8 +200,9 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, view.frame.size.height / 2 - 8, tableView.frame.size.width, 18)];
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.size.height / 2 - 8, tableView.frame.size.width, 18)];
     dateLabel.font = [UIFont boldSystemFontOfSize:14];
+    dateLabel.textAlignment = NSTextAlignmentCenter;
     dateLabel.text = [[DataProvider instance].datesInSection objectAtIndex:section];
     [view addSubview:dateLabel];
     view.layer.borderWidth = .5f;
