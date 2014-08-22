@@ -161,7 +161,6 @@
                                     <outlet property="newsDescription" destination="rTJ-hB-Vrn" id="lIN-cM-Obz"/>
                                     <outlet property="newsTitle" destination="QMR-pm-tWh" id="DJJ-a4-Icb"/>
                                     <outlet property="shareButton" destination="dad-1J-u2S" id="vUA-py-Lfi"/>
-                                    <segue destination="Z8h-3T-SPw" kind="push" id="t4u-kM-tXT"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -259,7 +258,7 @@
         <!--Page View Controller-->
         <scene sceneID="Mqy-8Q-pg1">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Z8h-3T-SPw" customClass="PageViewController" sceneMemberID="viewController">
+                <pageViewController storyboardIdentifier="pageView" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Z8h-3T-SPw" customClass="PageViewController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="iGL-wo-aFW"/>
                 </pageViewController>
@@ -703,7 +702,6 @@
                                     <outlet property="newsDescription" destination="TVJ-gV-ArP" id="1EJ-Fg-Egh"/>
                                     <outlet property="newsTitle" destination="1Ga-4F-z2R" id="9Q4-xF-fMM"/>
                                     <outlet property="shareButton" destination="9Mf-Ri-Kxy" id="xeN-9y-QKv"/>
-                                    <segue destination="Z8h-3T-SPw" kind="push" id="RG7-nF-Ce2"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -762,7 +760,4 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
-    <inferredMetricsTieBreakers>
-        <segue reference="t4u-kM-tXT"/>
-    </inferredMetricsTieBreakers>
 </document>
