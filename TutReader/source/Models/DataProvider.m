@@ -66,11 +66,18 @@ SINGLETON(DataProvider)
 
 - (TUTNews*) newsAtIndexPath:(NSIndexPath *)path
 {
-    NSArray* news = [NSArray arrayWithArray:_localNewsArray[path.section]];
-    if (path.row < news.count)
-        return [[_localNewsArray objectAtIndex:path.section] objectAtIndex:path.row];
+    if (path.section < _localNewsArray.count) {
+        NSArray* news = [NSArray arrayWithArray:_localNewsArray[path.section]];
+        if (path.row < news.count)
+            return [[_localNewsArray objectAtIndex:path.section] objectAtIndex:path.row];
+        else
+            return nil;
+    }
     else
+    {
         return nil;
+    }
+    
 }
 
 - (void) removeNewsAtPath:(NSIndexPath *)path

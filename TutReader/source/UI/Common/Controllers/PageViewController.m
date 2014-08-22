@@ -178,7 +178,7 @@
         return nil;
     }
     
-    if (index == [[DataProvider instance] newsInSection:section].count - 1) {
+    if (index >= [[DataProvider instance] newsInSection:section].count - 1) {
         section++;
         index = 0;
     }
@@ -266,6 +266,9 @@
     #warning
     [controller loadWithNews:[[DataProvider instance] newsAtIndexPath:[NSIndexPath indexPathForRow:index inSection:section]]];
     controller.needToLoadOnViewAppear = YES;
+    if (controller.loadedNews == nil) {
+        return nil;
+    }
     return controller;
 }
 

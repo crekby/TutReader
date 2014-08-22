@@ -39,7 +39,7 @@
 
 @property (nonatomic, strong) UIView* activityIndicatorView;
 
-@property (nonatomic, assign) NSIndexPath* selectedNews;
+@property (nonatomic, strong) NSIndexPath* selectedNews;
 
 @end
 
@@ -342,7 +342,8 @@
         
         if ([[DataProvider instance] newsInSection:0].count>0)
         {
-#warning
+#warning jj
+            NSLog(@"%@",self.selectedNews);
             [[DataProvider instance] setSelectedNews:self.selectedNews];
             [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:self.selectedNews]];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
