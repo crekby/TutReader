@@ -50,6 +50,7 @@
 		15787E9919A5F9D600218BD5 /* CurrencyParcer.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9819A5F9D600218BD5 /* CurrencyParcer.m */; };
 		15787E9C19A5FE0B00218BD5 /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9B19A5FE0B00218BD5 /* Currency.m */; };
 		15787E9F19A6002B00218BD5 /* CurrencyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9E19A6002B00218BD5 /* CurrencyCell.m */; };
+		157A5B7D19A7895600C6C030 /* ModalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 157A5B7C19A7895600C6C030 /* ModalManager.m */; };
 		158321F11993AEBA00D1F648 /* FavoriteImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 158321F01993AEBA00D1F648 /* FavoriteImage.m */; };
 		15878A061990DB260017374B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A051990DB260017374B /* NSString+MD5.m */; };
 		15878A091990FDA50017374B /* CacheFilesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15878A081990FDA50017374B /* CacheFilesManager.m */; };
@@ -153,6 +154,8 @@
 		15787E9B19A5FE0B00218BD5 /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Currency.m; path = Source/Models/Currency.m; sourceTree = "<group>"; };
 		15787E9D19A6002B00218BD5 /* CurrencyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrencyCell.h; path = Source/UI/Common/Cells/CurrencyCell.h; sourceTree = "<group>"; };
 		15787E9E19A6002B00218BD5 /* CurrencyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrencyCell.m; path = Source/UI/Common/Cells/CurrencyCell.m; sourceTree = "<group>"; };
+		157A5B7B19A7895600C6C030 /* ModalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalManager.h; path = Source/Managers/ModalManager.h; sourceTree = "<group>"; };
+		157A5B7C19A7895600C6C030 /* ModalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalManager.m; path = Source/Managers/ModalManager.m; sourceTree = "<group>"; };
 		158321EF1993AEBA00D1F648 /* FavoriteImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteImage.h; path = Source/Models/FavoriteImage.h; sourceTree = "<group>"; };
 		158321F01993AEBA00D1F648 /* FavoriteImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FavoriteImage.m; path = Source/Models/FavoriteImage.m; sourceTree = "<group>"; };
 		15878A041990DB260017374B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+MD5.h"; path = "Source/Categories/NSString+MD5.h"; sourceTree = "<group>"; };
@@ -269,6 +272,8 @@
 				15E5B61419922099001140FA /* SettingsManager.m */,
 				159BC877199DEA670072C54B /* SpeechManager.h */,
 				159BC878199DEA670072C54B /* SpeechManager.m */,
+				157A5B7B19A7895600C6C030 /* ModalManager.h */,
+				157A5B7C19A7895600C6C030 /* ModalManager.m */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -640,6 +645,7 @@
 			files = (
 				15787E9C19A5FE0B00218BD5 /* Currency.m in Sources */,
 				15060DF9197F995400E68EB1 /* Reachability.m in Sources */,
+				157A5B7D19A7895600C6C030 /* ModalManager.m in Sources */,
 				156AFA23197CEF5000813E2D /* NewsTableViewController.m in Sources */,
 				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
 				15060E05197FE74E00E68EB1 /* GoogleAnalyticsManager.m in Sources */,

@@ -488,7 +488,7 @@
         <!--Currency Table View Controller - Item-->
         <scene sceneID="10s-Zb-0pX">
             <objects>
-                <tableViewController id="QaT-KB-HiM" customClass="CurrencyTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="currencyView" id="QaT-KB-HiM" customClass="CurrencyTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="Uob-ox-G02">
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
