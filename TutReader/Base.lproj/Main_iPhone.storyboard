@@ -259,7 +259,7 @@
         <!--Page View Controller-->
         <scene sceneID="Mqy-8Q-pg1">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="none" id="Z8h-3T-SPw" customClass="PageViewController" sceneMemberID="viewController">
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Z8h-3T-SPw" customClass="PageViewController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="iGL-wo-aFW"/>
                 </pageViewController>
