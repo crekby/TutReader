@@ -29,11 +29,7 @@
 
 @property (strong, nonatomic) CategoryTableViewController* categoryController;
 
-//@property (strong, nonatomic) NSSet* categorySet;
-
 @property (strong, nonatomic) NSMutableArray* tableContent;
-
-//@property (strong, nonatomic) NSMutableArray* selectedCategories;
 
 @property (nonatomic, strong) UIButton *categoryNavigationItemButton;
 
@@ -122,13 +118,10 @@
         return;
     }
     if (self.newsType == ONLINE) {
-        //[self reloadTableView];
         [[DataProvider instance] setNeedToRaloadNews:YES];
         [self initOnlineNewsList];
     }
     [self loadData];
-    
-    //self.navigationItem.titleView = titleLabel;
 }
 
 #pragma mark - Init Data Methods
@@ -181,7 +174,6 @@
 {
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
-        //[self reloadTableView];
     }
     else
     {

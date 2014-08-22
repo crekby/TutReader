@@ -26,11 +26,8 @@
     [super viewDidLoad];
     self.categoriesContent = [GlobalCategoriesArray instance].categories;
     self.firstTime = YES;
-//    self.tableView.layer.cornerRadius = 10.0f;
     self.tableView.layer.borderWidth = 1.0f;
     self.tableView.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    //self.tableView.backgroundColor = [UIColor clearColor];
-    //self.tableView.layer.masksToBounds = YES;
 }
 
 - (void)openCategoryListAboveView:(UIView *)view
