@@ -166,7 +166,6 @@
 
 - (void) selectRow:(NSNotification*)notification
 {
-#warning  d
     if ([[DataProvider instance] newsInSection:0].count>0) {
         NSIndexPath* indexPath = notification.object;
         if ([self.newsTableView numberOfRowsInSection:indexPath.section] > indexPath.row) {
@@ -285,31 +284,28 @@
 - (void)favoriteButtonAction:(UITableViewCell *)sender
 {
     NewsCell* cell = (NewsCell*) sender;
-    unsigned long index = [self.newsTableView indexPathForCell:cell].row;
-    #warning
-    TUTNews* news ;//= [[DataProvider instance] newsAtIndex:index];
+    NSIndexPath* index = [self.newsTableView indexPathForCell:cell];
+    TUTNews* news = [[DataProvider instance] newsAtIndexPath:index];
     if (news.isFavorite) {
-        #warning
-//        [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[[DataProvider instance] newsAtIndex:index] andCallback:^(id data, NSError* error){
-//            NSLog(@"%@",error.localizedDescription);
-//            if (!error) {
-//                [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
-//                if (self.newsType == FAVORITE) {
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:@(index)];
-//
-//                }
-//            }
-//        }];
+        [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[[DataProvider instance] newsAtIndexPath:index] andCallback:^(id data, NSError* error){
+            NSLog(@"%@",error.localizedDescription);
+            if (!error) {
+                [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
+                if (self.newsType == FAVORITE) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:index];
+
+                }
+            }
+        }];
     }
     else
     {
-        #warning
-//        [[FavoriteNewsManager instance] favoriteNewsOperation:ADD_TO_FAVORITE withNews:[[DataProvider instance] newsAtIndex:index] andCallback:^(id data, NSError* error){
-//            NSLog(@"%@",error.localizedDescription);
-//            if (!error) {
-//                [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
-//            }
-//        }];
+        [[FavoriteNewsManager instance] favoriteNewsOperation:ADD_TO_FAVORITE withNews:[[DataProvider instance] newsAtIndexPath:index] andCallback:^(id data, NSError* error){
+            NSLog(@"%@",error.localizedDescription);
+            if (!error) {
+                [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
+            }
+        }];
     }
 }
 
@@ -342,8 +338,6 @@
         
         if ([[DataProvider instance] newsInSection:0].count>0)
         {
-#warning jj
-            NSLog(@"%@",self.selectedNews);
             [[DataProvider instance] setSelectedNews:self.selectedNews];
             [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:self.selectedNews]];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
@@ -374,9 +368,8 @@
 
 - (void) changeImage:(NewsCell*) cell
 {
-    unsigned long index = [self.newsTableView indexPathForCell:cell].row;
-    #warning
-    //[cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndex:index]]];
+    NSIndexPath* index = [self.newsTableView indexPathForCell:cell];
+    [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndexPath:index]]];
 }
 
 - (void) changeOrientation
@@ -392,12 +385,13 @@
 - (void)removeNewsAtIndex:(NSNotification*)notification
 {
     if (self.newsType==FAVORITE) {
-        int index = [(NSNumber*)notification.object intValue];
-        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        NSIndexPath *index = notification.object;
         [self.newsTableView beginUpdates];
-        #warning
-        //[[DataProvider instance] removeNewsAtIndex:index];
-        [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [[DataProvider instance] removeNewsAtPath:index];
+        [self.newsTableView deleteRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationLeft];
+        if ([self.newsTableView numberOfRowsInSection:index.section]-1 == 0) {
+            [self.newsTableView deleteSections:[NSIndexSet indexSetWithIndex:index.section] withRowAnimation:UITableViewRowAnimationLeft];
+        }
         [self.newsTableView endUpdates];
         [self.newsTableView reloadData];
     }

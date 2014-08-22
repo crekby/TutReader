@@ -43,7 +43,7 @@ SINGLETON(DataProvider)
 
 - (NSMutableArray*) newsInSection:(unsigned long)section
 {
-    if (_localNewsArray.count > 0) {
+    if (_localNewsArray.count > 0 && _localNewsArray.count > section) {
         return _localNewsArray[section];
     }
     else
@@ -84,6 +84,10 @@ SINGLETON(DataProvider)
 {
     if (path.row < [_localNewsArray[path.section] count]) {
         [_localNewsArray[path.section] removeObjectAtIndex:path.row];
+        if ([[_localNewsArray objectAtIndex:path.section] count] == 0) {
+            [_localNewsArray removeObjectAtIndex:path.section];
+            _numberOfSections--;
+        }
     }
 }
 
