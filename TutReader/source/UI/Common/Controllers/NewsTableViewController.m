@@ -39,7 +39,7 @@
 
 @property (nonatomic, strong) UIView* activityIndicatorView;
 
-@property (nonatomic, assign) unsigned long selectedNews;
+@property (nonatomic, strong) NSIndexPath* selectedNews;
 
 @end
 
@@ -106,7 +106,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.selectedNews = [self.newsTableView indexPathForSelectedRow].row;
+    self.selectedNews = [self.newsTableView indexPathForSelectedRow];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -115,7 +115,7 @@
     if (self.afterRotation) {
         if (IS_IPAD) {
             self.selectedNews = [[DataProvider instance]  selectedItem];
-            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)]];
+            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:self.selectedNews]];
         }
         self.afterRotation = NO;
         return;
@@ -166,11 +166,10 @@
 
 - (void) selectRow:(NSNotification*)notification
 {
-    if ([DataProvider instance].news.count>0) {
-        NSNumber* rowToSelect = notification.object;
-        if ([self.newsTableView numberOfRowsInSection:0]>rowToSelect.intValue) {
-            NSIndexPath* index = [NSIndexPath indexPathForRow:rowToSelect.intValue inSection:0];
-            [self.newsTableView selectRowAtIndexPath:index animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    if ([[DataProvider instance] newsInSection:0].count>0) {
+        NSIndexPath* indexPath = notification.object;
+        if ([self.newsTableView numberOfRowsInSection:indexPath.section] > indexPath.row) {
+            [self.newsTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
         }
     }
 }
@@ -194,7 +193,7 @@
 - (void)categoriesDidClose
 {
     self.notFirstLaunch = NO;
-    self.selectedNews = 0;
+    self.selectedNews = [NSIndexPath indexPathForRow:0 inSection:0];
     [self initOnlineNewsList];
 }
 
@@ -202,12 +201,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[DataProvider instance] numberOfSections];
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, view.frame.size.height / 2 - 9, tableView.frame.size.width, 18)];
+    dateLabel.font = [UIFont boldSystemFontOfSize:14];
+    dateLabel.text = [[DataProvider instance].datesInSection objectAtIndex:section];
+    [view addSubview:dateLabel];
+    view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
+    return view;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [DataProvider instance].news.count;
+    return [[DataProvider instance] newsInSection:section].count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,11 +229,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NewsCell *cell = [tableView dequeueReusableCellWithIdentifier:NEWS_CELL_IDENTIFICATOR forIndexPath:indexPath];
-    
-    TUTNews* newsToShow = [[DataProvider instance] newsAtIndex:indexPath.row];
+    TUTNews* newsToShow = [[DataProvider instance] newsAtIndexPath:indexPath];
     
     [cell setNewsItem:newsToShow];
-    [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndex:indexPath.row]]];
+    [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndexPath:indexPath]]];
     if (!cell.delegate) cell.delegate = self;
     if (!newsToShow.imageCacheUrl) {
         [cell setImage:[UIImage imageNamed:IMAGE_NOT_AVAILABLE]];
@@ -246,9 +255,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (IS_IPHONE) {
-        return;
-    }
     if (self.openSwipeCell) {
         [self.openSwipeCell closeSwipe];
     }
@@ -256,10 +262,19 @@
     if (self.categoryController.isOpen) {
         [self.categoryController closeCategoryList];
     }
-    if (indexPath.row != [[DataProvider instance] selectedItem]) {
-        [[DataProvider instance] setSelectedNews:indexPath.row];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
-        [self trackNewsOpening];
+    if (indexPath != [[DataProvider instance] selectedItem]) {
+        [[DataProvider instance] setSelectedNews:indexPath];
+        if (IS_IPHONE) {
+            PageViewController* pageController = [self.storyboard instantiateViewControllerWithIdentifier:@"pageView"];
+            [self.navigationController pushViewController:pageController animated:YES];
+            [pageController setupNews];
+            [self trackNewsOpening];
+        }
+        else
+        {
+            [self trackNewsOpening];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
+        }
     }
     
 }
@@ -269,15 +284,15 @@
 - (void)favoriteButtonAction:(UITableViewCell *)sender
 {
     NewsCell* cell = (NewsCell*) sender;
-    unsigned long index = [self.newsTableView indexPathForCell:cell].row;
-    TUTNews* news = [[DataProvider instance] newsAtIndex:index];
+    NSIndexPath* index = [self.newsTableView indexPathForCell:cell];
+    TUTNews* news = [[DataProvider instance] newsAtIndexPath:index];
     if (news.isFavorite) {
-        [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[[DataProvider instance] newsAtIndex:index] andCallback:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[[DataProvider instance] newsAtIndexPath:index] andCallback:^(id data, NSError* error){
             NSLog(@"%@",error.localizedDescription);
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
                 if (self.newsType == FAVORITE) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:@(index)];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:index];
 
                 }
             }
@@ -285,7 +300,7 @@
     }
     else
     {
-        [[FavoriteNewsManager instance] favoriteNewsOperation:ADD_TO_FAVORITE withNews:[[DataProvider instance] newsAtIndex:index] andCallback:^(id data, NSError* error){
+        [[FavoriteNewsManager instance] favoriteNewsOperation:ADD_TO_FAVORITE withNews:[[DataProvider instance] newsAtIndexPath:index] andCallback:^(id data, NSError* error){
             NSLog(@"%@",error.localizedDescription);
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
@@ -307,20 +322,6 @@
     self.openSwipeCell = nil;
 }
 
-#pragma mark - PrepareForSegue
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if (self.categoryController.isOpen) {
-        [self.categoryController closeCategoryList];
-    }
-    NewsCell* cell = (NewsCell*)sender;
-    [[DataProvider instance] setSelectedNews:[[DataProvider instance] indexForNews:cell.newsItem]];
-    [(PageViewController*)[segue destinationViewController] setupNews];
-    [self trackNewsOpening];
-}
-
-
 #pragma mark - Private Methods
 
 - (void) reloadTableView
@@ -335,13 +336,13 @@
             return;
         }
         
-//        if ([DataProvider instance].news.count>0)
-//        {
+        if ([[DataProvider instance] newsInSection:0].count>0)
+        {
             [[DataProvider instance] setSelectedNews:self.selectedNews];
-            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:@(self.selectedNews)]];
+            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:self.selectedNews]];
             [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
             self.notFirstLaunch = YES;
-        //}
+        }
     }
 }
 
@@ -367,8 +368,8 @@
 
 - (void) changeImage:(NewsCell*) cell
 {
-    unsigned long index = [self.newsTableView indexPathForCell:cell].row;
-    [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndex:index]]];
+    NSIndexPath* index = [self.newsTableView indexPathForCell:cell];
+    [cell setButtonImage:[[FavoriteImage instance] imageForNews:[[DataProvider instance] newsAtIndexPath:index]]];
 }
 
 - (void) changeOrientation
@@ -384,11 +385,13 @@
 - (void)removeNewsAtIndex:(NSNotification*)notification
 {
     if (self.newsType==FAVORITE) {
-        int index = [(NSNumber*)notification.object intValue];
-        NSIndexPath* indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+        NSIndexPath *index = notification.object;
         [self.newsTableView beginUpdates];
-        [[DataProvider instance] removeNewsAtIndex:index];
-        [self.newsTableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [[DataProvider instance] removeNewsAtPath:index];
+        [self.newsTableView deleteRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationLeft];
+        if ([self.newsTableView numberOfRowsInSection:index.section]-1 == 0) {
+            [self.newsTableView deleteSections:[NSIndexSet indexSetWithIndex:index.section] withRowAnimation:UITableViewRowAnimationLeft];
+        }
         [self.newsTableView endUpdates];
         [self.newsTableView reloadData];
     }

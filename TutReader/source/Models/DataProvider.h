@@ -11,20 +11,26 @@
 @interface DataProvider : NSObject
 
 + (DataProvider*) instance;
-@property (nonatomic, assign) NSString* newsURL;
+@property (nonatomic, strong) NSString* newsURL;
 @property (nonatomic, assign) BOOL needToRaloadNews;
-@property (nonatomic, readonly) unsigned long selectedItem;
+@property (nonatomic, readonly, strong) NSIndexPath* selectedItem;
+@property (nonatomic, readonly, assign) unsigned long numberOfSections;
+@property (nonatomic, readonly, strong) NSMutableArray* datesInSection;
 
 
-- (NSMutableArray*) news;
-- (TUTNews*) newsAtIndex:(unsigned long) index;
+- (NSMutableArray*) newsInSection: (unsigned long) section;
+- (TUTNews*) newsAtIndexPath:(NSIndexPath*) path;
 - (TUTNews*) selectedNews;
-- (void) setSelectedNews:(unsigned long) index;
-- (void) removeNewsAtIndex:(unsigned long) index;
-- (unsigned long) indexForNews:(TUTNews*) news;
+- (void) setSelectedNews:(NSIndexPath*) path;
+- (void) removeNewsAtPath:(NSIndexPath*) path;
+- (NSIndexPath*) indexPathForNews:(TUTNews*) news;
 
 
 - (void) setupOnlineNews;
 - (void) setupFavoriteNews;
+
+
+- (NSOrderedSet*) daysInNews:(NSArray*) news;
+- (NSArray*) newsByDate:(NSString*) dateString fromArray:(NSArray*) array;
 
 @end
