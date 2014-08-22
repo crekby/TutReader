@@ -24,7 +24,6 @@
 - (void) setSelectedNews:(NSIndexPath*) path;
 - (void) removeNewsAtPath:(NSIndexPath*) path;
 - (NSIndexPath*) indexPathForNews:(TUTNews*) news;
-//- (unsigned long) sectionForNews:(TUTNews*) news;
 
 
 - (void) setupOnlineNews;

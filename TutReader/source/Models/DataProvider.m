@@ -87,11 +87,6 @@ SINGLETON(DataProvider)
     }
 }
 
-- (void) insertNews: (TUTNews*) news;
-{
-    [_localNewsArray insertObject:news atIndex:_localNewsArray.count];
-}
-
 - (void) setSelectedNews:(NSIndexPath *)path
 {
     _selectedItem = path;
@@ -168,13 +163,14 @@ SINGLETON(DataProvider)
     [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
         NSArray* requestResult = data;
         if (requestResult) {
-            [self clearArray];
+            NSMutableArray* array = [NSMutableArray new];
             for (NewsItem* object in requestResult) {
                 TUTNews* favoriteNews = [[TUTNews alloc] initWithManagedObject:object];
                 if (favoriteNews.newsURL) {
-                    [self insertNews:favoriteNews];
+                    [array insertObject:favoriteNews atIndex:array.count];
                 }
             }
+            [self setNews:array];
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE object:nil];
             //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
         }
