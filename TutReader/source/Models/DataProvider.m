@@ -28,17 +28,28 @@ SINGLETON(DataProvider)
 - (void) setNews:(NSMutableArray*) news
 {
     if (news) {
-        if (_localNewsArray!=news) {
-            [self clearArray];
-            _localNewsArray = news;
+        _numberOfSections = 0;
+        [self clearArray];
+        _datesInSection = [NSMutableArray new];
+        for (NSString* date in [self daysInNews:news]) {
+            NSMutableArray* sectionArray = [NSMutableArray new];
+            sectionArray = [self newsByDate:date fromArray:news].mutableCopy;
+            [_datesInSection insertObject:date atIndex:_datesInSection.count];
+            [_localNewsArray insertObject:sectionArray atIndex:_localNewsArray.count];
+            _numberOfSections++;
         }
-        
     }
 }
 
-- (NSMutableArray*) news
+- (NSMutableArray*) newsInSection:(unsigned long)section
 {
-    return _localNewsArray;
+    if (_localNewsArray.count > 0) {
+        return _localNewsArray[section];
+    }
+    else
+    {
+        return nil;
+    }
 }
 
 - (void)setNewsURL:(NSString *)newsURL
@@ -53,18 +64,19 @@ SINGLETON(DataProvider)
     }
 }
 
-- (TUTNews*) newsAtIndex:(unsigned long) index
+- (TUTNews*) newsAtIndexPath:(NSIndexPath *)path
 {
-    if (index<_localNewsArray.count)
-        return _localNewsArray[index];
+    NSArray* news = [NSArray arrayWithArray:_localNewsArray[path.section]];
+    if (path.row < news.count)
+        return [[_localNewsArray objectAtIndex:path.section] objectAtIndex:path.row];
     else
         return nil;
 }
 
-- (void) removeNewsAtIndex:(unsigned long) index
+- (void) removeNewsAtPath:(NSIndexPath *)path
 {
-    if (index<_localNewsArray.count) {
-        [_localNewsArray removeObjectAtIndex:index];
+    if (path.row < [_localNewsArray[path.section] count]) {
+        [_localNewsArray[path.section] removeObjectAtIndex:path.row];
     }
 }
 
@@ -73,32 +85,36 @@ SINGLETON(DataProvider)
     [_localNewsArray insertObject:news atIndex:_localNewsArray.count];
 }
 
-- (void) setSelectedNews:(unsigned long) index
+- (void) setSelectedNews:(NSIndexPath *)path
 {
-    _selectedItem = index;
+    _selectedItem = path;
 }
 
-- (unsigned long) indexForNews:(TUTNews*) news
+- (NSIndexPath*) indexPathForNews:(TUTNews*) news
 {
-    unsigned long index = [_localNewsArray indexOfObject:news];
-    if (index == NSNotFound) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(newsTitle ==  %@)",news.newsTitle];
-        NSArray *filteredArray = [_localNewsArray filteredArrayUsingPredicate:predicate];
-        if (filteredArray.firstObject) {
-            index = [_localNewsArray indexOfObject:filteredArray.firstObject];
+    NSIndexPath* indexPath;
+    for (NSArray* array in _localNewsArray) {
+        unsigned long index = [array indexOfObject:news];
+        if (index == NSNotFound) {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(newsTitle ==  %@)",news.newsTitle];
+            NSArray *filteredArray = [array filteredArrayUsingPredicate:predicate];
+            if (filteredArray.firstObject) {
+                index = [array indexOfObject:filteredArray.firstObject];
+                return [NSIndexPath indexPathForRow:index inSection:[_localNewsArray indexOfObject:array]];
+            }
         }
         else
         {
-            return NSNotFound;
+            return [NSIndexPath indexPathForRow:index inSection:[_localNewsArray indexOfObject:array]];
         }
     }
-    return index;
+    return indexPath;
 }
 
 - (TUTNews*) selectedNews
 {
-    if (_localNewsArray.count>self.selectedItem) {
-        return _localNewsArray[self.selectedItem];
+    if ([_localNewsArray[_selectedItem.section] count] > _selectedItem.row) {
+        return [_localNewsArray[_selectedItem.section] objectAtIndex:_selectedItem.row];
     }
     else
     {
@@ -121,21 +137,22 @@ SINGLETON(DataProvider)
 
 - (void) checkWhichOnlineNewsIsFavorite
 {
-    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
-        NSMutableArray* requestResult = data;
-        if (requestResult) {
-            for (TUTNews* object in _localNewsArray) {
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
-                NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
-                if (filteredArray.firstObject) {
-                    object.isFavorite = YES;
-                    object.coreDataObjectID = [(NewsItem*)filteredArray.firstObject objectID];
-                }
-            }
+#warning
+//    [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
+//        NSMutableArray* requestResult = data;
+//        if (requestResult) {
+//            for (TUTNews* object in _localNewsArray) {
+//                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(title ==  %@)",object.newsTitle];
+//                NSArray *filteredArray = [requestResult filteredArrayUsingPredicate:predicate];
+//                if (filteredArray.firstObject) {
+//                    object.isFavorite = YES;
+//                    object.coreDataObjectID = [(NewsItem*)filteredArray.firstObject objectID];
+//                }
+//            }
             [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE object:nil];
-            //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
-        }
-    }];
+//            //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
+//        }
+//    }];
     
 }
 
@@ -156,6 +173,35 @@ SINGLETON(DataProvider)
         }
     }];
 }
+
+- (NSOrderedSet*) daysInNews:(NSArray*) news
+{
+    NSOrderedSet* set = [NSOrderedSet new];
+    NSMutableArray* array = [NSMutableArray new];
+    for (TUTNews* newsItem in news) {
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        dateFormatter.dateFormat = @"dd-MM-yy";
+        
+        NSString *dateString = [dateFormatter stringFromDate: newsItem.pubDate];
+        [array insertObject:dateString atIndex:array.count];
+    }
+    set = [NSOrderedSet orderedSetWithArray:array];
+    NSLog(@"Days In News: %d",set.count);
+    return set;
+}
+
+- (NSArray*) newsByDate:(NSString*) dateString fromArray:(NSArray*) array
+{
+    NSDateFormatter* formater = [NSDateFormatter new];
+    formater.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"];
+    formater.dateFormat = @"dd-MM-yy";
+    NSDate* date = [[formater dateFromString:dateString] dateByAddingTimeInterval:3*60*60];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(pubDate >=  %@ && pubDate < %@)",date,[date dateByAddingTimeInterval:60*60*24]];
+    NSArray *filteredArray = [array filteredArrayUsingPredicate:predicate];
+    NSLog(@"News by Date: %d",filteredArray.count);
+    return filteredArray;
+}
+
 
 
 @end

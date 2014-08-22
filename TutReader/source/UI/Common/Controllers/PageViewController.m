@@ -107,13 +107,14 @@
     {
         [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[DataProvider instance].selectedNews andCallback:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
-            NSNumber* rowToSelect = @([[DataProvider instance] selectedItem]);
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
-            if ([DataProvider instance].selectedItem>=[DataProvider instance].news.count) {
-                [[DataProvider instance] setSelectedNews:[DataProvider instance].news.count-1];
-                rowToSelect = @([DataProvider instance].news.count-1);
-            }
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
+            //NSNumber* rowToSelect = @([[DataProvider instance] selectedItem].row);
+            //[[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
+            #warning
+//            if ([DataProvider instance].selectedItem>=[DataProvider instance].news.count) {
+//                [[DataProvider instance] setSelectedNews:[DataProvider instance].news.count-1];
+//                rowToSelect = @([DataProvider instance].news.count-1);
+//            }
+            //[[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
             [self setupNews];
         }];
     }
@@ -141,28 +142,51 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSUInteger index = [[DataProvider instance] indexForNews:[(WebViewController*)viewController loadedNews]];
-    if ((index == 0) || (index == NSNotFound)) {
+    TUTNews* newsItem = [(WebViewController*)viewController loadedNews];
+    NSIndexPath* path = [[DataProvider instance] indexPathForNews:newsItem];
+    NSInteger index = path.row;
+    NSInteger section = path.section;
+    
+    if ( ((index == 0) && (section == 0)) || (index == NSNotFound)) {
         return nil;
     }
     
-    index--;
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    if (index == 0) {
+        section--;
+        index = [[DataProvider instance] newsInSection:section].count-1;
+    }
+    else
+    {
+        index--;
+    }
+    
+    return [self viewControllerAtIndex:index inSection:section storyboard:self.storyboard];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
     TUTNews* newsItem = [(WebViewController*)viewController loadedNews];
-    NSUInteger index = [[DataProvider instance] indexForNews:newsItem];
+    NSIndexPath* path = [[DataProvider instance] indexPathForNews:newsItem];
+    NSInteger index = path.row;
+    NSInteger section = path.section;
+    
     if (index == NSNotFound) {
         return nil;
     }
     
-    index++;
-    if (index == [DataProvider instance].news.count) {
+    if ((index == [[DataProvider instance] newsInSection:section].count - 1) && (section == [[DataProvider instance] numberOfSections])) {
         return nil;
     }
-    return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    
+    if (index == [[DataProvider instance] newsInSection:section].count - 1) {
+        section++;
+        index = 0;
+    }
+    else
+    {
+        index++;
+    }
+    return [self viewControllerAtIndex:index inSection:section storyboard:self.storyboard];
 }
 
 #pragma mark - Share controller delegate
@@ -236,10 +260,11 @@
     
 }
 
-- (WebViewController*) viewControllerAtIndex:(unsigned long)index storyboard:(UIStoryboard*)storyboard
+- (WebViewController*) viewControllerAtIndex:(unsigned long)index inSection:(unsigned long) section storyboard:(UIStoryboard*)storyboard
 {
     WebViewController* controller = [storyboard instantiateViewControllerWithIdentifier:WEB_VIEW_CONTROLLER_IDENTIFICATOR];
-    [controller loadWithNews:[[DataProvider instance] newsAtIndex:index]];
+    #warning
+    [controller loadWithNews:[[DataProvider instance] newsAtIndexPath:[NSIndexPath indexPathForRow:index inSection:section]]];
     controller.needToLoadOnViewAppear = YES;
     return controller;
 }
@@ -279,21 +304,22 @@
 
 - (void) selectRow:(WebViewController*) controller
 {
-    NSInteger index;
+    NSIndexPath* path;
     if (controller) {
-        index = [[DataProvider instance] indexForNews:controller.loadedNews];
+        path = [[DataProvider instance] indexPathForNews:controller.loadedNews];
     }
     else
     {
-        index = [[DataProvider instance] selectedItem];
+        path = [[DataProvider instance] selectedItem];
     }
-    if (index == NSNotFound) {
+    if (path.row == NSNotFound) {
         return;
     }
-    [[DataProvider instance] setSelectedNews:index];
+    #warning
+    [[DataProvider instance] setSelectedNews:path];
     [self changeImage:self.favoriteBarButton];
     if (IS_IPAD) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:@(index)];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:path];
     }
 }
 

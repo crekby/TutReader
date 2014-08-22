@@ -65,27 +65,27 @@
     
     self.data = [NSMutableDictionary new];
     self.max = 0;
-    
-    for (TUTNews* newsItem in [[DataProvider instance] news]) {
-        NSDate *date = newsItem.pubDate;
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
-        NSInteger hour = [components hour];
-        NSNumber* value = [self.data objectForKey:[NSString stringWithFormat:@"%d",hour]];
-        if (value) {
-            value = @(value.intValue+1);
-        }
-        else
-        {
-            value = @(1);
-        }
-        
-        if (value.integerValue > self.max.integerValue) {
-            self.max = @(value.integerValue);
-        }
-        
-        [self.data setValue:value forKey:[NSString stringWithFormat:@"%d",hour]];
-    }
+    #warning
+//    for (TUTNews* newsItem in [[DataProvider instance] news]) {
+//        NSDate *date = newsItem.pubDate;
+//        NSCalendar *calendar = [NSCalendar currentCalendar];
+//        NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+//        NSInteger hour = [components hour];
+//        NSNumber* value = [self.data objectForKey:[NSString stringWithFormat:@"%d",hour]];
+//        if (value) {
+//            value = @(value.intValue+1);
+//        }
+//        else
+//        {
+//            value = @(1);
+//        }
+//        
+//        if (value.integerValue > self.max.integerValue) {
+//            self.max = @(value.integerValue);
+//        }
+//        
+//        [self.data setValue:value forKey:[NSString stringWithFormat:@"%d",hour]];
+//    }
     [self initPlot];
 }
 

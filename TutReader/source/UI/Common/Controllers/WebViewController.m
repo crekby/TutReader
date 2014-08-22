@@ -33,6 +33,8 @@
     if (self.loadedNews) {
         if (self.webView.isLoading) [self.webView stopLoading];
         [self.activityIndicator startAnimating];
+        NSIndexPath* path = [[DataProvider instance] indexPathForNews:[self loadedNews]];
+        NSLog(@"index: %d inSection: %d", path.row , path.section);
     }
 }
 
