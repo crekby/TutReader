@@ -11,6 +11,8 @@
 "ONLINE_TITLE" = "Онлайн";
 "FAVORITE_TITLE" = "Избранные";
 "CATEGORIES_TITLE" = "Рубрики";
+"GRAPH_TITLE" = "График";
+"CURRENCY_TITLE" = "Курс Валют";
 
 "NO_INTERNET_CONNECTION_TITLE"       = "Интернет Соединение";
 "NO_INTERNET_CONNECTION_MESSAGE"     = "Интернет соединение отсуствует";

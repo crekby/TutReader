@@ -12,6 +12,8 @@
 
 @interface TabBarController ()
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem* graphButton;
+
 @end
 
 @implementation TabBarController
@@ -54,6 +56,7 @@
 
 - (void)checkLocalization
 {
+    self.graphButton.title = AMLocalizedString(@"GRAPH_TITLE", nil);
     for (NewsTableViewController* newsController in self.viewControllers) {
         if ([newsController respondsToSelector:@selector(localizeTabBarItem)]) {
             [newsController localizeTabBarItem];

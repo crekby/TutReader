@@ -257,6 +257,7 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cFm-7P-fgh">
+                        <barButtonItem key="leftBarButtonItem" image="dollar" id="1gE-35-BbA"/>
                         <barButtonItem key="rightBarButtonItem" title="Graph" id="JBS-HQ-mLo">
                             <connections>
                                 <action selector="graphButtonDidTap:" destination="7TV-RX-Wzk" id="aDg-aI-z5V"/>
@@ -269,6 +270,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <outlet property="graphButton" destination="JBS-HQ-mLo" id="2Nq-vB-a6I"/>
                         <segue destination="DW9-Se-0n3" kind="relationship" relationship="viewControllers" id="zKC-wc-OVI"/>
                         <segue destination="mIc-hb-DvA" kind="relationship" relationship="viewControllers" id="H0b-OW-rI4"/>
                     </connections>
@@ -455,6 +457,7 @@
     </scenes>
     <resources>
         <image name="UITV_accessory_disclosure.png" width="50" height="50"/>
+        <image name="dollar" width="16" height="16"/>
         <image name="iconNavBarFavorites" width="22" height="22"/>
         <image name="public" width="16" height="16"/>
     </resources>

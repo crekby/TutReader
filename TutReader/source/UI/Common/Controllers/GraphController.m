@@ -58,6 +58,7 @@
     if (self.tabBarController.navigationItem.titleView) {
         self.tabBarController.navigationItem.titleView = nil;
     }
+    self.tabBarController.navigationItem.title = AMLocalizedString(@"GRAPH_TITLE", nil);
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -236,7 +237,7 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-	NSInteger majorIncrement = 5;
+	NSInteger majorIncrement = 2;
 	NSInteger minorIncrement = 1;
 	CGFloat yMax = self.max.floatValue;  // should determine dynamically based on max price
 	NSMutableSet *yLabels = [NSMutableSet set];
@@ -299,6 +300,9 @@
 
 - (void) localizeTabBarItem
 {
-    self.tabBarItem.title = @"Graph";
+    self.tabBarItem.title = AMLocalizedString(@"GRAPH_TITLE", nil);
+    if (self.tabBarController.selectedViewController == self) {
+        self.tabBarController.navigationItem.title = AMLocalizedString(@"GRAPH_TITLE", nil);
+    }
 }
 @end

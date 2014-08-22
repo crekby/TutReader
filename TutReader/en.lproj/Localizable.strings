@@ -10,6 +10,8 @@
 "ONLINE_TITLE" = "Online";
 "FAVORITE_TITLE" = "Favorite";
 "CATEGORIES_TITLE" = "Categories";
+"GRAPH_TITLE" = "Graph";
+"CURRENCY_TITLE" = "Currency";
 
 "NO_INTERNET_CONNECTION_TITLE"       = "Internet Connection";
 "NO_INTERNET_CONNECTION_MESSAGE"     = "There is no internet connection";

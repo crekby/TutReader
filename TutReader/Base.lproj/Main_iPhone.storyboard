@@ -479,7 +479,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Graph" id="BKQ-aK-5CN"/>
+                    <tabBarItem key="tabBarItem" title="Graph" image="graph" id="BKQ-aK-5CN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJo-7u-TmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -502,12 +502,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YO2-sY-6Q7">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YO2-sY-6Q7">
                                             <rect key="frame" x="160" y="49" width="160" height="65"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         </view>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HdE-D7-UT3">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HdE-D7-UT3">
                                             <rect key="frame" x="0.0" y="49" width="160" height="65"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -561,23 +561,31 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="gGh-Yo-98u" secondAttribute="trailing" constant="20" id="5q8-1u-Ef1"/>
                                         <constraint firstItem="EWo-wK-vKN" firstAttribute="top" secondItem="YPR-eP-Cxn" secondAttribute="bottom" constant="8" id="6wz-dL-APC"/>
+                                        <constraint firstAttribute="bottom" secondItem="YO2-sY-6Q7" secondAttribute="bottom" constant="15" id="8hT-eR-SHS"/>
                                         <constraint firstItem="gGh-Yo-98u" firstAttribute="top" secondItem="2O2-IE-xGa" secondAttribute="bottom" constant="8" id="D99-wi-wTR"/>
                                         <constraint firstItem="2O2-IE-xGa" firstAttribute="leading" secondItem="QqV-TS-3gz" secondAttribute="trailing" constant="8" id="EnM-OW-tz1"/>
                                         <constraint firstItem="y6z-3H-jeD" firstAttribute="leading" secondItem="78s-KG-Tvd" secondAttribute="leading" constant="20" id="FpW-53-WfR"/>
+                                        <constraint firstItem="YO2-sY-6Q7" firstAttribute="leading" secondItem="HdE-D7-UT3" secondAttribute="trailing" id="GAt-FI-YY6"/>
                                         <constraint firstItem="QqV-TS-3gz" firstAttribute="leading" secondItem="EWo-wK-vKN" secondAttribute="trailing" constant="8" id="IPS-Fq-Dak"/>
                                         <constraint firstAttribute="bottom" secondItem="gGh-Yo-98u" secondAttribute="bottom" constant="24" id="ImE-1S-bPo"/>
+                                        <constraint firstItem="HdE-D7-UT3" firstAttribute="bottom" secondItem="QqV-TS-3gz" secondAttribute="bottom" id="Ms9-PI-m6T"/>
                                         <constraint firstItem="gGh-Yo-98u" firstAttribute="leading" secondItem="QqV-TS-3gz" secondAttribute="trailing" constant="8" id="Nhb-SY-eCE"/>
                                         <constraint firstAttribute="centerX" secondItem="QqV-TS-3gz" secondAttribute="centerX" id="P4s-4Q-uLp"/>
                                         <constraint firstAttribute="trailing" secondItem="2O2-IE-xGa" secondAttribute="trailing" constant="20" id="PP0-E1-O7w"/>
                                         <constraint firstItem="YPR-eP-Cxn" firstAttribute="leading" secondItem="78s-KG-Tvd" secondAttribute="leading" constant="20" id="Q8A-3Q-1ET"/>
                                         <constraint firstAttribute="trailing" secondItem="y6z-3H-jeD" secondAttribute="trailing" constant="20" id="RlA-ir-gYa"/>
+                                        <constraint firstAttribute="trailing" secondItem="YO2-sY-6Q7" secondAttribute="trailing" id="THm-CH-jVl"/>
+                                        <constraint firstItem="HdE-D7-UT3" firstAttribute="leading" secondItem="78s-KG-Tvd" secondAttribute="leading" id="ZY5-J5-YnE"/>
                                         <constraint firstItem="EWo-wK-vKN" firstAttribute="leading" secondItem="78s-KG-Tvd" secondAttribute="leading" constant="20" id="aD7-Mc-36R"/>
                                         <constraint firstAttribute="bottom" secondItem="EWo-wK-vKN" secondAttribute="bottom" constant="24" id="fY6-fm-xT8"/>
                                         <constraint firstItem="2O2-IE-xGa" firstAttribute="top" secondItem="y6z-3H-jeD" secondAttribute="bottom" constant="24" id="h7P-FE-oSf"/>
                                         <constraint firstItem="YPR-eP-Cxn" firstAttribute="top" secondItem="y6z-3H-jeD" secondAttribute="bottom" constant="24" id="lzr-iy-skE"/>
                                         <constraint firstAttribute="bottom" secondItem="QqV-TS-3gz" secondAttribute="bottom" constant="15" id="n45-RD-V9F"/>
+                                        <constraint firstItem="YO2-sY-6Q7" firstAttribute="top" secondItem="y6z-3H-jeD" secondAttribute="bottom" constant="18" id="pQ9-Bd-nQr"/>
                                         <constraint firstItem="QqV-TS-3gz" firstAttribute="leading" secondItem="YPR-eP-Cxn" secondAttribute="trailing" constant="8" id="pWc-1Y-ha2"/>
+                                        <constraint firstItem="QqV-TS-3gz" firstAttribute="leading" secondItem="HdE-D7-UT3" secondAttribute="trailing" id="v8o-mZ-v9T"/>
                                         <constraint firstItem="y6z-3H-jeD" firstAttribute="top" secondItem="78s-KG-Tvd" secondAttribute="top" constant="10" id="vbM-bT-qAY"/>
+                                        <constraint firstItem="HdE-D7-UT3" firstAttribute="top" secondItem="QqV-TS-3gz" secondAttribute="top" id="xBH-Iy-Y9n"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -595,7 +603,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Item" id="gYp-Oq-h6T"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="dollar" id="gYp-Oq-h6T"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1SN-xS-r3J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -747,6 +755,8 @@
     </scenes>
     <resources>
         <image name="UITV_accessory_disclosure.png" width="50" height="50"/>
+        <image name="dollar" width="16" height="16"/>
+        <image name="graph" width="16" height="16"/>
         <image name="iconNavBarFavoritesEnabled" width="22" height="22"/>
         <image name="iconShareFacebook" width="61" height="61"/>
         <image name="iconShareGooglePlus" width="61" height="61"/>

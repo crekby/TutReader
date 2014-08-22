@@ -100,6 +100,7 @@
         if (self.tabBarController.navigationItem.titleView) {
             self.tabBarController.navigationItem.titleView = nil;
         }
+        self.tabBarController.navigationItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
     }
 }
 
@@ -431,6 +432,9 @@
     else
     {
         self.tabBarItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
+        if (self.tabBarController.selectedViewController == self) {
+            self.tabBarController.navigationItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
+        }
     }
 }
 

@@ -27,6 +27,7 @@
     if (self.tabBarController.navigationItem.titleView) {
         self.tabBarController.navigationItem.titleView = nil;
     }
+    self.tabBarController.navigationItem.title = AMLocalizedString(@"CURRENCY_TITLE", nil);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -108,6 +109,14 @@
     {
         [self.tableView setUserInteractionEnabled:YES];
         [self.activityIndicatorView removeFromSuperview];
+    }
+}
+
+- (void) localizeTabBarItem
+{
+    self.tabBarItem.title = AMLocalizedString(@"CURRENCY_TITLE", nil);
+    if (self.tabBarController.selectedViewController == self) {
+        self.tabBarController.navigationItem.title = AMLocalizedString(@"CURRENCY_TITLE", nil);
     }
 }
 
