@@ -208,10 +208,12 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 18)];
-    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, view.frame.size.height / 2 - 9, tableView.frame.size.width, 18)];
+    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, view.frame.size.height / 2 - 8, tableView.frame.size.width, 18)];
     dateLabel.font = [UIFont boldSystemFontOfSize:14];
     dateLabel.text = [[DataProvider instance].datesInSection objectAtIndex:section];
     [view addSubview:dateLabel];
+    view.layer.borderWidth = .5f;
+    view.layer.borderColor = [UIColor colorWithRed:.1f green:.1f blue:.1f alpha:1.f].CGColor;
     view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
     return view;
 }
