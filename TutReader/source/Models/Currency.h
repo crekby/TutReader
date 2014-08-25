@@ -12,12 +12,10 @@
 
 @property (nonatomic, strong) NSString* name;
 
-@property (nonatomic, strong) NSString* exchangeSell;
+@property (nonatomic, strong) NSString* charCode;
 
-@property (nonatomic, strong) NSString* exchangeBuy;
+@property (nonatomic, strong) NSString* exchangeRate;
 
-@property (nonatomic, assign) NSInteger buyArrow;
-
-@property (nonatomic, assign) NSInteger sellArrow;
+@property (nonatomic, strong) NSString* currencyID;
 
 @end

@@ -15,8 +15,7 @@
 @property NSMutableArray* items;
 @property (nonatomic, strong) CallbackWithDataAndError globalCallback;
 @property (nonatomic, strong) Currency* currency;
-
-@property (nonatomic,strong) NSString* abbr;
+@property (nonatomic,strong) NSString* currencyID;
 
 @end
 
@@ -40,9 +39,10 @@ SINGLETON(CurrencyParcer)
     attributes:(NSDictionary *)attributeDict
 {
     
-    if ([elementName isEqualToString:@"currency"])
+    if ([elementName isEqualToString:@"Currency"])
     {
         self.currency = [Currency new];
+        self.currencyID = [attributeDict valueForKey:@"Id"];
     }
 }
 
@@ -57,25 +57,18 @@ SINGLETON(CurrencyParcer)
 -(void) parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if (self.currency) {
-        if ([elementName isEqualToString:@"name"]) {
+        if (self.currencyID) {
+            self.currency.currencyID = self.currencyID;
+        }
+        if ([elementName isEqualToString:@"CharCode"]) {
+            self.currency.charCode = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
+        if ([elementName isEqualToString:@"QuotName"]) {
             self.currency.name = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        }
-        if ([elementName isEqualToString:@"abbr"]) {
-            self.abbr = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            self.currency.name = [self.currency.name stringByAppendingString:[NSString stringWithFormat:@" (%@)", self.abbr]];
-        }
-        if ([elementName isEqualToString:@"exch_buy"]) {
-            self.currency.exchangeBuy = [[self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAppendingString:@" руб."];
             
         }
-        if ([elementName isEqualToString:@"exch_sell"]) {
-            self.currency.exchangeSell = [[self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] stringByAppendingString:@" руб."];
-        }
-        if ([elementName isEqualToString:@"updown_exch_buy"]) {
-            self.currency.buyArrow = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].integerValue;
-        }
-        if ([elementName isEqualToString:@"updown_exch_sell"]) {
-            self.currency.sellArrow = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].integerValue;
+        if ([elementName isEqualToString:@"Rate"]) {
+            self.currency.exchangeRate = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             [self.items insertObject:self.currency atIndex:self.items.count];
         }
         self.currentElementValue=nil;

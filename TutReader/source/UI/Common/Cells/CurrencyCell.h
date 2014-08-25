@@ -11,10 +11,7 @@
 @interface CurrencyCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UILabel* name;
-@property (nonatomic, weak) IBOutlet UILabel* sell;
-@property (nonatomic, weak) IBOutlet UILabel* buy;
-
-@property (nonatomic, strong) IBOutlet UIView* buyView;
-@property (nonatomic, strong) IBOutlet UIView* sellView;
+@property (nonatomic, weak) IBOutlet UILabel* rate;
+@property (nonatomic, strong) IBOutlet UIImageView* flagView;
 
 @end

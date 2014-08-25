@@ -207,7 +207,7 @@
     [view addSubview:dateLabel];
     view.layer.borderWidth = .5f;
     view.layer.borderColor = [UIColor colorWithRed:.1f green:.1f blue:.1f alpha:1.f].CGColor;
-    view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
+    view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:0.9];
     return view;
 }
 

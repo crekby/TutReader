@@ -34,7 +34,15 @@
 {
     [super viewDidAppear:animated];
     [self showActivityIndicator:YES];
-    [[RemoteFacade instance] getDataWithURL:CURRENCY_RATES_PAGE andCallback:^(NSData* data, NSError* error)
+    
+    NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"MM/dd/yyyy";
+    NSString *dateString = [dateFormatter stringFromDate: date];
+    
+    NSString* ratesURL = [NSString stringWithFormat:CURRENCY_RATES_PAGE,dateString];
+    
+    [[RemoteFacade instance] getDataWithURL:ratesURL andCallback:^(NSData* data, NSError* error)
     {
         [[CurrencyParcer instance] parseData:data withCallback:^(NSMutableArray* array,NSError* error)
         {
@@ -54,7 +62,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return self.content.count;
 }
 
 
@@ -64,28 +72,10 @@
     
     Currency* currency = self.content[indexPath.row];
     cell.name.text = currency.name;
-    cell.buy.text = currency.exchangeBuy;
-    cell.sell.text = currency.exchangeSell;
-    
+    cell.rate.text = currency.exchangeRate;
+    cell.flagView.image = [UIImage imageNamed:currency.charCode];
+
     cell.contentView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
-    
-    if (currency.buyArrow == 1) {
-        cell.buyView.backgroundColor = [UIColor colorWithRed:0 green:0.9 blue:0 alpha:0.5];
-    } else if (currency.buyArrow == -1) {
-        cell.buyView.backgroundColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:0.5];
-    } else
-    {
-        cell.buyView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
-    }
-    
-    if (currency.sellArrow == 1) {
-        cell.sellView.backgroundColor = [UIColor colorWithRed:0 green:0.9 blue:0 alpha:0.5];
-    } else if (currency.sellArrow == -1) {
-        cell.sellView.backgroundColor = [UIColor colorWithRed:0.9 green:0 blue:0 alpha:0.5];
-    } else
-    {
-        cell.sellView.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
-    }
     
     return cell;
 }

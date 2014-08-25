@@ -15,6 +15,7 @@
 		15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15060E091980066E00E68EB1 /* ShareAssets.xcassets */; };
 		15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15060E0B19800AE200E68EB1 /* MessageUI.framework */; };
 		15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */; };
+		1511E84619AB280C00355EBA /* Flags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1511E84519AB280C00355EBA /* Flags.xcassets */; };
 		151F4C96198A704D0019B26D /* CategoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 151F4C95198A704D0019B26D /* CategoryManager.m */; };
 		151F4C99198A88320019B26D /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 151F4C98198A88320019B26D /* CategoryCell.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
@@ -97,6 +98,7 @@
 		15060E0B19800AE200E68EB1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		15060E0E19800BC900E68EB1 /* UIPopover+Iphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPopover+Iphone.h"; path = "Source/Categories/UIPopover+Iphone.h"; sourceTree = "<group>"; };
 		15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPopover+Iphone.m"; path = "Source/Categories/UIPopover+Iphone.m"; sourceTree = "<group>"; };
+		1511E84519AB280C00355EBA /* Flags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Flags.xcassets; sourceTree = "<group>"; };
 		151F4C94198A704D0019B26D /* CategoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryManager.h; path = Source/Managers/CategoryManager.h; sourceTree = "<group>"; };
 		151F4C95198A704D0019B26D /* CategoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryManager.m; path = Source/Managers/CategoryManager.m; sourceTree = "<group>"; };
 		151F4C97198A88320019B26D /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryCell.h; path = Source/UI/Common/Cells/CategoryCell.h; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				1561829A1976C93D00D16B5F /* UI */,
 				1561827A1976C3DB00D16B5F /* Images.xcassets */,
 				15060E091980066E00E68EB1 /* ShareAssets.xcassets */,
+				1511E84519AB280C00355EBA /* Flags.xcassets */,
 				15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */,
 				15787E8B19A5EB1A00218BD5 /* currency@2x.png */,
 				1592206B198FA76B001CF232 /* Localizable.strings */,
@@ -582,6 +585,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1511E84619AB280C00355EBA /* Flags.xcassets in Resources */,
 				156182761976C3DB00D16B5F /* Main_iPad.storyboard in Resources */,
 				159A613919A399A7008956DE /* CorePlotHeaders in Resources */,
 				1561827B1976C3DB00D16B5F /* Images.xcassets in Resources */,
