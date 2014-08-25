@@ -58,12 +58,24 @@ typedef enum
 
 // SETTINGS
 
-#define LANGUAGE_SETTINGS_IDENTIFICATOR     @"lang"
-#define ENGLISH_LANGUAGE_IDENTIFICATOR      @"en"
-#define RUSSIAN_LANGUAGE_IDENTIFICATOR      @"ru"
-#define DELETE_CACHE_SETTINGS_IDENTIFICATOR @"del_cache"
-#define APP_VERSION                         @"CFBundleShortVersionString"
-#define APP_VERSION_SETTINGS_IDENTIFICATOR  @"app_version"
+#define LANGUAGE_SETTINGS_IDENTIFICATOR        @"lang"
+#define ENGLISH_LANGUAGE_IDENTIFICATOR         @"en"
+#define RUSSIAN_LANGUAGE_IDENTIFICATOR         @"ru"
+#define DELETE_CACHE_SETTINGS_IDENTIFICATOR    @"del_cache"
+#define APP_VERSION                            @"CFBundleShortVersionString"
+#define APP_VERSION_SETTINGS_IDENTIFICATOR     @"app_version"
+#define CURRENCY_PERIOD_SETTINGS_IDENTIFICATOR @"currencyPeriod"
+
+// CURRENCY RATES PERIODS
+
+typedef enum
+{
+    currencyPeriodWeek = 0,
+    currencyPeriodTwoWeek = 1,
+    currencyPeriodMonth = 2,
+    currencyPeriodSixMonth = 3,
+    currencyPeriodYear = 4
+} currencyPeriod;
 
 // CATEGORIES
 
@@ -135,7 +147,8 @@ typedef enum
 #define LADY_PAGE                @"http://lady.tut.by/"
 #define SPORT_PAGE               @"http://sport.tut.by/"
 
-#define CURRENCY_RATES_PAGE      @"http://www.nbrb.by/Services/XmlExRates.aspx?ondate=%@&mode=1"
+#define CURRENCY_RATES_PAGE        @"http://www.nbrb.by/Services/XmlExRates.aspx?ondate=%@&mode=1"
+#define CURRENCY_RATES_PERIOD_PAGE @"http://www.nbrb.by/Services/XmlExRatesDyn.aspx?curId=%@&fromDate=%@&toDate=%@"
 
 #define MAIN_CATEGORIES_COUNT    5
 

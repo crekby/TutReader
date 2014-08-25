@@ -52,4 +52,9 @@ SINGLETON(SettingsManager)
     [self checkCache];
 }
 
+- (NSInteger)currencyRatePeriod
+{
+    return [[NSUserDefaults standardUserDefaults] integerForKey:CURRENCY_PERIOD_SETTINGS_IDENTIFICATOR];
+}
+
 @end

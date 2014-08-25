@@ -8,11 +8,13 @@
 
 #import "GraphController.h"
 
+
 @interface GraphController ()
 
 @property (nonatomic, strong) NSMutableDictionary* data;
 
 @property (nonatomic, assign) CGFloat max;
+@property (nonatomic, assign) CGFloat min;
 
 @end
 
@@ -52,11 +54,15 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    self.min = [self.Values[0] floatValue];
     for (NSNumber* number in self.Values) {
         if (number.floatValue > self.max) {
             self.max = number.floatValue;
         }
+        if (self.min > number.floatValue) {
+            self.min = number.floatValue;
+        }
+        
     }
 //    self.data = [NSMutableDictionary new];
 //    for (int i=0; i < [DataProvider instance].numberOfSections; i++) {
@@ -100,7 +106,7 @@
 	[graph applyTheme:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 	self.hostView.hostedGraph = graph;
 	// 2 - Set graph title
-	NSString *title = @"News Added By Hour";
+	NSString *title = @"";
 	graph.title = title;
 	// 3 - Create and set text style
 	CPTMutableTextStyle *titleStyle = [CPTMutableTextStyle textStyle];
@@ -172,37 +178,39 @@
 	// 2 - Get axis set
 	CPTXYAxisSet *axisSet = (CPTXYAxisSet *) self.hostView.hostedGraph.axisSet;
 	// 3 - Configure x-axis
+    axisSet.xAxis.orthogonalCoordinateDecimal = CPTDecimalFromFloat(self.min-100);
 	CPTAxis *x = axisSet.xAxis;
-	x.title = @"Hours";
+	x.title = @"";
+    //x. = [CPTConstraints constraintWithUpperOffset:132];
 	x.titleTextStyle = axisTitleStyle;
 	x.titleOffset = 15.0f;
 	x.axisLineStyle = axisLineStyle;
-	x.labelingPolicy = CPTAxisLabelingPolicyNone;
+	x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
 	x.labelTextStyle = axisTextStyle;
 	x.majorTickLineStyle = axisLineStyle;
-	x.majorTickLength = 4.0f;
-	x.tickDirection = CPTSignNegative;
-	CGFloat dateCount = 10;
+	x.majorTickLength = 10.0f;
+	x.tickDirection = CPTSignPositive;
+	CGFloat dateCount = self.Values.count;
 	NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
 	NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
-	for (int i=0;i<self.Values.count;i++) {
-    // Configure X axis labels
-        
-                            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%d",i]  textStyle:x.labelTextStyle];
-                            CGFloat location = i;
-                            label.tickLocation = CPTDecimalFromCGFloat(location);
-                            label.offset = x.majorTickLength;
-                            if (label) {
-                                [xLabels addObject:label];
-                                [xLocations addObject:[NSNumber numberWithFloat:location]];
-                            }
-
-	}
+//	for (int i=0;i<self.Values.count;i++) {
+//    // Configure X axis labels
+//        
+//                            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%d",i]  textStyle:x.labelTextStyle];
+//                            CGFloat location = i;
+//                            label.tickLocation = CPTDecimalFromCGFloat(location);
+//                            label.offset = x.majorTickLength;
+//                            if (label) {
+//                                [xLabels addObject:label];
+//                                [xLocations addObject:[NSNumber numberWithFloat:location]];
+//                            }
+//
+//	}
 	x.axisLabels = xLabels;
 	x.majorTickLocations = xLocations;
 	// 4 - Configure y-axis
 	CPTAxis *y = axisSet.yAxis;
-	y.title = @"News";
+	y.title = @"BLR";
 	y.titleTextStyle = axisTitleStyle;
 	y.titleOffset = -40.0f;
 	y.axisLineStyle = axisLineStyle;
@@ -215,7 +223,7 @@
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
 	NSInteger majorIncrement = self.max / 20;
-	NSInteger minorIncrement = majorIncrement;
+	NSInteger minorIncrement = majorIncrement / 5;
 	CGFloat yMax = self.max;  // should determine dynamically based on max price
 	NSMutableSet *yLabels = [NSMutableSet set];
 	NSMutableSet *yMajorLocations = [NSMutableSet set];

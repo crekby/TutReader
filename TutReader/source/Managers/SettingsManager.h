@@ -16,4 +16,6 @@
 
 - (void) setupSettings;
 
+- (NSInteger) currencyRatePeriod;
+
 @end

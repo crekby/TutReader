@@ -86,7 +86,32 @@
 {
     Currency* currency = self.content[indexPath.row];
     [self showActivityIndicator:YES];
-    NSString* url = [NSString stringWithFormat:@"http://www.nbrb.by/Services/XmlExRatesDyn.aspx?curId=%@&fromDate=2/25/2014&toDate=8/25/2014",currency.currencyID];
+    NSInteger currencyPeriod = [[SettingsManager instance] currencyRatePeriod];
+    NSDate* now = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSDate* periodDate = [NSDate new];
+    
+    switch (currencyPeriod) {
+        case currencyPeriodWeek:
+            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 604800)];
+            break;
+        case currencyPeriodTwoWeek:
+            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 1209600)];
+            break;
+        case currencyPeriodMonth:
+            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 2592000)];
+            break;
+        case currencyPeriodSixMonth:
+            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 15552000)];
+            break;
+        case currencyPeriodYear:
+            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 31536000)];
+            break;
+    }
+    
+    NSDateFormatter* formater = [NSDateFormatter new];
+    formater.dateFormat = @"MM/dd/yyyy";
+    
+    NSString* url = [NSString stringWithFormat:CURRENCY_RATES_PERIOD_PAGE ,currency.currencyID,[formater stringFromDate:periodDate],[formater stringFromDate:now]];
     [[RemoteFacade instance] getDataWithURL:url andCallback:^(NSData* data, NSError* error)
     {
         [[CurrencyParcer instance] parseData:data withCallback:^(NSArray* array,NSError* error)
