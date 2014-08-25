@@ -11,6 +11,8 @@
 #import "CurrencyParcer.h"
 #import "CurrencyCell.h"
 #import "Currency.h"
+#import "GraphController.h"
+#import "ModalManager.h"
 
 @interface CurrencyTableViewController ()
 
@@ -80,13 +82,45 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Currency* currency = self.content[indexPath.row];
+    [self showActivityIndicator:YES];
+    NSString* url = [NSString stringWithFormat:@"http://www.nbrb.by/Services/XmlExRatesDyn.aspx?curId=%@&fromDate=2/25/2014&toDate=8/25/2014",currency.currencyID];
+    [[RemoteFacade instance] getDataWithURL:url andCallback:^(NSData* data, NSError* error)
+    {
+        [[CurrencyParcer instance] parseData:data withCallback:^(NSArray* array,NSError* error)
+        {
+            NSMutableArray* values = [NSMutableArray new];
+            for (Currency* item in array) {
+                NSLog(@"Curs: %@",item.exchangeRate);
+                [values insertObject:@(item.exchangeRate.floatValue) atIndex:values.count];
+            }
+            GraphController* graph = [self.storyboard instantiateViewControllerWithIdentifier:@"graphViewController"];
+            graph.Values = values;
+            if (IS_IPHONE) {
+                [self.navigationController pushViewController:graph animated:YES];
+            }
+            else
+            {
+                [[ModalManager instance] pushViewController:graph];
+                [graph viewDidAppear:NO];
+            }
+            [self showActivityIndicator:NO];
+        }];
+        
+    }];
+    
+    
+}
+
 #pragma mark - Private Methods
 
 - (void) showActivityIndicator:(BOOL) show
 {
     if (show) {
         [self.tableView setUserInteractionEnabled:NO];
-        self.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-30, self.view.bounds.size.height/2-30, 60, 60)];
+        self.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + self.view.frame.size.width/2-30, self.view.frame.origin.y + self.view.frame.size.height/2-30, 60, 60)];
         self.activityIndicatorView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         self.activityIndicatorView.layer.cornerRadius = 10.0f;
         UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];

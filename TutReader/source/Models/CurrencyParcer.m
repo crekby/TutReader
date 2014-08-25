@@ -44,6 +44,9 @@ SINGLETON(CurrencyParcer)
         self.currency = [Currency new];
         self.currencyID = [attributeDict valueForKey:@"Id"];
     }
+    if ([elementName isEqualToString:@"Record"]) {
+        self.currency = [Currency new];
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string

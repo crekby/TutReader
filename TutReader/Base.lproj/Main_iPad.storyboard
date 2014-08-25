@@ -257,14 +257,9 @@
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="cFm-7P-fgh">
-                        <barButtonItem key="leftBarButtonItem" image="dollar" id="1gE-35-BbA">
+                        <barButtonItem key="rightBarButtonItem" image="dollar" id="1gE-35-BbA">
                             <connections>
                                 <action selector="currencyButtonDidTap:" destination="7TV-RX-Wzk" id="W4I-C4-9m3"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Graph" id="JBS-HQ-mLo">
-                            <connections>
-                                <action selector="graphButtonDidTap:" destination="7TV-RX-Wzk" id="Tx4-HE-dKB"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -274,7 +269,6 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <outlet property="graphButton" destination="JBS-HQ-mLo" id="2Nq-vB-a6I"/>
                         <segue destination="DW9-Se-0n3" kind="relationship" relationship="viewControllers" id="zKC-wc-OVI"/>
                         <segue destination="mIc-hb-DvA" kind="relationship" relationship="viewControllers" id="H0b-OW-rI4"/>
                     </connections>

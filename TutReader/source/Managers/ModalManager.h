@@ -10,6 +10,9 @@
 
 @interface ModalManager : NSObject
 
++ (ModalManager*) instance;
+
 - (void) showModal:(UIViewController*) modalVC inVieController:(UIViewController*) controller;
+- (void)pushViewController:(UIViewController *)controller;
 
 @end

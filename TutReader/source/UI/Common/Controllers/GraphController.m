@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary* data;
 
-@property (nonatomic, assign) NSNumber* max;
+@property (nonatomic, assign) CGFloat max;
 
 @end
 
@@ -53,30 +53,30 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    self.data = [NSMutableDictionary new];
-    self.max = 0;
-    for (int i=0; i < [DataProvider instance].numberOfSections; i++) {
-        for (TUTNews* newsItem in [[DataProvider instance] newsInSection:i]) {
-            NSDate *date = newsItem.pubDate;
-            NSCalendar *calendar = [NSCalendar currentCalendar];
-            NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
-            NSInteger hour = [components hour];
-            NSNumber* value = [self.data objectForKey:[NSString stringWithFormat:@"%d",hour]];
-            if (value) {
-                value = @(value.intValue+1);
-            }
-            else
-            {
-                value = @(1);
-            }
-            
-            if (value.integerValue > self.max.integerValue) {
-                self.max = @(value.integerValue);
-            }
-            
-            [self.data setValue:value forKey:[NSString stringWithFormat:@"%d",hour]];
+    for (NSNumber* number in self.Values) {
+        if (number.floatValue > self.max) {
+            self.max = number.floatValue;
         }
     }
+//    self.data = [NSMutableDictionary new];
+//    for (int i=0; i < [DataProvider instance].numberOfSections; i++) {
+//        for (TUTNews* newsItem in [[DataProvider instance] newsInSection:i]) {
+//            NSDate *date = newsItem.pubDate;
+//            NSCalendar *calendar = [NSCalendar currentCalendar];
+//            NSDateComponents *components = [calendar components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
+//            NSInteger hour = [components hour];
+//            NSNumber* value = [self.data objectForKey:[NSString stringWithFormat:@"%d",hour]];
+//            if (value) {
+//                value = @(value.intValue+1);
+//            }
+//            else
+//            {
+//                value = @(1);
+//            }
+//            
+//            [self.data setValue:value forKey:[NSString stringWithFormat:@"%d",hour]];
+//        }
+//    }
     [self initPlot];
 }
 
@@ -185,30 +185,18 @@
 	CGFloat dateCount = 10;
 	NSMutableSet *xLabels = [NSMutableSet setWithCapacity:dateCount];
 	NSMutableSet *xLocations = [NSMutableSet setWithCapacity:dateCount];
-	for (int i=0;i<24;i++) {
-        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation)) {
-            if (i % 2 == 0) {
-                CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%d",i]  textStyle:x.labelTextStyle];
-                CGFloat location = i;
-                label.tickLocation = CPTDecimalFromCGFloat(location);
-                label.offset = x.majorTickLength;
-                if (label) {
-                    [xLabels addObject:label];
-                    [xLocations addObject:[NSNumber numberWithFloat:location]];
-                }
-            }
-        }
-        else
-        {
-            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%d",i]  textStyle:x.labelTextStyle];
-            CGFloat location = i;
-            label.tickLocation = CPTDecimalFromCGFloat(location);
-            label.offset = x.majorTickLength;
-            if (label) {
-                [xLabels addObject:label];
-                [xLocations addObject:[NSNumber numberWithFloat:location]];
-            }
-        }
+	for (int i=0;i<self.Values.count;i++) {
+    // Configure X axis labels
+        
+                            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%d",i]  textStyle:x.labelTextStyle];
+                            CGFloat location = i;
+                            label.tickLocation = CPTDecimalFromCGFloat(location);
+                            label.offset = x.majorTickLength;
+                            if (label) {
+                                [xLabels addObject:label];
+                                [xLocations addObject:[NSNumber numberWithFloat:location]];
+                            }
+
 	}
 	x.axisLabels = xLabels;
 	x.majorTickLocations = xLocations;
@@ -226,16 +214,16 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-	NSInteger majorIncrement = 2;
-	NSInteger minorIncrement = 1;
-	CGFloat yMax = self.max.floatValue;  // should determine dynamically based on max price
+	NSInteger majorIncrement = self.max / 20;
+	NSInteger minorIncrement = majorIncrement;
+	CGFloat yMax = self.max;  // should determine dynamically based on max price
 	NSMutableSet *yLabels = [NSMutableSet set];
 	NSMutableSet *yMajorLocations = [NSMutableSet set];
 	NSMutableSet *yMinorLocations = [NSMutableSet set];
 	for (NSInteger j = minorIncrement; j <= yMax; j += minorIncrement) {
 		NSUInteger mod = j % majorIncrement;
 		if (mod == 0) {
-			CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
+            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
 			NSDecimal location = CPTDecimalFromInteger(j);
 			label.tickLocation = location;
 			label.offset = -y.majorTickLength - y.labelOffset;
@@ -244,6 +232,13 @@
 			}
 			[yMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
 		} else {
+            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
+			NSDecimal location = CPTDecimalFromInteger(j);
+			label.tickLocation = location;
+			label.offset = -y.majorTickLength - y.labelOffset;
+			if (label) {
+				[yLabels addObject:label];
+			}
 			[yMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
 		}
 	}
@@ -259,11 +254,11 @@
 
 #pragma mark - CPTPlotDataSource methods
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
-	return 24;
+	return self.Values.count;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-	NSInteger valueCount = 24;
+	NSInteger valueCount = self.Values.count;
 	switch (fieldEnum) {
 		case CPTScatterPlotFieldX:
 			if (index < valueCount) {
@@ -274,7 +269,7 @@
 			
 		case CPTScatterPlotFieldY:
         {
-            NSNumber* value = [self.data objectForKey:[NSString stringWithFormat:@"%d",index]];
+            NSNumber* value = self.Values[index];
             if (!value) {
                 value = @(0);
             }

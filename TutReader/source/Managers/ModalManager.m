@@ -15,15 +15,20 @@
 @property (nonatomic, strong) UIViewController* modalViewController;
 @property (nonatomic, weak) UIViewController* hostViewController;
 @property (nonatomic, strong) UITapGestureRecognizer* tapRec;
+@property (nonatomic, strong) UIViewController* transitionVC;
+@property (nonatomic, strong) UIViewController* activeController;
 
 @end
 
 @implementation ModalManager
 
+SINGLETON(ModalManager)
+
 - (void)showModal:(UIViewController *)modalVC inVieController:(UIViewController *)controller
 {
     self.tapRec = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFound:)];
     self.tapRec.numberOfTapsRequired = 1;
+    self.tapRec.cancelsTouchesInView = NO;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(orientationDidChange)
                                                  name:UIDeviceOrientationDidChangeNotification
@@ -41,6 +46,30 @@
     [UIView animateWithDuration:0.3f animations:^{
         self.modalViewController.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600);
     }];
+    self.activeController = self.modalViewController;
+}
+
+- (void)pushViewController:(UIViewController *)controller
+{
+    self.transitionVC = controller;
+    self.transitionVC.view.frame = CGRectMake(self.hostView.frame.size.width+1, self.modalViewController.view.frame.origin.y, self.modalViewController.view.frame.size.width, self.modalViewController.view.frame.size.height);
+    [self.backgroundView addSubview:self.transitionVC.view];
+    [UIView animateWithDuration:0.3f animations:^{
+        self.modalViewController.view.frame = CGRectMake(0 - self.modalViewController.view.frame.size.width, self.modalViewController.view.frame.origin.y, self.modalViewController.view.frame.size.width, self.modalViewController.view.frame.size.height);
+        self.transitionVC.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600);
+    }];
+    self.activeController = self.transitionVC;
+}
+
+- (void) popViewController
+{
+    if (self.activeController == self.transitionVC) {
+        [UIView animateWithDuration:0.3f animations:^{
+            self.modalViewController.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600);
+            self.transitionVC.view.frame = CGRectMake(self.hostView.frame.size.width + self.transitionVC.view.frame.size.width, self.transitionVC.view.frame.origin.y, self.transitionVC.view.frame.size.width, self.transitionVC.view.frame.size.height);
+        }];
+        self.activeController = self.modalViewController;
+    }
 }
 
 
@@ -52,16 +81,17 @@
 - (void) tapFound:(UITapGestureRecognizer*) sender
 {
     if (sender.state == UIGestureRecognizerStateEnded) {
-        
-        CGPoint point = [sender locationInView:nil];
-        
-        NSLog(@"%f:%f w:%f h:%f",self.modalViewController.view.frame.origin.x, self.modalViewController.view.frame.origin.y, self.modalViewController.view.frame.size.width, self.modalViewController.view.frame.size.width);
-        
-        if (!CGRectContainsPoint(CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600), point))
+        CGPoint point = [sender locationInView:self.backgroundView];
+//        NSLog(@"%f:%f w:%f h:%f",self.modalViewController.view.frame.origin.x, self.modalViewController.view.frame.origin.y, self.modalViewController.view.frame.size.width, self.modalViewController.view.frame.size.height);
+        CGRect modalRect = CGRectMake(self.activeController.view.frame.origin.x, self.activeController.view.frame.origin.y, self.activeController.view.frame.size.width, self.activeController.view.frame.size.height);
+        if (!CGRectContainsPoint(modalRect,point))
         {
-            NSLog(@"%.2f:%.2f",point.x,point.y);
+            if (self.transitionVC == self.activeController) {
+                [self popViewController];
+                return;
+            }
             [UIView animateWithDuration:0.3f animations:^(){
-                self.modalViewController.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMaxY(self.hostView.bounds) + 600, 500, 600);
+                self.activeController.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMaxY(self.hostView.bounds) + self.activeController.view.frame.size.height, self.activeController.view.frame.size.width, self.activeController.view.frame.size.height);
             } completion:^(BOOL finished)
              {
                  if (finished) {
@@ -78,7 +108,7 @@
 {
     if (self.backgroundView) {
         self.backgroundView.frame = self.hostViewController.view.bounds;
-        self.modalViewController.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600);
+        self.activeController.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600);
     }
 }
 
