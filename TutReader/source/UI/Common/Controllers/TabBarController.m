@@ -33,12 +33,12 @@
                                                  name:UPDATE_LOCALIZATION
                                                object:nil];
     
-    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:@"cityName"];
+    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     if (cityName.length>0) {
         int start = [cityName rangeOfString:@","].location;
         cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
         cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-        NSString* url = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?q=%@&mode=json&units=metric",cityName];
+        NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_CITY_URL,cityName];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                                cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                            timeoutInterval:10];
@@ -77,7 +77,7 @@
     [self.locationManager stopUpdatingLocation];
         self.location = locations[0];
         NSLog(@"%@",self.location);
-        NSString* url = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/find?lat=%f&lon=%f&mode=json&units=metric",self.location.coordinate.latitude,self.location.coordinate.longitude];
+        NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_LOCATION_URL,self.location.coordinate.latitude,self.location.coordinate.longitude];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                                cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                            timeoutInterval:10];

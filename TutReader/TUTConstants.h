@@ -66,6 +66,8 @@ typedef enum
 #define APP_VERSION_SETTINGS_IDENTIFICATOR     @"app_version"
 #define CURRENCY_PERIOD_SETTINGS_IDENTIFICATOR @"currencyPeriod"
 
+#define CITY_NAME_SETTINGS_IDENTIFICATOR       @"cityName"
+
 // CURRENCY RATES PERIODS
 
 typedef enum
@@ -149,6 +151,12 @@ typedef enum
 
 #define CURRENCY_RATES_PAGE        @"http://www.nbrb.by/Services/XmlExRates.aspx?ondate=%@&mode=1"
 #define CURRENCY_RATES_PERIOD_PAGE @"http://www.nbrb.by/Services/XmlExRatesDyn.aspx?curId=%@&fromDate=%@&toDate=%@"
+
+#define WEATHER_NOW_BY_CITY_URL      @"http://api.openweathermap.org/data/2.5/weather?q=%@&mode=json&units=metric"
+#define WEATHER_NOW_BY_LOCATION_URL  @"http://api.openweathermap.org/data/2.5/find?lat=%f&lon=%f&mode=json&units=metric"
+#define WEATHER_DAILY_URL            @"http://api.openweathermap.org/data/2.5/forecast/daily?q=%@&mode=json&units=metric&cnt=14&lang=%@"
+#define WEATHER_SEARCH_CITY_URL      @"http://api.openweathermap.org/data/2.5/find?q=%@&type=like&mode=json&lang=%@"
+
 
 #define MAIN_CATEGORIES_COUNT    5
 

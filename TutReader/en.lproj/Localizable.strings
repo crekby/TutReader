@@ -44,3 +44,5 @@
 "WEATHER_NIGHT_TEMP" = "Night: %.2f °C";
 "WEATHER_PRESURE" = "Presure: %.2f";
 "WEATHER_WIND_SPEED" = "Wind Speed: %.2f";
+
+"WEATHER_CITY_TITLE" = "City";

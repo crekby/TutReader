@@ -31,7 +31,7 @@
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
-    self.searchField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"cityName"];
+    self.searchField.text = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     // Do any additional setup after loading the view.
 }
 
@@ -119,7 +119,7 @@
     if (sender.text.length == 0) {
         return;
     }
-    NSString* url = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/find?q=%@&type=like&mode=json&lang=%@", sender.text, [[LocalizationSystem instance] getLanguage]];
+    NSString* url = [NSString stringWithFormat:WEATHER_SEARCH_CITY_URL, sender.text, [[LocalizationSystem instance] getLanguage]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
@@ -145,7 +145,7 @@
 
 - (void) saveSettings:(NSString*) city
 {
-    [[NSUserDefaults standardUserDefaults] setObject:city forKey:@"cityName"];
+    [[NSUserDefaults standardUserDefaults] setObject:city forKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }

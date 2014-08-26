@@ -44,3 +44,5 @@
 "WEATHER_NIGHT_TEMP" = "Ночь: %.2f °C";
 "WEATHER_PRESURE" = "Давление: %.2f";
 "WEATHER_WIND_SPEED" = "Скорость Ветра: %.2f";
+
+"WEATHER_CITY_TITLE" = "Город";

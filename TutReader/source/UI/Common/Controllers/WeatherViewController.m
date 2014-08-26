@@ -25,6 +25,8 @@
 
 @property (nonatomic,assign) BOOL firstRun;
 
+@property (nonatomic, strong) UIBarButtonItem* settingsButton;
+
 @end
 
 @implementation WeatherViewController
@@ -32,8 +34,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIBarButtonItem* settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"City" style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-    self.tabBarController.navigationItem.rightBarButtonItems = @[settingsButton];
     self.firstRun = YES;
 }
 
@@ -42,15 +42,20 @@
     if (self.tabBarController.navigationItem.titleView) {
         self.tabBarController.navigationItem.titleView = nil;
     }
+    if (!self.tabBarController.navigationItem.rightBarButtonItems) {
+        self.settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"City" style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+        self.tabBarController.navigationItem.rightBarButtonItems = @[self.settingsButton];
+    }
+    
     self.tabBarController.navigationItem.title = AMLocalizedString(@"WEATHER_TITLE", nil);
     [super viewWillAppear:animated];
-    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:@"cityName"];
+    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     if (cityName.length>0) {
         int start = [cityName rangeOfString:@","].location;
         cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
         cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         self.tabBarController.navigationItem.title = [cityName stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
-        NSString* url = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/forecast/daily?q=%@&mode=json&units=metric&cnt=14&lang=%@",cityName , [[LocalizationSystem instance] getLanguage]];
+        NSString* url = [NSString stringWithFormat:WEATHER_DAILY_URL, cityName, [[LocalizationSystem instance] getLanguage]];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                                cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                            timeoutInterval:10];
@@ -74,11 +79,17 @@
     
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    self.tabBarController.navigationItem.rightBarButtonItems = nil;
+
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"cityName"].length == 0 && self.firstRun) {
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR].length == 0 && self.firstRun) {
         UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
         settings.view.frame = self.view.frame;
         [self.tabBarController.navigationController pushViewController:settings animated:YES];
@@ -132,6 +143,14 @@
     UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
     settings.view.frame = self.view.frame;
     [self.tabBarController.navigationController pushViewController:settings animated:YES];
+}
+
+- (void) localizeTabBarItem
+{
+    self.tabBarItem.title = AMLocalizedString(@"WEATHER_TITLE", nil);
+    if (self.tabBarController.selectedViewController == self) {
+        self.settingsButton.title = AMLocalizedString(@"WEATHER_CITY_TITLE", nil);
+    }
 }
 
 @end
