@@ -7,6 +7,7 @@
 //
 
 #import "WeatherSettingsViewController.h"
+#import "ModalManager.h"
 
 @interface WeatherSettingsViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -45,7 +46,7 @@
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     int height = MIN(keyboardSize.height,keyboardSize.width);
     CGRect rect = self.view.frame;
-    rect.size.height -= height;
+    rect.size.height -= height - rect.origin.y;
     self.view.frame = rect;
 }
 
@@ -54,7 +55,7 @@
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     int height = MIN(keyboardSize.height,keyboardSize.width);
     CGRect rect = self.view.frame;
-    rect.size.height += height;
+    rect.size.height += height - rect.origin.y;
     self.view.frame = rect;
 }
 
@@ -147,7 +148,13 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:city forKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (IS_IPHONE) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    else
+    {
+        [[ModalManager instance] popViewController];
+    }
 }
 
 @end

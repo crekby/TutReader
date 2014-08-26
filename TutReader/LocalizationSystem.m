@@ -8,6 +8,10 @@
 
 #import "LocalizationSystem.h"
 
+@interface LocalizationSystem()
+
+@end
+
 @implementation LocalizationSystem
 
 SINGLETON(LocalizationSystem)
@@ -84,7 +88,7 @@ static NSBundle *bundle = nil;
 	
 	NSString *path = [[ NSBundle mainBundle ] pathForResource:l ofType:@"lproj" ];
 	
-
+    _language = l;
 	if (path == nil)
 		//in case the language does not exists
 		[self resetLocalization];
@@ -99,11 +103,7 @@ static NSBundle *bundle = nil;
 // NSString * currentL = LocalizationGetLanguage;
 - (NSString*) getLanguage{
 
-	NSArray* languages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
-
-	NSString *preferredLang = [languages objectAtIndex:0];
-
-	return preferredLang;
+	return self.language;
 }
 
 // Resets the localization system, so it uses the OS default language.

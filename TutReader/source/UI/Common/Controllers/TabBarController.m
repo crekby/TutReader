@@ -48,7 +48,14 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
             if (data) {
                 NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]]];
+                if (IS_IPHONE) {
+                    [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]]];
+                }
+                else
+                {
+                    self.navigationItem.leftBarButtonItem.image = nil;
+                    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]];
+                }
             }
         }];
     }
@@ -89,7 +96,14 @@
                 NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 //NSLog(@"%@",json);
                 NSArray* list = [[NSArray alloc] initWithArray:json[@"list"]];
-                [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[[list[0] valueForKey:@"main"] valueForKey:@"temp"]]];
+                if (IS_IPHONE) {
+                    [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[[list[0] valueForKey:@"main"] valueForKey:@"temp"]]];
+                }
+                else
+                {
+                    self.navigationItem.leftBarButtonItem.image = nil;
+                    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@"%@°",[[list[0] valueForKey:@"main"] valueForKey:@"temp"]];
+                }
             }
         }];
 }
@@ -101,6 +115,14 @@
     CurrencyTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"currencyView"];
     [[ModalManager instance] showModal:controller inVieController:self.splitViewController];
 }
+
+- (IBAction)weatherButtonDidTap:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+    CurrencyTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"weatherView"];
+    [controller viewWillAppear:NO];
+    [[ModalManager instance] showModal:controller inVieController:self.splitViewController];
+}
+
 
 - (void)checkLocalization
 {

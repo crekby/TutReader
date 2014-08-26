@@ -58,16 +58,19 @@ SINGLETON(ModalManager)
         self.modalViewController.view.frame = CGRectMake(0 - self.modalViewController.view.frame.size.width, self.modalViewController.view.frame.origin.y, self.modalViewController.view.frame.size.width, self.modalViewController.view.frame.size.height);
         self.transitionVC.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600);
     }];
-    self.activeController = self.transitionVC;
+    self.activeController = controller;
 }
 
 - (void) popViewController
 {
-    if (self.activeController == self.transitionVC) {
+    if (self.activeController != self.modalViewController) {
         [UIView animateWithDuration:0.3f animations:^{
             self.modalViewController.view.frame = CGRectMake(CGRectGetMidX(self.hostView.bounds) - 250, CGRectGetMidY(self.hostView.bounds) - 300, 500, 600);
-            self.transitionVC.view.frame = CGRectMake(self.hostView.frame.size.width + self.transitionVC.view.frame.size.width, self.transitionVC.view.frame.origin.y, self.transitionVC.view.frame.size.width, self.transitionVC.view.frame.size.height);
+            self.activeController.view.frame = CGRectMake(self.hostView.frame.size.width + self.activeController.view.frame.size.width, self.activeController.view.frame.origin.y, self.activeController.view.frame.size.width, self.activeController.view.frame.size.height);
         }];
+        if (self.modalViewController.class == NSClassFromString(@"WeatherSettingsViewController")) {
+            [self.modalViewController viewWillAppear:NO];
+        }
         self.activeController = self.modalViewController;
     }
 }
@@ -86,7 +89,7 @@ SINGLETON(ModalManager)
         CGRect modalRect = CGRectMake(self.activeController.view.frame.origin.x, self.activeController.view.frame.origin.y, self.activeController.view.frame.size.width, self.activeController.view.frame.size.height);
         if (!CGRectContainsPoint(modalRect,point))
         {
-            if (self.transitionVC == self.activeController) {
+            if (self.activeController != self.modalViewController) {
                 [self popViewController];
                 return;
             }

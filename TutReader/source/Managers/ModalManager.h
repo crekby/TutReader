@@ -14,5 +14,6 @@
 
 - (void) showModal:(UIViewController*) modalVC inVieController:(UIViewController*) controller;
 - (void)pushViewController:(UIViewController *)controller;
+- (void) popViewController;
 
 @end

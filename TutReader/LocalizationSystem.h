@@ -20,12 +20,12 @@
 #define LocalizationReset \
 [[LocalizationSystem instance] resetLocalization]
 
-@interface LocalizationSystem : NSObject {
-	NSString *language;
-}
+@interface LocalizationSystem : NSObject
 
 // you really shouldn't care about this functions and use the MACROS
 + (LocalizationSystem *) instance;
+
+@property (nonatomic, strong, readonly) NSString* language;
 
 //gets the string localized
 - (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;

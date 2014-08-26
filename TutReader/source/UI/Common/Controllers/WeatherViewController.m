@@ -9,6 +9,7 @@
 #import "WeatherViewController.h"
 #import "Weather.h"
 #import "WeatherCell.h"
+#import "ModalManager.h"
 
 @interface WeatherViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -43,7 +44,7 @@
         self.tabBarController.navigationItem.titleView = nil;
     }
     if (!self.tabBarController.navigationItem.rightBarButtonItems) {
-        self.settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"City" style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+        self.settingsButton = [[UIBarButtonItem alloc] initWithTitle:AMLocalizedString(@"WEATHER_CITY_TITLE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
         self.tabBarController.navigationItem.rightBarButtonItems = @[self.settingsButton];
     }
     
@@ -92,8 +93,14 @@
     if ([[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR].length == 0 && self.firstRun) {
         UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
         settings.view.frame = self.view.frame;
-        [self.tabBarController.navigationController pushViewController:settings animated:YES];
         self.firstRun = NO;
+        if (IS_IPHONE) {
+            [self.tabBarController.navigationController pushViewController:settings animated:YES];
+        }
+        else
+        {
+            [[ModalManager instance] performSelector:@selector(pushViewController:) withObject:settings afterDelay:0.3f];
+        }
     }
 }
 
