@@ -64,6 +64,7 @@
         }
         
     }
+    self.max += 50;
 //    self.data = [NSMutableDictionary new];
 //    for (int i=0; i < [DataProvider instance].numberOfSections; i++) {
 //        for (TUTNews* newsItem in [[DataProvider instance] newsInSection:i]) {
@@ -117,9 +118,9 @@
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 	graph.titleDisplacement = CGPointMake(0.0f, 10.0f);
 	// 4 - Set padding for plot area
-    [graph.plotAreaFrame setPaddingLeft:1.0f];
+    [graph.plotAreaFrame setPaddingLeft:30.0f];
 	//[graph.plotAreaFrame setPaddingBottom:30.0f];
-    [graph.plotAreaFrame setPaddingTop:30.0f];
+    [graph.plotAreaFrame setPaddingTop:50.0f];
     graph.paddingLeft = 0;
     graph.paddingRight = 0;
     graph.paddingTop = 0;
@@ -189,7 +190,7 @@
 	CPTAxis *x = axisSet.xAxis;
 	x.title = @"";
     axisSet.xAxis.axisConstraints = [CPTConstraints constraintWithLowerOffset:0];
-    axisSet.yAxis.axisConstraints = [CPTConstraints constraintWithLowerOffset:0];
+    axisSet.yAxis.axisConstraints = [CPTConstraints constraintWithLowerOffset:-29];
     x.titleTextStyle = axisTitleStyle;
 	x.titleOffset = 15.0f;
 	x.axisLineStyle = axisLineStyle;
@@ -230,25 +231,34 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-	NSInteger majorIncrement = 1000;
-	NSInteger minorIncrement = 1000;
+	NSInteger majorIncrement = 400;
+	NSInteger minorIncrement = 200;
     
-    if (self.max < 2000) {
+    if (self.max < 100) {
+        minorIncrement = 1;
+        majorIncrement = 5;
+    }
+    else if (self.max < 1000)
+    {
+        minorIncrement = 5;
+        majorIncrement = 10;
+    }
+    else if (self.max < 2000) {
         minorIncrement = 10;
-        majorIncrement = 100;
+        majorIncrement = 50;
     }
     else if (self.max < 10000)
     {
         minorIncrement = 50;
-        majorIncrement = 250;
+        majorIncrement = 100;
     }
     else if (self.max < 20000)
     {
         minorIncrement = 100;
-        majorIncrement = 500;
+        majorIncrement = 200;
     }
     
-	CGFloat yMax = self.max+20;  // should determine dynamically based on max price
+	CGFloat yMax = self.max;  // should determine dynamically based on max price
 	NSMutableSet *yLabels = [NSMutableSet set];
 	NSMutableSet *yMajorLocations = [NSMutableSet set];
 	NSMutableSet *yMinorLocations = [NSMutableSet set];

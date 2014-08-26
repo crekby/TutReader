@@ -34,7 +34,6 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
     self.searchField.text = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
-    // Do any additional setup after loading the view.
 }
 
 - (void)dealloc
@@ -101,12 +100,10 @@
     {
         self.cityArray = [NSMutableArray new];
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        NSLog(@"\n\r\n\r");
         for (NSDictionary* dict in json[@"list"]) {
             if (dict[@"name"])
             {
                 NSString* city = [NSString stringWithFormat:@"%@, %@",dict[@"name"], [dict[@"sys"] valueForKey:@"country"]];
-                NSLog(city);
                [self.cityArray insertObject:city atIndex:self.cityArray.count];
             }
         }
@@ -160,7 +157,6 @@
     while ([[cityToSearch substringWithRange:NSMakeRange(cityToSearch.length-1, 1)]  isEqual: @" "]) {
         cityToSearch = [cityToSearch substringToIndex:cityToSearch.length-1];
     }
-    NSLog(cityToSearch);
     NSString* searchString = [NSString stringWithFormat:WEATHER_SEARCH_CITY_URL, [cityToSearch stringByReplacingOccurrencesOfString:@" " withString:@"%20"], [[LocalizationSystem instance] getLanguage]];
     NSString* url = searchString;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
