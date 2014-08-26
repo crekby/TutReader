@@ -11,7 +11,7 @@
 "ONLINE_TITLE" = "Онлайн";
 "FAVORITE_TITLE" = "Избранные";
 "CATEGORIES_TITLE" = "Рубрики";
-"GRAPH_TITLE" = "График";
+"WEATHER_TITLE" = "Пагода";
 "CURRENCY_TITLE" = "Курс Валют";
 
 "NO_INTERNET_CONNECTION_TITLE"       = "Интернет Соединение";
@@ -37,3 +37,10 @@
 
 "WHATSAPP_SHARE_TITLE_ALERT"         = "WhatsApp";
 "WHATSAPP_SHARE_NOT_AVAILABLE_ALERT" = "WhatsApp не доступен";
+
+"WEATHER_DAY_TEMP" = "День: %.2f °C";
+"WEATHER_MORN_TEMP" = "Утро: %.2f °C";
+"WEATHER_EVE_TEMP" = "Вечер: %.2f °C";
+"WEATHER_NIGHT_TEMP" = "Ночь: %.2f °C";
+"WEATHER_PRESURE" = "Давление: %.2f";
+"WEATHER_WIND_SPEED" = "Скорость Ветра: %.2f";

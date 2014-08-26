@@ -181,8 +181,9 @@
     axisSet.xAxis.orthogonalCoordinateDecimal = CPTDecimalFromFloat(self.min-100);
 	CPTAxis *x = axisSet.xAxis;
 	x.title = @"";
-    //x. = [CPTConstraints constraintWithUpperOffset:132];
-	x.titleTextStyle = axisTitleStyle;
+    axisSet.xAxis.axisConstraints = [CPTConstraints constraintWithLowerOffset:0];
+    axisSet.yAxis.axisConstraints = [CPTConstraints constraintWithLowerOffset:0];
+    x.titleTextStyle = axisTitleStyle;
 	x.titleOffset = 15.0f;
 	x.axisLineStyle = axisLineStyle;
 	x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
@@ -210,7 +211,7 @@
 	x.majorTickLocations = xLocations;
 	// 4 - Configure y-axis
 	CPTAxis *y = axisSet.yAxis;
-	y.title = @"BLR";
+	y.title = @"";
 	y.titleTextStyle = axisTitleStyle;
 	y.titleOffset = -40.0f;
 	y.axisLineStyle = axisLineStyle;
@@ -222,31 +223,29 @@
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-	NSInteger majorIncrement = self.max / 20;
-	NSInteger minorIncrement = majorIncrement / 5;
-	CGFloat yMax = self.max;  // should determine dynamically based on max price
+	NSInteger majorIncrement = self.max / 50;
+	NSInteger minorIncrement = majorIncrement;
+	CGFloat yMax = self.max+20;  // should determine dynamically based on max price
 	NSMutableSet *yLabels = [NSMutableSet set];
 	NSMutableSet *yMajorLocations = [NSMutableSet set];
 	NSMutableSet *yMinorLocations = [NSMutableSet set];
 	for (NSInteger j = minorIncrement; j <= yMax; j += minorIncrement) {
 		NSUInteger mod = j % majorIncrement;
-		if (mod == 0) {
-            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
-			NSDecimal location = CPTDecimalFromInteger(j);
-			label.tickLocation = location;
-			label.offset = -y.majorTickLength - y.labelOffset;
-			if (label) {
-				[yLabels addObject:label];
-			}
+        
+        CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
+        NSDecimal location = CPTDecimalFromInteger(j);
+        label.tickLocation = location;
+        label.offset = -y.majorTickLength - y.labelOffset;
+        if (label) {
+            [yLabels addObject:label];
+        }
+        
+		if (mod == 0)
+        {
 			[yMajorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:location]];
-		} else {
-            CPTAxisLabel *label = [[CPTAxisLabel alloc] initWithText:[NSString stringWithFormat:@"%i", j] textStyle:y.labelTextStyle];
-			NSDecimal location = CPTDecimalFromInteger(j);
-			label.tickLocation = location;
-			label.offset = -y.majorTickLength - y.labelOffset;
-			if (label) {
-				[yLabels addObject:label];
-			}
+		}
+        else
+        {
 			[yMinorLocations addObject:[NSDecimalNumber decimalNumberWithDecimal:CPTDecimalFromInteger(j)]];
 		}
 	}

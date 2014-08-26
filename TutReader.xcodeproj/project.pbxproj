@@ -61,11 +61,16 @@
 		15922069198FA76B001CF232 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1592206B198FA76B001CF232 /* Localizable.strings */; };
 		1592206F198FB35B001CF232 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1592206E198FB35B001CF232 /* TabBarController.m */; };
 		159A613619A3982F008956DE /* GraphController.m in Sources */ = {isa = PBXBuildFile; fileRef = 159A613519A3982F008956DE /* GraphController.m */; };
-		159A613919A399A7008956DE /* CorePlotHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 159A613819A399A7008956DE /* CorePlotHeaders */; };
-		159A613B19A399B0008956DE /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A613A19A399B0008956DE /* libCorePlot-CocoaTouch.a */; };
 		159A613D19A39BBE008956DE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A613C19A39BBE008956DE /* Accelerate.framework */; };
 		159BC879199DEA670072C54B /* SpeechManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 159BC878199DEA670072C54B /* SpeechManager.m */; };
 		15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5764919810C5D00E55E3F /* Twitter.framework */; };
+		15AD7F6319AB7AD70072DF1C /* CorePlotHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 15AD7F6219AB7AD70072DF1C /* CorePlotHeaders */; };
+		15AD7F6519AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AD7F6419AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a */; };
+		15AD7F6819AB85FD0072DF1C /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F6719AB85FD0072DF1C /* WeatherViewController.m */; };
+		15AD7F6B19AB8C990072DF1C /* WeatherSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F6A19AB8C990072DF1C /* WeatherSettingsViewController.m */; };
+		15AD7F6E19AB91040072DF1C /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F6D19AB91040072DF1C /* Weather.m */; };
+		15AD7F7119AB93070072DF1C /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F7019AB93060072DF1C /* WeatherCell.m */; };
+		15D44A2A19AC6E260099DAD9 /* Weather.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D44A2919AC6E260099DAD9 /* Weather.xcassets */; };
 		15E5B61519922099001140FA /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E5B61419922099001140FA /* SettingsManager.m */; };
 		15E65FED198668660059BEB5 /* FavoriteNewsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEC198668660059BEB5 /* FavoriteNewsManager.m */; };
 		15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */; };
@@ -175,12 +180,21 @@
 		1592206E198FB35B001CF232 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TabBarController.m; path = Source/UI/Common/Controllers/TabBarController.m; sourceTree = "<group>"; };
 		159A613419A3982F008956DE /* GraphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphController.h; path = Source/UI/Common/Controllers/GraphController.h; sourceTree = "<group>"; };
 		159A613519A3982F008956DE /* GraphController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphController.m; path = Source/UI/Common/Controllers/GraphController.m; sourceTree = "<group>"; };
-		159A613819A399A7008956DE /* CorePlotHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CorePlotHeaders; sourceTree = "<group>"; };
-		159A613A19A399B0008956DE /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		159A613C19A39BBE008956DE /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		159BC877199DEA670072C54B /* SpeechManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechManager.h; sourceTree = "<group>"; };
 		159BC878199DEA670072C54B /* SpeechManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechManager.m; sourceTree = "<group>"; };
 		15A5764919810C5D00E55E3F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		15AD7F6219AB7AD70072DF1C /* CorePlotHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CorePlotHeaders; sourceTree = "<group>"; };
+		15AD7F6419AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		15AD7F6619AB85FD0072DF1C /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherViewController.h; path = Source/UI/Common/Controllers/WeatherViewController.h; sourceTree = "<group>"; };
+		15AD7F6719AB85FD0072DF1C /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeatherViewController.m; path = Source/UI/Common/Controllers/WeatherViewController.m; sourceTree = "<group>"; };
+		15AD7F6919AB8C990072DF1C /* WeatherSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherSettingsViewController.h; path = Source/UI/Common/Controllers/WeatherSettingsViewController.h; sourceTree = "<group>"; };
+		15AD7F6A19AB8C990072DF1C /* WeatherSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeatherSettingsViewController.m; path = Source/UI/Common/Controllers/WeatherSettingsViewController.m; sourceTree = "<group>"; };
+		15AD7F6C19AB91040072DF1C /* Weather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
+		15AD7F6D19AB91040072DF1C /* Weather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
+		15AD7F6F19AB93060072DF1C /* WeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherCell.h; path = Source/UI/Common/Cells/WeatherCell.h; sourceTree = "<group>"; };
+		15AD7F7019AB93060072DF1C /* WeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeatherCell.m; path = Source/UI/Common/Cells/WeatherCell.m; sourceTree = "<group>"; };
+		15D44A2919AC6E260099DAD9 /* Weather.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Weather.xcassets; sourceTree = "<group>"; };
 		15E5B61319922099001140FA /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Source/Managers/SettingsManager.h; sourceTree = "<group>"; };
 		15E5B61419922099001140FA /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsManager.m; path = Source/Managers/SettingsManager.m; sourceTree = "<group>"; };
 		15E65FEB198668660059BEB5 /* FavoriteNewsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteNewsManager.h; path = Source/Managers/FavoriteNewsManager.h; sourceTree = "<group>"; };
@@ -205,6 +219,7 @@
 				159A613D19A39BBE008956DE /* Accelerate.framework in Frameworks */,
 				15F9D71D199CC4AA008A8F06 /* AVFoundation.framework in Frameworks */,
 				156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */,
+				15AD7F6519AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a in Frameworks */,
 				15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */,
 				15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */,
 				1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */,
@@ -212,7 +227,6 @@
 				156182641976C3DB00D16B5F /* UIKit.framework in Frameworks */,
 				156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */,
 				051597C514C44F93AED2A5BE /* libPods.a in Frameworks */,
-				159A613B19A399B0008956DE /* libCorePlot-CocoaTouch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +407,8 @@
 				156E5D7B198B7AC700D8B6DC /* NewsCategoryItem.m */,
 				15787E9A19A5FE0B00218BD5 /* Currency.h */,
 				15787E9B19A5FE0B00218BD5 /* Currency.m */,
+				15AD7F6C19AB91040072DF1C /* Weather.h */,
+				15AD7F6D19AB91040072DF1C /* Weather.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -406,6 +422,8 @@
 				151F4C98198A88320019B26D /* CategoryCell.m */,
 				15787E9D19A6002B00218BD5 /* CurrencyCell.h */,
 				15787E9E19A6002B00218BD5 /* CurrencyCell.m */,
+				15AD7F6F19AB93060072DF1C /* WeatherCell.h */,
+				15AD7F7019AB93060072DF1C /* WeatherCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -454,6 +472,10 @@
 				159A613519A3982F008956DE /* GraphController.m */,
 				15787E9319A5F4B300218BD5 /* CurrencyTableViewController.h */,
 				15787E9419A5F4B300218BD5 /* CurrencyTableViewController.m */,
+				15AD7F6619AB85FD0072DF1C /* WeatherViewController.h */,
+				15AD7F6719AB85FD0072DF1C /* WeatherViewController.m */,
+				15AD7F6919AB8C990072DF1C /* WeatherSettingsViewController.h */,
+				15AD7F6A19AB8C990072DF1C /* WeatherSettingsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -479,6 +501,7 @@
 				1561827A1976C3DB00D16B5F /* Images.xcassets */,
 				15060E091980066E00E68EB1 /* ShareAssets.xcassets */,
 				1511E84519AB280C00355EBA /* Flags.xcassets */,
+				15D44A2919AC6E260099DAD9 /* Weather.xcassets */,
 				15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */,
 				15787E8B19A5EB1A00218BD5 /* currency@2x.png */,
 				1592206B198FA76B001CF232 /* Localizable.strings */,
@@ -497,8 +520,8 @@
 		159A613719A3999B008956DE /* CorePlot */ = {
 			isa = PBXGroup;
 			children = (
-				159A613A19A399B0008956DE /* libCorePlot-CocoaTouch.a */,
-				159A613819A399A7008956DE /* CorePlotHeaders */,
+				15AD7F6419AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a */,
+				15AD7F6219AB7AD70072DF1C /* CorePlotHeaders */,
 			);
 			name = CorePlot;
 			sourceTree = "<group>";
@@ -587,13 +610,14 @@
 			files = (
 				1511E84619AB280C00355EBA /* Flags.xcassets in Resources */,
 				156182761976C3DB00D16B5F /* Main_iPad.storyboard in Resources */,
-				159A613919A399A7008956DE /* CorePlotHeaders in Resources */,
 				1561827B1976C3DB00D16B5F /* Images.xcassets in Resources */,
 				156182731976C3DB00D16B5F /* Main_iPhone.storyboard in Resources */,
+				15D44A2A19AC6E260099DAD9 /* Weather.xcassets in Resources */,
 				15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */,
 				15787E8C19A5EB1A00218BD5 /* currency@2x.png in Resources */,
 				15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */,
 				15922069198FA76B001CF232 /* Localizable.strings in Resources */,
+				15AD7F6319AB7AD70072DF1C /* CorePlotHeaders in Resources */,
 				1561826A1976C3DB00D16B5F /* InfoPlist.strings in Resources */,
 				1592205B198F9876001CF232 /* Settings.bundle in Resources */,
 			);
@@ -647,6 +671,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15AD7F7119AB93070072DF1C /* WeatherCell.m in Sources */,
 				15787E9C19A5FE0B00218BD5 /* Currency.m in Sources */,
 				15060DF9197F995400E68EB1 /* Reachability.m in Sources */,
 				157A5B7D19A7895600C6C030 /* ModalManager.m in Sources */,
@@ -654,6 +679,7 @@
 				156AFA1E197CEF3400813E2D /* NewsCell.m in Sources */,
 				15060E05197FE74E00E68EB1 /* GoogleAnalyticsManager.m in Sources */,
 				151F4C96198A704D0019B26D /* CategoryManager.m in Sources */,
+				15AD7F6B19AB8C990072DF1C /* WeatherSettingsViewController.m in Sources */,
 				15F8331C19823BBC00E91714 /* DataProvider.m in Sources */,
 				15787E9519A5F4B300218BD5 /* CurrencyTableViewController.m in Sources */,
 				151F4C99198A88320019B26D /* CategoryCell.m in Sources */,
@@ -676,10 +702,12 @@
 				15878A091990FDA50017374B /* CacheFilesManager.m in Sources */,
 				15922063198FA699001CF232 /* LocalizationSystem.m in Sources */,
 				154F68EA1980528100FF3238 /* ShareViewController.m in Sources */,
+				15AD7F6E19AB91040072DF1C /* Weather.m in Sources */,
 				156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */,
 				15060DFF197F9F7E00E68EB1 /* AlertManager.m in Sources */,
 				15E5B61519922099001140FA /* SettingsManager.m in Sources */,
 				156AFA2D197CF82400813E2D /* RemoteFacade.m in Sources */,
+				15AD7F6819AB85FD0072DF1C /* WeatherViewController.m in Sources */,
 				156E5D79198B7A6F00D8B6DC /* NewsSubCategoryItem.m in Sources */,
 				15F8331F19824FD700E91714 /* PageViewController.m in Sources */,
 				15787E9F19A6002B00218BD5 /* CurrencyCell.m in Sources */,
@@ -833,6 +861,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TutReader/TutReader-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/TutReader/Headers",
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/GoogleAnalytics-iOS-SDK\"",
+					"\"${PODS_ROOT}/Headers/google-plus-ios-sdk\"",
+					"$(SDKROOT)/usr/include/libz",
+				);
 				INFOPLIST_FILE = "TutReader/TutReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -854,6 +889,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TutReader/TutReader-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"${SRCROOT}/TutReader/Headers",
+					"\"${PODS_ROOT}/Headers\"",
+					"\"${PODS_ROOT}/Headers/GoogleAnalytics-iOS-SDK\"",
+					"\"${PODS_ROOT}/Headers/google-plus-ios-sdk\"",
+					"$(SDKROOT)/usr/include/libz",
+				);
 				INFOPLIST_FILE = "TutReader/TutReader-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (

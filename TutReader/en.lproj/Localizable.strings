@@ -10,7 +10,7 @@
 "ONLINE_TITLE" = "Online";
 "FAVORITE_TITLE" = "Favorite";
 "CATEGORIES_TITLE" = "Categories";
-"GRAPH_TITLE" = "Graph";
+"WEATHER_TITLE" = "Weather";
 "CURRENCY_TITLE" = "Currency";
 
 "NO_INTERNET_CONNECTION_TITLE"       = "Internet Connection";
@@ -36,3 +36,11 @@
 
 "WHATSAPP_SHARE_TITLE_ALERT"         = "WhatsApp";
 "WHATSAPP_SHARE_NOT_AVAILABLE_ALERT" = "WhatsApp sharing is not available";
+
+
+"WEATHER_DAY_TEMP" = "Day: %.2f °C";
+"WEATHER_MORN_TEMP" = "Morning: %.2f °C";
+"WEATHER_EVE_TEMP" = "Evening: %.2f °C";
+"WEATHER_NIGHT_TEMP" = "Night: %.2f °C";
+"WEATHER_PRESURE" = "Presure: %.2f";
+"WEATHER_WIND_SPEED" = "Wind Speed: %.2f";

@@ -11,8 +11,6 @@
 @interface GraphController : UIViewController <CPTPlotDataSource>
 
 @property (nonatomic, strong) CPTGraphHostingView *hostView;
-
-@property (nonatomic, weak) NSArray* xValues;
 @property (nonatomic, strong) NSArray* Values;
 
 
