@@ -71,6 +71,7 @@
 		15AD7F6E19AB91040072DF1C /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F6D19AB91040072DF1C /* Weather.m */; };
 		15AD7F7119AB93070072DF1C /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F7019AB93060072DF1C /* WeatherCell.m */; };
 		15D44A2A19AC6E260099DAD9 /* Weather.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15D44A2919AC6E260099DAD9 /* Weather.xcassets */; };
+		15D44A3119ACA4930099DAD9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D44A3019ACA4930099DAD9 /* CoreLocation.framework */; };
 		15E5B61519922099001140FA /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E5B61419922099001140FA /* SettingsManager.m */; };
 		15E65FED198668660059BEB5 /* FavoriteNewsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEC198668660059BEB5 /* FavoriteNewsManager.m */; };
 		15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */; };
@@ -195,6 +196,7 @@
 		15AD7F6F19AB93060072DF1C /* WeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherCell.h; path = Source/UI/Common/Cells/WeatherCell.h; sourceTree = "<group>"; };
 		15AD7F7019AB93060072DF1C /* WeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeatherCell.m; path = Source/UI/Common/Cells/WeatherCell.m; sourceTree = "<group>"; };
 		15D44A2919AC6E260099DAD9 /* Weather.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Weather.xcassets; sourceTree = "<group>"; };
+		15D44A3019ACA4930099DAD9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		15E5B61319922099001140FA /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Source/Managers/SettingsManager.h; sourceTree = "<group>"; };
 		15E5B61419922099001140FA /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsManager.m; path = Source/Managers/SettingsManager.m; sourceTree = "<group>"; };
 		15E65FEB198668660059BEB5 /* FavoriteNewsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteNewsManager.h; path = Source/Managers/FavoriteNewsManager.h; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15D44A3119ACA4930099DAD9 /* CoreLocation.framework in Frameworks */,
 				159A613D19A39BBE008956DE /* Accelerate.framework in Frameworks */,
 				15F9D71D199CC4AA008A8F06 /* AVFoundation.framework in Frameworks */,
 				156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */,
@@ -328,6 +331,7 @@
 		1561825E1976C3DB00D16B5F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15D44A3019ACA4930099DAD9 /* CoreLocation.framework */,
 				159A613C19A39BBE008956DE /* Accelerate.framework */,
 				15F9D71C199CC4AA008A8F06 /* AVFoundation.framework */,
 				156E5D80198BB13E00D8B6DC /* QuartzCore.framework */,
