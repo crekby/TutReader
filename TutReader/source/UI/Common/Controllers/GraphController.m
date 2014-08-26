@@ -103,7 +103,7 @@
 -(void)configureGraph {
 	// 1 - Create the graph
 	CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-	[graph applyTheme:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
+	[graph applyTheme:[CPTTheme themeNamed:kCPTStocksTheme]];
 	self.hostView.hostedGraph = graph;
 	// 2 - Set graph title
 	NSString *title = @"";
@@ -117,8 +117,15 @@
 	graph.titlePlotAreaFrameAnchor = CPTRectAnchorTop;
 	graph.titleDisplacement = CGPointMake(0.0f, 10.0f);
 	// 4 - Set padding for plot area
-	[graph.plotAreaFrame setPaddingLeft:30.0f];
-	[graph.plotAreaFrame setPaddingBottom:30.0f];
+    [graph.plotAreaFrame setPaddingLeft:1.0f];
+	//[graph.plotAreaFrame setPaddingBottom:30.0f];
+    [graph.plotAreaFrame setPaddingTop:30.0f];
+    graph.paddingLeft = 0;
+    graph.paddingRight = 0;
+    graph.paddingTop = 0;
+    graph.paddingBottom = 0;
+    graph.plotAreaFrame.borderWidth = 0;
+    graph.plotAreaFrame.cornerRadius = 0;
 	// 5 - Enable user interactions for plot space
 	CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *) graph.defaultPlotSpace;
 	plotSpace.allowsUserInteraction = YES;
@@ -213,18 +220,34 @@
 	CPTAxis *y = axisSet.yAxis;
 	y.title = @"";
 	y.titleTextStyle = axisTitleStyle;
-	y.titleOffset = -40.0f;
+	y.titleOffset = 200.0f;
 	y.axisLineStyle = axisLineStyle;
 	y.majorGridLineStyle = gridLineStyle;
 	y.labelingPolicy = CPTAxisLabelingPolicyNone;
 	y.labelTextStyle = axisTextStyle;
-	y.labelOffset = 16.0f;
+	y.labelOffset = -10.0f;
 	y.majorTickLineStyle = axisLineStyle;
 	y.majorTickLength = 4.0f;
 	y.minorTickLength = 2.0f;
 	y.tickDirection = CPTSignPositive;
-	NSInteger majorIncrement = self.max / 50;
-	NSInteger minorIncrement = majorIncrement;
+	NSInteger majorIncrement = 1000;
+	NSInteger minorIncrement = 1000;
+    
+    if (self.max < 2000) {
+        minorIncrement = 10;
+        majorIncrement = 100;
+    }
+    else if (self.max < 10000)
+    {
+        minorIncrement = 50;
+        majorIncrement = 250;
+    }
+    else if (self.max < 20000)
+    {
+        minorIncrement = 100;
+        majorIncrement = 500;
+    }
+    
 	CGFloat yMax = self.max+20;  // should determine dynamically based on max price
 	NSMutableSet *yLabels = [NSMutableSet set];
 	NSMutableSet *yMajorLocations = [NSMutableSet set];

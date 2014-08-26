@@ -9,12 +9,13 @@
 #import "WeatherSettingsViewController.h"
 #import "ModalManager.h"
 
-@interface WeatherSettingsViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface WeatherSettingsViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate>
 
 @property (nonatomic, weak) IBOutlet UITextField* searchField;
 @property (nonatomic, strong) NSMutableArray* cityArray;
 @property (nonatomic, weak) IBOutlet UITableView* cityTableView;
 @property (nonatomic, strong) UIView* activityIndicatorView;
+@property (nonatomic, strong) NSURLConnection* connection;
 
 @end
 
@@ -93,13 +94,42 @@
     [self saveSettings:self.cityArray[indexPath.row]];
 }
 
+#pragma mark - NSURLConnection delegate
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    if (data)
+    {
+        self.cityArray = [NSMutableArray new];
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSLog(@"\n\r\n\r");
+        for (NSDictionary* dict in json[@"list"]) {
+            if (dict[@"name"])
+            {
+                NSString* city = [NSString stringWithFormat:@"%@, %@",dict[@"name"], [dict[@"sys"] valueForKey:@"country"]];
+                NSLog(city);
+               [self.cityArray insertObject:city atIndex:self.cityArray.count];
+            }
+        }
+        [self.cityTableView reloadData];
+    }
+    [self showActivityIndicator:NO];
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
+    [self showActivityIndicator:NO];
+}
+
 #pragma mark - private methods
 
 - (void) showActivityIndicator:(BOOL) show
 {
     if (show) {
         [self.cityTableView setUserInteractionEnabled:NO];
-        self.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + self.view.frame.size.width/2-30, self.view.frame.origin.y + self.view.frame.size.height/2-30, 60, 60)];
+        if (!self.activityIndicatorView) {
+            self.activityIndicatorView = [UIView new];
+        }
+        self.activityIndicatorView.frame = CGRectMake(self.view.frame.origin.x + self.view.frame.size.width/2-30, self.view.frame.origin.y + self.view.frame.size.height/2-30, 60, 60);
         self.activityIndicatorView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         self.activityIndicatorView.layer.cornerRadius = 10.0f;
         UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -111,37 +141,51 @@
     else
     {
         [self.cityTableView setUserInteractionEnabled:YES];
+        for (UIView* subview in self.activityIndicatorView.subviews) {
+            [subview removeFromSuperview];
+        }
         [self.activityIndicatorView removeFromSuperview];
     }
 }
 
 - (IBAction)searchValueDidChange:(UITextField*)sender {
     
-    if (sender.text.length == 0) {
+    [self.connection cancel];
+    if (sender.text.length < 3) {
         return;
     }
-    NSString* url = [NSString stringWithFormat:WEATHER_SEARCH_CITY_URL, sender.text, [[LocalizationSystem instance] getLanguage]];
+    
+    NSString* cityToSearch = sender.text;
+    
+    while ([[cityToSearch substringWithRange:NSMakeRange(cityToSearch.length-1, 1)]  isEqual: @" "]) {
+        cityToSearch = [cityToSearch substringToIndex:cityToSearch.length-1];
+    }
+    NSLog(cityToSearch);
+    NSString* searchString = [NSString stringWithFormat:WEATHER_SEARCH_CITY_URL, [cityToSearch stringByReplacingOccurrencesOfString:@" " withString:@"%20"], [[LocalizationSystem instance] getLanguage]];
+    NSString* url = searchString;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
                                                            cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                        timeoutInterval:10];
-    
     [request setHTTPMethod: @"GET"];
     [self showActivityIndicator:YES];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-        if (data) {
-            self.cityArray = [NSMutableArray new];
-            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            for (NSDictionary* dict in json[@"list"]) {
-                if (dict[@"name"])
-                {
-                    NSString* city = [NSString stringWithFormat:@"%@, %@",dict[@"name"], [dict[@"sys"] valueForKey:@"country"]];
-                   [self.cityArray insertObject:city atIndex:self.cityArray.count];
-                }
-            }
-            [self.cityTableView reloadData];
-        }
-        [self showActivityIndicator:NO];
-    }];
+    
+    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [self.connection start];
+//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+//        if (data) {
+//            self.cityArray = [NSMutableArray new];
+//            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+//            for (NSDictionary* dict in json[@"list"]) {
+//                if (dict[@"name"])
+//                {
+//                    NSString* city = [NSString stringWithFormat:@"%@, %@",dict[@"name"], [dict[@"sys"] valueForKey:@"country"]];
+//                   [self.cityArray insertObject:city atIndex:self.cityArray.count];
+//                }
+//            }
+//            [self.cityTableView reloadData];
+//        }
+//        [self showActivityIndicator:NO];
+//    }];
 }
 
 - (void) saveSettings:(NSString*) city
