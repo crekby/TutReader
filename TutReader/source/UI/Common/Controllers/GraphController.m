@@ -120,7 +120,7 @@
 	// 4 - Set padding for plot area
     [graph.plotAreaFrame setPaddingLeft:30.0f];
 	//[graph.plotAreaFrame setPaddingBottom:30.0f];
-    [graph.plotAreaFrame setPaddingTop:50.0f];
+    //[graph.plotAreaFrame setPaddingTop:50.0f];
     graph.paddingLeft = 0;
     graph.paddingRight = 0;
     graph.paddingTop = 0;

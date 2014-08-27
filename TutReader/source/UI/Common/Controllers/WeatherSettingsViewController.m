@@ -25,15 +25,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardDidShow:)
+//                                                 name:UIKeyboardDidShowNotification
+//                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardDidHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
     self.searchField.text = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
+    self.cityTableView.layer.cornerRadius = 5;
+    UITapGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close:)];
+    recognizer.cancelsTouchesInView = NO;
+    recognizer.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:recognizer];
 }
 
 - (void)dealloc
@@ -119,6 +124,18 @@
 
 #pragma mark - private methods
 
+- (void) close:(UITapGestureRecognizer*) sender
+{
+    CGPoint point = [sender locationInView:self.view];
+    if (CGRectContainsPoint(self.searchField.frame, point)) {
+        return;
+    }
+    if (CGRectContainsPoint(self.cityTableView.frame, point) && !self.cityTableView.isHidden) {
+        return;
+    }
+    [self.view removeFromSuperview];
+}
+
 - (void) showActivityIndicator:(BOOL) show
 {
     if (show) {
@@ -150,6 +167,10 @@
     [self.connection cancel];
     if (sender.text.length < 3) {
         return;
+    }
+    
+    if (self.cityTableView.isHidden) {
+        self.cityTableView.hidden = NO;
     }
     
     NSString* cityToSearch = sender.text;
@@ -188,13 +209,14 @@
 {
     [[NSUserDefaults standardUserDefaults] setObject:city forKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    if (IS_IPHONE) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    else
-    {
-        [[ModalManager instance] popViewController];
-    }
+//    if (IS_IPHONE) {
+        //[self.navigationController popToRootViewControllerAnimated:YES];
+        [self.view removeFromSuperview];
+//    }
+//    else
+//    {
+//        [[ModalManager instance] popViewController];
+//    }
 }
 
 @end

@@ -480,6 +480,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Graph" image="graph" id="BKQ-aK-5CN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JJo-7u-TmK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -707,6 +708,21 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIH-9b-fhG">
+                                <rect key="frame" x="16" y="16" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="aHb-FA-afA"/>
+                                    <constraint firstAttribute="width" constant="46" id="vkl-8T-pcl"/>
+                                </constraints>
+                                <state key="normal" title="City">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showSettings" destination="83s-uN-Lpg" eventType="touchUpInside" id="le1-pB-Gez"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -725,17 +741,20 @@
                             <constraint firstItem="vvE-1O-Dk6" firstAttribute="leading" secondItem="FLi-ww-oLG" secondAttribute="trailing" constant="8" id="ZEi-sT-iZv"/>
                             <constraint firstItem="FLi-ww-oLG" firstAttribute="leading" secondItem="rPP-E2-WbC" secondAttribute="leading" constant="20" id="a1s-YI-iob"/>
                             <constraint firstItem="rfr-P7-REE" firstAttribute="leading" secondItem="FLi-ww-oLG" secondAttribute="trailing" constant="8" id="avT-Cf-eaJ"/>
+                            <constraint firstItem="AIH-9b-fhG" firstAttribute="leading" secondItem="rPP-E2-WbC" secondAttribute="leading" constant="16" id="bDc-tc-1NI"/>
                             <constraint firstItem="FLi-ww-oLG" firstAttribute="top" secondItem="ovx-sO-mOc" secondAttribute="bottom" constant="8" id="bet-Ut-C17"/>
                             <constraint firstAttribute="trailing" secondItem="ciw-Hb-AJt" secondAttribute="trailing" id="dqD-sJ-MBL"/>
                             <constraint firstItem="iH2-aV-8g3" firstAttribute="leading" secondItem="FLi-ww-oLG" secondAttribute="trailing" constant="8" id="fEU-nz-BC1"/>
                             <constraint firstItem="iH2-aV-8g3" firstAttribute="top" secondItem="ovx-sO-mOc" secondAttribute="bottom" constant="8" id="njD-JI-Vl1"/>
                             <constraint firstItem="rfr-P7-REE" firstAttribute="top" secondItem="vvE-1O-Dk6" secondAttribute="bottom" constant="8" id="rNq-Mx-fhL"/>
                             <constraint firstItem="tT1-K0-2Dz" firstAttribute="top" secondItem="rfr-P7-REE" secondAttribute="bottom" constant="8" id="ujm-5g-lpU"/>
+                            <constraint firstItem="AIH-9b-fhG" firstAttribute="top" secondItem="fWp-eU-WXE" secondAttribute="bottom" constant="16" id="uxI-zg-hOB"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Weather" image="cloud" id="V3Q-Nb-vyJ"/>
                     <connections>
+                        <outlet property="cityButton" destination="AIH-9b-fhG" id="xIm-V5-2cD"/>
                         <outlet property="collectionView" destination="ciw-Hb-AJt" id="PmD-ME-RLr"/>
                         <outlet property="dateLabel" destination="ovx-sO-mOc" id="DGe-sj-i65"/>
                         <outlet property="dayTempLabel" destination="vvE-1O-Dk6" id="Hxr-w6-KTY"/>
@@ -757,12 +776,12 @@
                         <viewControllerLayoutGuide type="top" id="fZK-6P-Dqt"/>
                         <viewControllerLayoutGuide type="bottom" id="evJ-M5-td9"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cDG-BX-RO9">
+                    <view key="view" tag="10" contentMode="scaleToFill" id="cDG-BX-RO9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QUm-K3-ibe">
-                                <rect key="frame" x="20" y="40" width="280" height="30"/>
+                                <rect key="frame" x="20" y="79" width="280" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -771,10 +790,13 @@
                                     <outlet property="delegate" destination="aTK-1e-xq8" id="Iv1-wY-Jrt"/>
                                 </connections>
                             </textField>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1n1-NC-uqf">
-                                <rect key="frame" x="20" y="78" width="280" height="470"/>
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="1n1-NC-uqf">
+                                <rect key="frame" x="20" y="117" width="280" height="176"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="176" id="mIH-0E-XyJ"/>
+                                </constraints>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="dataSource" destination="aTK-1e-xq8" id="b6A-B5-I4u"/>
@@ -782,13 +804,11 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1n1-NC-uqf" firstAttribute="top" secondItem="QUm-K3-ibe" secondAttribute="bottom" constant="8" symbolic="YES" id="Eq7-AE-nGG"/>
                             <constraint firstItem="1n1-NC-uqf" firstAttribute="leading" secondItem="cDG-BX-RO9" secondAttribute="leading" constant="20" symbolic="YES" id="P2N-y8-6Ry"/>
                             <constraint firstAttribute="trailing" secondItem="QUm-K3-ibe" secondAttribute="trailing" constant="20" id="TTu-3L-GeH"/>
-                            <constraint firstAttribute="bottom" secondItem="1n1-NC-uqf" secondAttribute="bottom" constant="20" symbolic="YES" id="fzM-BL-LYb"/>
-                            <constraint firstItem="QUm-K3-ibe" firstAttribute="top" secondItem="fZK-6P-Dqt" secondAttribute="bottom" constant="20" id="hGR-i8-hjm"/>
+                            <constraint firstItem="QUm-K3-ibe" firstAttribute="top" secondItem="fZK-6P-Dqt" secondAttribute="bottom" constant="59" id="hGR-i8-hjm"/>
                             <constraint firstItem="QUm-K3-ibe" firstAttribute="leading" secondItem="cDG-BX-RO9" secondAttribute="leading" constant="20" id="r9N-k6-0D5"/>
                             <constraint firstAttribute="trailing" secondItem="1n1-NC-uqf" secondAttribute="trailing" constant="20" symbolic="YES" id="yu6-jt-2Af"/>
                         </constraints>

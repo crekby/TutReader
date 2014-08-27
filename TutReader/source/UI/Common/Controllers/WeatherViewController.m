@@ -27,6 +27,7 @@
 @property (nonatomic,assign) BOOL firstRun;
 
 @property (nonatomic, strong) UIBarButtonItem* settingsButton;
+@property (nonatomic, weak) IBOutlet UIButton* cityButton;
 
 @end
 
@@ -36,6 +37,9 @@
 {
     [super viewDidLoad];
     self.firstRun = YES;
+    if (IS_IPAD) {
+        self.cityButton.hidden = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -145,11 +149,18 @@
     self.weatherIcon.image = [UIImage imageNamed:weather.IconURL];
 }
 
-- (void) showSettings
+- (IBAction) showSettings
 {
+    for (UIView* view in self.view.subviews) {
+        if (view.tag == 10) {
+            return;
+        }
+    }
     UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
-    settings.view.frame = self.view.frame;
-    [self.tabBarController.navigationController pushViewController:settings animated:YES];
+    settings.view.frame = self.view.bounds;
+    //[self.tabBarController.navigationController pushViewController:settings animated:YES];
+    [self addChildViewController:settings];
+    [self.view addSubview:settings.view];
 }
 
 - (void) localizeTabBarItem
