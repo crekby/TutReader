@@ -194,7 +194,7 @@ SINGLETON(DataProvider)
         [array insertObject:dateString atIndex:array.count];
     }
     set = [NSOrderedSet orderedSetWithArray:array];
-    NSLog(@"Days In News: %d",set.count);
+    NSLog(@"Days In News: %lu",(unsigned long)set.count);
     return set;
 }
 
@@ -206,7 +206,7 @@ SINGLETON(DataProvider)
     NSDate* date = [[formater dateFromString:dateString] dateByAddingTimeInterval:3*60*60];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(pubDate >=  %@ && pubDate < %@)",date,[date dateByAddingTimeInterval:60*60*24]];
     NSArray *filteredArray = [array filteredArrayUsingPredicate:predicate];
-    NSLog(@"News by Date: %d",filteredArray.count);
+    NSLog(@"News by Date: %lu",(unsigned long)filteredArray.count);
     return filteredArray;
 }
 

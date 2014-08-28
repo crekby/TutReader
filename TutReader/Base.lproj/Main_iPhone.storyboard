@@ -571,13 +571,20 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aFp-iS-ugt">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aFp-iS-ugt">
                                             <rect key="frame" x="5" y="10" width="40" height="40"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="fMk-ME-3Sm"/>
+                                                <constraint firstAttribute="height" constant="40" id="mvo-BK-4R8"/>
+                                            </constraints>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJD-Y6-KK0">
                                             <rect key="frame" x="225" y="20" width="86" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="86" id="fBu-aO-Fh3"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -585,12 +592,13 @@
                                     </subviews>
                                     <color key="backgroundColor" red="0.89803928136825562" green="0.89803928136825562" blue="0.89803928136825562" alpha="1" colorSpace="deviceRGB"/>
                                     <constraints>
-                                        <constraint firstItem="y6z-3H-jeD" firstAttribute="leading" secondItem="78s-KG-Tvd" secondAttribute="leading" constant="52" id="FpW-53-WfR"/>
+                                        <constraint firstItem="KJD-Y6-KK0" firstAttribute="leading" secondItem="y6z-3H-jeD" secondAttribute="trailing" constant="8" id="2rB-XP-pYz"/>
                                         <constraint firstAttribute="trailing" secondItem="KJD-Y6-KK0" secondAttribute="trailing" constant="9" id="IOU-J5-v5U"/>
                                         <constraint firstItem="KJD-Y6-KK0" firstAttribute="top" secondItem="78s-KG-Tvd" secondAttribute="top" constant="20" id="MLc-Uc-Ew8"/>
-                                        <constraint firstAttribute="trailing" secondItem="y6z-3H-jeD" secondAttribute="trailing" constant="103" id="RlA-ir-gYa"/>
                                         <constraint firstAttribute="bottom" secondItem="KJD-Y6-KK0" secondAttribute="bottom" constant="20" id="TFq-y2-eR6"/>
-                                        <constraint firstItem="KJD-Y6-KK0" firstAttribute="leading" secondItem="y6z-3H-jeD" secondAttribute="trailing" constant="8" id="cRd-7O-WPN"/>
+                                        <constraint firstItem="aFp-iS-ugt" firstAttribute="leading" secondItem="78s-KG-Tvd" secondAttribute="leading" constant="5" id="e1W-Q7-qmZ"/>
+                                        <constraint firstItem="y6z-3H-jeD" firstAttribute="leading" secondItem="aFp-iS-ugt" secondAttribute="trailing" constant="7" id="lbI-1x-MRm"/>
+                                        <constraint firstItem="aFp-iS-ugt" firstAttribute="top" secondItem="78s-KG-Tvd" secondAttribute="top" constant="10" id="tnL-29-LZw"/>
                                         <constraint firstItem="y6z-3H-jeD" firstAttribute="top" secondItem="78s-KG-Tvd" secondAttribute="top" constant="10" id="vbM-bT-qAY"/>
                                     </constraints>
                                 </tableViewCellContentView>

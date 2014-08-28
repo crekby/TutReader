@@ -266,7 +266,7 @@
     NSLog(@"Updating Current Weather");
     NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     if (cityName.length>0) {
-        int start = [cityName rangeOfString:@","].location;
+        unsigned long start = [cityName rangeOfString:@","].location;
         cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
         cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
         NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_CITY_URL,cityName];
