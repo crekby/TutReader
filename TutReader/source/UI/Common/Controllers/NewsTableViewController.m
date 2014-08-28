@@ -19,7 +19,7 @@
 
 #import "CategoryCollectionViewController.h"
 
-@interface NewsTableViewController () <SwipeableCellDelegate,CategoryControllerDelegate, CategoryCollectionViewDelegate>
+@interface NewsTableViewController () <SwipeableCellDelegate, CategoryCollectionViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
@@ -188,15 +188,6 @@
     {
         [self.categoryController openCategoryListAboveView:self.view];
     }
-}
-
-#pragma mark - Category Table View Delegate Methods
-
-- (void)categoriesDidClose
-{
-    self.notFirstLaunch = NO;
-    self.selectedNews = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self initOnlineNewsList];
 }
 
 #pragma mark - Category Collection View Delegate Methods
