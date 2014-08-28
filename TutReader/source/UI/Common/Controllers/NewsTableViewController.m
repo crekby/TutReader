@@ -370,13 +370,13 @@
         [self.newsTableView setUserInteractionEnabled:NO];
         if (!self.activityIndicatorView) {
             self.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-30, self.view.bounds.size.height/2-30, 60, 60)];
+            self.activityIndicatorView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+            self.activityIndicatorView.layer.cornerRadius = 10.0f;
         }
         else
         {
             self.activityIndicatorView.frame = CGRectMake(self.view.bounds.size.width/2-30, self.view.bounds.size.height/2-30, 60, 60);
         }
-        self.activityIndicatorView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-        self.activityIndicatorView.layer.cornerRadius = 10.0f;
         
         if (self.activityIndicatorView.subviews.count == 0) {
             UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
