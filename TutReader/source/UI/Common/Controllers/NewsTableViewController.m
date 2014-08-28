@@ -17,7 +17,9 @@
 #import "CategoryTableViewController.h"
 #import "NSString+MD5.h"
 
-@interface NewsTableViewController () <SwipeableCellDelegate,CategoryControllerDelegate>
+#import "CategoryCollectionViewController.h"
+
+@interface NewsTableViewController () <SwipeableCellDelegate,CategoryControllerDelegate, CategoryCollectionViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
@@ -36,6 +38,8 @@
 @property (nonatomic, strong) UIView* activityIndicatorView;
 
 @property (nonatomic, strong) NSIndexPath* selectedNews;
+
+@property (nonatomic, strong) CategoryCollectionViewController* collection;
 
 @end
 
@@ -58,21 +62,26 @@
         }
         
     }
-    self.categoryNavigationItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.categoryNavigationItemButton setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
-    self.categoryNavigationItemButton.frame = CGRectMake(0, 0, 70, 44);
     
-    if (IS_IOS7) {
-        [self.categoryNavigationItemButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
-    }
-    else
-    {
-        [self.categoryNavigationItemButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
+    self.collection = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]] instantiateViewControllerWithIdentifier:@"categoryCollectionView"];
+    self.collection.view.frame = CGRectMake(0, 0, 320, 36);
+    self.collection.delegate = self;
     
-    [self.categoryNavigationItemButton setTitleColor:CATEGORY_BUTTON_HIGHLIGHTED_COLOR forState:UIControlStateHighlighted];
-
-    [self.categoryNavigationItemButton addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
+//    self.categoryNavigationItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.categoryNavigationItemButton setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
+//    self.categoryNavigationItemButton.frame = CGRectMake(0, 0, 70, 44);
+//    
+//    if (IS_IOS7) {
+//        [self.categoryNavigationItemButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+//    }
+//    else
+//    {
+//        [self.categoryNavigationItemButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    }
+//    
+//    [self.categoryNavigationItemButton setTitleColor:CATEGORY_BUTTON_HIGHLIGHTED_COLOR forState:UIControlStateHighlighted];
+//
+//    [self.categoryNavigationItemButton addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
     UIStoryboard* storyboard = self.storyboard;
     self.categoryController = [storyboard instantiateViewControllerWithIdentifier:CATEGORY_TABLE_VIEW_CONTROLLER_IDENTIFICATOR];
     self.categoryController.delegate = self;
@@ -89,7 +98,7 @@
 {
     [super viewWillAppear:animated];
     if (self.newsType == ONLINE) {
-        self.tabBarController.navigationItem.titleView = self.categoryNavigationItemButton;
+        self.tabBarController.navigationItem.titleView = self.collection.view;//self.categoryNavigationItemButton;
     }
     else
     {
@@ -189,6 +198,16 @@
     self.selectedNews = [NSIndexPath indexPathForRow:0 inSection:0];
     [self initOnlineNewsList];
 }
+
+#pragma mark - Category Collection View Delegate Methods
+
+- (void)categoriesDidSelect
+{
+    self.notFirstLaunch = NO;
+    self.selectedNews = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self initOnlineNewsList];
+}
+
 
 #pragma mark - Table view data source
 

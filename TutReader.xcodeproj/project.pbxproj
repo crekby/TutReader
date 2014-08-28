@@ -16,6 +16,8 @@
 		15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15060E0B19800AE200E68EB1 /* MessageUI.framework */; };
 		15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */; };
 		1511E84619AB280C00355EBA /* Flags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1511E84519AB280C00355EBA /* Flags.xcassets */; };
+		1518220019AF0E940090997D /* CategoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 151821FF19AF0E940090997D /* CategoryCollectionViewCell.m */; };
+		1518220319AF0F120090997D /* CategoryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518220219AF0F120090997D /* CategoryCollectionViewController.m */; };
 		151F4C96198A704D0019B26D /* CategoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 151F4C95198A704D0019B26D /* CategoryManager.m */; };
 		151F4C99198A88320019B26D /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 151F4C98198A88320019B26D /* CategoryCell.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
@@ -105,6 +107,10 @@
 		15060E0E19800BC900E68EB1 /* UIPopover+Iphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPopover+Iphone.h"; path = "Source/Categories/UIPopover+Iphone.h"; sourceTree = "<group>"; };
 		15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPopover+Iphone.m"; path = "Source/Categories/UIPopover+Iphone.m"; sourceTree = "<group>"; };
 		1511E84519AB280C00355EBA /* Flags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Flags.xcassets; sourceTree = "<group>"; };
+		151821FE19AF0E940090997D /* CategoryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryCollectionViewCell.h; path = Source/UI/Common/Cells/CategoryCollectionViewCell.h; sourceTree = "<group>"; };
+		151821FF19AF0E940090997D /* CategoryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryCollectionViewCell.m; path = Source/UI/Common/Cells/CategoryCollectionViewCell.m; sourceTree = "<group>"; };
+		1518220119AF0F120090997D /* CategoryCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryCollectionViewController.h; path = Source/UI/Common/Controllers/CategoryCollectionViewController.h; sourceTree = "<group>"; };
+		1518220219AF0F120090997D /* CategoryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryCollectionViewController.m; path = Source/UI/Common/Controllers/CategoryCollectionViewController.m; sourceTree = "<group>"; };
 		151F4C94198A704D0019B26D /* CategoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryManager.h; path = Source/Managers/CategoryManager.h; sourceTree = "<group>"; };
 		151F4C95198A704D0019B26D /* CategoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryManager.m; path = Source/Managers/CategoryManager.m; sourceTree = "<group>"; };
 		151F4C97198A88320019B26D /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryCell.h; path = Source/UI/Common/Cells/CategoryCell.h; sourceTree = "<group>"; };
@@ -428,6 +434,8 @@
 				15787E9E19A6002B00218BD5 /* CurrencyCell.m */,
 				15AD7F6F19AB93060072DF1C /* WeatherCell.h */,
 				15AD7F7019AB93060072DF1C /* WeatherCell.m */,
+				151821FE19AF0E940090997D /* CategoryCollectionViewCell.h */,
+				151821FF19AF0E940090997D /* CategoryCollectionViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -480,6 +488,8 @@
 				15AD7F6719AB85FD0072DF1C /* WeatherViewController.m */,
 				15AD7F6919AB8C990072DF1C /* WeatherSettingsViewController.h */,
 				15AD7F6A19AB8C990072DF1C /* WeatherSettingsViewController.m */,
+				1518220119AF0F120090997D /* CategoryCollectionViewController.h */,
+				1518220219AF0F120090997D /* CategoryCollectionViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -699,6 +709,7 @@
 				15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */,
 				156E5D7C198B7AC700D8B6DC /* NewsCategoryItem.m in Sources */,
 				159BC879199DEA670072C54B /* SpeechManager.m in Sources */,
+				1518220019AF0E940090997D /* CategoryCollectionViewCell.m in Sources */,
 				15878A0C19910C2B0017374B /* NewsItem.m in Sources */,
 				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,
 				156E5D7F198B7B4C00D8B6DC /* GlobalCategoriesArray.m in Sources */,
@@ -717,6 +728,7 @@
 				15787E9F19A6002B00218BD5 /* CurrencyCell.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
+				1518220319AF0F120090997D /* CategoryCollectionViewController.m in Sources */,
 				156AFA1B197CEE3F00813E2D /* newsModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
