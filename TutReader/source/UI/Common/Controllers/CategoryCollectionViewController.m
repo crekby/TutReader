@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) NSMutableArray* array;
 @property (nonatomic, strong) NSMutableArray* urls;
+@property (nonatomic, assign) BOOL firstRun;
 
 @end
 
@@ -62,6 +63,7 @@
                                                  @"http://news.tut.by/rss/otklik.rss",
                                                  @"http://news.tut.by/rss/summer.rss",
                                                  @"http://news.tut.by/rss/press.rss"]];
+    self.firstRun = YES;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -78,6 +80,13 @@
 {
     CategoryCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CategoryCell" forIndexPath:indexPath];
     cell.label.text = self.array[indexPath.row];
+    [self changeColor:cell.label Selected:NO];
+    
+    if (self.firstRun && indexPath.row == 0) {
+        [self changeColor:cell.label Selected:YES];
+        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        self.firstRun = NO;
+    }
     //[cell.label sizeToFit];
     return cell;
 }
@@ -92,13 +101,47 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [collectionView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    CategoryCollectionViewCell* cell = (CategoryCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+
+    [self changeColor:cell.label Selected:YES];
+    
+    [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
     [DataProvider instance].newsURL = self.urls[indexPath.row];
     
     if ([self.delegate respondsToSelector:@selector(categoriesDidSelect)]) {
         [self.delegate categoriesDidSelect];
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CategoryCollectionViewCell* cell = (CategoryCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    [self changeColor:cell.label Selected:NO];
+}
+
+- (void) changeColor:(UILabel*) label  Selected:(BOOL) selected
+{
+    if (selected) {
+        if (IS_IOS7) {
+            label.textColor = [UIColor blackColor];
+        }
+        else
+        {
+            label.textColor = [UIColor whiteColor];
+        }
+    }
+    else
+    {
+        if (IS_IOS7) {
+            label.textColor = label.tintColor;
+        }
+        else
+        {
+            label.textColor = [UIColor blackColor];
+        }
+    }
+    
 }
 
 @end
