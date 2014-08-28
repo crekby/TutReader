@@ -368,13 +368,22 @@
 {
     if (show) {
         [self.newsTableView setUserInteractionEnabled:NO];
-        self.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-30, self.view.bounds.size.height/2-30, 60, 60)];
+        if (!self.activityIndicatorView) {
+            self.activityIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(self.view.bounds.size.width/2-30, self.view.bounds.size.height/2-30, 60, 60)];
+        }
+        else
+        {
+            self.activityIndicatorView.frame = CGRectMake(self.view.bounds.size.width/2-30, self.view.bounds.size.height/2-30, 60, 60);
+        }
         self.activityIndicatorView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
         self.activityIndicatorView.layer.cornerRadius = 10.0f;
-        UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        indicator.frame = CGRectMake(self.activityIndicatorView.frame.size.width/2-18.5, self.activityIndicatorView.frame.size.height/2-18.5, 37, 37);
-        [self.activityIndicatorView addSubview:indicator];
-        [indicator startAnimating];
+        
+        if (self.activityIndicatorView.subviews.count == 0) {
+            UIActivityIndicatorView* indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+            indicator.frame = CGRectMake(self.activityIndicatorView.frame.size.width/2-18.5, self.activityIndicatorView.frame.size.height/2-18.5, 37, 37);
+            [self.activityIndicatorView addSubview:indicator];
+            [indicator startAnimating];
+        }
         [self.view.superview addSubview:self.activityIndicatorView];
     }
     else
