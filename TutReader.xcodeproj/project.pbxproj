@@ -16,8 +16,9 @@
 		15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15060E0B19800AE200E68EB1 /* MessageUI.framework */; };
 		15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */ = {isa = PBXBuildFile; fileRef = 15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */; };
 		1511E84619AB280C00355EBA /* Flags.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1511E84519AB280C00355EBA /* Flags.xcassets */; };
+		1518220019AF0E940090997D /* CategoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 151821FF19AF0E940090997D /* CategoryCollectionViewCell.m */; };
+		1518220319AF0F120090997D /* CategoryCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1518220219AF0F120090997D /* CategoryCollectionViewController.m */; };
 		151F4C96198A704D0019B26D /* CategoryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 151F4C95198A704D0019B26D /* CategoryManager.m */; };
-		151F4C99198A88320019B26D /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 151F4C98198A88320019B26D /* CategoryCell.m */; };
 		1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1544D81B1977D0C100A5A48E /* CoreData.framework */; };
 		154F68EA1980528100FF3238 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 154F68E91980528100FF3238 /* ShareViewController.m */; };
 		156182601976C3DB00D16B5F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1561825F1976C3DB00D16B5F /* Foundation.framework */; };
@@ -74,7 +75,6 @@
 		15D44A3119ACA4930099DAD9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D44A3019ACA4930099DAD9 /* CoreLocation.framework */; };
 		15E5B61519922099001140FA /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E5B61419922099001140FA /* SettingsManager.m */; };
 		15E65FED198668660059BEB5 /* FavoriteNewsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEC198668660059BEB5 /* FavoriteNewsManager.m */; };
-		15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */; };
 		15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */ = {isa = PBXBuildFile; fileRef = 15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */; };
 		15F8331C19823BBC00E91714 /* DataProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F8331B19823BBC00E91714 /* DataProvider.m */; };
 		15F8331F19824FD700E91714 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15F8331E19824FD700E91714 /* PageViewController.m */; };
@@ -105,10 +105,12 @@
 		15060E0E19800BC900E68EB1 /* UIPopover+Iphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPopover+Iphone.h"; path = "Source/Categories/UIPopover+Iphone.h"; sourceTree = "<group>"; };
 		15060E0F19800BC900E68EB1 /* UIPopover+Iphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIPopover+Iphone.m"; path = "Source/Categories/UIPopover+Iphone.m"; sourceTree = "<group>"; };
 		1511E84519AB280C00355EBA /* Flags.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Flags.xcassets; sourceTree = "<group>"; };
+		151821FE19AF0E940090997D /* CategoryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryCollectionViewCell.h; path = Source/UI/Common/Cells/CategoryCollectionViewCell.h; sourceTree = "<group>"; };
+		151821FF19AF0E940090997D /* CategoryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryCollectionViewCell.m; path = Source/UI/Common/Cells/CategoryCollectionViewCell.m; sourceTree = "<group>"; };
+		1518220119AF0F120090997D /* CategoryCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryCollectionViewController.h; path = Source/UI/Common/Controllers/CategoryCollectionViewController.h; sourceTree = "<group>"; };
+		1518220219AF0F120090997D /* CategoryCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryCollectionViewController.m; path = Source/UI/Common/Controllers/CategoryCollectionViewController.m; sourceTree = "<group>"; };
 		151F4C94198A704D0019B26D /* CategoryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryManager.h; path = Source/Managers/CategoryManager.h; sourceTree = "<group>"; };
 		151F4C95198A704D0019B26D /* CategoryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryManager.m; path = Source/Managers/CategoryManager.m; sourceTree = "<group>"; };
-		151F4C97198A88320019B26D /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryCell.h; path = Source/UI/Common/Cells/CategoryCell.h; sourceTree = "<group>"; };
-		151F4C98198A88320019B26D /* CategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryCell.m; path = Source/UI/Common/Cells/CategoryCell.m; sourceTree = "<group>"; };
 		1544D81B1977D0C100A5A48E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		154F68E81980528100FF3238 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareViewController.h; path = Source/UI/Common/Controllers/ShareViewController.h; sourceTree = "<group>"; };
 		154F68E91980528100FF3238 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareViewController.m; path = Source/UI/Common/Controllers/ShareViewController.m; sourceTree = "<group>"; };
@@ -201,8 +203,6 @@
 		15E5B61419922099001140FA /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsManager.m; path = Source/Managers/SettingsManager.m; sourceTree = "<group>"; };
 		15E65FEB198668660059BEB5 /* FavoriteNewsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FavoriteNewsManager.h; path = Source/Managers/FavoriteNewsManager.h; sourceTree = "<group>"; };
 		15E65FEC198668660059BEB5 /* FavoriteNewsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FavoriteNewsManager.m; path = Source/Managers/FavoriteNewsManager.m; sourceTree = "<group>"; };
-		15E65FEE19868F7F0059BEB5 /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CategoryTableViewController.h; path = Source/UI/Common/Controllers/CategoryTableViewController.h; sourceTree = "<group>"; };
-		15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CategoryTableViewController.m; path = Source/UI/Common/Controllers/CategoryTableViewController.m; sourceTree = "<group>"; };
 		15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITV_accessory_disclosure.png; sourceTree = "<group>"; };
 		15F8331A19823BBC00E91714 /* DataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataProvider.h; path = Source/Models/DataProvider.h; sourceTree = "<group>"; };
 		15F8331B19823BBC00E91714 /* DataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataProvider.m; path = Source/Models/DataProvider.m; sourceTree = "<group>"; };
@@ -422,12 +422,12 @@
 			children = (
 				156AFA1C197CEF3400813E2D /* NewsCell.h */,
 				156AFA1D197CEF3400813E2D /* NewsCell.m */,
-				151F4C97198A88320019B26D /* CategoryCell.h */,
-				151F4C98198A88320019B26D /* CategoryCell.m */,
 				15787E9D19A6002B00218BD5 /* CurrencyCell.h */,
 				15787E9E19A6002B00218BD5 /* CurrencyCell.m */,
 				15AD7F6F19AB93060072DF1C /* WeatherCell.h */,
 				15AD7F7019AB93060072DF1C /* WeatherCell.m */,
+				151821FE19AF0E940090997D /* CategoryCollectionViewCell.h */,
+				151821FF19AF0E940090997D /* CategoryCollectionViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -468,8 +468,6 @@
 				154F68E91980528100FF3238 /* ShareViewController.m */,
 				15F8331D19824FD700E91714 /* PageViewController.h */,
 				15F8331E19824FD700E91714 /* PageViewController.m */,
-				15E65FEE19868F7F0059BEB5 /* CategoryTableViewController.h */,
-				15E65FEF19868F7F0059BEB5 /* CategoryTableViewController.m */,
 				1592206D198FB35B001CF232 /* TabBarController.h */,
 				1592206E198FB35B001CF232 /* TabBarController.m */,
 				159A613419A3982F008956DE /* GraphController.h */,
@@ -480,6 +478,8 @@
 				15AD7F6719AB85FD0072DF1C /* WeatherViewController.m */,
 				15AD7F6919AB8C990072DF1C /* WeatherSettingsViewController.h */,
 				15AD7F6A19AB8C990072DF1C /* WeatherSettingsViewController.m */,
+				1518220119AF0F120090997D /* CategoryCollectionViewController.h */,
+				1518220219AF0F120090997D /* CategoryCollectionViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -686,7 +686,6 @@
 				15AD7F6B19AB8C990072DF1C /* WeatherSettingsViewController.m in Sources */,
 				15F8331C19823BBC00E91714 /* DataProvider.m in Sources */,
 				15787E9519A5F4B300218BD5 /* CurrencyTableViewController.m in Sources */,
-				151F4C99198A88320019B26D /* CategoryCell.m in Sources */,
 				15E65FED198668660059BEB5 /* FavoriteNewsManager.m in Sources */,
 				156AFA18197CEE3000813E2D /* TUTNews.m in Sources */,
 				1592206F198FB35B001CF232 /* TabBarController.m in Sources */,
@@ -695,10 +694,10 @@
 				159A613619A3982F008956DE /* GraphController.m in Sources */,
 				156AFA24197CEF5000813E2D /* WebViewController.m in Sources */,
 				158321F11993AEBA00D1F648 /* FavoriteImage.m in Sources */,
-				15E65FF019868F7F0059BEB5 /* CategoryTableViewController.m in Sources */,
 				15060E1019800BC900E68EB1 /* UIPopover+Iphone.m in Sources */,
 				156E5D7C198B7AC700D8B6DC /* NewsCategoryItem.m in Sources */,
 				159BC879199DEA670072C54B /* SpeechManager.m in Sources */,
+				1518220019AF0E940090997D /* CategoryCollectionViewCell.m in Sources */,
 				15878A0C19910C2B0017374B /* NewsItem.m in Sources */,
 				156AFA37197D088E00813E2D /* XMLParser.m in Sources */,
 				156E5D7F198B7B4C00D8B6DC /* GlobalCategoriesArray.m in Sources */,
@@ -717,6 +716,7 @@
 				15787E9F19A6002B00218BD5 /* CurrencyCell.m in Sources */,
 				156182701976C3DB00D16B5F /* AppDelegate.m in Sources */,
 				1561826C1976C3DB00D16B5F /* main.m in Sources */,
+				1518220319AF0F120090997D /* CategoryCollectionViewController.m in Sources */,
 				156AFA1B197CEE3F00813E2D /* newsModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

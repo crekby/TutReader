@@ -256,18 +256,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7TV-RX-Wzk" customClass="TabBarController" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="cFm-7P-fgh">
-                        <barButtonItem key="leftBarButtonItem" image="cloud" id="i4E-bc-rH0">
-                            <connections>
-                                <action selector="weatherButtonDidTap:" destination="7TV-RX-Wzk" id="CME-eP-S59"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="dollar" id="1gE-35-BbA">
-                            <connections>
-                                <action selector="currencyButtonDidTap:" destination="7TV-RX-Wzk" id="W4I-C4-9m3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="cFm-7P-fgh"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="H5x-AN-lbj">
                         <autoresizingMask key="autoresizingMask"/>
@@ -460,8 +449,6 @@
     </scenes>
     <resources>
         <image name="UITV_accessory_disclosure.png" width="50" height="50"/>
-        <image name="cloud" width="16" height="16"/>
-        <image name="dollar" width="16" height="16"/>
         <image name="iconNavBarFavorites" width="22" height="22"/>
         <image name="public" width="16" height="16"/>
     </resources>

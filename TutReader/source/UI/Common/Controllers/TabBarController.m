@@ -32,6 +32,9 @@
                                              selector:@selector(checkLocalization)
                                                  name:UPDATE_LOCALIZATION
                                                object:nil];
+    if (IS_IPAD) {
+        return;
+    }
     
     NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     if (cityName.length>0) {
@@ -48,14 +51,7 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
             if (data) {
                 NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                if (IS_IPHONE) {
-                    [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]]];
-                }
-                else
-                {
-                    self.navigationItem.leftBarButtonItem.image = nil;
-                    self.navigationItem.leftBarButtonItem.title = [NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]];
-                }
+                [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]]];
             }
         }];
     }
@@ -110,18 +106,7 @@
 
 #pragma mark - Private Methods
 
-- (IBAction)currencyButtonDidTap:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
-    CurrencyTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"currencyView"];
-    [[ModalManager instance] showModal:controller inVieController:self.splitViewController];
-}
 
-- (IBAction)weatherButtonDidTap:(id)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
-    CurrencyTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"weatherView"];
-    [controller viewWillAppear:NO];
-    [[ModalManager instance] showModal:controller inVieController:self.splitViewController];
-}
 
 
 - (void)checkLocalization

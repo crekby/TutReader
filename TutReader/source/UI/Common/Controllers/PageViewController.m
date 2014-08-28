@@ -16,14 +16,22 @@
 #import "TabBarController.h"
 #import "NewsTableViewController.h"
 #import "GraphController.h"
+#import "CurrencyTableViewController.h"
+#import "WeatherViewController.h"
+#import "ModalManager.h"
+#import <CoreLocation/CoreLocation.h>
 
 
-@interface PageViewController() <ShareViewControllerDelegate,UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIPopoverControllerDelegate,UINavigationControllerDelegate>
+@interface PageViewController() <ShareViewControllerDelegate,UIPageViewControllerDelegate,UIPageViewControllerDataSource,UIPopoverControllerDelegate,UINavigationControllerDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIPopoverController *sharePopover;
 @property (nonatomic) UIBarButtonItem* favoriteBarButton;
 @property (nonatomic) AVSpeechSynthesizer *speechSynthesizer;
 @property (nonatomic) UIBarButtonItem* speechButton;
+@property (nonatomic, strong) UIBarButtonItem* weatherButton;
+@property (nonatomic, strong) UIBarButtonItem* currencyButton;
+@property (nonatomic, strong) CLLocationManager* locationManager;
+@property (nonatomic, strong) CLLocation* location;
 
 @end
 
@@ -55,6 +63,35 @@
     if (IS_IPAD) {
         if ([[DataProvider instance] selectedNews].newsURL) {
             self.title = [[DataProvider instance] selectedNews].newsTitle;
+        }
+        self.weatherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cloud"] style:UIBarButtonItemStylePlain target:self action:@selector(weatherButtonDidTap:)];
+        self.currencyButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dollar"] style:UIBarButtonItemStylePlain target:self action:@selector(currencyButtonDidTap:)];
+        self.navigationItem.leftBarButtonItems = @[self.weatherButton,self.currencyButton];
+        NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
+        if (cityName.length>0) {
+            int start = [cityName rangeOfString:@","].location;
+            cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
+            cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+            NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_CITY_URL,cityName];
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                                   cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                               timeoutInterval:10];
+            
+            [request setHTTPMethod: @"GET"];
+            [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+                if (data) {
+                    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                        self.weatherButton.title = [NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]];
+                        self.weatherButton.image = nil;
+                }
+            }];
+        }
+        else
+        {
+            self.locationManager = [CLLocationManager new];
+            self.locationManager.delegate = self;
+            [self.locationManager startUpdatingLocation];
         }
     }
     
@@ -221,7 +258,48 @@
     [[ShareManager instance] shareByWatsApp:[[DataProvider instance] selectedNews]];
 }
 
+#pragma mark - location manager delegate
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    if (!self.location) {
+        self.location = [CLLocation new];
+    }
+    [self.locationManager stopUpdatingLocation];
+    self.location = locations[0];
+    NSLog(@"%@",self.location);
+    NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_LOCATION_URL,self.location.coordinate.latitude,self.location.coordinate.longitude];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    
+    [request setHTTPMethod: @"GET"];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+        if (data) {
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            //NSLog(@"%@",json);
+            NSArray* list = [[NSArray alloc] initWithArray:json[@"list"]];
+            self.weatherButton.image = nil;
+            self.weatherButton.title = [NSString stringWithFormat:@"%@°",[[list[0] valueForKey:@"main"] valueForKey:@"temp"]];
+        }
+    }];
+}
+
 #pragma mark - Private methods
+
+- (void)currencyButtonDidTap:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+    CurrencyTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"currencyView"];
+    [[ModalManager instance] showModal:controller inVieController:self.splitViewController];
+}
+
+- (void)weatherButtonDidTap:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
+    WeatherViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"weatherView"];
+    [controller viewWillAppear:NO];
+    [[ModalManager instance] showModal:controller inVieController:self.splitViewController];
+}
 
 - (void) speechButtonDidTap: (UIBarButtonItem*) sender
 {
