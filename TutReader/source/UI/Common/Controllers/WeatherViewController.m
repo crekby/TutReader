@@ -87,6 +87,7 @@
             }
         }];
     }
+    [self orientationDidChange:nil];
     
 }
 

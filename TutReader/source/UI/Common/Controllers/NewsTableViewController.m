@@ -62,7 +62,6 @@
     }
     
     self.collection = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]] instantiateViewControllerWithIdentifier:@"categoryCollectionView"];
-    self.collection.view.frame = CGRectMake(0, 0, 320, 36);
     self.collection.delegate = self;
     [self registerForNotification];
     self.afterRotation = NO;
@@ -77,6 +76,7 @@
 {
     [super viewWillAppear:animated];
     if (self.newsType == ONLINE) {
+        self.collection.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 36);
         self.tabBarController.navigationItem.titleView = self.collection.view;//self.categoryNavigationItemButton;
     }
     else
