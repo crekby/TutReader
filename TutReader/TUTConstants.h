@@ -205,6 +205,12 @@ typedef enum
 #define XML_PUBLICATION_DATE     @"pubDate"
 #define XML_DATE_FORMAT          @"EEE, dd MMM yyyy  HH:mm:ss ZZZ"
 
+#define XML_CURRENCY             @"Currency"
+#define XML_RECORD               @"Record"
+#define XML_CHARCODE             @"CharCode"
+#define XML_CURRENCY_NAME        @"QuotName"
+#define XML_RATE                 @"Rate"
+
 // HTTP STATUS CODES
 
 #define HTTP_OK                  200

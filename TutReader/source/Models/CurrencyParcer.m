@@ -39,12 +39,12 @@ SINGLETON(CurrencyParcer)
     attributes:(NSDictionary *)attributeDict
 {
     
-    if ([elementName isEqualToString:@"Currency"])
+    if ([elementName isEqualToString:XML_CURRENCY])
     {
         self.currency = [Currency new];
         self.currencyID = [attributeDict valueForKey:@"Id"];
     }
-    if ([elementName isEqualToString:@"Record"]) {
+    if ([elementName isEqualToString:XML_RECORD]) {
         self.currency = [Currency new];
     }
 }
@@ -63,14 +63,14 @@ SINGLETON(CurrencyParcer)
         if (self.currencyID) {
             self.currency.currencyID = self.currencyID;
         }
-        if ([elementName isEqualToString:@"CharCode"]) {
+        if ([elementName isEqualToString:XML_CHARCODE]) {
             self.currency.charCode = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
-        if ([elementName isEqualToString:@"QuotName"]) {
+        if ([elementName isEqualToString:XML_CURRENCY_NAME]) {
             self.currency.name = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             
         }
-        if ([elementName isEqualToString:@"Rate"]) {
+        if ([elementName isEqualToString:XML_RATE]) {
             self.currency.exchangeRate = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             [self.items insertObject:self.currency atIndex:self.items.count];
         }
