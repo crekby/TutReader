@@ -21,8 +21,6 @@
     #import "NewsItem.h"
     #import "GoogleAnalyticsManager.h"
     #import "DataProvider.h"
-    #import "CategoryManager.h"
-    #import "GlobalCategoriesArray.h"
     #import "LocalizationSystem.h"
     #import "CacheFilesManager.h"
     #import "SettingsManager.h"

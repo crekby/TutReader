@@ -20,7 +20,8 @@
 {
     [[GoogleAnalyticsManager instance] setupGoogleAnalyticsWithID:GOOGLE_ANALYTICS_ID];
     [[SettingsManager instance] setupSettings];
-    [[GlobalCategoriesArray instance] setupCategories];
+    [DataProvider instance].needToRaloadNews = YES;
+    [DataProvider instance].newsURL = RSS_URL;
     return YES;
 }
 
