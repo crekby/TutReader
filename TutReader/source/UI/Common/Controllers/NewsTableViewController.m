@@ -29,8 +29,6 @@
 
 @property (strong, nonatomic) NewsCell* openSwipeCell;
 
-@property (strong, nonatomic) CategoryTableViewController* categoryController;
-
 @property (strong, nonatomic) NSMutableArray* tableContent;
 
 @property (nonatomic, strong) UIButton *categoryNavigationItemButton;
@@ -66,25 +64,6 @@
     self.collection = [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]] instantiateViewControllerWithIdentifier:@"categoryCollectionView"];
     self.collection.view.frame = CGRectMake(0, 0, 320, 36);
     self.collection.delegate = self;
-    
-//    self.categoryNavigationItemButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [self.categoryNavigationItemButton setTitle:AMLocalizedString(@"CATEGORIES_TITLE", nil) forState:UIControlStateNormal];
-//    self.categoryNavigationItemButton.frame = CGRectMake(0, 0, 70, 44);
-//    
-//    if (IS_IOS7) {
-//        [self.categoryNavigationItemButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
-//    }
-//    else
-//    {
-//        [self.categoryNavigationItemButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-//    }
-//    
-//    [self.categoryNavigationItemButton setTitleColor:CATEGORY_BUTTON_HIGHLIGHTED_COLOR forState:UIControlStateHighlighted];
-//
-//    [self.categoryNavigationItemButton addTarget:self action:@selector(titleActionUpInside:) forControlEvents:UIControlEventTouchUpInside];
-    UIStoryboard* storyboard = self.storyboard;
-    self.categoryController = [storyboard instantiateViewControllerWithIdentifier:CATEGORY_TABLE_VIEW_CONTROLLER_IDENTIFICATOR];
-    self.categoryController.delegate = self;
     [self registerForNotification];
     self.afterRotation = NO;
 }
@@ -177,19 +156,6 @@
     }
 }
 
-#pragma mark - Title Bar Button Actions
-
-- (void) titleActionUpInside:(UIButton*) sender
-{
-    if (self.categoryController.isOpen) {
-        [self.categoryController closeCategoryList];
-    }
-    else
-    {
-        [self.categoryController openCategoryListAboveView:self.view];
-    }
-}
-
 #pragma mark - Category Collection View Delegate Methods
 
 - (void)categoriesDidSelect
@@ -265,9 +231,6 @@
         [self.openSwipeCell closeSwipe];
     }
     self.openSwipeCell = nil;
-    if (self.categoryController.isOpen) {
-        [self.categoryController closeCategoryList];
-    }
     if (indexPath != [[DataProvider instance] selectedItem]) {
         [[DataProvider instance] setSelectedNews:indexPath];
         if (IS_IPHONE) {
@@ -382,9 +345,6 @@
 {
     if (self.notFirstLaunch) {
         self.afterRotation = YES;
-    }
-    if (self.categoryController.isOpen) {
-        self.categoryController.view.frame = CGRectMake(0, self.view.frame.origin.y, self.view.frame.size.width, 220);
     }
 }
 
