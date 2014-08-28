@@ -156,7 +156,7 @@ SINGLETON(DataProvider)
                     }
                 }
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE_NOTIFICATION object:nil];
             //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
         }
     }];
@@ -176,7 +176,7 @@ SINGLETON(DataProvider)
                 }
             }
             [self setNews:array];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REFRESH_TABLE_NOTIFICATION object:nil];
             //[self performSelectorOnMainThread:@selector(reloadTableView) withObject:nil waitUntilDone:NO];
         }
     }];

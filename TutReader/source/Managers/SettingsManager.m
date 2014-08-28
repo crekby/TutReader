@@ -22,7 +22,7 @@ SINGLETON(SettingsManager)
     {
         [[LocalizationSystem instance] setLanguage:RUSSIAN_LANGUAGE_IDENTIFICATOR];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_LOCALIZATION object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_LOCALIZATION_NOTIFICATION object:nil];
 }
 
 - (void) checkCache

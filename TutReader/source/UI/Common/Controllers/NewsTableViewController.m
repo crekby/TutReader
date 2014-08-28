@@ -100,7 +100,7 @@
     if (self.afterRotation) {
         if (IS_IPAD) {
             self.selectedNews = [[DataProvider instance]  selectedItem];
-            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:self.selectedNews]];
+            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW_NOTIFICATION object:self.selectedNews]];
         }
         self.afterRotation = NO;
         return;
@@ -242,7 +242,7 @@
         else
         {
             [self trackNewsOpening];
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS_NOTIFICATION object:nil];
         }
     }
     
@@ -261,7 +261,7 @@
             if (!error) {
                 [self performSelectorOnMainThread:@selector(changeImage:) withObject:cell waitUntilDone:NO];
                 if (self.newsType == FAVORITE) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:index];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW_NOTIFICATION object:index];
 
                 }
             }
@@ -308,8 +308,8 @@
         if ([[DataProvider instance] newsInSection:0].count>0)
         {
             [[DataProvider instance] setSelectedNews:self.selectedNews];
-            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW object:self.selectedNews]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS object:nil];
+            [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW_NOTIFICATION object:self.selectedNews]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS_NOTIFICATION object:nil];
             self.notFirstLaunch = YES;
         }
     }
@@ -416,19 +416,19 @@
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadNews)
-                                                 name:NEWS_TABLE_VIEW_RELOAD_NEWS
+                                                 name:NEWS_TABLE_VIEW_RELOAD_NEWS_NOTIFICATION
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(selectRow:)
-                                                 name:NEWS_TABLE_VIEW_SELECT_ROW
+                                                 name:NEWS_TABLE_VIEW_SELECT_ROW_NOTIFICATION
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(removeNewsAtIndex:)
-                                                 name:NEWS_TABLE_VIEW_REMOVE_ROW
+                                                 name:NEWS_TABLE_VIEW_REMOVE_ROW_NOTIFICATION
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reloadTableView)
-                                                 name:NEWS_TABLE_VIEW_REFRESH_TABLE
+                                                 name:NEWS_TABLE_VIEW_REFRESH_TABLE_NOTIFICATION
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(changeOrientation)

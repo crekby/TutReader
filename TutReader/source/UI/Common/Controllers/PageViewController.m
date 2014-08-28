@@ -67,32 +67,7 @@
         self.weatherButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cloud"] style:UIBarButtonItemStylePlain target:self action:@selector(weatherButtonDidTap:)];
         self.currencyButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"dollar"] style:UIBarButtonItemStylePlain target:self action:@selector(currencyButtonDidTap:)];
         self.navigationItem.leftBarButtonItems = @[self.weatherButton,self.currencyButton];
-        NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
-        if (cityName.length>0) {
-            int start = [cityName rangeOfString:@","].location;
-            cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
-            cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-            NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_CITY_URL,cityName];
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                                   cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                               timeoutInterval:10];
-            
-            [request setHTTPMethod: @"GET"];
-            [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-                if (data) {
-                    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                        self.weatherButton.title = [NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]];
-                        self.weatherButton.image = nil;
-                }
-            }];
-        }
-        else
-        {
-            self.locationManager = [CLLocationManager new];
-            self.locationManager.delegate = self;
-            [self.locationManager startUpdatingLocation];
-        }
+        [self updateCurrentWeather];
     }
     
     [SpeechManager instance].playPauseButton = self.speechButton;
@@ -104,14 +79,9 @@
     {
         self.navigationItem.rightBarButtonItems = @[self.favoriteBarButton,shareBarButton];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChangeNotificationAction)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(setupNews)
-                                                 name:PAGE_VIEW_CONTROLLER_SETUP_NEWS
-                                               object:nil];
+    
+    [self setupNotifications];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -137,7 +107,7 @@
         [[FavoriteNewsManager instance] favoriteNewsOperation:ADD_TO_FAVORITE withNews:[DataProvider instance].selectedNews andCallback:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             if (IS_IPAD) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_RELOAD_NEWS object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_RELOAD_NEWS_NOTIFICATION object:nil];
             }
         }];
     }
@@ -146,12 +116,12 @@
         [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_FROM_FAVORITE withNews:[DataProvider instance].selectedNews andCallback:^(id data, NSError* error){
             [self performSelectorOnMainThread:@selector(changeImage:) withObject:sender waitUntilDone:NO];
             NSIndexPath* rowToSelect = [[DataProvider instance] selectedItem];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW object:rowToSelect];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_REMOVE_ROW_NOTIFICATION object:rowToSelect];
             if ([DataProvider instance].selectedItem.row>=[[DataProvider instance] newsInSection:rowToSelect.section].count) {
                 rowToSelect = [NSIndexPath indexPathForRow:[[DataProvider instance] newsInSection:rowToSelect.section].count-1 inSection:rowToSelect.section];
                 [[DataProvider instance] setSelectedNews:rowToSelect];
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:rowToSelect];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW_NOTIFICATION object:rowToSelect];
             [self setupNews];
         }];
     }
@@ -288,6 +258,42 @@
 
 #pragma mark - Private methods
 
+- (void) updateCurrentWeather
+{
+    if (IS_IPHONE) {
+        return;
+    }
+    NSLog(@"Updating Current Weather");
+    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
+    if (cityName.length>0) {
+        int start = [cityName rangeOfString:@","].location;
+        cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
+        cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_CITY_URL,cityName];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                           timeoutInterval:10];
+        
+        [request setHTTPMethod: @"GET"];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+            if (data) {
+                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                self.weatherButton.title = [NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]];
+                self.weatherButton.image = nil;
+            }
+        }];
+    }
+    else
+    {
+        if (!self.locationManager) {
+            self.locationManager = [CLLocationManager new];
+            self.locationManager.delegate = self;
+        }
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
 - (void)currencyButtonDidTap:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle bundleForClass:[self class]]];
     CurrencyTableViewController* controller = [storyboard instantiateViewControllerWithIdentifier:@"currencyView"];
@@ -317,6 +323,22 @@
 
     [[SpeechManager instance] speakText:html];
     }
+}
+
+- (void) setupNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChangeNotificationAction)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setupNews)
+                                                 name:PAGE_VIEW_CONTROLLER_SETUP_NEWS_NOTIFICATION
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateCurrentWeather)
+                                                 name:UPDATE_CURRENT_WEATHER_NOTIFICATION
+                                               object:nil];
 }
 
 - (void)setupNews
@@ -413,7 +435,7 @@
     [[DataProvider instance] setSelectedNews:path];
     [self changeImage:self.favoriteBarButton];
     if (IS_IPAD) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW object:path];
+        [[NSNotificationCenter defaultCenter] postNotificationName:NEWS_TABLE_VIEW_SELECT_ROW_NOTIFICATION object:path];
     }
 }
 

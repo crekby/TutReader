@@ -38,6 +38,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     [[SettingsManager instance] updateAfterBackground];
+    [[NSNotificationCenter defaultCenter] postNotificationName:UPDATE_CURRENT_WEATHER_NOTIFICATION object:nil];
 }
 
 - (BOOL)application: (UIApplication *)application

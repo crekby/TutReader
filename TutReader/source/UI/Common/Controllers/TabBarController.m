@@ -30,39 +30,13 @@
     [self checkLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(checkLocalization)
-                                                 name:UPDATE_LOCALIZATION
+                                                 name:UPDATE_LOCALIZATION_NOTIFICATION
                                                object:nil];
-    if (IS_IPAD) {
-        return;
-    }
-    
-    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
-    if (cityName.length>0) {
-        int start = [cityName rangeOfString:@","].location;
-        cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
-        cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-        NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_CITY_URL,cityName];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                           timeoutInterval:10];
-        
-        [request setHTTPMethod: @"GET"];
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-            if (data) {
-                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]]];
-            }
-        }];
-    }
-    else
-    {
-        self.locationManager = [CLLocationManager new];
-        self.locationManager.delegate = self;
-        [self.locationManager startUpdatingLocation];
-    }
-    
-
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateCurrentWeather)
+                                                 name:UPDATE_CURRENT_WEATHER_NOTIFICATION
+                                               object:nil];
+    [self updateCurrentWeather];
 }
 
 -(void)dealloc
@@ -102,6 +76,41 @@
                 }
             }
         }];
+}
+
+- (void) updateCurrentWeather
+{
+    if (IS_IPAD) {
+        return;
+    }
+    NSLog(@"Updating Current Weather");
+    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
+    if (cityName.length>0) {
+        int start = [cityName rangeOfString:@","].location;
+        cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
+        cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        NSString* url = [NSString stringWithFormat:WEATHER_NOW_BY_CITY_URL,cityName];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                           timeoutInterval:10];
+        
+        [request setHTTPMethod: @"GET"];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+            if (data) {
+                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[json[@"main"] valueForKey:@"temp"]]];
+            }
+        }];
+    }
+    else
+    {
+        if (!self.locationManager) {
+            self.locationManager = [CLLocationManager new];
+            self.locationManager.delegate = self;
+        }
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 #pragma mark - Private Methods
