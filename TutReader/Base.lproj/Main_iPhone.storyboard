@@ -723,6 +723,26 @@
                                     <action selector="showSettings" destination="83s-uN-Lpg" eventType="touchUpInside" id="le1-pB-Gez"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUm-z6-Qcv">
+                                <rect key="frame" x="156" y="165" width="144" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="qcL-Ep-Mr0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXy-5f-GVV">
+                                <rect key="frame" x="156" y="194" width="144" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="nd4-zo-gYR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -735,16 +755,21 @@
                             <constraint firstItem="ciw-Hb-AJt" firstAttribute="leading" secondItem="rPP-E2-WbC" secondAttribute="leading" id="4lJ-DC-YYg"/>
                             <constraint firstItem="ovx-sO-mOc" firstAttribute="top" secondItem="fWp-eU-WXE" secondAttribute="bottom" constant="20" id="6yK-2Q-qY6"/>
                             <constraint firstItem="vvE-1O-Dk6" firstAttribute="top" secondItem="iH2-aV-8g3" secondAttribute="bottom" constant="8" id="9qz-La-8iv"/>
+                            <constraint firstAttribute="trailing" secondItem="gUm-z6-Qcv" secondAttribute="trailing" constant="20" id="A6a-ij-zhV"/>
+                            <constraint firstItem="gUm-z6-Qcv" firstAttribute="top" secondItem="tT1-K0-2Dz" secondAttribute="bottom" constant="8" id="AoE-vg-f8G"/>
                             <constraint firstAttribute="trailing" secondItem="iH2-aV-8g3" secondAttribute="trailing" constant="20" id="BGx-kP-8Bs"/>
                             <constraint firstAttribute="trailing" secondItem="vvE-1O-Dk6" secondAttribute="trailing" constant="20" id="Bhp-ko-qQg"/>
                             <constraint firstItem="ovx-sO-mOc" firstAttribute="leading" secondItem="rPP-E2-WbC" secondAttribute="leading" constant="20" id="Xhe-IB-FOw"/>
                             <constraint firstItem="vvE-1O-Dk6" firstAttribute="leading" secondItem="FLi-ww-oLG" secondAttribute="trailing" constant="8" id="ZEi-sT-iZv"/>
+                            <constraint firstAttribute="trailing" secondItem="uXy-5f-GVV" secondAttribute="trailing" constant="20" id="Zik-n0-LJg"/>
                             <constraint firstItem="FLi-ww-oLG" firstAttribute="leading" secondItem="rPP-E2-WbC" secondAttribute="leading" constant="20" id="a1s-YI-iob"/>
                             <constraint firstItem="rfr-P7-REE" firstAttribute="leading" secondItem="FLi-ww-oLG" secondAttribute="trailing" constant="8" id="avT-Cf-eaJ"/>
                             <constraint firstItem="AIH-9b-fhG" firstAttribute="leading" secondItem="rPP-E2-WbC" secondAttribute="leading" constant="16" id="bDc-tc-1NI"/>
                             <constraint firstItem="FLi-ww-oLG" firstAttribute="top" secondItem="ovx-sO-mOc" secondAttribute="bottom" constant="8" id="bet-Ut-C17"/>
                             <constraint firstAttribute="trailing" secondItem="ciw-Hb-AJt" secondAttribute="trailing" id="dqD-sJ-MBL"/>
                             <constraint firstItem="iH2-aV-8g3" firstAttribute="leading" secondItem="FLi-ww-oLG" secondAttribute="trailing" constant="8" id="fEU-nz-BC1"/>
+                            <constraint firstItem="gUm-z6-Qcv" firstAttribute="leading" secondItem="FLi-ww-oLG" secondAttribute="trailing" constant="8" id="g0d-ac-F3B"/>
+                            <constraint firstItem="uXy-5f-GVV" firstAttribute="top" secondItem="gUm-z6-Qcv" secondAttribute="bottom" constant="8" id="nFs-JQ-xPl"/>
                             <constraint firstItem="iH2-aV-8g3" firstAttribute="top" secondItem="ovx-sO-mOc" secondAttribute="bottom" constant="8" id="njD-JI-Vl1"/>
                             <constraint firstItem="rfr-P7-REE" firstAttribute="top" secondItem="vvE-1O-Dk6" secondAttribute="bottom" constant="8" id="rNq-Mx-fhL"/>
                             <constraint firstItem="tT1-K0-2Dz" firstAttribute="top" secondItem="rfr-P7-REE" secondAttribute="bottom" constant="8" id="ujm-5g-lpU"/>
@@ -761,7 +786,9 @@
                         <outlet property="eveningTempLabel" destination="rfr-P7-REE" id="x3F-Ti-l9p"/>
                         <outlet property="morningTempLabel" destination="iH2-aV-8g3" id="iNY-cg-UiZ"/>
                         <outlet property="nightTempLabel" destination="tT1-K0-2Dz" id="2GQ-Nx-qb0"/>
+                        <outlet property="presureLabel" destination="gUm-z6-Qcv" id="wfL-f9-lOq"/>
                         <outlet property="weatherIcon" destination="FLi-ww-oLG" id="g5k-HY-pK9"/>
+                        <outlet property="windLabel" destination="uXy-5f-GVV" id="SzU-c8-63Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Wy-wG-otO" userLabel="First Responder" sceneMemberID="firstResponder"/>

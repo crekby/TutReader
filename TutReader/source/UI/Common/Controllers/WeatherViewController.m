@@ -22,6 +22,8 @@
 @property (nonatomic, weak) IBOutlet UILabel* dayTempLabel;
 @property (nonatomic, weak) IBOutlet UILabel* eveningTempLabel;
 @property (nonatomic, weak) IBOutlet UILabel* nightTempLabel;
+@property (nonatomic, weak) IBOutlet UILabel* presureLabel;
+@property (nonatomic, weak) IBOutlet UILabel* windLabel;
 @property (nonatomic, strong) IBOutlet UIImageView* weatherIcon;
 
 @property (nonatomic,assign) BOOL firstRun;
@@ -146,6 +148,8 @@
     self.dayTempLabel.text = [NSString stringWithFormat:AMLocalizedString(@"WEATHER_DAY_TEMP", nil), weather.TempDay.floatValue];
     self.eveningTempLabel.text = [NSString stringWithFormat:AMLocalizedString(@"WEATHER_EVE_TEMP", nil), weather.TempEve.floatValue];
     self.nightTempLabel.text = [NSString stringWithFormat:AMLocalizedString(@"WEATHER_NIGHT_TEMP", nil), weather.TempNight.floatValue];
+    self.presureLabel.text = [NSString stringWithFormat:AMLocalizedString(@"WEATHER_PRESURE", nil), weather.Pressure.floatValue];
+    self.windLabel.text = [NSString stringWithFormat:AMLocalizedString(@"WEATHER_WIND_SPEED", nil), weather.WindSpeed.floatValue];
     self.weatherIcon.image = [UIImage imageNamed:weather.IconURL];
 }
 

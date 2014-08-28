@@ -104,7 +104,7 @@
 -(void)configureGraph {
 	// 1 - Create the graph
 	CPTGraph *graph = [[CPTXYGraph alloc] initWithFrame:self.hostView.bounds];
-	[graph applyTheme:[CPTTheme themeNamed:kCPTStocksTheme]];
+	[graph applyTheme:[CPTTheme themeNamed:kCPTDarkGradientTheme]];
 	self.hostView.hostedGraph = graph;
 	// 2 - Set graph title
 	NSString *title = @"";
