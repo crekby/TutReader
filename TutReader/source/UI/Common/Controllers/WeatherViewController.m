@@ -42,6 +42,10 @@
     if (IS_IPAD) {
         self.cityButton.hidden = NO;
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationDidChange:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -140,6 +144,32 @@
 }
 
 #pragma mark - Private method
+
+- (void) orientationDidChange:(NSNotification*) notification
+{
+    if (IS_IPAD) {
+        return;
+    }
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation) && [UIDevice currentDevice].orientation != UIDeviceOrientationPortraitUpsideDown) {
+        [self setHiddenWeather:NO];
+    }
+    else
+    {
+        [self setHiddenWeather:YES];
+    }
+}
+
+- (void) setHiddenWeather:(BOOL) hidden
+{
+    self.dateLabel.hidden = hidden;
+    self.morningTempLabel.hidden = hidden;
+    self.dayTempLabel.hidden = hidden;
+    self.eveningTempLabel.hidden = hidden;
+    self.nightTempLabel.hidden = hidden;
+    self.presureLabel.hidden = hidden;
+    self.windLabel.hidden = hidden;
+    self.weatherIcon.hidden = hidden;
+}
 
 - (void) setWeather:(Weather*) weather
 {
