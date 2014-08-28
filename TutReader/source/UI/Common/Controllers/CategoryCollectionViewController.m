@@ -21,27 +21,6 @@
 
 - (void)viewDidLoad
 {
-   self.array = [NSMutableArray arrayWithArray:@[ @"Все Рубрики",
-                                                  @"Политика",
-                                                  @"Выборы",
-                                                  @"Экономика и бизнес",
-                                                  @"Финансы",
-                                                  @"Общество",
-                                                  @"Горячая линия",
-                                                  @"Репортер",
-                                                  @"В мире",
-                                                  @"Спорт",
-                                                  @"TUT.BY-ТВ",
-                                                  @"Культура",
-                                                  @"Леди",
-                                                  @"Наука и технологии",
-                                                  @"Авто",
-                                                  @"ДТП",
-                                                  @"Происшествия",
-                                                  @"Калейдоскоп",
-                                                  @"ОтКлик",
-                                                  @"Отдых",
-                                                  @"Новости компаний" ]];
     self.urls = [NSMutableArray arrayWithArray:@[@"http://news.tut.by/rss/all.rss",
                                                  @"http://news.tut.by/rss/politics.rss",
                                                  @"http://news.tut.by/rss/elections.rss",
@@ -63,7 +42,43 @@
                                                  @"http://news.tut.by/rss/otklik.rss",
                                                  @"http://news.tut.by/rss/summer.rss",
                                                  @"http://news.tut.by/rss/press.rss"]];
+    [self setupCategoryArray];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(setupCategoryArray)
+                                                 name:UPDATE_LOCALIZATION_NOTIFICATION
+                                               object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) setupCategoryArray
+{
     self.firstRun = YES;
+    self.array = [NSMutableArray arrayWithArray:@[ AMLocalizedString(@"ALL_NEWS", nil),
+                                                   AMLocalizedString(@"POLITICS", nil),
+                                                   AMLocalizedString(@"ELECTIONS", nil),
+                                                   AMLocalizedString(@"BUSSINES_ECONOMICS", nil),
+                                                   AMLocalizedString(@"FINANCE", nil),
+                                                   AMLocalizedString(@"SOСIETY", nil),
+                                                   AMLocalizedString(@"HOT_LINE", nil),
+                                                   AMLocalizedString(@"REPORTER", nil),
+                                                   AMLocalizedString(@"IN_THE_WORLD", nil),
+                                                   AMLocalizedString(@"SPORT", nil),
+                                                   AMLocalizedString(@"TUT.BY-ТВ", nil),
+                                                   AMLocalizedString(@"CULTURE", nil),
+                                                   AMLocalizedString(@"LADY", nil),
+                                                   AMLocalizedString(@"SCIENCE_TECHNOLOGY", nil),
+                                                   AMLocalizedString(@"AUTOMOTIVE", nil),
+                                                   AMLocalizedString(@"COLLISIONS", nil),
+                                                   AMLocalizedString(@"ACCIDENTS", nil),
+                                                   AMLocalizedString(@"ALL_AROUND", nil),
+                                                   AMLocalizedString(@"RESPONSE", nil),
+                                                   AMLocalizedString(@"VACATIONS", nil),
+                                                   AMLocalizedString(@"COMPANY_NEWS", nil) ]];
+    [self.collectionView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

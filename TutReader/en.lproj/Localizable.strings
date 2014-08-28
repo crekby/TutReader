@@ -46,3 +46,26 @@
 "WEATHER_WIND_SPEED" = "Wind Speed: %.2f m/s";
 
 "WEATHER_CITY_TITLE" = "City";
+
+
+"ALL_NEWS" = "All News";
+"POLITICS" = "Politics";
+"ELECTIONS" = "Elections";
+"BUSSINES_ECONOMICS" = "Bussines and Economics";
+"FINANCE" = "Finance";
+"SOСIETY" = "Society";
+"HOT_LINE" = "Hot Line";
+"REPORTER" = "Reporter";
+"IN_THE_WORLD" = "In The World";
+"SPORT" = "Sports";
+"TUT.BY-ТВ" = "TUT.BY-ТВ";
+"CULTURE" = "Culture";
+"LADY" = "Lady";
+"SCIENCE_TECHNOLOGY" = "Science And Technology";
+"AUTOMOTIVE" = "Auto";
+"COLLISIONS" = "Auto Crush";
+"ACCIDENTS" = "Accidents";
+"ALL_AROUND" = "All Around";
+"RESPONSE" = "Response";
+"VACATIONS" = "Vacations";
+"COMPANY_NEWS" = "Company News";

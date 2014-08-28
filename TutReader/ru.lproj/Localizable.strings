@@ -46,3 +46,26 @@
 "WEATHER_WIND_SPEED" = "Скорость Ветра: %.2f м/с";
 
 "WEATHER_CITY_TITLE" = "Город";
+
+
+"ALL_NEWS" = "Все Рубрики";
+"POLITICS" = "Политика";
+"ELECTIONS" = "Выборы";
+"BUSSINES_ECONOMICS" = "Экономика и бизнес";
+"FINANCE" = "Финансы";
+"SOСIETY" = "Общество";
+"HOT_LINE" = "Горячая линия";
+"REPORTER" = "Репортер";
+"IN_THE_WORLD" = "В мире";
+"SPORT" = "Спорт";
+"TUT.BY-ТВ" = "TUT.BY-ТВ";
+"CULTURE" = "Культура";
+"LADY" = "Леди";
+"SCIENCE_TECHNOLOGY" = "Наука и технологии";
+"AUTOMOTIVE" = "Авто";
+"COLLISIONS" = "ДТП";
+"ACCIDENTS" = "Происшествия";
+"ALL_AROUND" = "Калейдоскоп";
+"RESPONSE" = "ОтКлик";
+"VACATIONS" = "Отдых";
+"COMPANY_NEWS" = "Новости компаний";
