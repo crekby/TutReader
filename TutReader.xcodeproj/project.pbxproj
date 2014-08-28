@@ -43,7 +43,6 @@
 		156AFA31197CFE9200813E2D /* PersistenceFacade.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA30197CFE9200813E2D /* PersistenceFacade.m */; };
 		156AFA37197D088E00813E2D /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 156AFA36197D088E00813E2D /* XMLParser.m */; };
 		156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156E5D80198BB13E00D8B6DC /* QuartzCore.framework */; };
-		15787E8C19A5EB1A00218BD5 /* currency@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15787E8B19A5EB1A00218BD5 /* currency@2x.png */; };
 		15787E9519A5F4B300218BD5 /* CurrencyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9419A5F4B300218BD5 /* CurrencyTableViewController.m */; };
 		15787E9919A5F9D600218BD5 /* CurrencyParcer.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9819A5F9D600218BD5 /* CurrencyParcer.m */; };
 		15787E9C19A5FE0B00218BD5 /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 15787E9B19A5FE0B00218BD5 /* Currency.m */; };
@@ -143,7 +142,6 @@
 		156AFA35197D088E00813E2D /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLParser.h; path = Source/Models/XMLParser.h; sourceTree = "<group>"; };
 		156AFA36197D088E00813E2D /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLParser.m; path = Source/Models/XMLParser.m; sourceTree = "<group>"; };
 		156E5D80198BB13E00D8B6DC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		15787E8B19A5EB1A00218BD5 /* currency@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "currency@2x.png"; path = "Images.xcassets/currency.imageset/currency@2x.png"; sourceTree = "<group>"; };
 		15787E9319A5F4B300218BD5 /* CurrencyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrencyTableViewController.h; path = Source/UI/Common/Controllers/CurrencyTableViewController.h; sourceTree = "<group>"; };
 		15787E9419A5F4B300218BD5 /* CurrencyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CurrencyTableViewController.m; path = Source/UI/Common/Controllers/CurrencyTableViewController.m; sourceTree = "<group>"; };
 		15787E9719A5F9D600218BD5 /* CurrencyParcer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CurrencyParcer.h; path = Source/Models/CurrencyParcer.h; sourceTree = "<group>"; };
@@ -487,7 +485,6 @@
 				1511E84519AB280C00355EBA /* Flags.xcassets */,
 				15D44A2919AC6E260099DAD9 /* Weather.xcassets */,
 				15EFAA2B19863B7C00322C97 /* UITV_accessory_disclosure.png */,
-				15787E8B19A5EB1A00218BD5 /* currency@2x.png */,
 				1592206B198FA76B001CF232 /* Localizable.strings */,
 			);
 			name = resources;
@@ -598,7 +595,6 @@
 				156182731976C3DB00D16B5F /* Main_iPhone.storyboard in Resources */,
 				15D44A2A19AC6E260099DAD9 /* Weather.xcassets in Resources */,
 				15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */,
-				15787E8C19A5EB1A00218BD5 /* currency@2x.png in Resources */,
 				15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */,
 				15922069198FA76B001CF232 /* Localizable.strings in Resources */,
 				15AD7F6319AB7AD70072DF1C /* CorePlotHeaders in Resources */,
