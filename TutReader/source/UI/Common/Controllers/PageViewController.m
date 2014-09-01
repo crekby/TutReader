@@ -44,10 +44,10 @@
     [super viewDidLoad];
     self.delegate = self;
     self.dataSource = self;
-    if (IS_IPAD) {
-        //WebViewController* controller = [[WebViewController alloc] init];
-        //[self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil ];
-    }
+//    if (IS_IPAD) {
+//        //WebViewController* controller = [[WebViewController alloc] init];
+//        //[self setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil ];
+//    }
     UIImage* starImage = [[FavoriteImage instance] imageForNews:[[DataProvider instance] selectedNews]];
     self.favoriteBarButton = [[UIBarButtonItem alloc] initWithImage:starImage style:UIBarButtonItemStyleBordered target:self action:@selector(btnFavoriteDidTap:)];
     UIBarButtonItem* shareBarButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showPopover:)];

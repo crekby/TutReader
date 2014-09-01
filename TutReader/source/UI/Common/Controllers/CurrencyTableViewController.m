@@ -116,9 +116,12 @@
     {
         [[CurrencyParcer instance] parseData:data withCallback:^(NSArray* array,NSError* error)
         {
+            if (error) {
+                return;
+            }
             NSMutableArray* values = [NSMutableArray new];
-            for (Currency* item in array) {
-                NSLog(@"Curs: %@",item.exchangeRate);
+            for (Currency* item in array)
+            {
                 [values insertObject:@(item.exchangeRate.floatValue) atIndex:values.count];
             }
             GraphController* graph = [self.storyboard instantiateViewControllerWithIdentifier:@"graphViewController"];
