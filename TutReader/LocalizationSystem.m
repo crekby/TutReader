@@ -53,11 +53,14 @@ static NSBundle *bundle = nil;
     if ((self = [super init])) 
     {
 		//empty.
-		NSString* lang = [[NSUserDefaults standardUserDefaults] objectForKey:@"lang"];
-        if (!lang || [lang isEqualToString:@"0"]) {
+		NSInteger lang = [[NSUserDefaults standardUserDefaults] integerForKey:@"lang"];
+        if (!lang || lang == 0) {
+            [self resetLocalization];
+        }
+        if (lang == 1) {
             [self setLanguage:@"en"];
         }
-        else
+        else if (lang == 2)
         {
             [self setLanguage:@"ru"];
         }

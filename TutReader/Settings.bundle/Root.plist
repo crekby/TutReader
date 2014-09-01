@@ -31,6 +31,7 @@
 			<string>0</string>
 			<key>Titles</key>
 			<array>
+				<string>Use System Language</string>
 				<string>English</string>
 				<string>Russian</string>
 			</array>
@@ -38,6 +39,7 @@
 			<array>
 				<string>0</string>
 				<string>1</string>
+				<string>2</string>
 			</array>
 		</dict>
 		<dict>

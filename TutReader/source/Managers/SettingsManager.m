@@ -15,10 +15,15 @@ SINGLETON(SettingsManager)
 - (void)checkLanguage
 {
     NSInteger lang = [[NSUserDefaults standardUserDefaults] integerForKey:LANGUAGE_SETTINGS_IDENTIFICATOR];
-    if (!lang || lang==0) {
+    if (!lang || lang==0)
+    {
+        [[LocalizationSystem instance] resetLocalization];
+    }
+    else if (lang==1)
+    {
         [[LocalizationSystem instance] setLanguage:ENGLISH_LANGUAGE_IDENTIFICATOR];
     }
-    else
+    else if (lang==2)
     {
         [[LocalizationSystem instance] setLanguage:RUSSIAN_LANGUAGE_IDENTIFICATOR];
     }
