@@ -26,14 +26,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardDidShow:)
-//                                                 name:UIKeyboardDidShowNotification
-//                                               object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardDidHide:)
-//                                                 name:UIKeyboardWillHideNotification
-//                                               object:nil];
     self.searchField.text = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     self.cityTableView.layer.cornerRadius = 5;
     UITapGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(close:)];
@@ -191,36 +183,16 @@
     
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     [self.connection start];
-//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-//        if (data) {
-//            self.cityArray = [NSMutableArray new];
-//            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//            for (NSDictionary* dict in json[@"list"]) {
-//                if (dict[@"name"])
-//                {
-//                    NSString* city = [NSString stringWithFormat:@"%@, %@",dict[@"name"], [dict[@"sys"] valueForKey:@"country"]];
-//                   [self.cityArray insertObject:city atIndex:self.cityArray.count];
-//                }
-//            }
-//            [self.cityTableView reloadData];
-//        }
-//        [self showActivityIndicator:NO];
-//    }];
+
 }
 
 - (void) saveSettings:(NSString*) city
 {
     [[NSUserDefaults standardUserDefaults] setObject:city forKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
     [[NSUserDefaults standardUserDefaults] synchronize];
-//    if (IS_IPHONE) {
-        //[self.navigationController popToRootViewControllerAnimated:YES];
     [(WeatherViewController*)[self parentViewController] updateWeather];
-        [self.view removeFromSuperview];
-//    }
-//    else
-//    {
-//        [[ModalManager instance] popViewController];
-//    }
+    [self.view removeFromSuperview];
+
 }
 
 @end

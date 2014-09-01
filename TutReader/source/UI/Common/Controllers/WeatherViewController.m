@@ -76,7 +76,6 @@
         if (IS_IPHONE) {
             UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
             settings.view.frame = self.view.bounds;
-            //[self.tabBarController.navigationController pushViewController:settings animated:YES];
             [self addChildViewController:settings];
             [self.view addSubview:settings.view];        }
         else
@@ -196,7 +195,6 @@
     }
     UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
     settings.view.frame = self.view.bounds;
-    //[self.tabBarController.navigationController pushViewController:settings animated:YES];
     [self addChildViewController:settings];
     [self.view addSubview:settings.view];
 }

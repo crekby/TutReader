@@ -64,7 +64,6 @@
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
             if (data) {
                 NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                //NSLog(@"%@",json);
                 NSArray* list = [[NSArray alloc] initWithArray:json[@"list"]];
                 if (IS_IPHONE) {
                     [self.tabBar.items[3] setBadgeValue:[NSString stringWithFormat:@"%@°",[[list[0] valueForKey:@"main"] valueForKey:@"temp"]]];

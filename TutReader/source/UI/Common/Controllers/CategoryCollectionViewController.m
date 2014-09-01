@@ -102,7 +102,6 @@
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         self.firstRun = NO;
     }
-    //[cell.label sizeToFit];
     return cell;
 }
 

@@ -248,7 +248,6 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
         if (data) {
             NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            //NSLog(@"%@",json);
             NSArray* list = [[NSArray alloc] initWithArray:json[@"list"]];
             self.weatherButton.image = nil;
             self.weatherButton.title = [NSString stringWithFormat:@"%@°",[[list[0] valueForKey:@"main"] valueForKey:@"temp"]];
