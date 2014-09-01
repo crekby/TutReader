@@ -184,11 +184,18 @@
     UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, view.frame.size.height / 2 - 8, tableView.frame.size.width, 18)];
     dateLabel.font = [UIFont boldSystemFontOfSize:14];
     dateLabel.textAlignment = NSTextAlignmentCenter;
+    dateLabel.backgroundColor = [UIColor clearColor];
     dateLabel.text = [[DataProvider instance].datesInSection objectAtIndex:section];
     [view addSubview:dateLabel];
 //    view.layer.borderWidth = .5f;
 //    view.layer.borderColor = [UIColor colorWithRed:.1f green:.1f blue:.1f alpha:1.f].CGColor;
-    view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:0.9];
+    if (IS_IOS7) {
+        view.backgroundColor = [UIColor colorWithRed:0.89f green:0.89f blue:0.89f alpha:0.9f];
+    }
+    else
+    {
+        view.backgroundColor = [UIColor colorWithRed:0.26f green:0.37f blue:0.51f alpha:0.9f];
+    }
     return view;
 }
 
