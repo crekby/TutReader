@@ -192,6 +192,7 @@
 {
     for (UIView* view in self.view.subviews) {
         if (view.tag == 10) {
+            [view removeFromSuperview];
             return;
         }
     }
