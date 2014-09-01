@@ -111,7 +111,7 @@
     UILabel* label = [UILabel new];
     label.text = self.array[indexPath.row];
     [label sizeToFit];
-    return CGSizeMake(label.frame.size.width, 36);
+    return CGSizeMake(label.frame.size.width, collectionView.frame.size.height);
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath

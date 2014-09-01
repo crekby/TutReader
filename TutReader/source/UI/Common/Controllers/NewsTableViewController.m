@@ -117,6 +117,8 @@
 - (void)initOnlineNewsList
 {
     if ([[DataProvider instance] needToRaloadNews]) {
+        [[DataProvider instance] clearArray];
+        [self.newsTableView reloadData];
         [[DataProvider instance] setupOnlineNews];
         [self setNewsType:ONLINE];
         [self showActivityIndicator:YES];
@@ -142,6 +144,8 @@
 - (void)loadData
 {
     if (self.newsType == FAVORITE) {
+        [[DataProvider instance] clearArray];
+        [self.newsTableView reloadData];
         [[DataProvider instance] setupFavoriteNews];
     }
 }

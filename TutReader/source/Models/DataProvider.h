@@ -24,7 +24,7 @@
 - (void) setSelectedNews:(NSIndexPath*) path;
 - (void) removeNewsAtPath:(NSIndexPath*) path;
 - (NSIndexPath*) indexPathForNews:(TUTNews*) news;
-
+- (void) clearArray;
 
 - (void) setupOnlineNews;
 - (void) setupFavoriteNews;
