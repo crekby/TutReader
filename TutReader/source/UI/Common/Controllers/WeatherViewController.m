@@ -60,34 +60,7 @@
     
     self.tabBarController.navigationItem.title = AMLocalizedString(@"WEATHER_TITLE", nil);
     [super viewWillAppear:animated];
-    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
-    if (cityName.length>0) {
-        unsigned long start = [cityName rangeOfString:@","].location;
-        cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
-        cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
-        self.tabBarController.navigationItem.title = [cityName stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
-        NSString* url = [NSString stringWithFormat:WEATHER_DAILY_URL, cityName, [[LocalizationSystem instance] getLanguage]];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                           timeoutInterval:10];
-        
-        [request setHTTPMethod: @"GET"];
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
-            if (data) {
-                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                NSLog(@"%@",json);
-                self.collectionViewContent = [NSMutableArray new];
-                for (NSDictionary* temp in [json valueForKey:@"list"]) {
-                    Weather* weather = [[Weather alloc] initWithDictionary:temp];
-                    [self.collectionViewContent addObject:weather];
-                    [self setWeather:self.collectionViewContent[0]];
-                }
-                [self.collectionView reloadData];
-            }
-        }];
-    }
-    [self orientationDidChange:nil];
+    [self updateWeather];
     
 }
 
@@ -145,6 +118,37 @@
 }
 
 #pragma mark - Private method
+
+- (void)updateWeather
+{
+    NSString* cityName = [[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR];
+    if (cityName.length>0) {
+        unsigned long start = [cityName rangeOfString:@","].location;
+        cityName = [cityName stringByReplacingCharactersInRange:NSMakeRange(start, cityName.length - start) withString:@""];
+        cityName = [cityName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        self.tabBarController.navigationItem.title = [cityName stringByReplacingOccurrencesOfString:@"%20" withString:@" "];
+        NSString* url = [NSString stringWithFormat:WEATHER_DAILY_URL, cityName, [[LocalizationSystem instance] getLanguage]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                               cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                           timeoutInterval:10];
+        
+        [request setHTTPMethod: @"GET"];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible: NO];
+            if (data) {
+                NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                self.collectionViewContent = [NSMutableArray new];
+                for (NSDictionary* temp in [json valueForKey:@"list"]) {
+                    Weather* weather = [[Weather alloc] initWithDictionary:temp];
+                    [self.collectionViewContent addObject:weather];
+                    [self setWeather:self.collectionViewContent[0]];
+                }
+                [self.collectionView reloadData];
+            }
+        }];
+    }
+    [self orientationDidChange:nil];
+}
 
 - (void) orientationDidChange:(NSNotification*) notification
 {

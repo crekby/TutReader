@@ -8,6 +8,7 @@
 
 #import "WeatherSettingsViewController.h"
 #import "ModalManager.h"
+#import "WeatherViewController.h"
 
 @interface WeatherSettingsViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, NSURLConnectionDataDelegate>
 
@@ -213,6 +214,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 //    if (IS_IPHONE) {
         //[self.navigationController popToRootViewControllerAnimated:YES];
+    [(WeatherViewController*)[self parentViewController] updateWeather];
         [self.view removeFromSuperview];
 //    }
 //    else

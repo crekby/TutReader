@@ -10,4 +10,6 @@
 
 @interface WeatherViewController : UIViewController
 
+- (void) updateWeather;
+
 @end
