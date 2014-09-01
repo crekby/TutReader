@@ -106,7 +106,8 @@ typedef enum
 typedef enum
 {
     ADD_TO_FAVORITE = 0,
-    REMOVE_FROM_FAVORITE
+    REMOVE_FROM_FAVORITE,
+    REMOVE_ALL_FROM_FAVORITE
 } FavoriteOperations;
 
 // CLASSES NAMES

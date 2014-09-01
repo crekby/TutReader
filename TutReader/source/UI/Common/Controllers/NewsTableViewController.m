@@ -19,7 +19,7 @@
 
 #import "CategoryCollectionViewController.h"
 
-@interface NewsTableViewController () <SwipeableCellDelegate, CategoryCollectionViewDelegate>
+@interface NewsTableViewController () <SwipeableCellDelegate, CategoryCollectionViewDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *newsTableView;
 
@@ -38,6 +38,8 @@
 @property (nonatomic, strong) NSIndexPath* selectedNews;
 
 @property (nonatomic, strong) CategoryCollectionViewController* collection;
+
+@property (nonatomic, strong) UIBarButtonItem* deleteButton;
 
 @end
 
@@ -75,15 +77,25 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    NSLog(@"News Type:%d",self.newsType);
     if (self.newsType == ONLINE) {
         self.collection.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 36);
         self.tabBarController.navigationItem.titleView = self.collection.view;//self.categoryNavigationItemButton;
+        self.tabBarController.navigationItem.rightBarButtonItem = nil;
     }
     else
     {
         if (self.tabBarController.navigationItem.titleView) {
             self.tabBarController.navigationItem.titleView = nil;
         }
+        
+        self.tabBarController.navigationItem.rightBarButtonItem = nil;
+        if (!self.tabBarController.navigationItem.rightBarButtonItems)
+        {
+            self.deleteButton = [[UIBarButtonItem alloc] initWithTitle:AMLocalizedString(@"CLEAR_ALL_FAVORITES_TITLE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(ClearFavoritesButtonDidTap:)];
+            self.tabBarController.navigationItem.rightBarButtonItems = @[self.deleteButton];
+        }
+        
         self.tabBarController.navigationItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
     }
 }
@@ -264,6 +276,30 @@
     
 }
 
+#pragma mark - IBActions
+
+- (IBAction)ClearFavoritesButtonDidTap:(id)sender
+{
+    if ([[DataProvider instance] newsInSection:0].count > 0) {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:AMLocalizedString(@"WARNING_TITLE", nil) message:AMLocalizedString(@"DELETE_ALL_FAVORITES_MESSAGE", nil) delegate:self cancelButtonTitle:AMLocalizedString(@"CANCEL_TITLE", nil) otherButtonTitles:AMLocalizedString(@"YES_TITLE", nil), nil];
+        [alert show];
+    }
+}
+
+#pragma mark - AlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_ALL_FROM_FAVORITE withNews:nil andCallback:^(id data, NSError* error)
+        {
+            if (!error) {
+                [self reloadTableView];
+            }
+        }];
+    }
+}
+
 #pragma mark - SwipeCell delegate Action
 
 - (void)favoriteButtonAction:(UITableViewCell *)sender
@@ -325,9 +361,10 @@
         {
             [[DataProvider instance] setSelectedNews:self.selectedNews];
             [self selectRow:[NSNotification notificationWithName:NEWS_TABLE_VIEW_SELECT_ROW_NOTIFICATION object:self.selectedNews]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS_NOTIFICATION object:nil];
             self.notFirstLaunch = YES;
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:PAGE_VIEW_CONTROLLER_SETUP_NEWS_NOTIFICATION object:nil];
+
     }
 }
 
@@ -424,6 +461,7 @@
         self.tabBarItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
         if (self.tabBarController.selectedViewController == self) {
             self.tabBarController.navigationItem.title = AMLocalizedString(@"FAVORITE_TITLE", nil);
+            self.tabBarController.navigationItem.rightBarButtonItem.title = AMLocalizedString(@"CLEAR_ALL_FAVORITES_TITLE", nil);
         }
     }
 }

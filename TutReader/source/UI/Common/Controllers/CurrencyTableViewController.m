@@ -30,6 +30,7 @@
         self.tabBarController.navigationItem.titleView = nil;
     }
     self.tabBarController.navigationItem.title = AMLocalizedString(@"CURRENCY_TITLE", nil);
+    self.tabBarController.navigationItem.rightBarButtonItem = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated

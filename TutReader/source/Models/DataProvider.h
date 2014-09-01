@@ -29,7 +29,6 @@
 - (void) setupOnlineNews;
 - (void) setupFavoriteNews;
 
-
 - (NSOrderedSet*) daysInNews:(NSArray*) news;
 - (NSArray*) newsByDate:(NSString*) dateString fromArray:(NSArray*) array;
 

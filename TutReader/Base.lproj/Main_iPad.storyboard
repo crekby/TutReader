@@ -435,7 +435,13 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="" image="iconNavBarFavorites" id="sP2-s1-jqm"/>
-                    <navigationItem key="navigationItem" title="Favorite" id="Sg3-JU-fFp"/>
+                    <navigationItem key="navigationItem" title="Favorite" id="Sg3-JU-fFp">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="SXo-NT-KKu">
+                            <connections>
+                                <action selector="ClearFavoritesButtonDidTap:" destination="mIc-hb-DvA" id="Z7z-jk-6y2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="852"/>
                     <connections>

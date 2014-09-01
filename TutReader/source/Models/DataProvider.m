@@ -23,12 +23,12 @@ SINGLETON(DataProvider)
 - (void) clearArray
 {
     _localNewsArray = [NSMutableArray new];
+    _numberOfSections = 0;
 }
 
 - (void) setNews:(NSMutableArray*) news
 {
     if (news) {
-        _numberOfSections = 0;
         [self clearArray];
         _datesInSection = [NSMutableArray new];
         for (NSString* date in [self daysInNews:news]) {
@@ -119,6 +119,9 @@ SINGLETON(DataProvider)
 
 - (TUTNews*) selectedNews
 {
+    if (_localNewsArray.count == 0) {
+        return nil;
+    }
     if ([_localNewsArray[_selectedItem.section] count] > _selectedItem.row) {
         return [_localNewsArray[_selectedItem.section] objectAtIndex:_selectedItem.row];
     }

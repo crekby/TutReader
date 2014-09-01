@@ -7,7 +7,6 @@
 */
 
 
-
 "ONLINE_TITLE" = "Онлайн";
 "FAVORITE_TITLE" = "Избранные";
 "CATEGORIES_TITLE" = "Рубрики";
@@ -37,6 +36,12 @@
 
 "WHATSAPP_SHARE_TITLE_ALERT"         = "WhatsApp";
 "WHATSAPP_SHARE_NOT_AVAILABLE_ALERT" = "WhatsApp не доступен";
+
+"CLEAR_ALL_FAVORITES_TITLE" = "Удалить все";
+"WARNING_TITLE" = "Внимание";
+"DELETE_ALL_FAVORITES_MESSAGE" = "Вы уверены? Все избранные новости будут удалены.";
+"YES_TITLE" = "Да";
+"CANCEL_TITLE" = "Отмена";
 
 "WEATHER_DAY_TEMP" = "День: %.2f °C";
 "WEATHER_MORN_TEMP" = "Утро: %.2f °C";

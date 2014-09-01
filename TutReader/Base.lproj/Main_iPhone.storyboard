@@ -1028,7 +1028,13 @@
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="" image="iconNavBarFavoritesEnabled" id="9gW-8A-CuS"/>
-                    <navigationItem key="navigationItem" title="Favorite" id="xAa-sP-3nV"/>
+                    <navigationItem key="navigationItem" title="Favorite" id="xAa-sP-3nV">
+                        <barButtonItem key="rightBarButtonItem" title="Clear" id="CXJ-fq-v4M">
+                            <connections>
+                                <action selector="ClearFavoritesButtonDidTap:" destination="T1R-UF-dB1" id="qLx-hL-KzR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="newsTableView" destination="cwd-Er-nsV" id="Xfw-GU-Ad8"/>
                     </connections>

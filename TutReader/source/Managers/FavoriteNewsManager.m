@@ -32,7 +32,7 @@ SINGLETON(FavoriteNewsManager)
             }
         }];
     }
-    else
+    else if (operation == REMOVE_FROM_FAVORITE)
     {
         [[PersistenceFacade instance] deleteNewsItemFromCoreData:newsItem withCallback:^(id data, NSError* error){
             if (!error)
@@ -44,6 +44,30 @@ SINGLETON(FavoriteNewsManager)
             }
             else if (callback) {
                 callback(nil,error);
+            }
+        }];
+    }
+    else
+    {
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        NSManagedObjectContext *context = appDelegate.managedObjectContext;
+        [[PersistenceFacade instance] getNewsItemsListFromData:nil dataType:CORE_DATA_TYPE withCallback:^(NSMutableArray* data, NSError *error){
+            NSArray* requestResult = data;
+            if (requestResult) {
+                for (NewsItem* object in requestResult) {
+                    [context deleteObject:object];
+                }
+                if (![context save:&error]) {
+                    [[AlertManager instance] showAlertWithError:error.localizedDescription];
+                    if (callback) {
+                        callback(nil,error);
+                    }
+                }
+                else
+                {
+                    [[DataProvider instance] clearArray];
+                    callback(nil,nil);
+                }
             }
         }];
     }

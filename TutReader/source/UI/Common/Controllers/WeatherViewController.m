@@ -53,6 +53,7 @@
     if (self.tabBarController.navigationItem.titleView) {
         self.tabBarController.navigationItem.titleView = nil;
     }
+    self.tabBarController.navigationItem.rightBarButtonItem = nil;
     if (!self.tabBarController.navigationItem.rightBarButtonItems) {
         self.settingsButton = [[UIBarButtonItem alloc] initWithTitle:AMLocalizedString(@"WEATHER_CITY_TITLE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
         self.tabBarController.navigationItem.rightBarButtonItems = @[self.settingsButton];
@@ -62,12 +63,6 @@
     [super viewWillAppear:animated];
     [self updateWeather];
     
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    self.tabBarController.navigationItem.rightBarButtonItems = nil;
-
 }
 
 -(void)viewDidAppear:(BOOL)animated

@@ -37,6 +37,11 @@
 "WHATSAPP_SHARE_TITLE_ALERT"         = "WhatsApp";
 "WHATSAPP_SHARE_NOT_AVAILABLE_ALERT" = "WhatsApp sharing is not available";
 
+"CLEAR_ALL_FAVORITES_TITLE" = "Clear All";
+"WARNING_TITLE" = "Warning";
+"DELETE_ALL_FAVORITES_MESSAGE" = "Are you sure? All records from favorites will be erased.";
+"YES_TITLE" = "Yes";
+"CANCEL_TITLE" = "Cancel";
 
 "WEATHER_DAY_TEMP" = "Day: %.2f °C";
 "WEATHER_MORN_TEMP" = "Morning: %.2f °C";
