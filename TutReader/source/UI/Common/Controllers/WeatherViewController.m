@@ -74,8 +74,11 @@
         settings.view.frame = self.view.frame;
         self.firstRun = NO;
         if (IS_IPHONE) {
-            [self.tabBarController.navigationController pushViewController:settings animated:YES];
-        }
+            UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
+            settings.view.frame = self.view.bounds;
+            //[self.tabBarController.navigationController pushViewController:settings animated:YES];
+            [self addChildViewController:settings];
+            [self.view addSubview:settings.view];        }
         else
         {
             [[ModalManager instance] performSelector:@selector(pushViewController:) withObject:settings afterDelay:0.3f];
