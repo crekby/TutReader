@@ -76,7 +76,7 @@
 			<key>DefaultValue</key>
 			<real>0.3</real>
 			<key>MinimumValue</key>
-			<real>0.01</real>
+			<real>0.1</real>
 			<key>MaximumValue</key>
 			<integer>1</integer>
 		</dict>
