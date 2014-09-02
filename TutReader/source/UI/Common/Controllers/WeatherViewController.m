@@ -69,19 +69,13 @@
 {
     [super viewDidAppear:animated];
     
-    if ([[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR].length == 0 && self.firstRun) {
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:CITY_NAME_SETTINGS_IDENTIFICATOR].length == 0 && self.firstRun)
+    {
         UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
-        settings.view.frame = self.view.frame;
         self.firstRun = NO;
-        if (IS_IPHONE) {
-            UIViewController* settings = [self.storyboard instantiateViewControllerWithIdentifier:@"weatherSettingsView"];
-            settings.view.frame = self.view.bounds;
-            [self addChildViewController:settings];
-            [self.view addSubview:settings.view];        }
-        else
-        {
-            [[ModalManager instance] performSelector:@selector(pushViewController:) withObject:settings afterDelay:0.3f];
-        }
+        settings.view.frame = self.view.bounds;
+        [self addChildViewController:settings];
+        [self.view addSubview:settings.view];
     }
 }
 
