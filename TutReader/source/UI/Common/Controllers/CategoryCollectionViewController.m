@@ -155,7 +155,6 @@
             label.textColor = [UIColor blackColor];
         }
     }
-    
 }
 
 @end

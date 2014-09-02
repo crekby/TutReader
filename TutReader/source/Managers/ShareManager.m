@@ -29,7 +29,14 @@ SINGLETON(ShareManager);
         MFMailComposeViewController* mailController = [[MFMailComposeViewController alloc] init];
         [mailController setSubject:news.newsTitle];
         [mailController setMailComposeDelegate:self];
-        NSString* messageBody = [NSString stringWithFormat:EMAIL_SHARE_MESSAGE_BODY,news.newsTitle,news.newsURL,news.bigImageURL,news.text];
+        NSString* messageBody;
+        if (news.bigImageURL) {
+            messageBody = [NSString stringWithFormat:EMAIL_SHARE_MESSAGE_BODY,news.newsTitle,news.newsURL,news.bigImageURL,news.text];
+        }
+        else
+        {
+            messageBody = [NSString stringWithFormat:EMAIL_SHARE_MESSAGE_BODY_WHITOUT_IMAGE,news.newsTitle,news.newsURL,news.text];
+        }
         [mailController setMessageBody:messageBody isHTML:YES];
         [viewController presentViewController:mailController animated:YES completion:nil];
     }

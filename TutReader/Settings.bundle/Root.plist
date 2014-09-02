@@ -98,7 +98,7 @@
 			<key>DefaultValue</key>
 			<integer>1</integer>
 			<key>MinimumValue</key>
-			<real>0.1</real>
+			<real>0.5</real>
 			<key>MaximumValue</key>
 			<integer>3</integer>
 		</dict>

@@ -42,6 +42,7 @@ typedef enum
 #define GOOGLE_PLUS_TEXT_LENGHT  99
 
 #define EMAIL_SHARE_MESSAGE_BODY @"<div align=\"center\"><table border=\"0\" align=\"center\" width=\"300\"><tr><b>%@</b><br><a href=%@><img src=\"%@\" alt=\"some_text\" height=\"280\" width=\"280\"><br>%@</a></tr></table></div>"
+#define EMAIL_SHARE_MESSAGE_BODY_WHITOUT_IMAGE @"<div align=\"center\"><table border=\"0\" align=\"center\" width=\"300\"><tr><b>%@</b><br><a href=%@><br>%@</a></tr></table></div>"
 
 #define SOCIAL_NETWORK_TEXT_LENGHT  137
 
