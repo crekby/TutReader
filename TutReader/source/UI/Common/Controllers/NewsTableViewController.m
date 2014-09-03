@@ -77,7 +77,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"News Type:%d",self.newsType);
+    NSLog(@"News Type:%@",(self.newsType) ? @" online" : @" favorite");
     if (self.newsType == ONLINE) {
         self.collection.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 36);
         self.tabBarController.navigationItem.titleView = self.collection.view;//self.categoryNavigationItemButton;
@@ -294,7 +294,7 @@
         [[FavoriteNewsManager instance] favoriteNewsOperation:REMOVE_ALL_FROM_FAVORITE withNews:nil andCallback:^(id data, NSError* error)
         {
             if (!error) {
-                [self reloadTableView];
+                [self reloadTableView:[NSNotification notificationWithName:@"" object:@(self.newsType)]];
             }
         }];
     }
@@ -345,8 +345,12 @@
 
 #pragma mark - Private Methods
 
-- (void) reloadTableView
+- (void) reloadTableView: (NSNotification*) notification
 {
+    NSNumber* object = (NSNumber*)notification.object;
+    if (object.intValue != self.newsType) {
+        return;
+    }
     [self.newsTableView reloadData];
     [self showActivityIndicator:NO];
     if (self.isViewLoaded && self.view.window)
@@ -481,7 +485,7 @@
                                                  name:NEWS_TABLE_VIEW_REMOVE_ROW_NOTIFICATION
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reloadTableView)
+                                             selector:@selector(reloadTableView:)
                                                  name:NEWS_TABLE_VIEW_REFRESH_TABLE_NOTIFICATION
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
