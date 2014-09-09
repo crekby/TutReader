@@ -93,19 +93,19 @@
     
     switch (currencyPeriod) {
         case currencyPeriodWeek:
-            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 604800)];
+            periodDate = [NSDate dateWithTimeIntervalSince1970: - 604800];
             break;
         case currencyPeriodTwoWeek:
-            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 1209600)];
+            periodDate = [NSDate dateWithTimeIntervalSince1970: - 1209600];
             break;
         case currencyPeriodMonth:
-            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 2592000)];
+            periodDate = [NSDate dateWithTimeIntervalSince1970: - 2592000];
             break;
         case currencyPeriodSixMonth:
-            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 15552000)];
+            periodDate = [NSDate dateWithTimeIntervalSince1970: - 15552000];
             break;
         case currencyPeriodYear:
-            periodDate = [NSDate dateWithTimeIntervalSince1970:(now.timeIntervalSince1970 - 31536000)];
+            periodDate = [NSDate dateWithTimeIntervalSince1970: - 31536000];
             break;
     }
     
