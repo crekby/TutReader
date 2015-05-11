@@ -26,6 +26,5 @@
     #import "SettingsManager.h"
     #import "FavoriteImage.h"
     #import "SpeechManager.h"
-    #import "CorePlotHeaders/CorePlot-CocoaTouch.h"
 #endif
 

@@ -1,13 +1,16 @@
 PODS:
+  - CorePlot (1.6)
   - google-plus-ios-sdk (1.5.1)
-  - GoogleAnalytics-iOS-SDK (3.0.8)
+  - GoogleAnalytics-iOS-SDK (3.0.9)
 
 DEPENDENCIES:
+  - CorePlot
   - google-plus-ios-sdk (~> 1.5.0)
   - GoogleAnalytics-iOS-SDK (~> 3.0.6)
 
 SPEC CHECKSUMS:
-  google-plus-ios-sdk: 98d76ce1f1edbfe8730628aafe017301a734042c
-  GoogleAnalytics-iOS-SDK: a3206c68ee5f2a014ed67383d1f779072b653988
+  CorePlot: 820901f6c147f2d84549ffa1f0902869f980d74d
+  google-plus-ios-sdk: 3e5c54d0721cf9875c87b759967f66402141d285
+  GoogleAnalytics-iOS-SDK: 3b0994bef22ed2e176a9e2a4d1660c7c2542eb47
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.37.1

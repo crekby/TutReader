@@ -60,8 +60,6 @@
 		159A613D19A39BBE008956DE /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A613C19A39BBE008956DE /* Accelerate.framework */; };
 		159BC879199DEA670072C54B /* SpeechManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 159BC878199DEA670072C54B /* SpeechManager.m */; };
 		15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5764919810C5D00E55E3F /* Twitter.framework */; };
-		15AD7F6319AB7AD70072DF1C /* CorePlotHeaders in Resources */ = {isa = PBXBuildFile; fileRef = 15AD7F6219AB7AD70072DF1C /* CorePlotHeaders */; };
-		15AD7F6519AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15AD7F6419AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a */; };
 		15AD7F6819AB85FD0072DF1C /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F6719AB85FD0072DF1C /* WeatherViewController.m */; };
 		15AD7F6B19AB8C990072DF1C /* WeatherSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F6A19AB8C990072DF1C /* WeatherSettingsViewController.m */; };
 		15AD7F6E19AB91040072DF1C /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 15AD7F6D19AB91040072DF1C /* Weather.m */; };
@@ -173,8 +171,6 @@
 		159BC877199DEA670072C54B /* SpeechManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechManager.h; sourceTree = "<group>"; };
 		159BC878199DEA670072C54B /* SpeechManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechManager.m; sourceTree = "<group>"; };
 		15A5764919810C5D00E55E3F /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		15AD7F6219AB7AD70072DF1C /* CorePlotHeaders */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CorePlotHeaders; sourceTree = "<group>"; };
-		15AD7F6419AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		15AD7F6619AB85FD0072DF1C /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherViewController.h; path = Source/UI/Common/Controllers/WeatherViewController.h; sourceTree = "<group>"; };
 		15AD7F6719AB85FD0072DF1C /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WeatherViewController.m; path = Source/UI/Common/Controllers/WeatherViewController.m; sourceTree = "<group>"; };
 		15AD7F6919AB8C990072DF1C /* WeatherSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherSettingsViewController.h; path = Source/UI/Common/Controllers/WeatherSettingsViewController.h; sourceTree = "<group>"; };
@@ -196,7 +192,8 @@
 		15F8331E19824FD700E91714 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PageViewController.m; path = Source/UI/Common/Controllers/PageViewController.m; sourceTree = "<group>"; };
 		15F9D71C199CC4AA008A8F06 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		731387ED6E404FC383024DBE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9B9CCEF8429341D1970C1D0F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		C19AC6FE06CAEF317C3AC167 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		CEA180BC30B8ABFB01D58997 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,7 +205,6 @@
 				159A613D19A39BBE008956DE /* Accelerate.framework in Frameworks */,
 				15F9D71D199CC4AA008A8F06 /* AVFoundation.framework in Frameworks */,
 				156E5D81198BB13E00D8B6DC /* QuartzCore.framework in Frameworks */,
-				15AD7F6519AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a in Frameworks */,
 				15A5764A19810C5D00E55E3F /* Twitter.framework in Frameworks */,
 				15060E0C19800AE200E68EB1 /* MessageUI.framework in Frameworks */,
 				1544D81C1977D0C100A5A48E /* CoreData.framework in Frameworks */,
@@ -297,7 +293,7 @@
 				156182871976C3DB00D16B5F /* TutReaderTests */,
 				1561825E1976C3DB00D16B5F /* Frameworks */,
 				1561825D1976C3DB00D16B5F /* Products */,
-				9B9CCEF8429341D1970C1D0F /* Pods.xcconfig */,
+				A3374D82FF1D33A79912DBCD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -332,7 +328,6 @@
 		156182651976C3DB00D16B5F /* TutReader */ = {
 			isa = PBXGroup;
 			children = (
-				159A613719A3999B008956DE /* CorePlot */,
 				15712C69197954AA00A73DC5 /* source */,
 				15712C6A197954C900A73DC5 /* resources */,
 				156182661976C3DB00D16B5F /* Supporting Files */,
@@ -498,13 +493,13 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
-		159A613719A3999B008956DE /* CorePlot */ = {
+		A3374D82FF1D33A79912DBCD /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				15AD7F6419AB7ADE0072DF1C /* libCorePlot-CocoaTouch.a */,
-				15AD7F6219AB7AD70072DF1C /* CorePlotHeaders */,
+				CEA180BC30B8ABFB01D58997 /* Pods.debug.xcconfig */,
+				C19AC6FE06CAEF317C3AC167 /* Pods.release.xcconfig */,
 			);
-			name = CorePlot;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -597,7 +592,6 @@
 				15EFAA2C19863B7C00322C97 /* UITV_accessory_disclosure.png in Resources */,
 				15060E0A1980066E00E68EB1 /* ShareAssets.xcassets in Resources */,
 				15922069198FA76B001CF232 /* Localizable.strings in Resources */,
-				15AD7F6319AB7AD70072DF1C /* CorePlotHeaders in Resources */,
 				1561826A1976C3DB00D16B5F /* InfoPlist.strings in Resources */,
 				1592205B198F9876001CF232 /* Settings.bundle in Resources */,
 			);
@@ -641,7 +635,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -832,8 +826,9 @@
 		};
 		156182921976C3DB00D16B5F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B9CCEF8429341D1970C1D0F /* Pods.xcconfig */;
+			baseConfigurationReference = CEA180BC30B8ABFB01D58997 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -861,8 +856,9 @@
 		};
 		156182931976C3DB00D16B5F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9B9CCEF8429341D1970C1D0F /* Pods.xcconfig */;
+			baseConfigurationReference = C19AC6FE06CAEF317C3AC167 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
