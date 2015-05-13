@@ -96,6 +96,7 @@ SINGLETON(XMLParser)
         if ([elementName isEqualToString:XML_PUBLICATION_DATE]) {
             NSDateFormatter* formater = [NSDateFormatter new];
             [formater setDateFormat:XML_DATE_FORMAT];
+            [formater setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];
             NSDate* date = [formater dateFromString:self.currentElementValue];
             self.news.pubDate = date;
             if (![self.news.newsURL isEqual:HOME_PAGE] && ![self.news.newsURL isEqual:AUTO_PAGE] && ![self.news.newsURL isEqual:IT_PAGE] && ![self.news.newsURL isEqual:LADY_PAGE] && ![self.news.newsURL isEqual:SPORT_PAGE]) {
